@@ -1,0 +1,75 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "https://repo.spring.io/plugins-release" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+}
+
+plugins {
+    id "idea"
+
+    id "org.springframework.boot" version "${springBootVersion}"
+    id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
+
+    id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
+    id "org.jetbrains.kotlin.plugin.spring" version "${kotlinVersion}"
+    id "org.jetbrains.kotlin.plugin.allopen" version "${kotlinVersion}"
+    id "com.avast.gradle.docker-compose" version "0.14.9"
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+    maven { url "https://oss.sonatype.org/content/repositories/releases" }
+    maven { url "https://s01.oss.sonatype.org/content/groups/staging/"}
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/"}
+}
+
+dependencies {
+    implementation(project(":backend:plugin"))
+
+    implementation "com.ritense.valtimo:contract:${valtimo_version}"
+    implementation "com.ritense.valtimo:core:${valtimo_version}"
+    implementation "com.ritense.valtimo:keycloak-iam:${valtimo_version}"
+    implementation "com.ritense.valtimo:web:${valtimo_version}"
+    implementation "com.ritense.valtimo:audit:${valtimo_version}"
+    implementation "com.ritense.valtimo:document:${valtimo_version}"
+    implementation "com.ritense.valtimo:process-document:${valtimo_version}"
+    implementation "com.ritense.valtimo:plugin:${valtimo_version}"
+    implementation "com.ritense.valtimo:form:${valtimo_version}"
+    implementation "com.ritense.valtimo:form-flow-valtimo:${valtimo_version}"
+    implementation "com.ritense.valtimo:form-link:${valtimo_version}"
+    implementation "com.ritense.valtimo:local-document-generation:${valtimo_version}"
+    implementation "com.ritense.valtimo:local-resource:${valtimo_version}"
+    implementation "com.ritense.valtimo:local-mail:${valtimo_version}"
+
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+
+    implementation "com.fasterxml.jackson.module:jackson-module-afterburner"
+    implementation "com.fasterxml.jackson.module:jackson-module-parameter-names"
+    implementation "com.fasterxml.jackson.module:jackson-module-jaxb-annotations"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+
+    implementation "io.github.microutils:kotlin-logging:2.0.4"
+
+    // Database
+    implementation "mysql:mysql-connector-java"
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
+}
+
+test {
+    useJUnitPlatform()
+}

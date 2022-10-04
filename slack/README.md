@@ -20,9 +20,8 @@ This project also contains a working example application which is meant to showc
 Make sure docker is running. Then use the following commands:
 
 ```shell
-cd slack/docker
+cd slack
 docker compose up
-cd ../..
 ```
 
 #### Start frontend
@@ -31,7 +30,6 @@ cd ../..
 cd slack/frontend
 npm install
 npm run start
-cd ../..
 ```
 
 #### Start backend
@@ -45,7 +43,6 @@ Or use commend line:
 ```shell
 cd slack/backend
 ./gradlew -p app bootRun
-cd ../..
 ```
 
 ## Source code

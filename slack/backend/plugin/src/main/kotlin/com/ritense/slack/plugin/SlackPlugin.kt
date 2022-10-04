@@ -31,7 +31,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution
 @Plugin(
     key = "slack",
     title = "Slack Plugin",
-    description = "Post message with this new Slack plugin"
+    description = "Post message with the Slack plugin"
 )
 class SlackPlugin(
     private val slackClient: SlackClient,

@@ -195,7 +195,7 @@ class SlackPluginIT : BaseIntegrationTest() {
     private fun createDocumentAndStartProcess(processVars: Map<String, Any> = emptyMap()) {
         val documentContent = """
             {
-                "lastname": "Klaveren"
+                "lastname": "Doe"
             }
         """
         val request = NewDocumentAndStartProcessRequest(

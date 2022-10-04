@@ -6,37 +6,18 @@ spring:
         time-zone: UTC
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/gzac-core
-        username: gzac
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:54340/example-core-db
+        username: example
         password: password
         hikari:
             auto-commit: false
-            maximum-pool-size: 25
-            leak-detection-threshold: 20000
-            connection-timeout: 10000
-            data-source-properties:
-                cachePrepStmts: true
-                prepStmtCacheSize: 500
-                prepStmtCacheSqlLimit: 2048
-                useServerPrepStmts: true
-                characterEncoding: utf8
-                useUnicode: true
-                useLegacyDatetimeCode: false
-                useSSL: false
-                useLocalSessionState: true
-                rewriteBatchedStatements: true
-                cacheResultSetMetadata: true
-                cacheServerConfiguration: true
-                elideSetAutoCommits: true
-                maintainTimeStats: false
-                serverTimezone: UTC
-                allowPublicKeyRetrieval: true
 
     liquibase:
         enabled: false
     jpa:
-        database-platform: org.hibernate.dialect.MySQL57Dialect
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        database: postgresql
         show_sql: false
         open-in-view: false
         properties:
@@ -74,6 +55,7 @@ server:
     forward-headers-strategy: NATIVE
 
 valtimo:
+    database: postgres
     app:
         scheme: http
     jwt:
@@ -92,15 +74,6 @@ valtimo:
                 - localhost
     swagger:
         enabled: false
-        title: Valtimo Implementation API
-        description: Valtimo Implementation API documentation
-        version: 1.0.0
-        termsOfServiceUrl:
-        contactName:
-        contactUrl:
-        contactEmail:
-        license:
-        licenseUrl:
     plugin:
         encryption-secret: "abcdefghijklmnop"
     web:

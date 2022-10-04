@@ -31,7 +31,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":backend:plugin"))
+    implementation(project(":slack:backend:plugin"))
 
     implementation "com.ritense.valtimo:contract:${valtimo_version}"
     implementation "com.ritense.valtimo:core:${valtimo_version}"
@@ -44,7 +44,6 @@ dependencies {
     implementation "com.ritense.valtimo:form:${valtimo_version}"
     implementation "com.ritense.valtimo:form-flow-valtimo:${valtimo_version}"
     implementation "com.ritense.valtimo:form-link:${valtimo_version}"
-    implementation "com.ritense.valtimo:local-document-generation:${valtimo_version}"
     implementation "com.ritense.valtimo:local-resource:${valtimo_version}"
     implementation "com.ritense.valtimo:local-mail:${valtimo_version}"
 
@@ -65,9 +64,7 @@ dependencies {
 
     implementation "io.github.microutils:kotlin-logging:2.0.4"
 
-    // Database
-    implementation "mysql:mysql-connector-java"
-    implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
+    implementation "org.postgresql:postgresql:42.5.0"
 }
 
 test {

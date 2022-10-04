@@ -1,7 +1,0 @@
-rootProject.name = 'slack'
-include(
-        "backend",
-        "backend:app",
-        "backend:plugin",
-        "frontend"
-)

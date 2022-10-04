@@ -1,17 +1,17 @@
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:33060/slack-test
-    username: valtimo
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:54341/slack-test
+    username: test-user
     password: password
     hikari:
       auto-commit: false
   liquibase:
     enabled: false
   jpa:
-    database-platform: org.hibernate.dialect.MySQL57Dialect
-    database: mysql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
     show_sql: true
     open-in-view: false
     properties:

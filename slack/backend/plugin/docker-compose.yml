@@ -1,23 +1,10 @@
 version: '3.9'
 services:
     db:
-        image: mysql:5.7
-        platform: linux/amd64
+        image: postgres:14.1
         ports:
-            - "33060:3306"
+            - "54341:5432"
         environment:
-            MYSQL_ROOT_PASSWORD: password
-            MYSQL_DATABASE: slack-test
-            MYSQL_USER: valtimo
-            MYSQL_PASSWORD: password
-            MYSQL_ROOT_HOST: "%"
-        command: [
-            "--default-authentication-plugin=mysql_native_password",
-            "--lower_case_table_names=1",
-            "--collation-server=utf8mb4_unicode_ci",
-            "--character-set-server=utf8mb4",
-            "--explicit_defaults_for_timestamp",
-            "--ssl=false",
-            "--innodb_flush_method=O_DIRECT",
-            "--sql_mode=NO_ENGINE_SUBSTITUTION"
-        ]
+            POSTGRES_USER: test-user
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: slack-test

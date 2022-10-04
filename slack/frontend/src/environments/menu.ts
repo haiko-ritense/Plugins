@@ -22,7 +22,6 @@ const menuConfig: MenuConfig = {
                 {link: ['/plugins'], title: 'Plugins', sequence: 5},
                 {link: ['/form-links'], title: 'Form links', sequence: 6},
                 {link: ['/process-links'], title: 'Form links Plugin', sequence: 7},
-                {title: 'A&E', textClass: 'text-dark font-weight-bold c-default', sequence: 8},
             ],
         },
     ],

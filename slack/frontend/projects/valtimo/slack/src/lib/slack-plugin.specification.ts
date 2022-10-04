@@ -35,7 +35,7 @@ const slackPluginSpecification: PluginSpecification = {
       'post-message-with-file': 'Bericht plaatsen met bestand',
       url: 'Slack URL',
       urlTooltip: 'Een URL naar de REST API van Slack.',
-      description: 'Publiceer berichten met deze nieuwe Slack plugin.',
+      description: 'Publiceer berichten met de Slack plugin.',
       configurationTitle: 'Configuratienaam',
       configurationTitleTooltip:
         'De naam van de huidige plugin-configuratie. Onder deze naam kan de configuratie in de rest van de applicatie teruggevonden worden.',
@@ -58,7 +58,7 @@ const slackPluginSpecification: PluginSpecification = {
       'post-message-with-file': 'Post message with file',
       url: 'Slack URL',
       urlTooltip: 'A URL to the REST API of Slack',
-      description: 'Post messages with this new Slack plugin.',
+      description: 'Post messages with the Slack plugin.',
       configurationTitle: 'Configuration name',
       configurationTitleTooltip:
         'The name of the current plugin configuration. Under this name, the configuration can be found in the rest of the application.',
@@ -81,7 +81,7 @@ const slackPluginSpecification: PluginSpecification = {
       'post-message-with-file': 'Kommentar mit Datei posten',
       url: 'Slack URL',
       urlTooltip: 'Die URL zur REST API von Slack',
-      description: 'Veröffentlichen Sie Nachrichten mit diesem neuen Slack-Plugin.',
+      description: 'Veröffentlichen Sie Nachrichten mit dem Slack-Plugin.',
       configurationTitle: 'Konfigurationsname',
       configurationTitleTooltip:
         'Der Name der aktuellen Plugin-Konfiguration. Unter diesem Namen ist die Konfiguration im Rest der Anwendung zu finden.',

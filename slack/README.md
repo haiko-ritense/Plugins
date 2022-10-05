@@ -38,6 +38,15 @@ By gradle script:
 
 `Plugins -> slack -> backend -> app -> Tasks -> application -> bootRun`
 
+Or use commend line:
+
+```shell
+brew install gradle
+
+cd slack/backend/app
+gralde bootRun
+```
+
 #### Keycloak users
 
 The in the example application there are a few test user that are preconfigured.

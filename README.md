@@ -1,2 +1,3 @@
 # Plugins
-Plugins bieden optionele extra functionaliteit in het GZAC platform. Zie https://valtimo.gitbook.io/valtimo-core-docs/using-valtimo/plugins/configure-plugin voor installatie en configuratie-tips. 
+
+Plugins offer optional functionality to the GZAC platform. For installation and configuration tips, look [here](https://valtimo.gitbook.io/valtimo-core-docs/using-valtimo/plugins/configure-plugin)

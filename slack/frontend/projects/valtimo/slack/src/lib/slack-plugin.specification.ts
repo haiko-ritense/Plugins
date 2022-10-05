@@ -41,7 +41,7 @@ const slackPluginSpecification: PluginSpecification = {
         'De naam van de huidige plugin-configuratie. Onder deze naam kan de configuratie in de rest van de applicatie teruggevonden worden.',
       token: 'Token',
       tokenTooltip: 'Authenticatie token met vereiste scopes.',
-      channel: 'Channel',
+      channel: 'Kanaal',
       channelTooltip:
         'Kanaal, privégroep of chatkanaal om een bericht naar te verzenden. Dit kan een gecodeerde ID of een naam zijn. Zie hieronder voor meer details.',
       channels: 'Kanalen',
@@ -89,10 +89,10 @@ const slackPluginSpecification: PluginSpecification = {
       tokenTooltip: 'Authentifizierungstoken mit erforderlichen scopes.',
       channel: 'Channel',
       channelTooltip:
-        'Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See below for more details.',
+        'Kanal, private Gruppe oder IM-Kanal, an den die Nachricht gesendet werden soll. Kann eine codierte ID oder ein Name sein. Siehe unten für weitere Details.',
       channels: 'Kanäle',
       channelsTooltip:
-        'Kanal, private Gruppe oder IM-Kanal, an den die Nachricht gesendet werden soll. Kann eine codierte ID oder ein Name sein. Siehe unten für weitere Details.',
+        'Durch Komma getrennte Liste von Kanalnamen oder IDs, wo die Datei geteilt wird.',
       message: 'Kommentar',
       messageTooltip: 'Der Nachrichtentext.',
       filename: 'Dateiname',

@@ -4,7 +4,7 @@ For sending messages to Slack.
 
 ## Capabilities
 
-This Slack plugin has two action:
+This Slack plugin has two actions:
 
 1. Send message to Slack channel.
 2. Send message to Slack channel with attachment.
@@ -49,7 +49,7 @@ gralde bootRun
 
 #### Keycloak users
 
-The in the example application there are a few test user that are preconfigured.
+The example application has a few test users that are preconfigured.
 
 | Name | Role | Username | Password |
 |---|---|---|---|

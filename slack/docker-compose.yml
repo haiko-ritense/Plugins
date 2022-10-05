@@ -17,7 +17,7 @@ services:
     container_name: example-core-keycloak
     depends_on:
       - example-core-keycloak-db
-    image: jboss/keycloak:15.1.1
+    image: sleighzy/keycloak:15.0.2-arm64
     volumes:
       - ./docker/imports/keycloak:/opt/jboss/keycloak/imports
       - ./docker/imports/keycloak/exports:/opt/jboss/keycloak/exports

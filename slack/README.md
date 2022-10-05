@@ -36,14 +36,7 @@ npm run start
 
 By gradle script:
 
-`Plugins -> slack -> backend -> task -> application -> bootRun`
-
-Or use commend line:
-
-```shell
-cd slack/backend
-./gradlew -p app bootRun
-```
+`Plugins -> slack -> backend -> app -> Tasks -> application -> bootRun`
 
 #### Keycloak users
 

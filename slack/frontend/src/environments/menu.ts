@@ -4,6 +4,13 @@ const menuConfig: MenuConfig = {
     menuItems: [
         {
             roles: [ROLE_USER],
+            link: ['/'],
+            title: 'Dashboard',
+            iconClass: 'icon mdi mdi-view-dashboard',
+            sequence: 0,
+        },
+        {
+            roles: [ROLE_USER],
             title: 'Dossiers',
             iconClass: 'icon mdi mdi-layers',
             sequence: 1,

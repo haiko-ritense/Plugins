@@ -57,15 +57,17 @@ class ApplicationReadyEventListener(
             .latestVersion()
             .singleResult()
 
-        pluginService.createProcessLink(
-            PluginProcessLinkCreateDto(
-                processDefinition.id,
-                "SendSlackMessage",
-                slackConfig.id.id,
-                "post-message",
-                Mapper.INSTANCE.get().readTree(actionProperties) as ObjectNode,
+        if (pluginService.getProcessLinks(processDefinition.id, "SendSlackMessage").isEmpty()) {
+            pluginService.createProcessLink(
+                PluginProcessLinkCreateDto(
+                    processDefinition.id,
+                    "SendSlackMessage",
+                    slackConfig.id.id,
+                    "post-message",
+                    Mapper.INSTANCE.get().readTree(actionProperties) as ObjectNode,
+                )
             )
-        )
+        }
     }
 
     private fun setDocumentDefinitionRole(event: DocumentDefinitionDeployedEvent) {

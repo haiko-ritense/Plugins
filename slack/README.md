@@ -45,6 +45,16 @@ cd slack/backend
 ./gradlew -p app bootRun
 ```
 
+#### Keycloak users
+
+The in the example application there are a few test user that are preconfigured.
+
+| Name | Role | Username | Password |
+|---|---|---|---|
+| James Vance | ROLE_USER | user | user |
+| Asha Miller | ROLE_ADMIN | admin | admin |
+| Morgan Finch | ROLE_DEVELOPER | developer | developer |
+
 ## Source code
 
 The source code is split up into 2 modules:

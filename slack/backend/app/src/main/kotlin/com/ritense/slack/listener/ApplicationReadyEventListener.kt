@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.ritense.document.domain.event.DocumentDefinitionDeployedEvent
 import com.ritense.document.service.DocumentDefinitionService
 import com.ritense.plugin.domain.PluginConfiguration
+import com.ritense.plugin.service.PluginConfigurationSearchParameters
 import com.ritense.plugin.service.PluginService
 import com.ritense.plugin.web.rest.request.PluginProcessLinkCreateDto
 import com.ritense.valtimo.contract.authentication.AuthoritiesConstants
@@ -32,6 +33,13 @@ class ApplicationReadyEventListener(
     }
 
     private fun createSlackPluginConfiguration(): PluginConfiguration {
+        val slackPluginConfig = pluginService.getPluginConfigurations(PluginConfigurationSearchParameters())
+            .firstOrNull { it.title == "Slack configuration" }
+
+        if (slackPluginConfig != null) {
+            return slackPluginConfig
+        }
+
         val slackConfigurationProperties = """
             {
                 "url": "https://www.slack.com/",

@@ -159,6 +159,7 @@ Desktop.ini
 /slack/.gradle/
 /slack/build/
 /slack/frontend/.gradle/
+/slack/frontend/dist/
 /slack/frontend/node_modules/
 /slack/backend/.gradle/
 /slack/backend/app/.gradle/

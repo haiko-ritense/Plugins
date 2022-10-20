@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ritense.slack
+package com.ritense.valtimo.slack
 
 import java.net.InetAddress
 import mu.KotlinLogging

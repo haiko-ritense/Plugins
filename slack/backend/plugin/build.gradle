@@ -100,4 +100,9 @@ test {
     useJUnitPlatform()
 }
 
+sourceCompatibility = 13
+targetCompatibility = 13
+
 apply plugin: "com.avast.gradle.docker-compose"
+
+apply from: "gradle/publishing.gradle"

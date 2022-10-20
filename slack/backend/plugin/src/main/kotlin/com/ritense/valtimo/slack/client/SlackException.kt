@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-package com.ritense.slack
+package com.ritense.valtimo.slack.client
 
-abstract class BaseTest {
-
-    fun readFileAsString(fileName: String): String = this::class.java.getResource(fileName)!!.readText(Charsets.UTF_8)
-
-}
+class SlackException(
+    message: String?
+) : RuntimeException(message)

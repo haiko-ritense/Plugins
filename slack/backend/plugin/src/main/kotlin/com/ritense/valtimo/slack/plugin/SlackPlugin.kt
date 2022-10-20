@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ritense.slack.plugin
+package com.ritense.valtimo.slack.plugin
 
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
@@ -23,7 +23,7 @@ import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.plugin.domain.ActivityType
 import com.ritense.resource.domain.MetadataType
 import com.ritense.resource.service.TemporaryResourceStorageService
-import com.ritense.slack.client.SlackClient
+import com.ritense.valtimo.slack.client.SlackClient
 import com.ritense.valueresolver.ValueResolverService
 import java.net.URI
 import org.camunda.bpm.engine.delegate.DelegateExecution

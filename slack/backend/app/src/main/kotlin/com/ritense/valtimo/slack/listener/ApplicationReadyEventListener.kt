@@ -1,4 +1,4 @@
-package com.ritense.slack.listener
+package com.ritense.valtimo.slack.listener
 
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.ritense.document.domain.event.DocumentDefinitionDeployedEvent

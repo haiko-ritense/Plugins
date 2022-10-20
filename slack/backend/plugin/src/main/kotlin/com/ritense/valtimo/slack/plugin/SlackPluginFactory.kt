@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.ritense.slack.plugin
+package com.ritense.valtimo.slack.plugin
 
 import com.ritense.plugin.PluginFactory
 import com.ritense.plugin.service.PluginService
 import com.ritense.resource.service.TemporaryResourceStorageService
-import com.ritense.slack.client.SlackClient
+import com.ritense.valtimo.slack.client.SlackClient
 import com.ritense.valueresolver.ValueResolverService
 
 class SlackPluginFactory(

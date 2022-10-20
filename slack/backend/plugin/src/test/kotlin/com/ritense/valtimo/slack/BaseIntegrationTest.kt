@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ritense.slack
+package com.ritense.valtimo.slack
 
 import com.ritense.testutilscommon.junit.extension.LiquibaseRunnerExtension
 import com.ritense.valtimo.contract.authentication.UserManagementService

@@ -324,6 +324,43 @@
           }
         }
       }
+    },
+    "@valtimo/slack": {
+      "root": "projects/valtimo/slack",
+      "sourceRoot": "projects/valtimo/slack/src",
+      "projectType": "library",
+      "prefix": "valtimo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/valtimo/slack/tsconfig.lib.json",
+            "project": "projects/valtimo/slack/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/valtimo/slack/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/valtimo/slack/src/test.ts",
+            "tsConfig": "projects/valtimo/slack/tsconfig.spec.json",
+            "karmaConfig": "projects/valtimo/slack/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/valtimo/slack/src/**/*.ts",
+              "projects/valtimo/slack/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "example-slack-plugin"

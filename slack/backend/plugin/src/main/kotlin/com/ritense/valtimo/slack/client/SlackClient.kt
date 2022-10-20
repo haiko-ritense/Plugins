@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ritense.slack.client
+package com.ritense.valtimo.slack.client
 
 import mu.KotlinLogging
 import org.springframework.core.io.InputStreamResource

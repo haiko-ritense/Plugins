@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ritense.slack
+package com.ritense.valtimo.slack
 
 import com.ritense.valtimo.contract.config.LiquibaseRunnerAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication

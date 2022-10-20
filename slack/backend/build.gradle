@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.ritense.slack.client
+apply plugin: "maven-publish"
 
-data class SlackResponse(
-    val ok: Boolean,
-    val error: String? = null
-)
+group = pluginGroupId
+version = pluginVersion

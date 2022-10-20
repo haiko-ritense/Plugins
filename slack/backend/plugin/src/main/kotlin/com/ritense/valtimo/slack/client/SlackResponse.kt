@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.ritense.slack.client
+package com.ritense.valtimo.slack.client
 
-class SlackException(
-    message: String?
-) : RuntimeException(message)
+data class SlackResponse(
+    val ok: Boolean,
+    val error: String? = null
+)

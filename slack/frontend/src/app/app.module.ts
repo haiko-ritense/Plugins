@@ -17,7 +17,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {Injector, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpBackend, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LayoutModule} from '@valtimo/layout';
@@ -27,13 +27,9 @@ import {SecurityModule} from '@valtimo/security';
 import {
   BpmnJsDiagramModule,
   CardModule,
-  FormIoModule,
-  FormIoUploaderComponent,
-  MenuModule,
-  registerFormioFileSelectorComponent,
+  MenuModule, registerFormioFileSelectorComponent,
   registerFormioUploadComponent,
-  UploaderModule,
-  WidgetModule,
+  WidgetModule
 } from '@valtimo/components';
 import {ChoicefieldModule} from '@valtimo/choicefield';
 import {
@@ -50,27 +46,25 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ContextModule} from '@valtimo/context';
 import {DashboardModule} from '@valtimo/dashboard';
 import {DocumentModule} from '@valtimo/document';
-import {ContactMomentModule} from '@valtimo/contact-moment';
 import {AccountModule} from '@valtimo/account';
 import {UserManagementModule} from '@valtimo/user-management';
 import {AuthorityModule} from '@valtimo/authority';
 import {ChoiceFieldModule} from '@valtimo/choice-field';
 import {ResourceModule} from '@valtimo/resource';
 import {FormModule} from '@valtimo/form';
-import {ManagementContextModule} from '@valtimo/management';
 import {SwaggerModule} from '@valtimo/swagger';
 import {AnalyseModule} from '@valtimo/analyse';
 import {ProcessManagementModule} from '@valtimo/process-management';
 import {DecisionModule} from '@valtimo/decision';
 import {MilestoneModule} from '@valtimo/milestone';
 import {LoggerModule} from 'ngx-logger';
+import {FormManagementModule} from '@valtimo/form-management';
+import {ManagementContextModule} from '@valtimo/management';
 import {FormLinkModule} from '@valtimo/form-link';
 import {MigrationModule} from '@valtimo/migration';
+import {DossierManagementModule} from '@valtimo/dossier-management';
 import {BootstrapModule} from '@valtimo/bootstrap';
 import {ConfigModule, ConfigService, MultiTranslateHttpLoaderFactory} from '@valtimo/config';
-import {FormManagementModule} from '@valtimo/form-management';
-import {DossierManagementModule} from '@valtimo/dossier-management';
-import {OpenZaakModule} from '@valtimo/open-zaak';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PluginManagementModule} from '@valtimo/plugin-management';
 import {SlackPluginModule, slackPluginSpecification} from '../../projects/valtimo/slack/src/public_api';
@@ -113,7 +107,6 @@ export function tabsFactory() {
     BpmnJsDiagramModule,
     FormsModule,
     ReactiveFormsModule,
-    ContactMomentModule,
     ContextModule,
     DashboardModule,
     DocumentModule,
@@ -123,42 +116,33 @@ export function tabsFactory() {
     ChoiceFieldModule,
     ResourceModule,
     FormModule,
-    FormIoModule,
-    UploaderModule,
     ManagementContextModule,
     AnalyseModule,
     SwaggerModule,
     ProcessManagementModule,
     DecisionModule,
     MilestoneModule,
+    FormManagementModule,
     FormLinkModule,
     MigrationModule,
-    FormManagementModule,
     DossierManagementModule,
-    OpenZaakModule,
     PluginManagementModule,
     SlackPluginModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
+    HttpClientModule, TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: MultiTranslateHttpLoaderFactory,
-        deps: [HttpClient, ConfigService],
-      },
-    }),
+        deps: [HttpBackend, ConfigService]
+      }
+    })
   ],
-  providers: [
-    {
-      provide: PLUGINS_TOKEN,
-      useValue: [
-        slackPluginSpecification,
-      ],
-    },
-  ],
-  entryComponents: [
-    FormIoUploaderComponent,
-  ],
-  bootstrap: [AppComponent],
+  providers: [{
+    provide: PLUGINS_TOKEN,
+    useValue: [
+      slackPluginSpecification,
+    ]
+  }],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(injector: Injector) {

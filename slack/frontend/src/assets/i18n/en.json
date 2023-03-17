@@ -8,9 +8,7 @@
     "ProcessEndedEvent": "Process finished",
     "DossierDocumentGeneratedEvent": "Case document generated",
     "DocumentRelatedFileAddedEvent": "Related file added",
-    "DocumentRelatedFileRemovedEvent": "Related file removed",
-    "SubmissionFailedEvent": "Failed to upload document to supplier",
-    "RelatedFilesRemovedEvent": "Related files are removed because of the GDPR regulations"
+    "DocumentRelatedFileRemovedEvent": "Related file removed"
   },
   "dossier": {
     "title": {
@@ -276,26 +274,10 @@
   "fieldLabels": {
     "referenceNumber": "Reference number",
     "createdBy": "Created by",
-    "createdOn": "Order date",
+    "createdOn": "Created on",
     "lastModified": "Last modified",
     "files": "Files",
-    "firstName": "First name",
-    "aisOrderReference": "Order reference number",
-    "service": "Product name",
-    "supplier": "Supplier",
-    "status": "Status",
-    "externalOrderReference": "External order reference",
-    "customerEmailAddress": "Customer email address",
-    "customer": "Customer",
-    "languageFrom": "From Language",
-    "languageTo": "To Language",
-    "languageEdit": "Edit Language",
-    "areaOfStudy": "Area Of Study",
-    "wordcount": "Wordcount",
-    "turnaround": "Turnaround",
-    "voucherCode": "Voucher Code",
-    "dateFrom": "Date From",
-    "dateTo": "Date To"
+    "firstName": "First name"
   },
   "list": {
     "currentPage": "Page {{current}} of {{total}}",
@@ -311,10 +293,5 @@
     "takePicture": "Take picture",
     "save": "Save",
     "redo": "Redo"
-  },
-  "report": {
-    "products": "Products:",
-    "status": "Status:",
-    "suppliers": "Suppliers:"
   }
 }

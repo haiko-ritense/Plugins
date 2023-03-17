@@ -11,7 +11,7 @@ buildscript {
 plugins {
     id "idea"
 
-    id "org.springframework.boot" version "${springBootVersion}"
+    id "org.springframework.boot" version "${springVersion}"
     id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
 
     id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
@@ -33,38 +33,25 @@ repositories {
 dependencies {
     implementation(project(":slack:backend:plugin"))
 
-    implementation "com.ritense.valtimo:contract:${valtimo_version}"
-    implementation "com.ritense.valtimo:core:${valtimo_version}"
-    implementation "com.ritense.valtimo:keycloak-iam:${valtimo_version}"
-    implementation "com.ritense.valtimo:web:${valtimo_version}"
-    implementation "com.ritense.valtimo:audit:${valtimo_version}"
-    implementation "com.ritense.valtimo:document:${valtimo_version}"
-    implementation "com.ritense.valtimo:process-document:${valtimo_version}"
-    implementation "com.ritense.valtimo:plugin:${valtimo_version}"
-    implementation "com.ritense.valtimo:form:${valtimo_version}"
-    implementation "com.ritense.valtimo:form-flow-valtimo:${valtimo_version}"
-    implementation "com.ritense.valtimo:form-link:${valtimo_version}"
-    implementation "com.ritense.valtimo:local-resource:${valtimo_version}"
-    implementation "com.ritense.valtimo:local-mail:${valtimo_version}"
+    implementation "com.ritense.valtimo:audit:${valtimoVersion}"
+    implementation "com.ritense.valtimo:case:${valtimoVersion}"
+    implementation "com.ritense.valtimo:contract:${valtimoVersion}"
+    implementation "com.ritense.valtimo:core:${valtimoVersion}"
+    implementation "com.ritense.valtimo:document:${valtimoVersion}"
+    implementation "com.ritense.valtimo:form:${valtimoVersion}"
+    implementation "com.ritense.valtimo:form-flow-valtimo:${valtimoVersion}"
+    implementation "com.ritense.valtimo:form-link:${valtimoVersion}"
+    implementation "com.ritense.valtimo:keycloak-iam:${valtimoVersion}"
+    implementation "com.ritense.valtimo:local-resource:${valtimoVersion}"
+    implementation "com.ritense.valtimo:local-mail:${valtimoVersion}"
+    implementation "com.ritense.valtimo:process-document:${valtimoVersion}"
+    implementation "com.ritense.valtimo:plugin:${valtimoVersion}"
+    implementation "com.ritense.valtimo:plugin-valtimo:${valtimoVersion}"
+    implementation "com.ritense.valtimo:web:${valtimoVersion}"
 
-    implementation "org.springframework.boot:spring-boot-starter"
-    implementation "org.springframework.boot:spring-boot-starter-web"
-    implementation "org.springframework.boot:spring-boot-starter-actuator"
-    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-    implementation "org.springframework.boot:spring-boot-starter-security"
-    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "io.github.microutils:kotlin-logging:3.0.5"
 
-    implementation "com.fasterxml.jackson.module:jackson-module-afterburner"
-    implementation "com.fasterxml.jackson.module:jackson-module-parameter-names"
-    implementation "com.fasterxml.jackson.module:jackson-module-jaxb-annotations"
-    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation "org.jetbrains.kotlin:kotlin-reflect"
-
-    implementation "io.github.microutils:kotlin-logging:2.0.4"
-
-    implementation "org.postgresql:postgresql:42.5.0"
+    implementation "org.postgresql:postgresql:42.5.4"
 }
 
 test {

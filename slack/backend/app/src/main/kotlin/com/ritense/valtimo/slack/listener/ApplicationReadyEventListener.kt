@@ -73,6 +73,7 @@ class ApplicationReadyEventListener(
                     slackConfig.id.id,
                     "post-message",
                     Mapper.INSTANCE.get().readTree(actionProperties) as ObjectNode,
+                    "bpmn:ServiceTask:start",
                 )
             )
         }

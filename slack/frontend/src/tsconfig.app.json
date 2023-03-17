@@ -1,15 +1,8 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "experimentalDecorators": true,
     "outDir": "../out-tsc/app",
-    "types": [],
-    "lib": [
-      "dom",
-      "es5",
-      "scripthost",
-      "es2015.collection"
-    ]
+    "types": []
   },
   "angularCompilerOptions": {
     "enableIvy": true

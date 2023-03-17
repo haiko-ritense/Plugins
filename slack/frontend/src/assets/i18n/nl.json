@@ -8,10 +8,7 @@
     "ProcessEndedEvent": "Proces afgerond",
     "DossierDocumentGeneratedEvent": "Dossier document gegenereerd",
     "DocumentRelatedFileAddedEvent": "Gerelateerd bestand toegevoegd",
-    "DocumentRelatedFileRemovedEvent": "Gerelateerd bestand verwijderd",
-    "SubmissionFailedEvent": "Fout bij het uploaden van de bestanden naar de supplier",
-    "RelatedFilesRemovedEvent": "De documenten van deze case zijn verwijderd uit oogpunt van de GDPR bepalingen."
-
+    "DocumentRelatedFileRemovedEvent": "Gerelateerd bestand verwijderd"
   },
   "dossier": {
     "title": {
@@ -277,26 +274,10 @@
   "fieldLabels": {
     "referenceNumber": "Referentienummer",
     "createdBy": "Aangemaakt door",
-    "createdOn": "Order datum",
+    "createdOn": "Aangemaakt op",
     "lastModified": "Laatst gewijzigd op",
     "files": "Bestanden",
-    "firstName": "Voornaam",
-    "aisOrderReference": "Ordernummer",
-    "service": "Productnaam",
-    "supplier": "Leverancier",
-    "status": "Status",
-    "externalOrderReference": "Extern ordernummer",
-    "customerEmailAddress": "Klant emailadres",
-    "customer": "Klant",
-    "languageFrom": "Originele taal",
-    "languageTo": "Product Taal",
-    "languageEdit": "Bewerk Taal",
-    "areaOfStudy": "Onderwerp",
-    "wordcount": "Woorden aantal",
-    "turnaround": "Oplevertermijn",
-    "voucherCode": "Bon Code",
-    "dateFrom": "Van Datum",
-    "dateTo": "Tot Datum"
+    "firstName": "Voornaam"
   },
   "list": {
     "currentPage": "Pagina {{current}} van {{total}}",
@@ -312,10 +293,5 @@
     "takePicture": "Foto maken",
     "save": "Opslaan",
     "redo": "Opnieuw"
-  },
-  "report": {
-    "products": "Producten:",
-    "status": "Status:",
-    "suppliers": "Suppliers:"
   }
 }

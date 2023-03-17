@@ -49,7 +49,7 @@ class SlackPlugin(
         key = "post-message",
         title = "Post message",
         description = "Sends a message to a Slack channel",
-        activityTypes = [ActivityType.SERVICE_TASK]
+        activityTypes = [ActivityType.SERVICE_TASK_START]
     )
     fun postMessage(
         execution: DelegateExecution,
@@ -68,7 +68,7 @@ class SlackPlugin(
         key = "post-message-with-file",
         title = "Post message with file",
         description = "Sends a message to a channel with a file",
-        activityTypes = [ActivityType.SERVICE_TASK]
+        activityTypes = [ActivityType.SERVICE_TASK_START]
     )
     fun postMessageWithFile(
         execution: DelegateExecution,

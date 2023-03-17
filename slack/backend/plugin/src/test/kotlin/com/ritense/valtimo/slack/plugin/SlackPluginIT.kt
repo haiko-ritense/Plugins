@@ -188,6 +188,7 @@ class SlackPluginIT : BaseIntegrationTest() {
                 configuration.id.id,
                 actionDefinitionKey,
                 Mapper.INSTANCE.get().readTree(actionProperties) as ObjectNode,
+                "bpmn:ServiceTask:start",
             )
         )
     }

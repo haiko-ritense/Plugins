@@ -76,7 +76,8 @@ class SlackPlugin(
         @PluginActionProperty message: String?,
         @PluginActionProperty fileName: String?,
     ) {
-        val resourceId = execution.getVariable(RESOURCE_ID_PROCESS_VAR) as String
+        val resourceId = execution.getVariable(RESOURCE_ID_PROCESS_VAR) as String?
+            ?: throw IllegalStateException("Failed to post slack message. No process variable '$RESOURCE_ID_PROCESS_VAR' found.")
         val contentAsInputStream = storageService.getResourceContentAsInputStream(resourceId)
         val metadata = storageService.getResourceMetadata(resourceId)
 

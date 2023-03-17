@@ -25,6 +25,7 @@
     name="channels"
     [title]="'channels' | pluginTranslate: pluginId | async"
     [margin]="true"
+    [required]="true"
     [defaultValue]="obs.prefill?.channels"
     [disabled]="obs.disabled"
     [tooltip]="'channelsTooltip' | pluginTranslate: pluginId | async"
@@ -41,7 +42,7 @@
     name="filename"
     [title]="'filename' | pluginTranslate: pluginId | async"
     [margin]="true"
-    [defaultValue]="obs.prefill?.filename"
+    [defaultValue]="obs.prefill?.fileName"
     [disabled]="obs.disabled"
     [tooltip]="'filenameTooltip' | pluginTranslate: pluginId | async"
   ></v-input>

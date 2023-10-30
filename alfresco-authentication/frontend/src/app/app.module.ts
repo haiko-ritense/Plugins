@@ -67,7 +67,7 @@ import {BootstrapModule} from '@valtimo/bootstrap';
 import {ConfigModule, ConfigService, MultiTranslateHttpLoaderFactory} from '@valtimo/config';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PluginManagementModule} from '@valtimo/plugin-management';
-import {SlackPluginModule, slackPluginSpecification} from '../../projects/valtimo/alfresco/src/public_api';
+import {AlfrescoAuthPluginModule, alfrescoAuthPluginSpecification} from '../../projects/valtimo/alfresco/src/public_api';
 import {
   PLUGINS_TOKEN,
 } from '@valtimo/plugin';
@@ -127,7 +127,7 @@ export function tabsFactory() {
     MigrationModule,
     DossierManagementModule,
     PluginManagementModule,
-    SlackPluginModule,
+    AlfrescoAuthPluginModule,
     HttpClientModule, TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -139,7 +139,7 @@ export function tabsFactory() {
   providers: [{
     provide: PLUGINS_TOKEN,
     useValue: [
-      slackPluginSpecification,
+      alfrescoAuthPluginSpecification,
     ]
   }],
   bootstrap: [AppComponent]

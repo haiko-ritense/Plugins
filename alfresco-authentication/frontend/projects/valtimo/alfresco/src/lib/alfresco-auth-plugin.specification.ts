@@ -15,14 +15,14 @@
  */
 
 import {PluginSpecification} from '@valtimo/plugin';
-import {SlackConfigurationComponent} from './components/slack-configuration/slack-configuration.component';
+import {AlfrescoAuthConfigurationComponent} from './components/alfresco-auth-configuration/alfresco-auth-configuration.component';
 import {SLACK_PLUGIN_LOGO_BASE64} from './assets';
 import {PostMessageWithFileConfigurationComponent} from './components/post-message-with-file/post-message-with-file-configuration.component';
 import {PostMessageConfigurationComponent} from './components/post-message/post-message-configuration.component';
 
-const slackPluginSpecification: PluginSpecification = {
-  pluginId: 'slack',
-  pluginConfigurationComponent: SlackConfigurationComponent,
+const alfrescoAuthPluginSpecification: PluginSpecification = {
+  pluginId: 'Alfresco Authentication',
+  pluginConfigurationComponent: AlfrescoAuthConfigurationComponent,
   pluginLogoBase64: SLACK_PLUGIN_LOGO_BASE64,
   functionConfigurationComponents: {
     'post-message': PostMessageConfigurationComponent,
@@ -101,4 +101,4 @@ const slackPluginSpecification: PluginSpecification = {
   },
 };
 
-export {slackPluginSpecification};
+export {alfrescoAuthPluginSpecification};

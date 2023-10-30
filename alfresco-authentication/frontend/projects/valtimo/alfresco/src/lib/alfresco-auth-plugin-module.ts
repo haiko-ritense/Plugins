@@ -15,7 +15,7 @@
  */
 
 import {NgModule} from '@angular/core';
-import {SlackConfigurationComponent} from './components/slack-configuration/slack-configuration.component';
+import {AlfrescoAuthConfigurationComponent} from './components/alfresco-auth-configuration/alfresco-auth-configuration.component';
 import {CommonModule} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
 import {FormModule, InputModule, ParagraphModule} from '@valtimo/user-interface';
@@ -24,15 +24,15 @@ import {PostMessageConfigurationComponent} from './components/post-message/post-
 
 @NgModule({
   declarations: [
-    SlackConfigurationComponent,
+    AlfrescoAuthConfigurationComponent,
     PostMessageConfigurationComponent,
     PostMessageWithFileConfigurationComponent,
   ],
   imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule, ParagraphModule],
   exports: [
-    SlackConfigurationComponent,
+    AlfrescoAuthConfigurationComponent,
     PostMessageConfigurationComponent,
     PostMessageWithFileConfigurationComponent,
   ],
 })
-export class SlackPluginModule {}
+export class AlfrescoAuthPluginModule {}

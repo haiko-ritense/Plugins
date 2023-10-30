@@ -26,7 +26,7 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './slack-configuration.component.html',
   styleUrls: ['./slack-configuration.component.scss'],
 })
-export class SlackConfigurationComponent
+export class AlfrescoAuthConfigurationComponent
   implements PluginConfigurationComponent, OnInit, OnDestroy
 {
   @Input() save$!: Observable<void>;

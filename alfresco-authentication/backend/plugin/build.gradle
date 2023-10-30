@@ -47,6 +47,7 @@ repositories {
 }
 
 dependencies {
+    implementation "com.ritense.valtimo:contract:${valtimoVersion}"
     implementation "com.ritense.valtimo:core:${valtimoVersion}"
     implementation "com.ritense.valtimo:plugin-valtimo:${valtimoVersion}"
     implementation "com.ritense.valtimo:documenten-api:${valtimoVersion}"
@@ -59,14 +60,6 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-core:2.14.2"
 
     // Testing
-    testImplementation "com.ritense.valtimo:document:${valtimoVersion}"
-    testImplementation "com.ritense.valtimo:local-resource:${valtimoVersion}"
-    testImplementation "com.ritense.valtimo:process-document:${valtimoVersion}"
-    testImplementation "com.ritense.valtimo:test-utils-common:${valtimoVersion}"
-
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
-    testImplementation "org.springframework.boot:spring-boot-starter-data-jpa"
-
     testImplementation "com.fasterxml.jackson.core:jackson-databind:2.14.2"
     testImplementation "com.fasterxml.jackson.core:jackson-annotations:2.14.2"
     testImplementation "com.fasterxml.jackson.core:jackson-core:2.14.2"

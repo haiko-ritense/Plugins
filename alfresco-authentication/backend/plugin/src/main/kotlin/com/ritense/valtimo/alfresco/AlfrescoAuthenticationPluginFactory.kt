@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimo.alfresco.plugin
+package com.ritense.valtimo.alfresco
 
 import com.ritense.plugin.PluginFactory
 import com.ritense.plugin.service.PluginService
 
 class AlfrescoAuthenticationPluginFactory(
     pluginService: PluginService,
-) : PluginFactory<AlfrescoPlugin>(pluginService) {
+    val tokenGeneratorService: AlfrescoTokenGeneratorService,
+) : PluginFactory<AlfrescoAuthenticationPlugin>(pluginService) {
 
-    override fun create(): AlfrescoPlugin {
-        return AlfrescoPlugin(client, storageService, valueResolverService)
+    override fun create(): AlfrescoAuthenticationPlugin {
+        return AlfrescoAuthenticationPlugin(tokenGeneratorService)
     }
 }

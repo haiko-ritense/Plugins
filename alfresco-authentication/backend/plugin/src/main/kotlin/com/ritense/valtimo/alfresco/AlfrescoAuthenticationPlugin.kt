@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimo.alfresco.plugin
+package com.ritense.valtimo.alfresco
 
 import com.ritense.documentenapi.DocumentenApiAuthentication
 import com.ritense.plugin.annotation.Plugin
@@ -30,7 +30,7 @@ import reactor.core.publisher.Mono
     description = "Provides authentication for Alfresco"
 )
 class AlfrescoAuthenticationPlugin(
-    val tokenGeneratorService: TokenGeneratorService
+    val tokenGeneratorService: AlfrescoTokenGeneratorService
 ) : DocumentenApiAuthentication {
 
     @PluginProperty(key = "clientId", secret = false, required = true)

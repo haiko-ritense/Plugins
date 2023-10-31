@@ -5,6 +5,7 @@ include(
         "slack:backend:plugin",
         "slack:frontend",
         "alfresco-authentication:backend",
+        "alfresco-authentication:backend:app",
         "alfresco-authentication:backend:plugin",
         "alfresco-authentication:frontend"
 )

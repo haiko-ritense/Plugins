@@ -1,0 +1,17 @@
+<v-form
+        (valueChange)="formValueChange($event)"
+        *ngIf="{
+        disabled: disabled$ | async,
+        prefill: prefillConfiguration$ ? (prefillConfiguration$ | async) : null
+    } as obs"
+    >
+    <v-input
+            name="sender"
+            [title]="'sender' | pluginTranslate: pluginId | async"
+            [margin]="true"
+            [defaultValue]="obs.prefill?.protocol"
+            [disabled]="obs.disabled"
+            [required]="true"
+    >
+    </v-input>
+</v-form>

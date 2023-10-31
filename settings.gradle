@@ -3,5 +3,9 @@ include(
         "slack:backend",
         "slack:backend:app",
         "slack:backend:plugin",
-        "slack:frontend"
+        "slack:frontend",
+        "smtpmail:backend",
+        "smtpmail:backend:app",
+        "smtpmail:backend:plugin",
+        "smtpmail:frontend",
 )

@@ -1,0 +1,89 @@
+<v-form
+        (valueChange)="formValueChange($event)"
+        *ngIf="{
+        disabled: disabled$ | async,
+        prefill: prefillConfiguration$ ? (prefillConfiguration$ | async) : null
+    } as obs"
+>
+  <v-input
+          name="configurationTitle"
+          [title]="'configurationTitle' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.configurationTitle"
+          [disabled]="obs.disabled"
+          [required]="true"
+  >
+  </v-input>
+  <v-input
+            name="host"
+            [title]="'host' | pluginTranslate: pluginId | async"
+            [margin]="true"
+            [defaultValue]="obs.prefill?.host"
+            [disabled]="obs.disabled"
+            [required]="true"
+  >
+  </v-input>
+  <v-input
+          name="port"
+          [title]="'port' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.port"
+          [disabled]="obs.disabled"
+          [required]="true"
+  >
+  </v-input>
+  <v-input
+          name="username"
+          [title]="'username' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.username"
+          [disabled]="obs.disabled"
+          [required]="false"
+  >
+  </v-input>
+  <v-input
+          name="password"
+          [title]="'password' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.password"
+          [disabled]="obs.disabled"
+          [required]="false"
+  >
+  </v-input>
+  <v-input
+          name="protocol"
+          [title]="'protocol' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.protocol"
+          [disabled]="obs.disabled"
+          [required]="false"
+  >
+  </v-input>
+  <v-input
+          name="debug"
+          [title]="'debug' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.debug"
+          [disabled]="obs.disabled"
+          [required]="false"
+  >
+  </v-input>
+  <v-input
+          name="auth"
+          [title]="'auth' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.auth"
+          [disabled]="obs.disabled"
+          [required]="false"
+  >
+  </v-input>
+  <v-input
+          name="starttlsenable"
+          [title]="'starttlsenable' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.starttlsenable"
+          [disabled]="obs.disabled"
+          [required]="false"
+  >
+  </v-input>
+</v-form>

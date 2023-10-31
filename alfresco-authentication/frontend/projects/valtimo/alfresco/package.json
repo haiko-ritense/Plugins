@@ -1,13 +1,16 @@
 {
-  "name": "@valtimo/alfresco",
+  "name": "@valtimo/alfresco-auth-plugin",
   "license": "EUPL-1.2",
-  "version": "2.0.0",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json"
+  },
   "peerDependencies": {
     "@angular/common": "^14.2.5",
     "@angular/core": "^14.2.5"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.5.3"
   },
   "devDependencies": {
     "ng-packagr": "^16.2.3"

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2015-2022 Ritense BV, the Netherlands.
+  ~ Copyright 2015-2023 Ritense BV, the Netherlands.
   ~
   ~ Licensed under EUPL, Version 1.2 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,44 +15,46 @@
   -->
 
 <v-form
-  (valueChange)="formValueChange($event)"
-  *ngIf="{
+        (valueChange)="formValueChange($event)"
+        *ngIf="{
     disabled: disabled$ | async,
     prefill: prefillConfiguration$ ? (prefillConfiguration$ | async) : null
   } as obs"
 >
   <v-input
-    name="configurationTitle"
-    [title]="'configurationTitle' | pluginTranslate: pluginId | async"
-    [margin]="true"
-    [disabled]="obs.disabled"
-    [defaultValue]="obs.prefill?.configurationTitle"
-    [required]="true"
-    [tooltip]="'configurationTitleTooltip' | pluginTranslate: pluginId | async"
-    [widthPx]="350"
+          name="configurationTitle"
+          [title]="'configurationTitle' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [disabled]="obs.disabled"
+          [defaultValue]="obs.prefill?.configurationTitle"
+          [widthPx]="350"
+          [required]="true"
+          [tooltip]="'configurationTitleTooltip' | pluginTranslate: pluginId | async"
+          placeholder="Open Notificaties Plugin"
   >
   </v-input>
   <v-input
-    name="url"
-    [title]="'url' | pluginTranslate: pluginId | async"
-    [fullWidth]="true"
-    [margin]="true"
-    [disabled]="obs.disabled"
-    [defaultValue]="obs.prefill?.url"
-    [required]="true"
-    [tooltip]="'urlTooltip' | pluginTranslate: pluginId | async"
+          name="clientId"
+          [title]="'clientId' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [disabled]="obs.disabled"
+          [defaultValue]="obs.prefill?.clientId"
+          [widthPx]="350"
+          [required]="true"
+          [tooltip]="'clientIdTooltip' | pluginTranslate: pluginId | async"
+          placeholder="client-id"
   >
   </v-input>
   <v-input
-    name="token"
-    type="password"
-    [title]="'token' | pluginTranslate: pluginId | async"
-    [margin]="true"
-    [disabled]="obs.disabled"
-    [defaultValue]="obs.prefill?.clientSecret"
-    [required]="true"
-    [fullWidth]="true"
-    [tooltip]="'tokenTooltip' | pluginTranslate: pluginId | async"
+          name="clientSecret"
+          type="password"
+          [title]="'clientSecret' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [disabled]="obs.disabled"
+          [defaultValue]="obs.prefill?.clientSecret"
+          [required]="true"
+          [fullWidth]="true"
+          [tooltip]="'clientSecretTooltip' | pluginTranslate: pluginId | async"
   >
   </v-input>
 </v-form>

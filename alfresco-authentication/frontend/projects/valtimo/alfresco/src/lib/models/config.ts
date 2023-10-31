@@ -16,20 +16,9 @@
 
 import {PluginConfigurationData} from '@valtimo/plugin';
 
-interface SlackConfig extends PluginConfigurationData {
-  url: string;
-  token: string;
+interface AlfrescoAuthConfig extends PluginConfigurationData {
+  clientId: string;
+  clientSecret: string;
 }
 
-interface PostMessageConfig {
-  channel: string;
-  message: string;
-}
-
-interface PostMessageWithFileConfig {
-  channels: string;
-  message?: string;
-  fileName?: string;
-}
-
-export {SlackConfig, PostMessageConfig, PostMessageWithFileConfig};
+export {AlfrescoAuthConfig};

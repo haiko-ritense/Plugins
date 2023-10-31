@@ -16,87 +16,51 @@
 
 import {PluginSpecification} from '@valtimo/plugin';
 import {AlfrescoAuthConfigurationComponent} from './components/alfresco-auth-configuration/alfresco-auth-configuration.component';
-import {SLACK_PLUGIN_LOGO_BASE64} from './assets';
-import {PostMessageWithFileConfigurationComponent} from './components/post-message-with-file/post-message-with-file-configuration.component';
-import {PostMessageConfigurationComponent} from './components/post-message/post-message-configuration.component';
+import {ALFRESCO_AUTH_PLUGIN_LOGO_BASE64} from './assets';
 
 const alfrescoAuthPluginSpecification: PluginSpecification = {
   pluginId: 'Alfresco Authentication',
   pluginConfigurationComponent: AlfrescoAuthConfigurationComponent,
-  pluginLogoBase64: SLACK_PLUGIN_LOGO_BASE64,
-  functionConfigurationComponents: {
-    'post-message': PostMessageConfigurationComponent,
-    'post-message-with-file': PostMessageWithFileConfigurationComponent,
-  },
+  pluginLogoBase64: ALFRESCO_AUTH_PLUGIN_LOGO_BASE64,
   pluginTranslations: {
     nl: {
-      title: 'Slack',
-      'post-message': 'Bericht plaatsen',
-      'post-message-with-file': 'Bericht plaatsen met bestand',
-      url: 'Slack URL',
-      urlTooltip: 'Een URL naar de REST API van Slack.',
-      description: 'Publiceer berichten met de Slack plugin.',
+      title: 'Alfresco Auth',
+      description:
+          'Alfresco is een document management systeem die de Documenten API-standaard voor zaakgericht werken implementeert (de ZGW-API’s).',
       configurationTitle: 'Configuratienaam',
       configurationTitleTooltip:
-        'De naam van de huidige plugin-configuratie. Onder deze naam kan de configuratie in de rest van de applicatie teruggevonden worden.',
-      token: 'Token',
-      tokenTooltip: 'Authenticatie token met vereiste scopes.',
-      channel: 'Kanaal',
-      channelTooltip:
-        'Kanaal, privégroep of chatkanaal om een bericht naar te verzenden. Dit kan een gecodeerde ID of een naam zijn. Zie hieronder voor meer details.',
-      channels: 'Kanalen',
-      channelsTooltip:
-        "Door komma's gescheiden lijst met kanaalnamen of ID's waar het bestand zal worden gedeeld.",
-      message: 'Bericht',
-      messageTooltip: 'De berichttekst.',
-      filename: 'Bestandsnaam',
-      filenameTooltip: 'De bestandsnaam van het bestand.',
+          'Onder deze naam zal de plugin te herkennen zijn in de rest van de applicatie',
+      clientId: 'Client ID',
+      clientIdTooltip:
+          'Vul hier het clientId in dat geconfigureerd staat onder OpenZaak-beheer voor Alfresco(zie API authorisaties > Applicaties). Dit clientId moet de juiste authorisaties hebben voor de benodigde functionaliteit',
+      clientSecret: 'Secret',
+      clientSecretTooltip: 'Vul de secret in die hoort bij de clientId hierboven',
     },
     en: {
-      title: 'Slack',
-      'post-message': 'Post message',
-      'post-message-with-file': 'Post message with file',
-      url: 'Slack URL',
-      urlTooltip: 'A URL to the REST API of Slack',
-      description: 'Post messages with the Slack plugin.',
+      title: 'Alfresco Auth',
+      description:
+          'Alfresco is a document management system that implements the Document API standard for case-oriented working (the ZGW APIs).',
       configurationTitle: 'Configuration name',
       configurationTitleTooltip:
-        'The name of the current plugin configuration. Under this name, the configuration can be found in the rest of the application.',
-      token: 'Token',
-      tokenTooltip: 'Authentication token bearing required scopes.',
-      channel: 'Channel',
-      channelTooltip:
-        'Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See below for more details.',
-      channels: 'Channels',
-      channelsTooltip:
-        'Comma-separated list of channel names or IDs where the file will be shared.',
-      message: 'Message',
-      messageTooltip: 'The message text.',
-      filename: 'Filename',
-      filenameTooltip: 'The filename of the file.',
+          'Under this name, the plugin will be recognizable in the rest of the application',
+      clientId: 'Client ID',
+      clientIdTooltip:
+          'Enter the clientId here which is configured under OpenZaak management for Alfresco (see API authorizations > Applications). This clientId must have the correct authorizations for the required functionality',
+      clientSecret: 'Secret',
+      clientSecretTooltip: 'Enter the secret associated with the clientId above',
     },
     de: {
-      title: 'Slack',
-      'post-message': 'Kommentar posten',
-      'post-message-with-file': 'Kommentar mit Datei posten',
-      url: 'Slack URL',
-      urlTooltip: 'Die URL zur REST API von Slack',
-      description: 'Veröffentlichen Sie Nachrichten mit dem Slack-Plugin.',
+      title: 'Alfresco Auth',
+      description:
+          'OpenNotificaties ist eine document management system, die den Document API-Standard für fallorientiertes Arbeiten (die ZGW-APIs) implementiert.',
       configurationTitle: 'Konfigurationsname',
       configurationTitleTooltip:
-        'Der Name der aktuellen Plugin-Konfiguration. Unter diesem Namen ist die Konfiguration im Rest der Anwendung zu finden.',
-      token: 'Token',
-      tokenTooltip: 'Authentifizierungstoken mit erforderlichen scopes.',
-      channel: 'Channel',
-      channelTooltip:
-        'Kanal, private Gruppe oder IM-Kanal, an den die Nachricht gesendet werden soll. Kann eine codierte ID oder ein Name sein. Siehe unten für weitere Details.',
-      channels: 'Kanäle',
-      channelsTooltip:
-        'Durch Komma getrennte Liste von Kanalnamen oder IDs, wo die Datei geteilt wird.',
-      message: 'Kommentar',
-      messageTooltip: 'Der Nachrichtentext.',
-      filename: 'Dateiname',
-      filenameTooltip: 'Der Dateiname der Datei.',
+          'Unter diesem Namen wird das Plugin im Rest der Anwendung erkennbar sein',
+      clientId: 'Client ID',
+      clientIdTooltip:
+          'Geben Sie hier die clientId ein, die unter OpenZaak-Verwaltung konfiguriert fur Alfreco ist (siehe API-Berechtigungen > Anwendungen). Diese clientId muss die richtigen Berechtigungen für die erforderliche Funktionalität haben',
+      clientSecret: 'Secret',
+      clientSecretTooltip: 'Geben Sie das mit der obigen clientId verknüpfte Geheimnis ein',
     },
   },
 };

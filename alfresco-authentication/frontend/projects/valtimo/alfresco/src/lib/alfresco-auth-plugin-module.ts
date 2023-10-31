@@ -19,20 +19,14 @@ import {AlfrescoAuthConfigurationComponent} from './components/alfresco-auth-con
 import {CommonModule} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
 import {FormModule, InputModule, ParagraphModule} from '@valtimo/user-interface';
-import {PostMessageWithFileConfigurationComponent} from './components/post-message-with-file/post-message-with-file-configuration.component';
-import {PostMessageConfigurationComponent} from './components/post-message/post-message-configuration.component';
 
 @NgModule({
   declarations: [
     AlfrescoAuthConfigurationComponent,
-    PostMessageConfigurationComponent,
-    PostMessageWithFileConfigurationComponent,
   ],
   imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule, ParagraphModule],
   exports: [
     AlfrescoAuthConfigurationComponent,
-    PostMessageConfigurationComponent,
-    PostMessageWithFileConfigurationComponent,
   ],
 })
 export class AlfrescoAuthPluginModule {}

@@ -30,7 +30,7 @@ class AlfrescoAuthenticationAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(AlfrescoAuthenticationPluginFactory::class)
-    fun AlfrescoAuthenticationPluginFactory(
+    fun createAlfrescoAuthenticationPluginFactory(
         pluginService: PluginService,
         tokenGeneratorService: AlfrescoTokenGeneratorService
     ): AlfrescoAuthenticationPluginFactory {
@@ -39,7 +39,7 @@ class AlfrescoAuthenticationAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(AlfrescoTokenGeneratorService::class)
-    fun AlfrescoTokenGeneratorService(): AlfrescoTokenGeneratorService {
+    fun createAlfrescoTokenGeneratorService(): AlfrescoTokenGeneratorService {
         return AlfrescoTokenGeneratorService()
     }
 

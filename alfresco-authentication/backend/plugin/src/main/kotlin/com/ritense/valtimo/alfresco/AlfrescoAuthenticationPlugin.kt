@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono
 
 @Plugin(
     key = "alfrescoauthentication",
-    title = "Alfresco AuthenticationPlugin",
+    title = "Alfresco Authentication",
     description = "Provides authentication for Alfresco"
 )
 class AlfrescoAuthenticationPlugin(

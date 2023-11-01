@@ -69,6 +69,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PluginManagementModule} from '@valtimo/plugin-management';
 import {AlfrescoAuthPluginModule, alfrescoAuthPluginSpecification} from '../../projects/valtimo/alfresco/src/public_api';
 import {
+  documentenApiPluginSpecification,
   PLUGINS_TOKEN,
 } from '@valtimo/plugin';
 
@@ -140,6 +141,7 @@ export function tabsFactory() {
     provide: PLUGINS_TOKEN,
     useValue: [
       alfrescoAuthPluginSpecification,
+      documentenApiPluginSpecification,
     ]
   }],
   bootstrap: [AppComponent]

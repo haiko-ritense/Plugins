@@ -19,14 +19,14 @@ import {AlfrescoAuthConfigurationComponent} from './components/alfresco-auth-con
 import {ALFRESCO_AUTH_PLUGIN_LOGO_BASE64} from './assets';
 
 const alfrescoAuthPluginSpecification: PluginSpecification = {
-  pluginId: 'Alfresco Authentication',
+  pluginId: 'alfrescoauthentication',
   pluginConfigurationComponent: AlfrescoAuthConfigurationComponent,
   pluginLogoBase64: ALFRESCO_AUTH_PLUGIN_LOGO_BASE64,
   pluginTranslations: {
     nl: {
       title: 'Alfresco Auth',
       description:
-          'Alfresco is een document management systeem die de Documenten API-standaard voor zaakgericht werken implementeert (de ZGW-API’s).',
+          'Alfresco is een document management systeem die de Documenten API-standaard voor zaakgericht werken implementeert (de ZGW-API’s). Met deze plugin kun je via OAuth client credentials koppelen met Alfresco',
       configurationTitle: 'Configuratienaam',
       configurationTitleTooltip:
           'Onder deze naam zal de plugin te herkennen zijn in de rest van de applicatie',
@@ -39,7 +39,7 @@ const alfrescoAuthPluginSpecification: PluginSpecification = {
     en: {
       title: 'Alfresco Auth',
       description:
-          'Alfresco is a document management system that implements the Document API standard for case-oriented working (the ZGW APIs).',
+          'Alfresco is a document management system that implements the Document API standard for case-oriented working (the ZGW APIs). With this plugin you can use OAuth client credentials to link with Alfresco',
       configurationTitle: 'Configuration name',
       configurationTitleTooltip:
           'Under this name, the plugin will be recognizable in the rest of the application',
@@ -52,7 +52,7 @@ const alfrescoAuthPluginSpecification: PluginSpecification = {
     de: {
       title: 'Alfresco Auth',
       description:
-          'OpenNotificaties ist eine document management system, die den Document API-Standard für fallorientiertes Arbeiten (die ZGW-APIs) implementiert.',
+          'OpenNotificaties ist eine document management system, die den Document API-Standard für fallorientiertes Arbeiten (die ZGW-APIs) implementiert. Mit diesem Plugin können Sie Client-Zugangsdaten über OAuth mit Alfresco verknüpfen',
       configurationTitle: 'Konfigurationsname',
       configurationTitleTooltip:
           'Unter diesem Namen wird das Plugin im Rest der Anwendung erkennbar sein',

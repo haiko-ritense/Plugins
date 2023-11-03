@@ -57,15 +57,15 @@ class ApplicationReadyEventListener(
         val actionProperties = """{ "sender": "Huib" }""".trimMargin()
 
         val processDefinition = repositoryService.createProcessDefinitionQuery()
-            .processDefinitionKey("SlackMessageExample")
+            .processDefinitionKey("SmtpMailExample")
             .latestVersion()
             .singleResult()
 
-        if (pluginService.getProcessLinks(processDefinition.id, "SendSlackMessage").isEmpty()) {
+        if (pluginService.getProcessLinks(processDefinition.id, "SmtpMailExample").isEmpty()) {
             pluginService.createProcessLink(
                 PluginProcessLinkCreateDto(
                     processDefinition.id,
-                    "SendSlackMessage",
+                    "SendSmtpMail",
                     smtpMailConfig.id.id,
                     "send-mail",
                     Mapper.INSTANCE.get().readTree(actionProperties) as ObjectNode,

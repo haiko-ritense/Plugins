@@ -20,7 +20,7 @@ import {SMTP_MAIL_PLUGIN_LOGO_BASE64} from './assets';
 import {SendMailConfigurationComponent} from "./components/send-mail/send-mail-configuration.component";
 
 const smtpmailPluginSpecification: PluginSpecification = {
-  pluginId: 'smtpmail',
+  pluginId: 'smtp-mail',
   pluginConfigurationComponent: SmtpMailPluginConfigurationComponent,
   pluginLogoBase64: SMTP_MAIL_PLUGIN_LOGO_BASE64,
   functionConfigurationComponents: {
@@ -28,7 +28,7 @@ const smtpmailPluginSpecification: PluginSpecification = {
   },
   pluginTranslations: {
     nl: {
-      title: 'smtpmail',
+      title: 'smtp-mail',
       description: '',
       host: 'host',
       username: 'username',
@@ -40,7 +40,7 @@ const smtpmailPluginSpecification: PluginSpecification = {
       sender: "sender"
     },
     en: {
-      title: 'smtpmail',
+      title: 'smtp-mail',
       description: '',
       host: 'host',
       username: 'username',
@@ -52,7 +52,7 @@ const smtpmailPluginSpecification: PluginSpecification = {
       sender: "sender"
     },
     de: {
-      title: 'smtpmail',
+      title: 'smtp-mail',
       description: '',
       host: 'host',
       username: 'username',

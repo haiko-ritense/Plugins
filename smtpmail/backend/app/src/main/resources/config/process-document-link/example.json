@@ -1,6 +1,6 @@
 [
     {
-        "processDefinitionKey": "SlackMessageExample",
+        "processDefinitionKey": "SmtpMailExample",
         "canInitializeDocument": true,
         "startableByUser": true,
         "processIsVisibleInMenu": true

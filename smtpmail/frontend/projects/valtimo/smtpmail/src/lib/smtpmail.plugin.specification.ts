@@ -36,8 +36,14 @@ const smtpmailPluginSpecification: PluginSpecification = {
       protocol: 'protocol',
       auth: 'auth',
       debug: 'debug',
-      starttlsenable: 'starttlsenable',
-      sender: "sender"
+      startTlsEnable: 'startTlsEnable',
+      sender: "sender",
+      recipient: "recipient",
+      cc: "cc",
+      bcc: "bcc",
+      subject: "subject",
+      attachments: "attachments",
+      content: "content"
     },
     en: {
       title: 'smtp-mail',
@@ -48,8 +54,14 @@ const smtpmailPluginSpecification: PluginSpecification = {
       protocol: 'protocol',
       auth: 'auth',
       debug: 'debug',
-      starttlsenable: 'starttlsenable',
-      sender: "sender"
+      startTlsEnable: 'startTlsEnable',
+      sender: "sender",
+      recipient: "recipient",
+      cc: "cc",
+      bcc: "bcc",
+      subject: "subject",
+      attachments: "attachments",
+      content: "content"
     },
     de: {
       title: 'smtp-mail',
@@ -60,8 +72,14 @@ const smtpmailPluginSpecification: PluginSpecification = {
       protocol: 'protocol',
       auth: 'auth',
       debug: 'debug',
-      starttlsenable: 'starttlsenable',
-      sender: "sender"
+      startTlsEnable: 'startTlsEnable',
+      sender: "sender",
+      recipient: "recipient",
+      cc: "cc",
+      bcc: "bcc",
+      subject: "subject",
+      attachments: "attachments",
+      content: "content"
     },
   },
 };

@@ -7,16 +7,22 @@ import org.springframework.context.annotation.Configuration
 import com.ritense.valtimo.backend.plugin.client.SmtpMailClient
 import com.ritense.valtimo.backend.plugin.service.SmtpMailService
 import com.ritense.valtimo.backend.plugin.plugin.SmtpMailPluginFactory
+import com.ritense.valueresolver.ValueResolverService
 
 @Configuration
 class SmtpMailAutoConfiguration {
 
     @Bean
-    fun zivverClient(pluginService: PluginService): SmtpMailClient =
-        SmtpMailClient(pluginService = pluginService)
+    fun smtpMailClient(
+        pluginService: PluginService,
+        storageService: TemporaryResourceStorageService,
+        ): SmtpMailClient = SmtpMailClient(
+            pluginService = pluginService,
+            storageService = storageService
+        )
 
     @Bean
-    fun zivverService(
+    fun smtpMailService(
         smtpMailClient: SmtpMailClient,
         storageService: TemporaryResourceStorageService
     ): SmtpMailService = SmtpMailService(
@@ -25,14 +31,13 @@ class SmtpMailAutoConfiguration {
     )
 
     @Bean
-    fun zivverPluginFactory(
+    fun smtpMailPluginFactory(
         pluginService: PluginService,
-        smtpMailService: SmtpMailService
-    ): SmtpMailPluginFactory =
-        SmtpMailPluginFactory(
+        smtpMailService: SmtpMailService,
+        valueResolverService: ValueResolverService
+    ): SmtpMailPluginFactory = SmtpMailPluginFactory(
             pluginService = pluginService,
-            smtpMailService = smtpMailService
+            smtpMailService = smtpMailService,
+            valueResolverService = valueResolverService
         )
-
-
 }

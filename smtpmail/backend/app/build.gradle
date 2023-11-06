@@ -37,6 +37,7 @@ dependencies {
     implementation "com.ritense.valtimo:case:${valtimoVersion}"
     implementation "com.ritense.valtimo:contract:${valtimoVersion}"
     implementation "com.ritense.valtimo:core:${valtimoVersion}"
+    implementation "com.ritense.valtimo:temporary-resource-storage:${valtimoVersion}"
     implementation "com.ritense.valtimo:document:${valtimoVersion}"
     implementation "com.ritense.valtimo:form:${valtimoVersion}"
     implementation "com.ritense.valtimo:form-flow-valtimo:${valtimoVersion}"

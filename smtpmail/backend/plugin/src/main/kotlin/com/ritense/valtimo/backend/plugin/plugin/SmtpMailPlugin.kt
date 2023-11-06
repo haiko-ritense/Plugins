@@ -21,10 +21,11 @@ import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.plugin.domain.ActivityType
+import com.ritense.valtimo.backend.plugin.dto.Email
+import com.ritense.valtimo.backend.plugin.dto.SmtpMailContextDto
 import com.ritense.valtimo.backend.plugin.service.SmtpMailService
 import com.ritense.valueresolver.ValueResolverService
 import org.camunda.bpm.engine.delegate.DelegateExecution
-import java.net.URI
 
 @Plugin(
     key = "smtp-mail",
@@ -33,6 +34,7 @@ import java.net.URI
 )
 class SmtpMailPlugin(
     private val smtpMailService: SmtpMailService,
+    private val valueResolverService: ValueResolverService
 ) {
 
     @PluginProperty(key = "host", secret = false, required = true)
@@ -48,16 +50,16 @@ class SmtpMailPlugin(
     lateinit var password: String
 
     @PluginProperty(key = "protocol", required = false, secret = false)
-    lateinit var protocol: String
+    var protocol: String? = "smtp"
 
     @PluginProperty(key = "debug", required = false, secret = false)
-    lateinit var debug: String
+    var debug: Boolean? = true
 
     @PluginProperty(key = "auth", required = false, secret = false)
-    lateinit var auth: String
+    var auth: Boolean? = true
 
-    @PluginProperty(key = "starttlsenable", required = false, secret = false)
-    lateinit var starttlsenable: String
+    @PluginProperty(key = "startTlsEnable", required = false, secret = false)
+    var startTlsEnable: Boolean? = true
 
     @PluginAction(
         key = "send-mail",
@@ -65,8 +67,46 @@ class SmtpMailPlugin(
         description = "Send an email",
         activityTypes = [ActivityType.SERVICE_TASK_START]
     )
+
+    @Suppress("UNCHECKED_CAST")
     fun sendMail(
         execution: DelegateExecution,
         @PluginActionProperty sender: String,
-        ) = smtpMailService.sendZivverMail(execution)
+        @PluginActionProperty recipient: String,
+        @PluginActionProperty cc: String?,
+        @PluginActionProperty bcc: String?,
+        @PluginActionProperty subject: String,
+        @PluginActionProperty contentId: String,
+        @PluginActionProperty attachmentIds: String?,
+    ) {
+        val recipients: List<String> = (resolveValue(execution, recipient)) as List<String>? ?: emptyList()
+        val ccList: List<String> = (resolveValue(execution, cc)) as List<String>? ?: emptyList()
+        val bccList: List<String> = (resolveValue(execution, bcc)) as List<String>? ?: emptyList()
+        val attachmentIdList: List<String> = (resolveValue(execution, attachmentIds)) as List<String>? ?: emptyList()
+
+        smtpMailService.sendSmtpMail(
+            mailContext = SmtpMailContextDto(
+                sender = Email(resolveValue(execution, sender) as String),
+                recipients = recipients.map { Email (it) },
+                ccList = ccList.map { Email(it) },
+                bccList = bccList.map { Email(it) },
+                subject = resolveValue(execution, subject) as String,
+                contentResourceId = resolveValue(execution, contentId) as String,
+                attachmentResourceIds = attachmentIdList
+            )
+        )
+    }
+
+    private fun resolveValue(execution: DelegateExecution, value: String?): Any? {
+        return if (value == null) {
+            null
+        } else {
+            val resolvedValues = valueResolverService.resolveValues(
+                execution.processInstanceId,
+                execution,
+                listOf(value)
+            )
+            resolvedValues[value]
+        }
+    }
 }

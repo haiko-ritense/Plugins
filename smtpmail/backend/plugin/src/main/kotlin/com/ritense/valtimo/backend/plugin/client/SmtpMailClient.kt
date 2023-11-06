@@ -1,6 +1,7 @@
 package com.ritense.valtimo.backend.plugin.client
 
 import com.ritense.plugin.service.PluginService
+import com.ritense.resource.service.TemporaryResourceStorageService
 import com.ritense.valtimo.backend.plugin.dto.SmtpMailContentDto
 import com.ritense.valtimo.backend.plugin.dto.SmtpMailContextDto
 import com.ritense.valtimo.backend.plugin.dto.SmtpMailPluginPropertyDto
@@ -12,7 +13,8 @@ import org.springframework.mail.javamail.MimeMessageHelper
 import javax.mail.internet.MimeMessage
 
 class SmtpMailClient(
-    private val pluginService: PluginService
+    private val pluginService: PluginService,
+    private val storageService: TemporaryResourceStorageService
 ) {
 
     fun sendEmail(
@@ -20,26 +22,32 @@ class SmtpMailClient(
         mailContent: SmtpMailContentDto
     ) {
         try {
-            val message: MimeMessage = javaMailSender().createMimeMessage()
-            MimeMessageHelper(message, true).apply {
-                setFrom(mailContext.sender.toString())
-                setTo(mailContext.recipient.toString())
-                setSubject(mailContext.subject)
-                setText(mailContent.mailMessage)
+            val javaMailSender = javaMailSender()
 
+            val message: MimeMessage = javaMailSender.createMimeMessage()
+
+            with(MimeMessageHelper(message, true)) {
+                setFrom(mailContext.sender.address)
+                mailContext.recipients.forEach { addTo(it.address) }
+                mailContext.ccList.forEach { addTo(it.address) }
+                mailContext.bccList.forEach { addTo(it.address) }
+                setSubject(mailContext.subject)
+                setText(mailContent.mailMessage, true)
                 mailContent.attachments.forEach {
-                    this.addAttachment(it.fileName, it.file)
+                    addAttachment(it.fileName) { storageService.getResourceContentAsInputStream(it.fileResourceId) }
                 }
+
+            javaMailSender.send(message)
             }
         } catch (e: Exception) {
             logger.warn {
-                "Sending the secured email with subject ${mailContext.subject} has failed with error message ${e.message}"
+                "Sending email with subject ${mailContext.subject} has failed with error message ${e.message}"
             }
         }
     }
 
     private fun javaMailSender(): JavaMailSender = JavaMailSenderImpl().apply {
-        with(getZivverPluginData()) {
+        with(getSmtpMailPluginData()) {
             this@apply.host = host
             this@apply.port = port.toInt()
             this@apply.username = username
@@ -52,21 +60,21 @@ class SmtpMailClient(
         }
     }
 
-    private fun getZivverPluginData(): SmtpMailPluginPropertyDto {
+    private fun getSmtpMailPluginData(): SmtpMailPluginPropertyDto {
         val pluginInstance = pluginService
             .createInstance(SmtpMailPlugin::class.java) { true }
 
         requireNotNull(pluginInstance) { "No plugin found" }
 
         return SmtpMailPluginPropertyDto(
-            host = pluginInstance.host.toString(),
+            host = pluginInstance.host,
             port = pluginInstance.port,
             username = pluginInstance.username,
             password = pluginInstance.password,
-            protocol = pluginInstance.protocol.ifEmpty { null },
-            debug = if (pluginInstance.debug.isNotEmpty()) pluginInstance.debug.toBoolean() else null,
-            auth = if (pluginInstance.auth.isNotEmpty()) pluginInstance.auth.toBoolean() else null,
-            startTlsEnable = if (pluginInstance.starttlsenable.isNotEmpty()) pluginInstance.starttlsenable.toBoolean() else null
+            protocol = pluginInstance.protocol!!,
+            debug = pluginInstance.debug!!,
+            auth = pluginInstance.auth!!,
+            startTlsEnable = pluginInstance.startTlsEnable!!
         )
     }
 

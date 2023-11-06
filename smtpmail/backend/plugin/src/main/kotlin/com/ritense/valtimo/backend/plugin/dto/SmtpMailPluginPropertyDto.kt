@@ -5,8 +5,8 @@ data class SmtpMailPluginPropertyDto(
     val port: String,
     val username: String,
     val password: String,
-    val protocol: String? = "smtp",
-    val debug: Boolean? = true,
-    val auth: Boolean? = true,
-    val startTlsEnable:Boolean? = true,
+    val protocol: String,
+    val debug: Boolean,
+    val auth: Boolean,
+    val startTlsEnable:Boolean,
 )

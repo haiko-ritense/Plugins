@@ -19,10 +19,11 @@ import {SmtpMailPluginConfigurationComponent} from './components/smtp-mail-confi
 import {CommonModule} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
 import {FormModule, InputModule} from '@valtimo/user-interface';
+import {SendMailConfigurationComponent} from "./components/send-mail/send-mail-configuration.component";
 
 @NgModule({
-  declarations: [SmtpMailPluginConfigurationComponent],
+  declarations: [SmtpMailPluginConfigurationComponent, SendMailConfigurationComponent],
   imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule],
-  exports: [SmtpMailPluginConfigurationComponent]
+  exports: [SmtpMailPluginConfigurationComponent, SendMailConfigurationComponent]
 })
 export class SmtpMailPluginModule {}

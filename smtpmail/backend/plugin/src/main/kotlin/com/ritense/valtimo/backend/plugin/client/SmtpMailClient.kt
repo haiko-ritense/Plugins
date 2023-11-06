@@ -29,8 +29,8 @@ class SmtpMailClient(
             with(MimeMessageHelper(message, true)) {
                 setFrom(mailContext.sender.address)
                 mailContext.recipients.forEach { addTo(it.address) }
-                mailContext.ccList.forEach { addTo(it.address) }
-                mailContext.bccList.forEach { addTo(it.address) }
+                mailContext.ccList.forEach { addCc(it.address) }
+                mailContext.bccList.forEach { addBcc(it.address) }
                 setSubject(mailContext.subject)
                 setText(mailContent.mailMessage, true)
                 mailContent.attachments.forEach {

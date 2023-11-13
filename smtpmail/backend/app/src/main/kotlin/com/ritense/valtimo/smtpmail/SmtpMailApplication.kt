@@ -34,7 +34,7 @@ class SmtpMailApplication {
             logger.info(
                 """
 ----------------------------------------------------------
-	Aw, hell yeah Brother! Application '{}' is running! Praise the lord! Access URLs:
+	Application '{}' is running! Access URLs:
 	Local: 		http://localhost:{}
 	External: 	http://{}:{}
 ----------------------------------------------------------""",

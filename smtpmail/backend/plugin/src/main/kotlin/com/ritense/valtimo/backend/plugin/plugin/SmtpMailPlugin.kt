@@ -1,5 +1,3 @@
-package com.ritense.valtimo.backend.plugin.plugin
-
 /*
  * Copyright 2015-2022 Ritense BV, the Netherlands.
  *
@@ -15,6 +13,9 @@ package com.ritense.valtimo.backend.plugin.plugin
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.ritense.valtimo.backend.plugin.plugin
+
 
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
@@ -44,10 +45,10 @@ class SmtpMailPlugin(
     lateinit var port: String
 
     @PluginProperty(key = "username", required = false, secret = false)
-    lateinit var username: String
+    var username: String? = null
 
     @PluginProperty(key = "password", required = false, secret = true)
-    lateinit var password: String
+    var password: String? = null
 
     @PluginProperty(key = "protocol", required = false, secret = false)
     var protocol: String? = "smtp"
@@ -72,14 +73,14 @@ class SmtpMailPlugin(
     fun sendMail(
         execution: DelegateExecution,
         @PluginActionProperty sender: String,
-        @PluginActionProperty recipient: String,
+        @PluginActionProperty recipients: String,
         @PluginActionProperty cc: String?,
         @PluginActionProperty bcc: String?,
         @PluginActionProperty subject: String,
         @PluginActionProperty contentId: String,
         @PluginActionProperty attachmentIds: String?,
     ) {
-        val recipients: List<String> = (resolveValue(execution, recipient)) as List<String>? ?: emptyList()
+        val recipientList: List<String> = (resolveValue(execution, recipients)) as List<String>? ?: emptyList()
         val ccList: List<String> = (resolveValue(execution, cc)) as List<String>? ?: emptyList()
         val bccList: List<String> = (resolveValue(execution, bcc)) as List<String>? ?: emptyList()
         val attachmentIdList: List<String> = (resolveValue(execution, attachmentIds)) as List<String>? ?: emptyList()
@@ -87,7 +88,7 @@ class SmtpMailPlugin(
         smtpMailService.sendSmtpMail(
             mailContext = SmtpMailContextDto(
                 sender = Email(resolveValue(execution, sender) as String),
-                recipients = recipients.map { Email (it) },
+                recipients = recipientList.map { Email (it) },
                 ccList = ccList.map { Email(it) },
                 bccList = bccList.map { Email(it) },
                 subject = resolveValue(execution, subject) as String,

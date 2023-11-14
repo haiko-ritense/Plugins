@@ -1,7 +1,7 @@
 {
-  "name": "@valtimo/slack",
+  "name": "@valtimo/smtpmail",
   "license": "EUPL-1.2",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^14.2.5",
     "@angular/core": "^14.2.5"

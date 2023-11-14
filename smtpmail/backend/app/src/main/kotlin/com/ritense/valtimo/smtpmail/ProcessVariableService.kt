@@ -18,6 +18,7 @@ package com.ritense.valtimo.smtpmail
 
 import com.ritense.resource.domain.MetadataType
 import com.ritense.resource.service.TemporaryResourceStorageService
+import com.ritense.valtimo.contract.annotation.ProcessBean
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 
+@ProcessBean
 @Service
 class ProcessVariableService(
     private val storageService: TemporaryResourceStorageService,

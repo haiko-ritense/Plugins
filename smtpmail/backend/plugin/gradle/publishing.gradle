@@ -22,8 +22,8 @@ publishing {
             version = pluginVersion
 
             pom {
-                name = "Slack plugin module"
-                description = "The slack plugin module contains a plugin for sending slack messages"
+                name = "SMTP mail plugin module"
+                description = "The SMTP mail plugin module contains a plugin for sending smtp mails"
                 developers {
                     developer {
                         id = "team-valtimo"

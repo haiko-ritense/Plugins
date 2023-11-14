@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "example-slack-plugin": {
+    "example-smtpmail-plugin": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/example-slack-plugin",
+            "outputPath": "dist/example-smtpmail-plugin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -257,18 +257,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "example-slack-plugin:build"
+            "browserTarget": "example-smtpmail-plugin:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "example-slack-plugin:build:production"
+              "browserTarget": "example-smtpmail-plugin:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "example-slack-plugin:build"
+            "browserTarget": "example-smtpmail-plugin:build"
           }
         },
         "test": {
@@ -302,7 +302,7 @@
         }
       }
     },
-    "example-slack-plugin-e2e": {
+    "example-smtpmail-plugin-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -311,11 +311,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "example-slack-plugin:serve"
+            "devServerTarget": "example-smtpmail-plugin:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "example-slack-plugin:serve:production"
+              "devServerTarget": "example-smtpmail-plugin:serve:production"
             }
           }
         },
@@ -330,45 +330,45 @@
         }
       }
     },
-    "@valtimo/slack": {
-      "root": "projects/valtimo/slack",
-      "sourceRoot": "projects/valtimo/slack/src",
+    "@valtimo/smtpmail": {
+      "root": "projects/valtimo/smtpmail",
+      "sourceRoot": "projects/valtimo/smtpmail/src",
       "projectType": "library",
       "prefix": "valtimo",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/valtimo/slack/tsconfig.lib.json",
-            "project": "projects/valtimo/slack/ng-package.json"
+            "tsConfig": "projects/valtimo/smtpmail/tsconfig.lib.json",
+            "project": "projects/valtimo/smtpmail/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/valtimo/slack/tsconfig.lib.prod.json"
+              "tsConfig": "projects/valtimo/smtpmail/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/valtimo/slack/src/test.ts",
-            "tsConfig": "projects/valtimo/slack/tsconfig.spec.json",
-            "karmaConfig": "projects/valtimo/slack/karma.conf.js"
+            "main": "projects/valtimo/smtpmail/src/test.ts",
+            "tsConfig": "projects/valtimo/smtpmail/tsconfig.spec.json",
+            "karmaConfig": "projects/valtimo/smtpmail/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/valtimo/slack/src/**/*.ts",
-              "projects/valtimo/slack/src/**/*.html"
+              "projects/valtimo/smtpmail/src/**/*.ts",
+              "projects/valtimo/smtpmail/src/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "example-slack-plugin",
+  "defaultProject": "example-smtpmail-plugin",
   "cli": {
     "analytics": false
   }

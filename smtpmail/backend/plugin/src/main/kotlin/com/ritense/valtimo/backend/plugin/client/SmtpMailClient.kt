@@ -22,7 +22,6 @@ import com.ritense.valtimo.backend.plugin.dto.SmtpMailContentDto
 import com.ritense.valtimo.backend.plugin.dto.SmtpMailContextDto
 import com.ritense.valtimo.backend.plugin.dto.SmtpMailPluginPropertyDto
 import com.ritense.valtimo.backend.plugin.plugin.SmtpMailPlugin
-import mu.KotlinLogging
 import org.springframework.mail.MailSendException
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.JavaMailSenderImpl

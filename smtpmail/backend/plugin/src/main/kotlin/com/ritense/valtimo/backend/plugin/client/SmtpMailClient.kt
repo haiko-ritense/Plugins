@@ -23,9 +23,12 @@ import com.ritense.valtimo.backend.plugin.dto.SmtpMailContextDto
 import com.ritense.valtimo.backend.plugin.dto.SmtpMailPluginPropertyDto
 import com.ritense.valtimo.backend.plugin.plugin.SmtpMailPlugin
 import mu.KotlinLogging
+import org.springframework.mail.MailException
+import org.springframework.mail.MailSendException
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.JavaMailSenderImpl
 import org.springframework.mail.javamail.MimeMessageHelper
+import java.io.IOException
 import javax.mail.internet.MimeMessage
 
 class SmtpMailClient(
@@ -56,9 +59,7 @@ class SmtpMailClient(
             javaMailSender.send(message)
             }
         } catch (e: Exception) {
-            logger.warn {
-                "Sending email with subject ${mailContext.subject} has failed with error message ${e.message}"
-            }
+                throw MailSendException("mail has failed to send. Cause: ${e.message}")
         }
     }
 

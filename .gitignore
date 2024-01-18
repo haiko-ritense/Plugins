@@ -166,3 +166,6 @@ Desktop.ini
 /slack/backend/app/build/
 /slack/backend/plugin/.gradle/
 /slack/backend/plugin/build/
+/amsterdam-email-api/backend/build/
+/amsterdam-email-api/backend/plugin/build/
+/amsterdam-email-api/frontend/node_modules/

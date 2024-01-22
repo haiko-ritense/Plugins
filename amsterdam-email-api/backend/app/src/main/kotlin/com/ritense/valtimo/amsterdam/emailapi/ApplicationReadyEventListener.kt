@@ -20,7 +20,7 @@ class ApplicationReadyEventListener(
 
     @EventListener(ApplicationReadyEvent::class)
     fun handleApplicationReady() {
-        val config = createAlfrescoAuthPluginConfiguration()
+        val config = createPluginConfiguration()
     }
 
     @EventListener(DocumentDefinitionDeployedEvent::class)
@@ -28,9 +28,9 @@ class ApplicationReadyEventListener(
         setDocumentDefinitionRole(event)
     }
 
-    private fun createAlfrescoAuthPluginConfiguration(): PluginConfiguration {
+    private fun createPluginConfiguration(): PluginConfiguration {
         val pluginConfig = pluginService.getPluginConfigurations(PluginConfigurationSearchParameters())
-            .firstOrNull { it.title == "Alfresco Auth configuration" }
+            .firstOrNull { it.title == "Email API Amsterdam" }
 
         if (pluginConfig != null) {
             return pluginConfig
@@ -43,9 +43,9 @@ class ApplicationReadyEventListener(
             }"""
 
         return pluginService.createPluginConfiguration(
-            "Alfresco Auth configuration",
+            "Email API Amsterdam",
             Mapper.INSTANCE.get().readTree(configurationProperties) as ObjectNode,
-            "alfrescoauthentication"
+            "amsterdam_email_api"
         )
     }
 

@@ -50,9 +50,7 @@ dependencies {
     implementation "com.ritense.valtimo:contract:${valtimoVersion}"
     implementation "com.ritense.valtimo:core:${valtimoVersion}"
     implementation "com.ritense.valtimo:plugin-valtimo:${valtimoVersion}"
-    implementation ("com.ritense.valtimo:documenten-api:${valtimoVersion}") {
-        exclude group: 'com.ritense.valtimo', module: 'catalogi-api'
-    }
+    implementation "com.ritense.valtimo:value-resolver:${valtimoVersion}"
 
 
     implementation "org.springframework.boot:spring-boot-starter-webflux:${springVersion}"
@@ -61,6 +59,10 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-databind:2.14.2"
     implementation "com.fasterxml.jackson.core:jackson-annotations:2.14.2"
     implementation "com.fasterxml.jackson.core:jackson-core:2.14.2"
+
+    // Apache deps
+    implementation "org.apache.httpcomponents:httpclient:4.5.14"
+    implementation 'org.apache.httpcomponents:httpcore:4.4.15'
 
     // Testing
     testImplementation "com.fasterxml.jackson.core:jackson-databind:2.14.2"

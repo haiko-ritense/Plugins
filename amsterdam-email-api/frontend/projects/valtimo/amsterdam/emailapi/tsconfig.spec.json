@@ -4,6 +4,8 @@
     "outDir": "../../../out-tsc/spec",
     "types": ["jasmine", "node"]
   },
-  "files": ["src/test.ts"],
+  "files": [
+    "emailapi/src/test.ts"
+  ],
   "include": ["**/*.spec.ts", "**/*.d.ts"]
 }

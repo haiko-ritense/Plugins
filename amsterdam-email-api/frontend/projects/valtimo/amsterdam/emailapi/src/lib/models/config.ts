@@ -16,9 +16,11 @@
 
 import {PluginConfigurationData} from '@valtimo/plugin';
 
-interface AlfrescoAuthConfig extends PluginConfigurationData {
+interface AmsterdamEmailApiConfig extends PluginConfigurationData {
+  emailApiBaseUrl: string;
   clientId: string;
   clientSecret: string;
+  tokenEndpoint: string;
 }
 
-export {AlfrescoAuthConfig};
+export {AmsterdamEmailApiConfig};

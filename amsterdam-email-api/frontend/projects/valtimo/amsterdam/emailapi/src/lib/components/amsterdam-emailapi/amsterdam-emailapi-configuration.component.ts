@@ -17,27 +17,27 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {PluginConfigurationComponent} from '@valtimo/plugin';
 import {BehaviorSubject, combineLatest, Observable, Subscription, take} from 'rxjs';
-import {AlfrescoAuthConfig} from "../../models";
+import {AmsterdamEmailApiConfig} from "../../models";
 
 @Component({
-  selector: 'valtimo-alfresco-auth-configuration',
-  templateUrl: './alfresco-auth-configuration.component.html',
-  styleUrls: ['./alfresco-auth-configuration.component.scss'],
+  selector: 'valtimo-amsterdam-emailapi-configuration',
+  templateUrl: './amsterdam-emailapi-configuration.component.html',
+  styleUrls: ['./amsterdam-emailapi-configuration.component.scss'],
 })
-export class AlfrescoAuthConfigurationComponent
+export class AmsterdamEmailapiConfigurationComponent
   implements PluginConfigurationComponent, OnInit, OnDestroy
 {
   @Input() save$: Observable<void>;
   @Input() disabled$: Observable<boolean>;
   @Input() pluginId: string;
-  @Input() prefillConfiguration$: Observable<AlfrescoAuthConfig>;
+  @Input() prefillConfiguration$: Observable<AmsterdamEmailApiConfig>;
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() configuration: EventEmitter<AlfrescoAuthConfig> =
-      new EventEmitter<AlfrescoAuthConfig>();
+  @Output() configuration: EventEmitter<AmsterdamEmailApiConfig> =
+      new EventEmitter<AmsterdamEmailApiConfig>();
 
   private saveSubscription!: Subscription;
 
-  private readonly formValue$ = new BehaviorSubject<AlfrescoAuthConfig | null>(null);
+  private readonly formValue$ = new BehaviorSubject<AmsterdamEmailApiConfig | null>(null);
   private readonly valid$ = new BehaviorSubject<boolean>(false);
 
   ngOnInit(): void {
@@ -48,13 +48,17 @@ export class AlfrescoAuthConfigurationComponent
     this.saveSubscription?.unsubscribe();
   }
 
-  formValueChange(formValue: AlfrescoAuthConfig): void {
+  formValueChange(formValue: AmsterdamEmailApiConfig): void {
     this.formValue$.next(formValue);
     this.handleValid(formValue);
   }
 
-  private handleValid(formValue: AlfrescoAuthConfig): void {
-    const valid = !!(formValue.configurationTitle && formValue.clientId && formValue.clientSecret);
+  private handleValid(formValue: AmsterdamEmailApiConfig): void {
+    const valid = !!(formValue.configurationTitle
+        && formValue.clientId
+        && formValue.clientSecret
+        && formValue.emailApiBaseUrl
+        && formValue.tokenEndpoint);
 
     this.valid$.next(valid);
     this.valid.emit(valid);

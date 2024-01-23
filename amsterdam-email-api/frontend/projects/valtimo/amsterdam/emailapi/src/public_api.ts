@@ -18,7 +18,7 @@
  * Public API Surface of slack
  */
 
-export * from './lib/models/index';
-export * from './lib/alfresco-auth-plugin-module';
-export * from './lib/alfresco-auth-plugin.specification';
+export * from './lib/models';
+export * from './lib/amsterdam-emailapi-plugin-module';
+export * from './lib/amsterdam-emailapi-plugin.specification';
 

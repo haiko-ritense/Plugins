@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export * from './alfresco-plugin-logo';
+export * from './amsterdam-emailapi-plugin-logo';

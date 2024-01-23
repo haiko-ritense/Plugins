@@ -23,11 +23,6 @@ class ApplicationReadyEventListener(
         val config = createPluginConfiguration()
     }
 
-    @EventListener(DocumentDefinitionDeployedEvent::class)
-    fun handleDocumentDefinitionDeployed(event: DocumentDefinitionDeployedEvent) {
-        setDocumentDefinitionRole(event)
-    }
-
     private fun createPluginConfiguration(): PluginConfiguration {
         val pluginConfig = pluginService.getPluginConfigurations(PluginConfigurationSearchParameters())
             .firstOrNull { it.title == "Email API Amsterdam" }
@@ -37,7 +32,7 @@ class ApplicationReadyEventListener(
         }
 
         val configurationProperties = """
-            {
+            {   
                 "clientId": "testClient",
                 "clientSecret": "testSecret"
             }"""
@@ -46,13 +41,6 @@ class ApplicationReadyEventListener(
             "Email API Amsterdam",
             Mapper.INSTANCE.get().readTree(configurationProperties) as ObjectNode,
             "amsterdam_email_api"
-        )
-    }
-
-    private fun setDocumentDefinitionRole(event: DocumentDefinitionDeployedEvent) {
-        documentDefinitionService.putDocumentDefinitionRoles(
-            event.documentDefinition().id().name(),
-            setOf(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER)
         )
     }
 }

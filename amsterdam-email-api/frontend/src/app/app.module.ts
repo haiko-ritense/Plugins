@@ -67,7 +67,7 @@ import {BootstrapModule} from '@valtimo/bootstrap';
 import {ConfigModule, ConfigService, MultiTranslateHttpLoaderFactory} from '@valtimo/config';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PluginManagementModule} from '@valtimo/plugin-management';
-import {AlfrescoAuthPluginModule, alfrescoAuthPluginSpecification} from '../../projects/valtimo/alfresco/src/public_api';
+import {AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} from '../../projects/valtimo/amsterdam/emailapi/src/public_api';
 import {
   documentenApiPluginSpecification,
   PLUGINS_TOKEN,
@@ -128,7 +128,7 @@ export function tabsFactory() {
     MigrationModule,
     DossierManagementModule,
     PluginManagementModule,
-    AlfrescoAuthPluginModule,
+    AmsterdamEmailapiPluginModule,
     HttpClientModule, TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -140,7 +140,7 @@ export function tabsFactory() {
   providers: [{
     provide: PLUGINS_TOKEN,
     useValue: [
-      alfrescoAuthPluginSpecification,
+      amsterdamEmailapiPluginSpecification,
       documentenApiPluginSpecification,
     ]
   }],

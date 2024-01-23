@@ -15,29 +15,34 @@
  */
 
 import {PluginSpecification} from '@valtimo/plugin';
-import {AlfrescoAuthConfigurationComponent} from './components/alfresco-auth-configuration/alfresco-auth-configuration.component';
-import {ALFRESCO_AUTH_PLUGIN_LOGO_BASE64} from './assets';
+import {AmsterdamEmailapiConfigurationComponent} from './components/amsterdam-emailapi/amsterdam-emailapi-configuration.component';
+import {AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64} from './assets';
 
-const alfrescoAuthPluginSpecification: PluginSpecification = {
-  pluginId: 'alfrescoauthentication',
-  pluginConfigurationComponent: AlfrescoAuthConfigurationComponent,
-  pluginLogoBase64: ALFRESCO_AUTH_PLUGIN_LOGO_BASE64,
+const amsterdamEmailapiPluginSpecification: PluginSpecification = {
+  pluginId: 'amsterdam-emailapi',
+  pluginConfigurationComponent: AmsterdamEmailapiConfigurationComponent,
+  pluginLogoBase64: AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64,
   pluginTranslations: {
     nl: {
-      title: 'Alfresco Auth',
+      title: 'Amsterdam Email API',
       description:
-          'Alfresco is een document management systeem die de Documenten API-standaard voor zaakgericht werken implementeert (de ZGW-API’s). Met deze plugin kun je via OAuth client credentials koppelen met Alfresco',
+          'Met de Amsterdam Email API plugin kun je in een process emails versturen',
       configurationTitle: 'Configuratienaam',
       configurationTitleTooltip:
           'Onder deze naam zal de plugin te herkennen zijn in de rest van de applicatie',
       clientId: 'Client ID',
       clientIdTooltip:
-          'Vul hier het clientId in dat geconfigureerd staat onder OpenZaak-beheer voor Alfresco(zie API authorisaties > Applicaties). Dit clientId moet de juiste authorisaties hebben voor de benodigde functionaliteit',
+          'Vul hier het clientId in dat geconfigureerd staat in de autorisatie server waar de Email API naar kijkt. Gewoonlijk is dat Keycloak . Dit clientId moet de juiste autorisatie hebben voor de benodigde functionaliteit',
       clientSecret: 'Secret',
       clientSecretTooltip: 'Vul de secret in die hoort bij de clientId hierboven',
+      emailApiBaseUrl: 'Email API base URL',
+      emailApiBaseUrlTooltip: 'Vul hier de base url in van de Email API inclusief pad eindigend op ../mail',
+      tokenEndpoint: 'Token endpoint',
+      tokenEndpointTooltip: 'Vul hier het openid token endpoint om het token op te vragen',
+
     },
     en: {
-      title: 'Alfresco Auth',
+      title: 'Amsterdam Email API',
       description:
           'Alfresco is a document management system that implements the Document API standard for case-oriented working (the ZGW APIs). With this plugin you can use OAuth client credentials to link with Alfresco',
       configurationTitle: 'Configuration name',
@@ -48,9 +53,13 @@ const alfrescoAuthPluginSpecification: PluginSpecification = {
           'Enter the clientId here which is configured under OpenZaak management for Alfresco (see API authorizations > Applications). This clientId must have the correct authorizations for the required functionality',
       clientSecret: 'Secret',
       clientSecretTooltip: 'Enter the secret associated with the clientId above',
+      emailApiBaseUrl: 'Email API base URL',
+      emailApiBaseUrlTooltip: 'Enter the base URL of the Email API here, including the path ending in ../mail',
+      tokenEndpoint: 'Token endpoint',
+      tokenEndpointTooltip: 'Enter the openid token endpoint here to request the token',
     },
     de: {
-      title: 'Alfresco Auth',
+      title: 'Amsterdam Email API',
       description:
           'OpenNotificaties ist eine document management system, die den Document API-Standard für fallorientiertes Arbeiten (die ZGW-APIs) implementiert. Mit diesem Plugin können Sie Client-Zugangsdaten über OAuth mit Alfresco verknüpfen',
       configurationTitle: 'Konfigurationsname',
@@ -61,8 +70,12 @@ const alfrescoAuthPluginSpecification: PluginSpecification = {
           'Geben Sie hier die clientId ein, die unter OpenZaak-Verwaltung konfiguriert fur Alfreco ist (siehe API-Berechtigungen > Anwendungen). Diese clientId muss die richtigen Berechtigungen für die erforderliche Funktionalität haben',
       clientSecret: 'Secret',
       clientSecretTooltip: 'Geben Sie das mit der obigen clientId verknüpfte Geheimnis ein',
+      emailApiBaseUrl: 'Email API base URL',
+      emailApiBaseUrlTooltip: 'Geben Sie hier die Basis-URL der E-Mail-API ein, einschließlich des Pfads, der auf ../mail endet',
+      tokenEndpoint: 'Token endpoint',
+      tokenEndpointTooltip: 'Geben Sie hier den OpenID-Token-Endpunkt ein, um das Token anzufordern',
     },
   },
 };
 
-export {alfrescoAuthPluginSpecification};
+export {amsterdamEmailapiPluginSpecification};

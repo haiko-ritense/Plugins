@@ -30,9 +30,21 @@
           [widthPx]="350"
           [required]="true"
           [tooltip]="'configurationTitleTooltip' | pluginTranslate: pluginId | async"
-          placeholder="Open Notificaties Plugin"
+          placeholder="Email API plugin"
   >
   </v-input>
+  <v-input
+          name="emailApiBaseUrl"
+          [title]="'emailApiBaseUrl' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [disabled]="obs.disabled"
+          [defaultValue]="obs.prefill?.emailApiBaseUrl"
+          [widthPx]="350"
+          [required]="true"
+          [tooltip]="'emailApiBaseUrlTooltip' | pluginTranslate: pluginId | async"
+          placeholder="emailApiBaseUrl"
+          [pattern]="(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?"
+  >
   <v-input
           name="clientId"
           [title]="'clientId' | pluginTranslate: pluginId | async"
@@ -55,6 +67,18 @@
           [required]="true"
           [fullWidth]="true"
           [tooltip]="'clientSecretTooltip' | pluginTranslate: pluginId | async"
+  >
+  </v-input>
+  <v-input
+          name="tokenEndpoint"
+          [title]="'tokenEndpoint' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [disabled]="obs.disabled"
+          [defaultValue]="obs.prefill?.tokenEndpoint"
+          [widthPx]="350"
+          [required]="true"
+          [tooltip]="'tokenEndpointTooltip' | pluginTranslate: pluginId | async"
+          placeholder="token-endpoint"
   >
   </v-input>
 </v-form>

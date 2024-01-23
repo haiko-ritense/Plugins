@@ -2,7 +2,6 @@ package com.ritense.valtimo.amsterdam.emailapi.plugin
 
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
-import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.plugin.domain.ActivityType
 import com.ritense.valtimo.amsterdam.emailapi.client.BodyPart
@@ -10,11 +9,14 @@ import com.ritense.valtimo.amsterdam.emailapi.client.EmailClient
 import com.ritense.valtimo.amsterdam.emailapi.client.EmailMessage
 import com.ritense.valtimo.amsterdam.emailapi.client.Recipient
 import org.camunda.bpm.engine.delegate.DelegateExecution
-import org.springframework.security.crypto.util.EncodingUtils
-import org.springframework.util.MimeType
+import org.springframework.http.*
 import org.springframework.util.MimeTypeUtils
+import org.springframework.web.client.RestTemplate
 import java.net.URI
+import java.util.*
 
+
+private const val UTF8 = "utf-8"
 
 @Plugin(
     key = "amsterdam_email_api",
@@ -23,6 +25,7 @@ import java.net.URI
 )
 class EmailApiPlugin(
     private val emailClient: EmailClient,
+    private val restTemplate: RestTemplate
 ) {
 
     @PluginProperty(key = "emailApiBaseUrl", secret = false, required = true)
@@ -34,11 +37,11 @@ class EmailApiPlugin(
     @PluginProperty(key = "clientId", secret = true, required = true)
     lateinit var clientSecret: String
 
-    @PluginProperty(key = "clientId", secret = true, required = true)
+    @PluginProperty(key = "tokenEndpoint", secret = false, required = true)
     lateinit var tokenEndpoint: String
 
     @PluginAction(
-        key = "send-email-api",
+        key = "zend-email-api",
         title = "Zend email via API",
         description = "Zend een email via de Email API",
         activityTypes = [ActivityType.SEND_TASK]
@@ -54,7 +57,8 @@ class EmailApiPlugin(
             from = Recipient( address = ex.getVariable("fromAddress") as String),
             content = setOf(BodyPart(content = ex.getVariable("contentHtml") as String,
                 mimeType =  MimeTypeUtils.TEXT_HTML_VALUE,
-                encoding = "utf-8")),
+                encoding = UTF8
+            )),
             subject = ex.getVariable("emailSubject") as String,
             )
 
@@ -73,6 +77,22 @@ class EmailApiPlugin(
     }
 
     private fun getToken(): String {
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.APPLICATION_FORM_URLENCODED
 
+        val body = "grant_type=client_credentials"
+
+        val auth = "$clientId:$clientSecret"
+        val base64Auth = Base64.getEncoder().encodeToString(auth.toByteArray())
+        headers.set(HttpHeaders.AUTHORIZATION, "Basic $base64Auth")
+
+        val requestEntity = HttpEntity(body, headers)
+
+        val responseEntity: ResponseEntity<Map<*, *>> =
+            restTemplate.exchange(tokenEndpoint, HttpMethod.POST, requestEntity, Map::class.java)
+
+        val accessToken = responseEntity.body?.get("access_token")?.toString()
+
+        return accessToken ?: throw RuntimeException("Token retrieval failed.")
     }
 }

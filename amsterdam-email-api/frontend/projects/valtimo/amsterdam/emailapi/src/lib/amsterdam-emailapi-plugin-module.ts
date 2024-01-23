@@ -15,18 +15,19 @@
  */
 
 import {NgModule} from '@angular/core';
-import {AlfrescoAuthConfigurationComponent} from './components/alfresco-auth-configuration/alfresco-auth-configuration.component';
+import {AmsterdamEmailapiConfigurationComponent} from './components/amsterdam-emailapi/amsterdam-emailapi-configuration.component';
 import {CommonModule} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
 import {FormModule, InputModule, ParagraphModule} from '@valtimo/user-interface';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    AlfrescoAuthConfigurationComponent,
+    AmsterdamEmailapiConfigurationComponent,
   ],
-  imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule, ParagraphModule],
+  imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule, ParagraphModule, FormsModule],
   exports: [
-    AlfrescoAuthConfigurationComponent,
+    AmsterdamEmailapiConfigurationComponent,
   ],
 })
-export class AlfrescoAuthPluginModule {}
+export class AmsterdamEmailapiPluginModule {}

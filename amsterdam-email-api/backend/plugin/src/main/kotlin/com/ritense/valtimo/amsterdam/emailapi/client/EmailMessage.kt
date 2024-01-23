@@ -7,6 +7,6 @@ data class EmailMessage(
     val from: Recipient,
     val priority: String = "normal",
     val channel: String = "mail",
-    val cc: Set<Recipient> = emptySet(),
+    var cc: Set<Recipient> = emptySet(),
     var bcc: Set<Recipient> = emptySet()
 )

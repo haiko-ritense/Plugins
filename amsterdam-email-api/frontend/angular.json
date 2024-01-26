@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "example-alfresco-auth-plugin": {
+    "amsterdam-emailapi-plugin": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/example-alfresco-plugin",
+            "outputPath": "dist/amsterdam-emailapi-plugin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -60,7 +60,7 @@
               "node_modules/bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css",
               "node_modules/flatpickr/dist/flatpickr.css",
               "node_modules/@valtimo/layout/assets/css/app.css",
-              "node_modules/@valtimo/user-interface/assets/design-tokens.css",
+              "node_modules/@valtimo/components/assets/css/design-tokens.css",
               "node_modules/@valtimo/components/assets/css/carbon.scss",
               "node_modules/@valtimo/components/assets/css/carbon-beagle-compatibility.scss",
               "src/styles.scss"
@@ -257,18 +257,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "example-alfresco-auth-plugin:build"
+            "browserTarget": "amsterdam-emailapi-plugin:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "example-alfresco-auth-plugin:build:production"
+              "browserTarget": "amsterdam-emailapi-plugin:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "example-alfresco-auth-plugin:build"
+            "browserTarget": "amsterdam-emailapi-plugin:build"
           }
         },
         "test": {
@@ -302,7 +302,7 @@
         }
       }
     },
-    "example-alfresco-auth-plugin-e2e": {
+    "example-amsterdam-emailapi-plugin-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -311,11 +311,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "example-alfresco-auth-plugin:serve"
+            "devServerTarget": "amsterdam-emailapi-plugin:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "example-alfresco-auth-plugin:serve:production"
+              "devServerTarget": "amsterdam-emailapi-plugin:serve:production"
             }
           }
         },
@@ -330,43 +330,43 @@
         }
       }
     },
-    "@valtimo/alfresco-auth": {
-      "root": "projects/valtimo/alfresco",
-      "sourceRoot": "projects/valtimo/alfresco/src",
+    "@valtimo/amsterdam-emailapi": {
+      "root": "projects/valtimo/amsterdam/emailapi",
+      "sourceRoot": "projects/valtimo/amsterdam/emailapi/src",
       "projectType": "library",
       "prefix": "valtimo",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/valtimo/alfresco/tsconfig.lib.json",
-            "project": "projects/valtimo/alfresco/ng-package.json"
+            "tsConfig": "projects/valtimo/amsterdam/emailapi/tsconfig.lib.json",
+            "project": "projects/valtimo/amsterdam/emailapi/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/valtimo/alfresco/tsconfig.lib.prod.json"
+              "tsConfig": "projects/valtimo/amsterdam/emailapi/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/valtimo/alfresco/src/test.ts",
+            "main": "projects/valtimo/amsterdam/emailapi/src/test.ts",
             "tsConfig": "projects/valtimo/sl/tsconfig.spec.json",
-            "karmaConfig": "projects/valtimo/alfresco/karma.conf.js"
+            "karmaConfig": "projects/valtimo/amsterdam/emailapi/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/valtimo/alfresco/src/**/*.ts",
-              "projects/valtimo/alfresco/src/**/*.html"
+              "projects/valtimo/amsterdam/emailapi/src/**/*.ts",
+              "projects/valtimo/amsterdam/emailapi/src/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "example-alfresco-auth-plugin"
+  "defaultProject": "amsterdam-emailapi-plugin"
 }

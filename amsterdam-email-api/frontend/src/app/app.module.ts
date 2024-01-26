@@ -15,22 +15,29 @@
  */
 
 import {BrowserModule} from '@angular/platform-browser';
-import {Injector, NgModule} from '@angular/core';
+import {ErrorHandler, Injector, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpBackend, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LayoutModule} from '@valtimo/layout';
-import {TaskModule} from '@valtimo/task';
-import {environment} from '../environments/environment';
-import {SecurityModule} from '@valtimo/security';
 import {
   BpmnJsDiagramModule,
+  CarbonListModule,
   CardModule,
-  MenuModule, registerFormioFileSelectorComponent,
+  DataListModule,
+  ListModule,
+  MenuModule,
+  registerDocumentenApiFormioUploadComponent,
+  registerFormioFileSelectorComponent,
   registerFormioUploadComponent,
-  WidgetModule
+  SpinnerModule,
+  TableModule,
+  WidgetModule,
 } from '@valtimo/components';
+import {TaskModule} from '@valtimo/task';
+import {environment} from '../environments/environment';
+import {AuthGuardService, SecurityModule} from '@valtimo/security';
 import {ChoicefieldModule} from '@valtimo/choicefield';
 import {
   DefaultTabs,
@@ -43,14 +50,10 @@ import {
 import {ProcessModule} from '@valtimo/process';
 import {ViewConfiguratorModule} from '@valtimo/view-configurator';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ContextModule} from '@valtimo/context';
 import {DashboardModule} from '@valtimo/dashboard';
 import {DocumentModule} from '@valtimo/document';
 import {AccountModule} from '@valtimo/account';
-import {UserManagementModule} from '@valtimo/user-management';
-import {AuthorityModule} from '@valtimo/authority';
 import {ChoiceFieldModule} from '@valtimo/choice-field';
-import {ResourceModule} from '@valtimo/resource';
 import {FormModule} from '@valtimo/form';
 import {SwaggerModule} from '@valtimo/swagger';
 import {AnalyseModule} from '@valtimo/analyse';
@@ -59,19 +62,24 @@ import {DecisionModule} from '@valtimo/decision';
 import {MilestoneModule} from '@valtimo/milestone';
 import {LoggerModule} from 'ngx-logger';
 import {FormManagementModule} from '@valtimo/form-management';
-import {ManagementContextModule} from '@valtimo/management';
 import {FormLinkModule} from '@valtimo/form-link';
 import {MigrationModule} from '@valtimo/migration';
 import {DossierManagementModule} from '@valtimo/dossier-management';
 import {BootstrapModule} from '@valtimo/bootstrap';
 import {ConfigModule, ConfigService, MultiTranslateHttpLoaderFactory} from '@valtimo/config';
+import {OpenZaakModule} from '@valtimo/open-zaak';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PluginManagementModule} from '@valtimo/plugin-management';
-import {AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} from '../../projects/valtimo/amsterdam/emailapi/src/public_api';
+import {ConnectorManagementModule} from '@valtimo/connector-management';
 import {
-  documentenApiPluginSpecification,
   PLUGINS_TOKEN,
 } from '@valtimo/plugin';
+import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
+import {ButtonModule, GridModule, IconModule, ModalModule, PaginationModule, SkeletonModule, TilesModule,} from 'carbon-components-angular';
+import {AccessControlManagementModule} from '@valtimo/access-control-management';
+import {DashboardManagementModule} from '@valtimo/dashboard-management';
+
+import { AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} from '../../projects/valtimo/amsterdam/emailapi/src/public_api';
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -87,7 +95,6 @@ export function tabsFactory() {
     AppComponent,
   ],
   imports: [
-    HttpClientModule,
     CommonModule,
     BrowserModule,
     AppRoutingModule,
@@ -108,16 +115,13 @@ export function tabsFactory() {
     BpmnJsDiagramModule,
     FormsModule,
     ReactiveFormsModule,
-    ContextModule,
     DashboardModule,
+    DashboardManagementModule,
     DocumentModule,
     AccountModule,
-    UserManagementModule,
-    AuthorityModule,
     ChoiceFieldModule,
-    ResourceModule,
     FormModule,
-    ManagementContextModule,
+    CarbonListModule,
     AnalyseModule,
     SwaggerModule,
     ProcessManagementModule,
@@ -127,24 +131,40 @@ export function tabsFactory() {
     FormLinkModule,
     MigrationModule,
     DossierManagementModule,
+    OpenZaakModule,
+    ConnectorManagementModule,
     PluginManagementModule,
-    AmsterdamEmailapiPluginModule,
-    HttpClientModule, TranslateModule.forRoot({
+    ListModule,
+    TranslateModule,
+    SpinnerModule,
+    DataListModule,
+    TableModule,
+    AccessControlManagementModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: MultiTranslateHttpLoaderFactory,
-        deps: [HttpBackend, ConfigService]
-      }
-    })
+        deps: [HttpBackend, ConfigService],
+      },
+    }),
+    KeycloakAngularModule,
+    TilesModule,
+    GridModule,
+    ButtonModule,
+    SkeletonModule,
+    PaginationModule,
+    IconModule,
+    ModalModule,
+    AmsterdamEmailapiPluginModule
   ],
   providers: [{
     provide: PLUGINS_TOKEN,
     useValue: [
       amsterdamEmailapiPluginSpecification,
-      documentenApiPluginSpecification,
     ]
-  }],
-  bootstrap: [AppComponent]
+   }],
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(injector: Injector) {
@@ -152,3 +172,4 @@ export class AppModule {
     registerFormioFileSelectorComponent(injector);
   }
 }
+

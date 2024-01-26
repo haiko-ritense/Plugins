@@ -19,7 +19,7 @@ import {AmsterdamEmailapiConfigurationComponent} from './components/amsterdam-em
 import {AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64} from './assets';
 
 const amsterdamEmailapiPluginSpecification: PluginSpecification = {
-  pluginId: 'amsterdam-emailapi',
+  pluginId: 'amsterdam_email_api',
   pluginConfigurationComponent: AmsterdamEmailapiConfigurationComponent,
   pluginLogoBase64: AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64,
   pluginTranslations: {

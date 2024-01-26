@@ -18,14 +18,16 @@ import {NgModule} from '@angular/core';
 import {AmsterdamEmailapiConfigurationComponent} from './components/amsterdam-emailapi/amsterdam-emailapi-configuration.component';
 import {CommonModule} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
-import {FormModule, InputModule, ParagraphModule} from '@valtimo/user-interface';
+
 import {FormsModule} from "@angular/forms";
+import {InputModule} from "@valtimo/components";
+import {FormModule} from "@valtimo/form";
 
 @NgModule({
   declarations: [
     AmsterdamEmailapiConfigurationComponent,
   ],
-  imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule, ParagraphModule, FormsModule],
+  imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule, FormsModule, PluginTranslatePipeModule],
   exports: [
     AmsterdamEmailapiConfigurationComponent,
   ],

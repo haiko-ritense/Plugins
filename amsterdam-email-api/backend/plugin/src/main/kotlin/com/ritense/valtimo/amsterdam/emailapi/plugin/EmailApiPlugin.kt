@@ -34,7 +34,7 @@ class EmailApiPlugin(
     @PluginProperty(key = "clientId", secret = true, required = true)
     lateinit var clientId: String
 
-    @PluginProperty(key = "clientId", secret = true, required = true)
+    @PluginProperty(key = "clientSecret", secret = true, required = true)
     lateinit var clientSecret: String
 
     @PluginProperty(key = "tokenEndpoint", secret = false, required = true)

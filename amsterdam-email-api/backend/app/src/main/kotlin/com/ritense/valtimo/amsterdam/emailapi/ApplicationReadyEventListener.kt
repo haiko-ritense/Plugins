@@ -33,8 +33,10 @@ class ApplicationReadyEventListener(
 
         val configurationProperties = """
             {   
+                "emailApiBaseUrl": "http://test.nl",
                 "clientId": "testClient",
-                "clientSecret": "testSecret"
+                "clientSecret": "testSecret",
+                "tokenEndpoint": "http://tesst.nl"
             }"""
 
         return pluginService.createPluginConfiguration(

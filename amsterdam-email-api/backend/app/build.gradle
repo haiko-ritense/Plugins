@@ -31,7 +31,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":alfresco-authentication:backend:plugin"))
+    implementation(project(":amsterdam-email-api:backend:plugin"))
 
     implementation "com.ritense.valtimo:audit:${valtimoVersion}"
     implementation "com.ritense.valtimo:case:${valtimoVersion}"

@@ -18,7 +18,7 @@
  * Public API Surface of slack
  */
 
-export * from './lib/models';
+export * from './lib/models/index';
 export * from './lib/amsterdam-emailapi-plugin-module';
 export * from './lib/amsterdam-emailapi-plugin.specification';
 

@@ -4,8 +4,14 @@ include(
         "slack:backend:app",
         "slack:backend:plugin",
         "slack:frontend",
+
         "smtpmail:backend",
         "smtpmail:backend:app",
         "smtpmail:backend:plugin",
         "smtpmail:frontend",
+
+        "publictask:backend",
+        "publictask:backend:app",
+        "publictask:backend:plugin",
+        "publictask:frontend",
 )

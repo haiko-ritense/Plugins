@@ -20,7 +20,7 @@ interface PublicTaskConfig extends PluginConfigurationData {}
 
 interface CreatePublicTaskConfig {
     pvTaskHandler: string;
-    ttl: number;
+    ttl: string;
 }
 
 export {

@@ -21,6 +21,7 @@ import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.domain.ActivityType
+import com.ritense.valtimo.backend.plugin.service.PublicTaskService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 
 @Plugin(
@@ -28,22 +29,26 @@ import org.camunda.bpm.engine.delegate.DelegateExecution
     title = "Public Task Plugin",
     description = "Expose a public task outside the Valtimo UI with the Public Task plugin"
 )
-class PublicTaskPlugin {
+class PublicTaskPlugin(
+    private val publicTaskService: PublicTaskService
+) {
 
     @PluginAction(
         key = "create-public-task",
         title = "Create Public Task",
         description = "create a public task and expose it",
-        activityTypes = [ActivityType.SERVICE_TASK_START]
+        activityTypes = [ActivityType.USER_TASK_CREATE]
     )
 
     @Suppress("UNCHECKED_CAST")
     fun createPublicTask(
         execution: DelegateExecution,
         @PluginActionProperty pvTaskHandler: String,
-        @PluginActionProperty ttl: Int? = 28,
-
+        @PluginActionProperty ttl: String? = "28",
     ) {
-        // TODO
+        publicTaskService.createPublicTaskUrl(
+            ttl = ttl!!.toInt(),
+            taskHandler = pvTaskHandler //TODO: does it automatically resolve?
+        )
     }
 }

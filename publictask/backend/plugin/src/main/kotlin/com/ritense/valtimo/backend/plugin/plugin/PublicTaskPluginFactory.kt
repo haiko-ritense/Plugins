@@ -18,10 +18,12 @@ package com.ritense.valtimo.backend.plugin.plugin
 
 import com.ritense.plugin.PluginFactory
 import com.ritense.plugin.service.PluginService
+import com.ritense.valtimo.backend.plugin.service.PublicTaskService
 
 class PublicTaskPluginFactory(
-    pluginService: PluginService
+    pluginService: PluginService,
+    private val publicTaskService: PublicTaskService
 ): PluginFactory<PublicTaskPlugin>(pluginService) {
 
-    override fun create(): PublicTaskPlugin = PublicTaskPlugin()
+    override fun create(): PublicTaskPlugin = PublicTaskPlugin(publicTaskService)
 }

@@ -29,21 +29,21 @@ const publictaskPluginSpecification: PluginSpecification = {
   pluginTranslations: {
     nl: {
       title: "public-task",
-      description: "Met deze plugin kan een e-mail via SMTP worden verzonden. De plugin haalt zijn e-mailinhoud en bijlagen op uit de Documenten API en werkt met proceskoppelingen",
-      pvTaskHandler: "the process variable in which the taskhandler is saved. Start with pv:",
-      ttl: "Time To Live of the URL. Default is 28 days"
+      description: "Met deze plugin kan een Usertask beschikbaar worden gemaakt buiten de Valtimo UI",
+      pvTaskHandler: "de process variable waarin de taskhandler wordt bewaard. Start met pv:",
+      ttl: "Time To Live voor de URL. Default is 28 dagen"
     },
     en: {
       title: "public-task",
-      description: "This plugin allows sending an email via SMTP. The plugin retrieves its email content and attachments from the Documenten API and works with process links.",
+      description: "The Public Task plugin module contains a plugin for making user tasks available outside the Valtimo UI",
       pvTaskHandler: "the process variable in which the taskhandler is saved. Start with pv:",
       ttl: "Time To Live of the URL. Default is 28 days"
     },
     de: {
       title: "public-task",
-      description: "Mit diesem Plugin kann eine E-Mail über SMTP gesendet werden. Das Plugin bezieht seinen E-Mail-Inhalt und die Anhänge aus der Dokumenten-API und funktioniert mit Prozessverknüpfungen.",
-      pvTaskHandler: "the process variable in which the taskhandler is saved. Start with pv:",
-      ttl: "Time To Live of the URL. Default is 28 days"
+      description: "Das Public Task Plugin-Modul enthält ein Plugin, um Benutzeraufgaben außerhalb der Valtimo-Oberfläche verfügbar zu machen",
+      pvTaskHandler: "Die Prozessvariable, in der der Taskhandler gespeichert wird. Start mit pv: ",
+      ttl: "Time To Live fur der URL. Standardmäßig sind es 28 Tage"
     }
   },
 };

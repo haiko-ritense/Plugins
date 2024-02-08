@@ -18,6 +18,7 @@ package com.ritense.valtimo.backend.plugin.autoconfiguration
 
 import com.ritense.plugin.service.PluginService
 import com.ritense.valtimo.backend.plugin.plugin.PublicTaskPluginFactory
+import com.ritense.valtimo.backend.plugin.service.PublicTaskService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -25,7 +26,14 @@ import org.springframework.context.annotation.Configuration
 class PublicTaskAutoConfiguration {
 
     @Bean
-    fun publicTaskPluginFactory(pluginService: PluginService): PublicTaskPluginFactory = PublicTaskPluginFactory(
-            pluginService = pluginService
-        )
+    fun publicTaskService(): PublicTaskService = PublicTaskService()
+
+    @Bean
+    fun publicTaskPluginFactory(
+        pluginService: PluginService,
+        publicTaskService: PublicTaskService
+    ): PublicTaskPluginFactory = PublicTaskPluginFactory(
+        pluginService = pluginService,
+        publicTaskService = publicTaskService
+    )
 }

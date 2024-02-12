@@ -3,5 +3,10 @@
         "formName": "start-form-example",
         "formLinkElementId": "StartEvent",
         "formAssociationType": "start-event"
+    },
+    {
+        "formName": "start-form-example",
+        "formLinkElementId": "createPublicTaskUrlTask",
+        "formAssociationType": "user-task"
     }
 ]

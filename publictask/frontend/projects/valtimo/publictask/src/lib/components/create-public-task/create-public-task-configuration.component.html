@@ -1,0 +1,26 @@
+<v-form
+        (valueChange)="formValueChange($event)"
+        *ngIf="{
+        disabled: disabled$ | async,
+        prefill: prefillConfiguration$ ? (prefillConfiguration$ | async) : null
+    } as obs"
+    >
+    <v-input
+            name="pvTaskHandler"
+            [title]="'pvTaskHandler' | pluginTranslate: pluginId | async"
+            [margin]="true"
+            [defaultValue]="obs.prefill?.pvTaskHandler"
+            [disabled]="obs.disabled"
+            [required]="true"
+    >
+    </v-input>
+    <v-input
+            name="ttl"
+            [title]="'ttl' | pluginTranslate: pluginId | async"
+            [margin]="true"
+            [defaultValue]="obs.prefill?.ttl"
+            [disabled]="obs.disabled"
+            [required]="false"
+    >
+    </v-input>
+</v-form>

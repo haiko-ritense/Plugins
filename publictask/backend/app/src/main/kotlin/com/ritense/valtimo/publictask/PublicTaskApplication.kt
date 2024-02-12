@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimo.smtpmail
+package com.ritense.valtimo.publictask
 
 import java.net.InetAddress
 import mu.KotlinLogging
@@ -22,19 +22,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication(scanBasePackages = ["com.ritense.*"])
-class SmtpMailApplication {
+class PublicTaskApplication {
 
     companion object {
         private val logger = KotlinLogging.logger {}
 
         @JvmStatic
         fun main(args: Array<String>) {
-            val app = runApplication<SmtpMailApplication>(*args)
+            val app = runApplication<PublicTaskApplication>(*args)
 
             logger.info(
                 """
 ----------------------------------------------------------
-	Application '{}' is running! Access URLs:
+	Application '{}' is running like a booooooooossss! Access URLs:
 	Local: 		http://localhost:{}
 	External: 	http://{}:{}
 ----------------------------------------------------------""",

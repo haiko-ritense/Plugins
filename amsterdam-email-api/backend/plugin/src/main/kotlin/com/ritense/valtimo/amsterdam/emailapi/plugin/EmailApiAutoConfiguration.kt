@@ -1,7 +1,10 @@
 package com.ritense.valtimo.amsterdam.emailapi.plugin
 
+import com.ritense.plugin.repository.PluginProcessLinkRepository
 import com.ritense.plugin.service.PluginService
 import com.ritense.valtimo.amsterdam.emailapi.client.EmailClient
+import com.ritense.valtimo.processlink.ProcessLinkServiceTaskStartListener
+import com.ritense.valueresolver.ValueResolverService
 import org.apache.http.conn.ssl.NoopHostnameVerifier
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
@@ -16,13 +19,26 @@ import org.springframework.web.client.RestTemplate
 class EmailApiAutoConfiguration {
 
     @Bean
+    @ConditionalOnMissingBean(ProcessLinkSendTaskStartListener::class)
+    fun pluginLinkSendTaskStartListener(
+        pluginProcessLinkRepository: PluginProcessLinkRepository?,
+        pluginService: PluginService?
+    ): ProcessLinkSendTaskStartListener {
+        return ProcessLinkSendTaskStartListener(
+            pluginProcessLinkRepository!!,
+            pluginService!!
+        )
+    }
+
+    @Bean
     @ConditionalOnMissingBean(EmailApiPluginFactory::class)
     fun createEmailApiPluginFactory(
         pluginService: PluginService,
         emailClient: EmailClient,
-        restTemplate: RestTemplate
+        restTemplate: RestTemplate,
+        valueResolver: ValueResolverService,
     ): EmailApiPluginFactory {
-        return EmailApiPluginFactory(pluginService, emailClient, restTemplate)
+        return EmailApiPluginFactory(pluginService, emailClient, restTemplate, valueResolver)
     }
 
     @Bean

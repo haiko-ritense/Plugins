@@ -1,21 +1,5 @@
-/*
- * Copyright 2015-2020 Ritense BV, the Netherlands.
- *
- * Licensed under EUPL, Version 1.2 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import {BrowserModule} from '@angular/platform-browser';
-import {ErrorHandler, Injector, NgModule} from '@angular/core';
+import {Injector, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpBackend, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
@@ -67,19 +51,25 @@ import {MigrationModule} from '@valtimo/migration';
 import {DossierManagementModule} from '@valtimo/dossier-management';
 import {BootstrapModule} from '@valtimo/bootstrap';
 import {ConfigModule, ConfigService, MultiTranslateHttpLoaderFactory} from '@valtimo/config';
-import {OpenZaakModule} from '@valtimo/open-zaak';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PluginManagementModule} from '@valtimo/plugin-management';
 import {ConnectorManagementModule} from '@valtimo/connector-management';
 import {
-  PLUGINS_TOKEN,
+  ObjectenApiPluginModule,
+  objectenApiPluginSpecification, ObjectTokenAuthenticationPluginModule,
+  objectTokenAuthenticationPluginSpecification, ObjecttypenApiPluginModule, objecttypenApiPluginSpecification,
+  PLUGINS_TOKEN, SmartDocumentsPluginModule, smartDocumentsPluginSpecification,
 } from '@valtimo/plugin';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
-import {ButtonModule, GridModule, IconModule, ModalModule, PaginationModule, SkeletonModule, TilesModule,} from 'carbon-components-angular';
-import {AccessControlManagementModule} from '@valtimo/access-control-management';
-import {DashboardManagementModule} from '@valtimo/dashboard-management';
-
-import { AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} from '../../projects/valtimo/amsterdam/emailapi/src/public_api';
+import {GridModule, IconModule, TilesModule} from "carbon-components-angular";
+import {
+  AmsterdamEmailapiPluginModule
+} from "../../projects/valtimo/amsterdam/emailapi/src/lib/amsterdam-emailapi-plugin-module";
+import {
+  amsterdamEmailapiPluginSpecification
+} from "../../projects/valtimo/amsterdam/emailapi/src/lib/amsterdam-emailapi-plugin.specification";
+import {ObjectManagementModule} from "@valtimo/object-management";
+import {ObjectModule} from "@valtimo/object";
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -116,7 +106,6 @@ export function tabsFactory() {
     FormsModule,
     ReactiveFormsModule,
     DashboardModule,
-    DashboardManagementModule,
     DocumentModule,
     AccountModule,
     ChoiceFieldModule,
@@ -131,7 +120,6 @@ export function tabsFactory() {
     FormLinkModule,
     MigrationModule,
     DossierManagementModule,
-    OpenZaakModule,
     ConnectorManagementModule,
     PluginManagementModule,
     ListModule,
@@ -139,7 +127,6 @@ export function tabsFactory() {
     SpinnerModule,
     DataListModule,
     TableModule,
-    AccessControlManagementModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -151,25 +138,35 @@ export function tabsFactory() {
     KeycloakAngularModule,
     TilesModule,
     GridModule,
-    ButtonModule,
-    SkeletonModule,
-    PaginationModule,
     IconModule,
-    ModalModule,
-    AmsterdamEmailapiPluginModule
+    ObjectenApiPluginModule,
+    ObjecttypenApiPluginModule,
+    ObjectTokenAuthenticationPluginModule,
+    ObjectModule,
+    ObjectManagementModule,
+    AmsterdamEmailapiPluginModule,
   ],
-  providers: [{
-    provide: PLUGINS_TOKEN,
-    useValue: [
-      amsterdamEmailapiPluginSpecification,
-    ]
-   }],
+  providers: [
+    {
+      provide: PLUGINS_TOKEN,
+      useValue: [
+        amsterdamEmailapiPluginSpecification,
+        objectenApiPluginSpecification,
+        objecttypenApiPluginSpecification,
+        objectTokenAuthenticationPluginSpecification
+      ],
+    },
+    AuthGuardService,
+    {
+      provide: KeycloakService,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(injector: Injector) {
     registerFormioUploadComponent(injector);
     registerFormioFileSelectorComponent(injector);
+    registerDocumentenApiFormioUploadComponent(injector);
   }
 }
-

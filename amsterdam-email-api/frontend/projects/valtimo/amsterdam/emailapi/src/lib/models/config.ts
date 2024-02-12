@@ -23,4 +23,16 @@ interface AmsterdamEmailApiConfig extends PluginConfigurationData {
   tokenEndpoint: string;
 }
 
-export {AmsterdamEmailApiConfig};
+interface SendEmailConfig {
+  toEmail: string;
+  toName: string;
+  fromAddress: string;
+  ccEmail: string;
+  ccName: string;
+  bccEmail: string;
+  bccName: string;
+  emailSubject: string;
+  contentHtml: string;
+}
+
+export {AmsterdamEmailApiConfig, SendEmailConfig};

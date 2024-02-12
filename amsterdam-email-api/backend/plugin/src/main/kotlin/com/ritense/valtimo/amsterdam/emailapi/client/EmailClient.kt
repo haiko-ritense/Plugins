@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 import java.net.URI
@@ -16,13 +17,15 @@ class EmailClient(
     private val restTemplate: RestTemplate,
     private val eventPublisher: ApplicationEventPublisher,
 ) {
-    fun send(message: EmailMessage, baseUri: URI, apiKey: String?) {
+    fun send(message: EmailMessage, baseUri: URI, token: String?) {
         try {
             logger.debug { "sending email naar "  + message.to.toString() + " met onderwerp " + message.subject}
 
             val headers = HttpHeaders()
-            headers.set("X-APIKEY", apiKey)
+            headers.setBearerAuth(token)
+            headers.set("Content-Type", MediaType.APPLICATION_JSON.toString())
             val httpEntity: HttpEntity<EmailMessage> = HttpEntity(message, headers)
+
             var response: ResponseEntity<EmailMessage> = restTemplate.postForEntity(baseUri, httpEntity, EmailMessage::class.java)
 
             if(response.statusCode.is2xxSuccessful) {

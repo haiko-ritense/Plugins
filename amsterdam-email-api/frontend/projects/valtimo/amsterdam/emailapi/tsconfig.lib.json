@@ -5,7 +5,7 @@
     "resolveJsonModule": true,
     "declarationMap": true,
     "outDir": "../../../out-tsc/lib",
-    "target": "es2020",
+    "target": "es2022",
     "declaration": true,
     "inlineSources": true,
     "types": [],
@@ -22,5 +22,5 @@
     "allowSyntheticDefaultImports": true
   },
   "exclude": [
-    "emailapi/src/test.ts", "**/*.spec.ts"]
+    "amsterdam-emailapi/src/test.ts", "**/*.spec.ts"]
 }

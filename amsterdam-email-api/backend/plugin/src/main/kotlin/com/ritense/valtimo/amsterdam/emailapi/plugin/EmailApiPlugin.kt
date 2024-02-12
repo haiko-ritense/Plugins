@@ -1,16 +1,20 @@
 package com.ritense.valtimo.amsterdam.emailapi.plugin
 
+import com.auth0.jwt.interfaces.DecodedJWT
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
+import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.plugin.domain.ActivityType
 import com.ritense.valtimo.amsterdam.emailapi.client.BodyPart
 import com.ritense.valtimo.amsterdam.emailapi.client.EmailClient
 import com.ritense.valtimo.amsterdam.emailapi.client.EmailMessage
 import com.ritense.valtimo.amsterdam.emailapi.client.Recipient
+import com.ritense.valueresolver.ValueResolverService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.springframework.http.*
 import org.springframework.util.MimeTypeUtils
+import org.springframework.util.StringUtils
 import org.springframework.web.client.RestTemplate
 import java.net.URI
 import java.util.*
@@ -19,13 +23,14 @@ import java.util.*
 private const val UTF8 = "utf-8"
 
 @Plugin(
-    key = "amsterdam_email_api",
+    key = "amsterdamemailapi",
     title = "Email API Amsterdam",
     description = "Zend emails via Email API"
 )
 class EmailApiPlugin(
     private val emailClient: EmailClient,
-    private val restTemplate: RestTemplate
+    private val restTemplate: RestTemplate,
+    private val valueResolverService: ValueResolverService
 ) {
 
     @PluginProperty(key = "emailApiBaseUrl", secret = false, required = true)
@@ -40,36 +45,62 @@ class EmailApiPlugin(
     @PluginProperty(key = "tokenEndpoint", secret = false, required = true)
     lateinit var tokenEndpoint: String
 
+    private var accessToken: String = ""
+
     @PluginAction(
-        key = "zend-email-api",
+        key = "zend-email",
         title = "Zend email via API",
         description = "Zend een email via de Email API",
-        activityTypes = [ActivityType.SEND_TASK]
+        activityTypes = [ActivityType.SERVICE_TASK_START]
     )
     fun sendEmail(
-        ex: DelegateExecution
+        execution: DelegateExecution,
+        @PluginActionProperty toEmail: String,
+        @PluginActionProperty toName: String?,
+        @PluginActionProperty fromAddress: String,
+        @PluginActionProperty emailSubject: String,
+        @PluginActionProperty contentHtml: String,
+        @PluginActionProperty ccEmail: String?,
+        @PluginActionProperty ccName: String?,
+        @PluginActionProperty bccEmail: String?,
+        @PluginActionProperty bccName: String?,
     ) {
-
         var token: String = getToken();
         val message = EmailMessage(
-            to = setOf(Recipient(address = ex.getVariable("toEmail") as String,
-                name = ex.getVariable("toName") as String)),
-            from = Recipient( address = ex.getVariable("fromAddress") as String),
-            content = setOf(BodyPart(content = ex.getVariable("contentHtml") as String,
-                mimeType =  MimeTypeUtils.TEXT_HTML_VALUE,
-                encoding = UTF8
-            )),
-            subject = ex.getVariable("emailSubject") as String,
-            )
+            to = setOf(
+                Recipient(
+                    address = resolveValue(execution, toEmail) as String,
+                    name = resolveValue(execution, toName) as String
+                )
+            ),
+            from = Recipient(address = resolveValue(execution, fromAddress) as String),
+            content = setOf(
+                BodyPart(
+                    content = resolveValue(execution, contentHtml) as String,
+                    mimeType = MimeTypeUtils.TEXT_PLAIN_VALUE,
+                    encoding = UTF8
+                )
+            ),
+            subject = (resolveValue(execution, emailSubject) as String),
+        )
+
 
         // set optional values
-        ex.getVariable("ccEmail")?.let {
-            message.cc = setOf(Recipient(address =  it as String,
-                name = ex.getVariable("ccName") as String?))
+        resolveValue(execution, ccEmail)?.let {
+            message.cc = setOf(
+                Recipient(
+                    address = it as String,
+                    name = resolveValue(execution, ccName) as String?
+                )
+            )
         }
-        ex.getVariable("bccEmail")?.let {
-            message.bcc = setOf(Recipient(address =  it as String,
-                name = ex.getVariable("bccName") as String?))
+        resolveValue(execution, bccEmail)?.let {
+            message.bcc = setOf(
+                Recipient(
+                    address = it as String,
+                    name = resolveValue(execution, bccName) as String?
+                )
+            )
         }
 
         // send
@@ -77,22 +108,44 @@ class EmailApiPlugin(
     }
 
     private fun getToken(): String {
-        val headers = HttpHeaders()
-        headers.contentType = MediaType.APPLICATION_FORM_URLENCODED
+        if (!StringUtils.hasText(this.accessToken) || JWTUtils.isExpired(this.accessToken)) {
+            val headers = HttpHeaders()
+            headers.contentType = MediaType.APPLICATION_FORM_URLENCODED
 
-        val body = "grant_type=client_credentials"
+            val body = "grant_type=client_credentials"
 
-        val auth = "$clientId:$clientSecret"
-        val base64Auth = Base64.getEncoder().encodeToString(auth.toByteArray())
-        headers.set(HttpHeaders.AUTHORIZATION, "Basic $base64Auth")
+            val auth = "$clientId:$clientSecret"
+            val base64Auth = Base64.getEncoder().encodeToString(auth.toByteArray())
+            headers.set(HttpHeaders.AUTHORIZATION, "Basic $base64Auth")
 
-        val requestEntity = HttpEntity(body, headers)
+            val requestEntity = HttpEntity(body, headers)
 
-        val responseEntity: ResponseEntity<Map<*, *>> =
-            restTemplate.exchange(tokenEndpoint, HttpMethod.POST, requestEntity, Map::class.java)
+            val responseEntity: ResponseEntity<Map<*, *>> =
+                restTemplate.exchange(tokenEndpoint, HttpMethod.POST, requestEntity, Map::class.java)
 
-        val accessToken = responseEntity.body?.get("access_token")?.toString()
+            val accessToken = responseEntity.body?.get("access_token")?.toString()
 
-        return accessToken ?: throw RuntimeException("Token retrieval failed.")
+            if (accessToken == null || !StringUtils.hasText(accessToken)) {
+                throw RuntimeException("Token retrieval failed.")
+            }
+
+            this.accessToken = accessToken
+        }
+
+        return this.accessToken
+    }
+
+
+    private fun resolveValue(execution: DelegateExecution, value: String?): Any? {
+        return if (value == null) {
+            null
+        } else {
+            val resolvedValues = valueResolverService.resolveValues(
+                execution.processInstanceId,
+                execution,
+                listOf(value)
+            )
+            resolvedValues[value]
+        }
     }
 }

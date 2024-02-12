@@ -15,13 +15,17 @@
  */
 
 import {PluginSpecification} from '@valtimo/plugin';
-import {AmsterdamEmailapiConfigurationComponent} from './components/amsterdam-emailapi/amsterdam-emailapi-configuration.component';
+import {AmsterdamEmailapiConfigurationComponent} from './components/amsterdam-emailapi-configuration/amsterdam-emailapi-configuration.component';
 import {AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64} from './assets';
+import {SendEmailConfigurationComponent} from "./components/send-email/send-email-configuration.component";
 
 const amsterdamEmailapiPluginSpecification: PluginSpecification = {
-  pluginId: 'amsterdam_email_api',
+  pluginId: 'amsterdamemailapi',
   pluginConfigurationComponent: AmsterdamEmailapiConfigurationComponent,
   pluginLogoBase64: AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64,
+  functionConfigurationComponents: {
+    'zend-email': SendEmailConfigurationComponent
+  },
   pluginTranslations: {
     nl: {
       title: 'Amsterdam Email API',
@@ -39,7 +43,15 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
       emailApiBaseUrlTooltip: 'Vul hier de base url in van de Email API inclusief pad eindigend op ../mail',
       tokenEndpoint: 'Token endpoint',
       tokenEndpointTooltip: 'Vul hier het openid token endpoint om het token op te vragen',
-
+      toEmail: "Email verzend adres",
+      toName: "Naam van ontvanger",
+      fromAddress: "Afzender",
+      emailSubject: "Onderwerp",
+      contentHtml: "body van email",
+      ccEmail: "cc email",
+      ccName: "cc naam",
+      bccEmail: "bcc email",
+      bccName: "bcc naam",
     },
     en: {
       title: 'Amsterdam Email API',
@@ -57,6 +69,7 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
       emailApiBaseUrlTooltip: 'Enter the base URL of the Email API here, including the path ending in ../mail',
       tokenEndpoint: 'Token endpoint',
       tokenEndpointTooltip: 'Enter the openid token endpoint here to request the token',
+      toEmail: "Email To address",
     },
     de: {
       title: 'Amsterdam Email API',

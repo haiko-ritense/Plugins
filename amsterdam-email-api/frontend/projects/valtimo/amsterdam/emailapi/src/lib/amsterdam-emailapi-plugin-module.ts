@@ -15,21 +15,23 @@
  */
 
 import {NgModule} from '@angular/core';
-import {AmsterdamEmailapiConfigurationComponent} from './components/amsterdam-emailapi/amsterdam-emailapi-configuration.component';
+import {AmsterdamEmailapiConfigurationComponent} from './components/amsterdam-emailapi-configuration/amsterdam-emailapi-configuration.component';
 import {CommonModule} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
 
 import {FormsModule} from "@angular/forms";
-import {InputModule} from "@valtimo/components";
-import {FormModule} from "@valtimo/form";
+import {FormModule, InputModule} from "@valtimo/components";
+import {SendEmailConfigurationComponent} from "./components/send-email/send-email-configuration.component";
 
 @NgModule({
   declarations: [
     AmsterdamEmailapiConfigurationComponent,
+    SendEmailConfigurationComponent
   ],
-  imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule, FormsModule, PluginTranslatePipeModule],
+  imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule, FormsModule, PluginTranslatePipeModule, FormModule, FormModule, FormModule, FormModule],
   exports: [
     AmsterdamEmailapiConfigurationComponent,
+    SendEmailConfigurationComponent
   ],
 })
 export class AmsterdamEmailapiPluginModule {}

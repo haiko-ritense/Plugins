@@ -13,11 +13,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/*
- * Public API Surface of slack
- */
-
-export * from './lib/models/index';
-export * from './lib/amsterdam-emailapi-plugin-module';
-export * from './lib/amsterdam-emailapi-plugin.specification';

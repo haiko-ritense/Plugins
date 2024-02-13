@@ -3,9 +3,8 @@ package com.ritense.valtimo.amsterdam.emailapi.client
 import com.fasterxml.jackson.annotation.JsonInclude
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-
 data class EmailMessage(
-    val to: Set<Recipient>,
+    val to: Set<Recipient> = emptySet(),
     val content: Set<BodyPart>,
     val subject: String = "",
     val from: Recipient,

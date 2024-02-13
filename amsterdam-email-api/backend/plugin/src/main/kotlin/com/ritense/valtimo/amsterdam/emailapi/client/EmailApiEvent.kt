@@ -1,11 +1,12 @@
 package com.ritense.valtimo.amsterdam.emailapi.client
 
 import com.ritense.valtimo.contract.audit.AuditEvent
-import com.ritense.valtimo.contract.utils.SecurityUtils
 import java.time.LocalDateTime
 import java.util.*
 
 class EmailApiEvent(val eventMessage: String): AuditEvent {
+
+    var processUser: String = "system"
 
     override fun getId(): UUID {
         return UUID.randomUUID();
@@ -20,7 +21,7 @@ class EmailApiEvent(val eventMessage: String): AuditEvent {
     }
 
     override fun getUser(): String {
-       return SecurityUtils.getCurrentUserAuthentication().name
+        return processUser
     }
 
     fun getMessage(): String {

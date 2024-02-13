@@ -47,6 +47,8 @@ logging:
     level:
         org.springframework.beans: DEBUG
         reactor.netty.http.client.HttpClient: DEBUG
+        org.apache.http: DEBUG
+        httpclient.wire: DEBUG
 
 server:
     port: 8080

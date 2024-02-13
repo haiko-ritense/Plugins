@@ -17,7 +17,7 @@ class EmailClient(
     private val restTemplate: RestTemplate,
     private val eventPublisher: ApplicationEventPublisher,
 ) {
-    fun send(message: EmailMessage, baseUri: URI, token: String?) {
+    fun send(message: EmailMessage, baseUri: URI, token: String) {
         try {
             logger.debug { "sending email naar "  + message.to.toString() + " met onderwerp " + message.subject}
 
@@ -26,12 +26,15 @@ class EmailClient(
             headers.set("Content-Type", MediaType.APPLICATION_JSON.toString())
             val httpEntity: HttpEntity<EmailMessage> = HttpEntity(message, headers)
 
-            var response: ResponseEntity<EmailMessage> = restTemplate.postForEntity(baseUri, httpEntity, EmailMessage::class.java)
+            var response: ResponseEntity<String> = restTemplate.postForEntity(baseUri, httpEntity, String::class.java)
 
             if(response.statusCode.is2xxSuccessful) {
-                eventPublisher.publishEvent(EmailApiEvent("successfully send email"))
+                var event = EmailApiEvent("successfully send email")
+                eventPublisher.publishEvent(event)
             }
             else if (response.statusCode.equals(HttpStatus.BAD_REQUEST)) {
+                var event = EmailApiEvent("failed to send email")
+                eventPublisher.publishEvent(event)
                 logger.warn { "email invalide of incompleet \n" + message.toString()}
             }
             else if (response.statusCode.equals(HttpStatus.UNAUTHORIZED)) {

@@ -1,6 +1,5 @@
 package com.ritense.valtimo.amsterdam.emailapi.plugin
 
-import com.auth0.jwt.interfaces.DecodedJWT
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
@@ -44,8 +43,6 @@ class EmailApiPlugin(
 
     @PluginProperty(key = "tokenEndpoint", secret = false, required = true)
     lateinit var tokenEndpoint: String
-
-    private var accessToken: String = ""
 
     @PluginAction(
         key = "zend-email",
@@ -108,7 +105,6 @@ class EmailApiPlugin(
     }
 
     private fun getToken(): String {
-        if (!StringUtils.hasText(this.accessToken) || JWTUtils.isExpired(this.accessToken)) {
             val headers = HttpHeaders()
             headers.contentType = MediaType.APPLICATION_FORM_URLENCODED
 
@@ -127,12 +123,9 @@ class EmailApiPlugin(
 
             if (accessToken == null || !StringUtils.hasText(accessToken)) {
                 throw RuntimeException("Token retrieval failed.")
-            }
+             }
 
-            this.accessToken = accessToken
-        }
-
-        return this.accessToken
+        return accessToken
     }
 
 

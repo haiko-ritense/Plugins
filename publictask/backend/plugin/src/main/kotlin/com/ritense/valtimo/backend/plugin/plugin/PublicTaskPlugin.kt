@@ -24,7 +24,6 @@ import com.ritense.plugin.domain.ActivityType
 import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
 import com.ritense.valtimo.backend.plugin.service.PublicTaskService
 import org.camunda.bpm.engine.delegate.DelegateExecution
-import org.camunda.bpm.engine.delegate.DelegateTask
 import java.util.*
 
 @Plugin(
@@ -40,23 +39,23 @@ class PublicTaskPlugin(
         key = "create-public-task",
         title = "Create Public Task",
         description = "create a public task and expose it",
-        activityTypes = [ActivityType.USER_TASK_CREATE]
+        activityTypes = [ActivityType.SERVICE_TASK_START]
     )
 
     fun createPublicTask(
-        delegateTask: DelegateTask,
-        @PluginActionProperty pvTaskHandler: String,
+        execution: DelegateExecution,
+        @PluginActionProperty pvAssigneeContactData: String,
         @PluginActionProperty ttl: String?,
     ) {
 
         val publicTaskEntity = PublicTaskEntity.from(
-            userTaskId = UUID.fromString(delegateTask.id),
-            assigneeContactData = pvTaskHandler,
+            userTaskId = UUID.fromString(execution.getVariableLocal("userTaskId") as String),
+            assigneeContactData = pvAssigneeContactData,
             timeToLive = ttl
         )
 
         publicTaskService.createAndSendPublicTaskUrl(
-            processInstanceId = delegateTask.processInstanceId,
+            execution = execution,
             publicTaskEntity =  publicTaskEntity
         )
 

@@ -4,10 +4,10 @@ import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
 import mu.KotlinLogging
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.delegate.DelegateExecution
+import org.camunda.bpm.engine.delegate.DelegateTask
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import javax.validation.Valid
 
 class PublicTaskService(
     private val runtimeService: RuntimeService,
@@ -15,31 +15,22 @@ class PublicTaskService(
 
     @Value("\${valtimo.url}") private lateinit var baseUrl: String
 
+    fun startNotifyAssigneeProcess(task: DelegateTask) {
+        runtimeService.createMessageCorrelation(NOTIFY_ASSIGNEE_PROCESS_MESSAGE_NAME)
+            .processInstanceId(task.processInstanceId)
+            .setVariables(mapOf("userTaskId" to task.id))
+            .processInstanceBusinessKey(task.execution.processBusinessKey)
+            .correlateAll()
+    }
+
     fun createAndSendPublicTaskUrl(
-        processInstanceId: String,
+        execution: DelegateExecution,
         publicTaskEntity: PublicTaskEntity
     ) {
         val publicTaskUrl = baseUrl + PUBLIC_TASK_URL + publicTaskEntity.publicTaskId
 
-        runtimeService.createMessageCorrelation(URL_MESSAGE_NAME)
-            .processInstanceId(processInstanceId)
-            .setVariables(mapOf(
-                "publicTaskUrl" to publicTaskUrl,
-                "assigneeContactData" to publicTaskEntity.assigneeContactData
-            ))
-            .correlateAll()
-    }
-
-    fun test(execution: DelegateExecution) {
-        val publicTaskUrl = baseUrl + PUBLIC_TASK_URL
-
-        runtimeService.createMessageCorrelation(URL_MESSAGE_NAME)
-            .processInstanceBusinessKey(execution.processBusinessKey)
-            .setVariables(mapOf(
-                "publicTaskUrl" to publicTaskUrl,
-                "assigneeContactData" to "publicTaskEntity.assigneeContactData"
-            ))
-            .correlateAllWithResult()
+        execution.setVariable("assigneeContactData", publicTaskEntity.assigneeContactData)
+        execution.setVariable("url", publicTaskUrl)
     }
 
     fun createPublicTaskHtml(taskUuid: String): ResponseEntity<String> {
@@ -74,6 +65,6 @@ class PublicTaskService(
         val logger = KotlinLogging.logger {}
 
         private const val PUBLIC_TASK_URL = "/api/v1/public-task/"
-        private const val URL_MESSAGE_NAME = "UrlCreatedMessage"
+        private const val NOTIFY_ASSIGNEE_PROCESS_MESSAGE_NAME = "startNotifyAssigneeMessage"
     }
 }

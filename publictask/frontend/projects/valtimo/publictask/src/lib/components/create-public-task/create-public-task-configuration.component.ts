@@ -50,7 +50,7 @@ export class CreatePublicTaskConfigurationComponent implements FunctionConfigura
   }
 
   private handleValid(formValue: CreatePublicTaskConfig): void {
-    const valid = !!(formValue.pvTaskHandler);
+    const valid = !!(formValue.pvAssigneeContactData);
 
     this.valid$.next(valid);
     this.valid.emit(valid);

@@ -1,97 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1sw5c9y" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.15.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
   <bpmn:collaboration id="Collaboration_09mlefd">
-    <bpmn:participant id="Participant_1n9o4ps" name="Public Task" processRef="PublicTaskExample" />
+    <bpmn:participant id="Participant_1n9o4ps" name="Public Task Example" processRef="PublicTaskExample" />
   </bpmn:collaboration>
   <bpmn:process id="PublicTaskExample" isExecutable="true" camunda:historyTimeToLive="180">
     <bpmn:startEvent id="StartEvent">
-      <bpmn:extensionElements>
-        <camunda:executionListener expression="${execution.setVariable(&#34;assigneeContactData&#34;, &#34;test@test.com&#34;)}" event="start" />
-      </bpmn:extensionElements>
+      <bpmn:extensionElements />
       <bpmn:outgoing>Flow_1ae4z17</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_1ae4z17" sourceRef="StartEvent" targetRef="createPublicTaskUrlTask" />
-    <bpmn:sequenceFlow id="Flow_04ptajd" sourceRef="createPublicTaskUrlTask" targetRef="Activity_1nvjvi6" />
-    <bpmn:sequenceFlow id="Flow_0dlxluz" sourceRef="UrlCreatedEvent" targetRef="SendUrlTask" />
-    <bpmn:sequenceFlow id="Flow_17laizm" sourceRef="SendUrlTask" targetRef="Event_1q09kji" />
-    <bpmn:sequenceFlow id="Flow_14rgurb" sourceRef="Activity_1nvjvi6" targetRef="Event_00xh1le" />
-    <bpmn:boundaryEvent id="UrlCreatedEvent" name="Url created" cancelActivity="false" attachedToRef="createPublicTaskUrlTask">
-      <bpmn:outgoing>Flow_0dlxluz</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1w0sm4a" messageRef="Message_24bahip" />
-    </bpmn:boundaryEvent>
-    <bpmn:userTask id="Activity_1nvjvi6">
-      <bpmn:incoming>Flow_04ptajd</bpmn:incoming>
-      <bpmn:outgoing>Flow_14rgurb</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:endEvent id="Event_00xh1le">
-      <bpmn:incoming>Flow_14rgurb</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:endEvent id="Event_1q09kji">
-      <bpmn:incoming>Flow_17laizm</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sendTask id="SendUrlTask" name="Send url" camunda:expression="${true}">
-      <bpmn:incoming>Flow_0dlxluz</bpmn:incoming>
-      <bpmn:outgoing>Flow_17laizm</bpmn:outgoing>
-    </bpmn:sendTask>
-    <bpmn:userTask id="createPublicTaskUrlTask" name="create public task url">
+    <bpmn:userTask id="PublicTaskUrlTask" name="(Public) User Task">
       <bpmn:extensionElements>
-        <camunda:executionListener expression="${execution.setVariable(&#34;assigneeContactData&#34;, &#34;test@test.com&#34;)}" event="start" />
+        <camunda:taskListener expression="${publicTaskService.startNotifyAssigneeProcess(task)}" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1ae4z17</bpmn:incoming>
       <bpmn:outgoing>Flow_04ptajd</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:endEvent id="Event_00xh1le">
+      <bpmn:incoming>Flow_04ptajd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1ae4z17" sourceRef="StartEvent" targetRef="PublicTaskUrlTask" />
+    <bpmn:sequenceFlow id="Flow_04ptajd" sourceRef="PublicTaskUrlTask" targetRef="Event_00xh1le" />
   </bpmn:process>
   <bpmn:message id="Message_24bahip" name="UrlCreatedMessage" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_09mlefd">
       <bpmndi:BPMNShape id="Participant_1n9o4ps_di" bpmnElement="Participant_1n9o4ps" isHorizontal="true">
-        <dc:Bounds x="129" y="80" width="561" height="400" />
+        <dc:Bounds x="129" y="80" width="391" height="200" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent">
-        <dc:Bounds x="179" y="329" width="36" height="36" />
+        <dc:Bounds x="179" y="159" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_13dm8ex_di" bpmnElement="createPublicTaskUrlTask">
-        <dc:Bounds x="270" y="307" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1xdc2k0_di" bpmnElement="SendUrlTask">
-        <dc:Bounds x="440" y="180" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1q09kji_di" bpmnElement="Event_1q09kji">
-        <dc:Bounds x="592" y="202" width="36" height="36" />
+      <bpmndi:BPMNShape id="Activity_1jvucdg_di" bpmnElement="PublicTaskUrlTask">
+        <dc:Bounds x="270" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_00xh1le_di" bpmnElement="Event_00xh1le">
-        <dc:Bounds x="592" y="329" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1pkd0ev_di" bpmnElement="Activity_1nvjvi6">
-        <dc:Bounds x="440" y="307" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0ofsbyb_di" bpmnElement="UrlCreatedEvent">
-        <dc:Bounds x="352" y="289" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="393" y="283" width="54" height="14" />
-        </bpmndi:BPMNLabel>
+        <dc:Bounds x="442" y="159" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ae4z17_di" bpmnElement="Flow_1ae4z17">
-        <di:waypoint x="215" y="347" />
-        <di:waypoint x="270" y="347" />
+        <di:waypoint x="215" y="177" />
+        <di:waypoint x="270" y="177" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_04ptajd_di" bpmnElement="Flow_04ptajd">
-        <di:waypoint x="370" y="347" />
-        <di:waypoint x="440" y="347" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0dlxluz_di" bpmnElement="Flow_0dlxluz">
-        <di:waypoint x="370" y="289" />
-        <di:waypoint x="370" y="220" />
-        <di:waypoint x="440" y="220" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_17laizm_di" bpmnElement="Flow_17laizm">
-        <di:waypoint x="540" y="220" />
-        <di:waypoint x="592" y="220" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_14rgurb_di" bpmnElement="Flow_14rgurb">
-        <di:waypoint x="540" y="347" />
-        <di:waypoint x="592" y="347" />
+        <di:waypoint x="370" y="177" />
+        <di:waypoint x="442" y="177" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

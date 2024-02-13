@@ -74,7 +74,7 @@ class EmailApiPlugin(
             content = setOf(
                 BodyPart(
                     content = resolveValue(execution, contentHtml) as String,
-                    mimeType = MimeTypeUtils.TEXT_PLAIN_VALUE,
+                    mimeType = MimeTypeUtils.TEXT_HTML.toString(),
                     encoding = UTF8
                 )
             ),

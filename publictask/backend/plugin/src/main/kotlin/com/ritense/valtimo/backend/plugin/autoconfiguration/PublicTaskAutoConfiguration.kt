@@ -20,6 +20,7 @@ import com.ritense.plugin.service.PluginService
 import com.ritense.valtimo.backend.plugin.config.PublicTaskSecurityConfigurer
 import com.ritense.valtimo.backend.plugin.plugin.PublicTaskPluginFactory
 import com.ritense.valtimo.backend.plugin.service.PublicTaskService
+import org.camunda.bpm.engine.RuntimeService
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -29,7 +30,7 @@ import org.springframework.core.annotation.Order
 class PublicTaskAutoConfiguration {
 
     @Bean
-    fun publicTaskService(): PublicTaskService = PublicTaskService()
+    fun publicTaskService(runtimeService: RuntimeService): PublicTaskService = PublicTaskService(runtimeService)
 
     @Bean
     @Order(500)

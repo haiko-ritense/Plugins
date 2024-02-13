@@ -21,8 +21,11 @@ import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.domain.ActivityType
+import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
 import com.ritense.valtimo.backend.plugin.service.PublicTaskService
 import org.camunda.bpm.engine.delegate.DelegateExecution
+import org.camunda.bpm.engine.delegate.DelegateTask
+import java.util.*
 
 @Plugin(
     key = "public-task",
@@ -40,15 +43,23 @@ class PublicTaskPlugin(
         activityTypes = [ActivityType.USER_TASK_CREATE]
     )
 
-    @Suppress("UNCHECKED_CAST")
     fun createPublicTask(
-        execution: DelegateExecution,
+        delegateTask: DelegateTask,
         @PluginActionProperty pvTaskHandler: String,
-        @PluginActionProperty ttl: String? = "28",
+        @PluginActionProperty ttl: String?,
     ) {
-        publicTaskService.createPublicTaskUrl(
-            ttl = ttl!!.toInt(),
-            taskHandler = pvTaskHandler //TODO: does it automatically resolve?
+
+        val publicTaskEntity = PublicTaskEntity.from(
+            userTaskId = UUID.fromString(delegateTask.id),
+            assigneeContactData = pvTaskHandler,
+            timeToLive = ttl
         )
+
+        publicTaskService.createAndSendPublicTaskUrl(
+            processInstanceId = delegateTask.processInstanceId,
+            publicTaskEntity =  publicTaskEntity
+        )
+
+        // TODO: store publicTaskEntity in DB
     }
 }

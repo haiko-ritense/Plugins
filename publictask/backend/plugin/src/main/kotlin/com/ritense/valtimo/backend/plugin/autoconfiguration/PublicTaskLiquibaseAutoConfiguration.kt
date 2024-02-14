@@ -26,11 +26,11 @@ import javax.sql.DataSource
 
 @AutoConfiguration
 @ConditionalOnClass(DataSource::class)
-class NotificatiesApiLiquibaseAutoConfiguration {
+class PublicTaskLiquibaseAutoConfiguration {
 
     @Order(Ordered.HIGHEST_PRECEDENCE + 25)
     @Bean
-    fun notificatiesApiLiquibaseChangeLogLocation(): LiquibaseMasterChangeLogLocation {
-        return LiquibaseMasterChangeLogLocation("config/liquibase/notificaties-api-master.xml")
+    fun publicTaskLiquibaseChangeLogLocation(): LiquibaseMasterChangeLogLocation {
+        return LiquibaseMasterChangeLogLocation("config/liquibase/public-task-master.xml")
     }
 }

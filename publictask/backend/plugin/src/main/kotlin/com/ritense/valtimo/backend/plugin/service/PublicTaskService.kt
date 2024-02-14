@@ -1,10 +1,27 @@
 package com.ritense.valtimo.backend.plugin.service
 
+import com.ritense.valtimo.backend.plugin.domain.PublicTaskData
+import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
+import com.ritense.valtimo.backend.plugin.repository.PublicTaskRepository
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
-class PublicTaskService {
+class PublicTaskService(
+    private val publicTaskRepository: PublicTaskRepository
+) {
+
+    fun savePublicTaskEntity(publicTaskData: PublicTaskData) {
+        publicTaskRepository.save(
+            PublicTaskEntity(
+                publicTaskId = publicTaskData.publicTaskId,
+                userTaskId = publicTaskData.userTaskId,
+                assigneeCandidateContactData = publicTaskData.assigneeContactData,
+                timeToLive = publicTaskData.timeToLive,
+                isCompletedByPublicTask = publicTaskData.isCompletedByPublicTask
+            )
+        )
+    }
 
     fun createPublicTaskUrl(
         ttl: Int,

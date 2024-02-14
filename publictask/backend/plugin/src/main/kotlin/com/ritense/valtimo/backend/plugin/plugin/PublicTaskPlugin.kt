@@ -44,13 +44,13 @@ class PublicTaskPlugin(
 
     fun createPublicTask(
         execution: DelegateExecution,
-        @PluginActionProperty pvAssigneeContactData: String,
+        @PluginActionProperty pvAssigneeCandidateContactData: String,
         @PluginActionProperty ttl: String?,
     ) {
 
         val publicTaskEntity = PublicTaskEntity.from(
             userTaskId = UUID.fromString(execution.getVariableLocal("userTaskId") as String),
-            assigneeContactData = pvAssigneeContactData,
+            assigneeCandidateContactData = pvAssigneeCandidateContactData,
             timeToLive = ttl
         )
 

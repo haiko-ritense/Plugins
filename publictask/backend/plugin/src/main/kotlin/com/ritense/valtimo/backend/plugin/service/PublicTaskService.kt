@@ -15,7 +15,7 @@ class PublicTaskService(
 
     @Value("\${valtimo.url}") private lateinit var baseUrl: String
 
-    fun startNotifyAssigneeProcess(task: DelegateTask) {
+    fun startNotifyAssigneeCandidateProcess(task: DelegateTask) {
         runtimeService.createMessageCorrelation(NOTIFY_ASSIGNEE_PROCESS_MESSAGE_NAME)
             .processInstanceId(task.processInstanceId)
             .setVariables(mapOf("userTaskId" to task.id))
@@ -29,7 +29,7 @@ class PublicTaskService(
     ) {
         val publicTaskUrl = baseUrl + PUBLIC_TASK_URL + publicTaskEntity.publicTaskId
 
-        execution.setVariable("assigneeContactData", publicTaskEntity.assigneeContactData)
+        execution.setVariable("assigneeContactData", publicTaskEntity.pvAssigneeCandidateContactData)
         execution.setVariable("url", publicTaskUrl)
     }
 

@@ -10,7 +10,7 @@
     </bpmn:startEvent>
     <bpmn:userTask id="PublicTaskUrlTask" name="(Public) User Task">
       <bpmn:extensionElements>
-        <camunda:taskListener expression="${publicTaskService.startNotifyAssigneeProcess(task)}" event="create" />
+        <camunda:taskListener expression="${publicTaskService.startNotifyAssigneeCandidateProcess(task)}" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1ae4z17</bpmn:incoming>
       <bpmn:outgoing>Flow_04ptajd</bpmn:outgoing>

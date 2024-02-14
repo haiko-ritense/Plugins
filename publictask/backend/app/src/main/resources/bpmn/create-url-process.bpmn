@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0ymq26c" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.15.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
   <bpmn:collaboration id="Collaboration_1k1w15w">
-    <bpmn:participant id="Participant_01gv5h1" name="Create URL and Notify User" processRef="create-url-process" />
+    <bpmn:participant id="Participant_01gv5h1" name="Create URL and Notify Assignee Candidate" processRef="create-url-process" />
   </bpmn:collaboration>
   <bpmn:process id="create-url-process" isExecutable="true" camunda:historyTimeToLive="180">
     <bpmn:startEvent id="StartEvent_1">
@@ -13,7 +13,7 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0mu3mzr" sourceRef="StartEvent_1" targetRef="Activity_0luatkv" />
     <bpmn:sequenceFlow id="Flow_13387ez" sourceRef="Activity_011g9z6" targetRef="Event_1wp7ajb" />
-    <bpmn:sendTask id="Activity_011g9z6" name="Notify Assignee" camunda:expression="${true}">
+    <bpmn:sendTask id="Activity_011g9z6" name="Notify Assignee Candidate" camunda:expression="${true}">
       <bpmn:incoming>Flow_0a1los8</bpmn:incoming>
       <bpmn:outgoing>Flow_13387ez</bpmn:outgoing>
     </bpmn:sendTask>

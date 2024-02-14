@@ -5,7 +5,7 @@ import java.util.UUID
 data class PublicTaskEntity(
     val publicTaskId: UUID,
     val userTaskId: UUID,
-    val assigneeContactData: String,
+    val pvAssigneeCandidateContactData: String,
     val timeToLive: Int?,
     var isCompletedByPublicTask: Boolean?
 ) {
@@ -13,12 +13,12 @@ data class PublicTaskEntity(
     companion object {
         fun from(
             userTaskId: UUID,
-            assigneeContactData: String,
+            assigneeCandidateContactData: String,
             timeToLive: String?,
         ): PublicTaskEntity = PublicTaskEntity(
             publicTaskId = UUID.randomUUID(),
             userTaskId = userTaskId,
-            assigneeContactData = assigneeContactData,
+            pvAssigneeCandidateContactData = assigneeCandidateContactData,
             timeToLive = timeToLive?.toInt() ?: 28,
             isCompletedByPublicTask = false
         )

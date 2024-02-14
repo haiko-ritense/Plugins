@@ -22,24 +22,23 @@ import javax.persistence.Id
 import javax.persistence.Table
 import java.util.UUID
 
-
 @Entity
 @Table(name = "public_task_plugin_entity")
-class PublicTaskEntity(
+data class PublicTaskEntity(
 
     @Id
-    @Column(name = "public_task_id")
-    val publicTaskId: UUID,
+    @field:Column(name = "public_task_id")
+    val publicTaskId: UUID = UUID.randomUUID(),
 
-    @Column(name = "user_task_id")
-    val userTaskId: UUID,
+    @field:Column(name = "user_task_id")
+    val userTaskId: UUID = UUID.randomUUID(),
 
-    @Column(name = "assignee_candidate_contact_data")
-    val assigneeCandidateContactData: String,
+    @field:Column(name = "assignee_candidate_contact_data")
+    val assigneeCandidateContactData: String = "",
 
-    @Column(name = "ttl")
-    val timeToLive: Int,
+    @field:Column(name = "ttl")
+    val timeToLive: Int = 0,
 
-    @Column(name = "is_completed_by_public_task")
-    val isCompletedByPublicTask: Boolean,
+    @field:Column(name = "is_completed_by_public_task")
+    val isCompletedByPublicTask: Boolean = false,
 )

@@ -3,6 +3,9 @@ package com.ritense.valtimo.backend.plugin.service
 import com.ritense.document.service.DocumentService
 import com.ritense.formlink.service.impl.CamundaFormAssociationService
 import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
+import com.ritense.valtimo.backend.plugin.domain.PublicTaskData
+import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
+import com.ritense.valtimo.backend.plugin.repository.PublicTaskRepository
 import mu.KotlinLogging
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.delegate.DelegateExecution
@@ -19,6 +22,21 @@ class PublicTaskService(
 ) {
 
     @Value("\${valtimo.url}") private lateinit var baseUrl: String
+class PublicTaskService(
+    private val publicTaskRepository: PublicTaskRepository
+) {
+
+    fun savePublicTaskEntity(publicTaskData: PublicTaskData) {
+        publicTaskRepository.save(
+            PublicTaskEntity(
+                publicTaskId = publicTaskData.publicTaskId,
+                userTaskId = publicTaskData.userTaskId,
+                assigneeCandidateContactData = publicTaskData.assigneeContactData,
+                timeToLive = publicTaskData.timeToLive,
+                isCompletedByPublicTask = publicTaskData.isCompletedByPublicTask
+            )
+        )
+    }
 
     fun startNotifyAssigneeCandidateProcess(task: DelegateTask) {
         runtimeService.createMessageCorrelation(NOTIFY_ASSIGNEE_PROCESS_MESSAGE_NAME)

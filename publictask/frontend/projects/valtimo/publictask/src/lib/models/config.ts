@@ -20,7 +20,7 @@ interface PublicTaskConfig extends PluginConfigurationData {}
 
 interface CreatePublicTaskConfig {
     pvAssigneeCandidateContactData: string;
-    ttl: string;
+    timeToLive: string;
 }
 
 export {

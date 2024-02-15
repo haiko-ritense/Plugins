@@ -16,7 +16,6 @@
 
 package com.ritense.valtimo.backend.plugin.plugin
 
-
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
@@ -24,7 +23,7 @@ import com.ritense.plugin.domain.ActivityType
 import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
 import com.ritense.valtimo.backend.plugin.service.PublicTaskService
 import org.camunda.bpm.engine.delegate.DelegateExecution
-import java.util.*
+import java.util.UUID
 
 @Plugin(
     key = "public-task",
@@ -45,13 +44,13 @@ class PublicTaskPlugin(
     fun createPublicTask(
         execution: DelegateExecution,
         @PluginActionProperty pvAssigneeCandidateContactData: String,
-        @PluginActionProperty ttl: String?,
+        @PluginActionProperty timeToLive: String?,
     ) {
 
         val publicTaskEntity = PublicTaskEntity.from(
             userTaskId = UUID.fromString(execution.getVariableLocal("userTaskId") as String),
             assigneeCandidateContactData = pvAssigneeCandidateContactData,
-            timeToLive = ttl
+            timeToLive = timeToLive
         )
 
         publicTaskService.createAndSendPublicTaskUrl(

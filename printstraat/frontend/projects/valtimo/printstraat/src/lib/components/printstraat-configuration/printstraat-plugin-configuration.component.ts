@@ -21,8 +21,7 @@ import {PrintstraatConfig} from '../../models';
 
 @Component({
   selector: 'printstraat-plugin-configuration',
-  templateUrl: './printstraat-plugin-configuration.component.html',
-  styleUrls: ['./printstraat-plugin-configuration.component.scss']
+  templateUrl: './printstraat-plugin-configuration.component.html'
 })
 export class PrintstraatPluginConfigurationComponent
   // The component explicitly implements the PluginConfigurationComponent interface

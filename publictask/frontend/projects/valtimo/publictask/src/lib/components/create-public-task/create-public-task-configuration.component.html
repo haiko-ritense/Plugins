@@ -6,19 +6,19 @@
     } as obs"
     >
     <v-input
-            name="pvTaskHandler"
-            [title]="'pvTaskHandler' | pluginTranslate: pluginId | async"
+            name="pvAssigneeCandidateContactData"
+            [title]="'pvAssigneeCandidateContactData' | pluginTranslate: pluginId | async"
             [margin]="true"
-            [defaultValue]="obs.prefill?.pvTaskHandler"
+            [defaultValue]="obs.prefill?.pvAssigneeCandidateContactData"
             [disabled]="obs.disabled"
             [required]="true"
     >
     </v-input>
     <v-input
-            name="ttl"
-            [title]="'ttl' | pluginTranslate: pluginId | async"
+            name="timeToLive"
+            [title]="'timeToLive' | pluginTranslate: pluginId | async"
             [margin]="true"
-            [defaultValue]="obs.prefill?.ttl"
+            [defaultValue]="obs.prefill?.timeToLive"
             [disabled]="obs.disabled"
             [required]="false"
     >

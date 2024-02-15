@@ -19,8 +19,8 @@ import {PluginConfigurationData} from '@valtimo/plugin';
 interface PublicTaskConfig extends PluginConfigurationData {}
 
 interface CreatePublicTaskConfig {
-    pvTaskHandler: string;
-    ttl: string;
+    pvAssigneeCandidateContactData: string;
+    timeToLive: string;
 }
 
 export {

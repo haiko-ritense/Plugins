@@ -16,13 +16,14 @@
 
 package com.ritense.valtimo.backend.plugin.plugin
 
-
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.domain.ActivityType
+import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
 import com.ritense.valtimo.backend.plugin.service.PublicTaskService
 import org.camunda.bpm.engine.delegate.DelegateExecution
+import java.util.UUID
 
 @Plugin(
     key = "public-task",
@@ -37,18 +38,26 @@ class PublicTaskPlugin(
         key = "create-public-task",
         title = "Create Public Task",
         description = "create a public task and expose it",
-        activityTypes = [ActivityType.USER_TASK_CREATE]
+        activityTypes = [ActivityType.SERVICE_TASK_START]
     )
 
-    @Suppress("UNCHECKED_CAST")
     fun createPublicTask(
         execution: DelegateExecution,
-        @PluginActionProperty pvTaskHandler: String,
-        @PluginActionProperty ttl: String? = "28",
+        @PluginActionProperty pvAssigneeCandidateContactData: String,
+        @PluginActionProperty timeToLive: String?,
     ) {
-        publicTaskService.createPublicTaskUrl(
-            ttl = ttl!!.toInt(),
-            taskHandler = pvTaskHandler //TODO: does it automatically resolve?
+
+        val publicTaskEntity = PublicTaskEntity.from(
+            userTaskId = UUID.fromString(execution.getVariableLocal("userTaskId") as String),
+            assigneeCandidateContactData = pvAssigneeCandidateContactData,
+            timeToLive = timeToLive
         )
+
+        publicTaskService.createAndSendPublicTaskUrl(
+            execution = execution,
+            publicTaskEntity =  publicTaskEntity
+        )
+
+        // TODO: store publicTaskEntity in DB
     }
 }

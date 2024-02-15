@@ -7,5 +7,9 @@ include(
         "alfresco-authentication:backend",
         "alfresco-authentication:backend:app",
         "alfresco-authentication:backend:plugin",
-        "alfresco-authentication:frontend"
+        "alfresco-authentication:frontend",
+        "amsterdam-email-api:backend",
+        "amsterdam-email-api:backend:app",
+        "amsterdam-email-api:backend:plugin",
+        "amsterdam-email-api:frontend"
 )

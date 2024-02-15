@@ -4,7 +4,6 @@ import com.ritense.document.service.DocumentService
 import com.ritense.formlink.service.impl.CamundaFormAssociationService
 import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
 import com.ritense.valtimo.backend.plugin.domain.PublicTaskData
-import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
 import com.ritense.valtimo.backend.plugin.repository.PublicTaskRepository
 import mu.KotlinLogging
 import org.camunda.bpm.engine.RuntimeService
@@ -13,18 +12,16 @@ import org.camunda.bpm.engine.delegate.DelegateTask
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.util.Optional
+import java.util.*
 
 class PublicTaskService(
     private val runtimeService: RuntimeService,
     private val formAssociationService: CamundaFormAssociationService,
-    private val documentService: DocumentService
+    private val documentService: DocumentService,
+    private val publicTaskRepository: PublicTaskRepository
 ) {
 
     @Value("\${valtimo.url}") private lateinit var baseUrl: String
-class PublicTaskService(
-    private val publicTaskRepository: PublicTaskRepository
-) {
 
     fun savePublicTaskEntity(publicTaskData: PublicTaskData) {
         publicTaskRepository.save(
@@ -48,11 +45,11 @@ class PublicTaskService(
 
     fun createAndSendPublicTaskUrl(
         execution: DelegateExecution,
-        publicTaskEntity: PublicTaskEntity
+        publicTaskData: PublicTaskData
     ) {
-        val publicTaskUrl = baseUrl + PUBLIC_TASK_URL + publicTaskEntity.publicTaskId
+        val publicTaskUrl = baseUrl + PUBLIC_TASK_URL + publicTaskData.publicTaskId
 
-        execution.setVariable("assigneeContactData", publicTaskEntity.pvAssigneeCandidateContactData)
+        execution.setVariable("assigneeContactData", publicTaskData.assigneeContactData)
         execution.setVariable("url", publicTaskUrl)
     }
 
@@ -60,11 +57,12 @@ class PublicTaskService(
         taskUuid: String,
         businessKey: String
     ): ResponseEntity<String> {
-        // TODO: build it ;)
 
         // step 1: get entity and get the userTaskId
+        val publicTaskId = publicTaskRepository.getReferenceById(UUID.fromString(taskUuid)).userTaskId
 
         // step 2: check if task (still) exists, if not return a html with message: "task does not exist"
+
 
         // step 3: get form.io json with the userTaskId
         val formKey = ""

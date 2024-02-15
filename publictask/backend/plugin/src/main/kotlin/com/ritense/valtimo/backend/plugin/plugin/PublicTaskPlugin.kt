@@ -56,7 +56,7 @@ class PublicTaskPlugin(
 
         publicTaskService.createAndSendPublicTaskUrl(
             execution = execution,
-            publicTaskEntity =  publicTaskEntity
+            publicTaskData =  publicTaskEntity
         )
 
         // TODO: store publicTaskEntity in DB

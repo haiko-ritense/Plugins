@@ -36,12 +36,15 @@ class PublicTaskAutoConfiguration {
     @Bean
     fun publicTaskService(
         publicTaskRepository: PublicTaskRepository,
-        runtimeService: RuntimeService
+        runtimeService: RuntimeService,
+        formAssociationService: CamundaFormAssociationService,
+        documentService: DocumentService,
     ): PublicTaskService = PublicTaskService(
         publicTaskRepository = publicTaskRepository,
-        runtimeService = RuntimeService
+        runtimeService = runtimeService,
+        formAssociationService = formAssociationService,
+        documentService = documentService
     )
->>>>>>>>> Temporary merge branch 2
 
     @Bean
     @Order(500)

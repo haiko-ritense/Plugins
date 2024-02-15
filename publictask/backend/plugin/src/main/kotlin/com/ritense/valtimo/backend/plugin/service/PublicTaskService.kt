@@ -1,6 +1,8 @@
 package com.ritense.valtimo.backend.plugin.service
 
+import com.ritense.valtimo.backend.plugin.domain.PublicTaskData
 import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
+import com.ritense.valtimo.backend.plugin.repository.PublicTaskRepository
 import mu.KotlinLogging
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.delegate.DelegateExecution
@@ -10,8 +12,9 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
 class PublicTaskService(
+    private val publicTaskRepository: PublicTaskRepository,
     private val runtimeService: RuntimeService,
-) {
+    ) {
 
     @Value("\${valtimo.url}") private lateinit var baseUrl: String
 
@@ -29,8 +32,20 @@ class PublicTaskService(
     ) {
         val publicTaskUrl = baseUrl + PUBLIC_TASK_URL + publicTaskEntity.publicTaskId
 
-        execution.setVariable("assigneeContactData", publicTaskEntity.pvAssigneeCandidateContactData)
+        execution.setVariable("assigneeCandidateContactData", publicTaskEntity.assigneeCandidateContactData)
         execution.setVariable("url", publicTaskUrl)
+    }
+
+    fun savePublicTaskEntity(publicTaskData: PublicTaskData) {
+        publicTaskRepository.save(
+            PublicTaskEntity(
+                publicTaskId = publicTaskData.publicTaskId,
+                userTaskId = publicTaskData.userTaskId,
+                assigneeCandidateContactData = publicTaskData.assigneeContactData,
+                timeToLive = publicTaskData.timeToLive,
+                isCompletedByPublicTask = publicTaskData.isCompletedByPublicTask
+            )
+        )
     }
 
     fun createPublicTaskHtml(taskUuid: String): ResponseEntity<String> {

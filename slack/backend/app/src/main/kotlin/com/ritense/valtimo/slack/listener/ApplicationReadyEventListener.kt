@@ -7,6 +7,7 @@ import com.ritense.plugin.domain.PluginConfiguration
 import com.ritense.plugin.service.PluginConfigurationSearchParameters
 import com.ritense.plugin.service.PluginService
 import com.ritense.plugin.web.rest.request.PluginProcessLinkCreateDto
+import com.ritense.processlink.domain.ActivityTypeWithEventName.SERVICE_TASK_START
 import com.ritense.valtimo.contract.authentication.AuthoritiesConstants
 import com.ritense.valtimo.contract.json.Mapper
 import org.camunda.bpm.engine.RepositoryService
@@ -73,7 +74,7 @@ class ApplicationReadyEventListener(
                     slackConfig.id.id,
                     "post-message",
                     Mapper.INSTANCE.get().readTree(actionProperties) as ObjectNode,
-                    "bpmn:ServiceTask:start",
+                    SERVICE_TASK_START,
                 )
             )
         }

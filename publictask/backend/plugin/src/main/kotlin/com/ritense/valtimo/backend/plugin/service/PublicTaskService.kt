@@ -12,10 +12,13 @@ import org.camunda.bpm.engine.delegate.DelegateTask
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.util.*
 
 class PublicTaskService(
+    private val publicTaskRepository: PublicTaskRepository,
     private val runtimeService: RuntimeService,
+    ) {
+
+    @Value("\${valtimo.url}") private lateinit var baseUrl: String
     private val formAssociationService: CamundaFormAssociationService,
     private val documentService: DocumentService,
     private val publicTaskRepository: PublicTaskRepository
@@ -49,14 +52,26 @@ class PublicTaskService(
     ) {
         val publicTaskUrl = baseUrl + PUBLIC_TASK_URL + publicTaskData.publicTaskId
 
-        execution.setVariable("assigneeContactData", publicTaskData.assigneeContactData)
+        execution.setVariable("assigneeCandidateContactData", publicTaskEntity.assigneeCandidateContactData)
         execution.setVariable("url", publicTaskUrl)
     }
 
-    fun createPublicTaskHtml(
-        taskUuid: String,
-        businessKey: String
-    ): ResponseEntity<String> {
+    fun savePublicTaskEntity(publicTaskData: PublicTaskData) {
+        publicTaskRepository.save(
+            PublicTaskEntity(
+                publicTaskId = publicTaskData.publicTaskId,
+                userTaskId = publicTaskData.userTaskId,
+                assigneeCandidateContactData = publicTaskData.assigneeContactData,
+                timeToLive = publicTaskData.timeToLive,
+                isCompletedByPublicTask = publicTaskData.isCompletedByPublicTask
+            )
+        )
+    }
+
+        fun createPublicTaskHtml(
+            taskUuid: String,
+            businessKey: String
+        ): ResponseEntity<String> {
 
         // step 1: get entity and get the userTaskId
         val publicTaskId = publicTaskRepository.getReferenceById(UUID.fromString(taskUuid)).userTaskId

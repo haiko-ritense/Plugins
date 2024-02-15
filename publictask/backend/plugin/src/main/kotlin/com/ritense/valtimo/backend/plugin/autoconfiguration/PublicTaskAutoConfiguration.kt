@@ -39,8 +39,9 @@ class PublicTaskAutoConfiguration {
         runtimeService: RuntimeService
     ): PublicTaskService = PublicTaskService(
         publicTaskRepository = publicTaskRepository,
-        runtimeService: RuntimeService
+        runtimeService = RuntimeService
     )
+>>>>>>>>> Temporary merge branch 2
 
     @Bean
     @Order(500)

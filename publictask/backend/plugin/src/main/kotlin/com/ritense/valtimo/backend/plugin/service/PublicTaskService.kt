@@ -3,10 +3,7 @@ package com.ritense.valtimo.backend.plugin.service
 import com.ritense.valtimo.backend.plugin.domain.PublicTaskData
 import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
 import com.ritense.valtimo.backend.plugin.repository.PublicTaskRepository
-import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
-import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
 import mu.KotlinLogging
-import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.DelegateTask
@@ -15,7 +12,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
 class PublicTaskService(
-    private val publicTaskRepository: PublicTaskRepository
+    private val publicTaskRepository: PublicTaskRepository,
     private val runtimeService: RuntimeService,
     ) {
 
@@ -35,7 +32,7 @@ class PublicTaskService(
     ) {
         val publicTaskUrl = baseUrl + PUBLIC_TASK_URL + publicTaskEntity.publicTaskId
 
-        execution.setVariable("assigneeContactData", publicTaskEntity.pvAssigneeCandidateContactData)
+        execution.setVariable("assigneeCandidateContactData", publicTaskEntity.assigneeCandidateContactData)
         execution.setVariable("url", publicTaskUrl)
     }
 
@@ -49,6 +46,7 @@ class PublicTaskService(
                 isCompletedByPublicTask = publicTaskData.isCompletedByPublicTask
             )
         )
+    }
 
     fun createPublicTaskHtml(taskUuid: String): ResponseEntity<String> {
         // TODO: build it ;)

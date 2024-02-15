@@ -8,4 +8,8 @@ include(
         "smtpmail:backend:app",
         "smtpmail:backend:plugin",
         "smtpmail:frontend",
+        "printstraat:backend",
+        "printstraat:backend:app",
+        "printstraat:backend:plugin",
+        "printstraat:frontend",
 )

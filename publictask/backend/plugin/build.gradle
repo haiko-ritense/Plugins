@@ -65,6 +65,10 @@ dependencies {
 	implementation "com.fasterxml.jackson.core:jackson-annotations:2.14.2"
 	implementation "com.fasterxml.jackson.core:jackson-core:2.14.2"
 
+	// Thymeleaf
+	implementation("org.thymeleaf:thymeleaf:3.1.2.RELEASE")
+
+
 	// Testing
 	testImplementation "com.ritense.valtimo:document:${valtimoVersion}"
 	testImplementation "com.ritense.valtimo:local-resource:${valtimoVersion}"

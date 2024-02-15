@@ -27,7 +27,7 @@ class PrintstraatAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(PrintstraatPluginFactory::class)
-    fun slackPluginFactory(
+    fun printstraatPluginFactory(
         pluginService: PluginService
     ): PrintstraatPluginFactory {
         return PrintstraatPluginFactory(pluginService)

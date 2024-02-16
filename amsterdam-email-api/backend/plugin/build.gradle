@@ -17,7 +17,6 @@
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
         maven { url "https://repo.spring.io/plugins-release" }
         maven { url "https://repo.spring.io/milestone" }
         maven { url "https://plugins.gradle.org/m2/" }
@@ -39,7 +38,6 @@ plugins {
 repositories {
     mavenCentral()
     mavenLocal()
-    jcenter()
     maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
     maven { url "https://oss.sonatype.org/content/repositories/releases" }
     maven { url "https://s01.oss.sonatype.org/content/groups/staging/"}

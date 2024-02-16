@@ -1,11 +1,11 @@
 package com.ritense.valtimo.backend.plugin.domain
 
-import java.util.*
+import java.util.UUID
 
 data class PublicTaskData(
     val publicTaskId: UUID,
     val userTaskId: UUID,
-    val assigneeContactData: String,
+    val assigneeCandidateContactData: String,
     val timeToLive: Int,
     var isCompletedByPublicTask: Boolean
 ) {
@@ -13,12 +13,12 @@ data class PublicTaskData(
     companion object {
         fun from(
             userTaskId: UUID,
-            assigneeContactData: String,
+            assigneeCandidateContactData: String,
             timeToLive: String?,
         ): PublicTaskData = PublicTaskData(
             publicTaskId = UUID.randomUUID(),
             userTaskId = userTaskId,
-            assigneeContactData = assigneeContactData,
+            assigneeCandidateContactData = assigneeCandidateContactData,
             timeToLive = timeToLive?.toInt() ?: 28,
             isCompletedByPublicTask = false
         )

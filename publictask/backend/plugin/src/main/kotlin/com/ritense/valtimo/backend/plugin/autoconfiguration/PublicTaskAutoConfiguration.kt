@@ -17,7 +17,10 @@
 package com.ritense.valtimo.backend.plugin.autoconfiguration
 
 import com.ritense.plugin.service.PluginService
+import com.ritense.processlink.service.ProcessLinkActivityService
 import com.ritense.valtimo.backend.plugin.config.PublicTaskSecurityConfigurer
+import com.ritense.valtimo.backend.plugin.htmlrenderer.config.FreemarkerConfig
+import com.ritense.valtimo.backend.plugin.htmlrenderer.service.HtmlRenderService
 import com.ritense.valtimo.backend.plugin.plugin.PublicTaskPluginFactory
 import com.ritense.valtimo.backend.plugin.repository.PublicTaskRepository
 import com.ritense.valtimo.backend.plugin.service.PublicTaskService
@@ -33,17 +36,25 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 @EnableJpaRepositories(basePackages = ["com.ritense.valtimo.backend.plugin.repository"])
 @EntityScan("com.ritense.valtimo.backend.plugin.domain")
 class PublicTaskAutoConfiguration {
+
+    @Bean
+    fun freemarkerConfig() = FreemarkerConfig()
+
+    @Bean
+    fun htmlRenderService(
+        freemarkerConfig: FreemarkerConfig): HtmlRenderService = HtmlRenderService(freemarkerConfig = freemarkerConfig)
+
     @Bean
     fun publicTaskService(
         publicTaskRepository: PublicTaskRepository,
         runtimeService: RuntimeService,
-        formAssociationService: CamundaFormAssociationService,
-        documentService: DocumentService,
+        processLinkActivityService: ProcessLinkActivityService,
+        htmlRenderService: HtmlRenderService
     ): PublicTaskService = PublicTaskService(
         publicTaskRepository = publicTaskRepository,
         runtimeService = runtimeService,
-        formAssociationService = formAssociationService,
-        documentService = documentService
+        processLinkActivityService = processLinkActivityService,
+        htmlRenderService = htmlRenderService
     )
 
     @Bean

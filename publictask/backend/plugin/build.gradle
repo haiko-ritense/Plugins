@@ -51,7 +51,9 @@ repositories {
 dependencies {
 	implementation "com.ritense.valtimo:core:${valtimoVersion}"
 	implementation "com.ritense.valtimo:plugin-valtimo:${valtimoVersion}"
-	implementation "com.ritense.valtimo:temporary-resource-storage:${valtimoVersion}"
+	implementation "com.ritense.valtimo:plugin-valtimo:${valtimoVersion}"
+	implementation "com.ritense.valtimo:form:${valtimoVersion}"
+	implementation "com.ritense.valtimo:contract:${valtimoVersion}"
 	implementation "com.ritense.valtimo:value-resolver:${valtimoVersion}"
 
 	implementation "org.springframework.boot:spring-boot-starter-webflux:${springVersion}"
@@ -60,7 +62,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-
 	implementation("javax.persistence:javax.persistence-api:2.2")
 
 	implementation "io.github.microutils:kotlin-logging:3.0.5"
@@ -68,9 +69,8 @@ dependencies {
 	implementation "com.fasterxml.jackson.core:jackson-annotations:2.14.2"
 	implementation "com.fasterxml.jackson.core:jackson-core:2.14.2"
 
-	// Thymeleaf
-	implementation("org.thymeleaf:thymeleaf:3.1.2.RELEASE")
-
+	// Templating engine
+	implementation "org.freemarker:freemarker:2.3.31"
 
 	// Testing
 	testImplementation "com.ritense.valtimo:document:${valtimoVersion}"

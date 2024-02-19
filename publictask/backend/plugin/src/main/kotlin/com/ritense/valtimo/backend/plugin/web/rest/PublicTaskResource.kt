@@ -1,5 +1,6 @@
 package com.ritense.valtimo.backend.plugin.web.rest
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.ritense.valtimo.backend.plugin.service.PublicTaskService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -23,6 +24,6 @@ class PublicTaskResource(
     @PostMapping
     fun completeUserTask(
         @RequestParam publicTaskId: String,
-        @RequestBody submission: Map<String, Any>
-    ): ResponseEntity<String> = publicTaskService.completeUserTaskWithPublicTaskSubmission(submission)
+        @RequestBody submission: JsonNode
+    ): ResponseEntity<String> = publicTaskService.completeUserTaskWithPublicTaskSubmission(publicTaskId, submission)
 }

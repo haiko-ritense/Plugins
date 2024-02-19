@@ -6,7 +6,7 @@
   <bpmn:process id="create-url-process" isExecutable="true" camunda:historyTimeToLive="180">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:extensionElements>
-        <camunda:executionListener expression="${execution.setVariable(&#34;pvAssigneeContactData&#34;, &#34;test@test.com&#34;)}" event="start" />
+        <camunda:executionListener expression="${execution.setVariable(&#34;assigneeCandidateContactData&#34;, &#34;test@test.com&#34;)}" event="start" />
       </bpmn:extensionElements>
       <bpmn:outgoing>Flow_0mu3mzr</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0u4unx4" messageRef="Message_0jpcr6r" />

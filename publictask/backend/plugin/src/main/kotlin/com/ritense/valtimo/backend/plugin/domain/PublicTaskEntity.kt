@@ -33,6 +33,9 @@ data class PublicTaskEntity(
     @field:Column(name = "user_task_id")
     val userTaskId: UUID = UUID.randomUUID(),
 
+    @field:Column(name = "process_business_key")
+    val processBusinessKey: String = "",
+
     @field:Column(name = "assignee_candidate_contact_data")
     val assigneeCandidateContactData: String = "",
 

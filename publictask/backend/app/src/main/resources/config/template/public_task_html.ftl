@@ -48,7 +48,7 @@
 <div id="formio"></div>
 <script src="https://cdn.form.io/formiojs/formio.full.min.js"></script>
 <script>
-    var formJson = ${form_io_form};
+    const formJson = ${form_io_form};
 
     Formio.createForm(document.getElementById('formio'), formJson).then(function (form) {
         form.on('submit', function (submission) {

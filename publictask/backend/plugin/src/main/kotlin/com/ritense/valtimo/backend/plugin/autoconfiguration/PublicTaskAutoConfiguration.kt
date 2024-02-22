@@ -16,6 +16,7 @@
 
 package com.ritense.valtimo.backend.plugin.autoconfiguration
 
+import com.ritense.form.service.impl.DefaultFormSubmissionService
 import com.ritense.plugin.service.PluginService
 import com.ritense.processlink.service.ProcessLinkActivityService
 import com.ritense.valtimo.backend.plugin.config.PublicTaskSecurityConfigurer
@@ -49,12 +50,14 @@ class PublicTaskAutoConfiguration {
         publicTaskRepository: PublicTaskRepository,
         runtimeService: RuntimeService,
         processLinkActivityService: ProcessLinkActivityService,
-        htmlRenderService: HtmlRenderService
+        htmlRenderService: HtmlRenderService,
+        defaultFormSubmissionService: DefaultFormSubmissionService
     ): PublicTaskService = PublicTaskService(
         publicTaskRepository = publicTaskRepository,
         runtimeService = runtimeService,
         processLinkActivityService = processLinkActivityService,
-        htmlRenderService = htmlRenderService
+        htmlRenderService = htmlRenderService,
+        defaultFormSubmissionService = defaultFormSubmissionService
     )
 
     @Bean

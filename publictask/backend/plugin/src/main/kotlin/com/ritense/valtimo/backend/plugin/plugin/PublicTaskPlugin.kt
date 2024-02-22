@@ -49,6 +49,7 @@ class PublicTaskPlugin(
 
         val publicTaskData = PublicTaskData.from(
             userTaskId = UUID.fromString(execution.getVariableLocal("userTaskId") as String),
+            processBusinessKey = execution.processBusinessKey,
             assigneeCandidateContactData = pvAssigneeCandidateContactData,
             timeToLive = timeToLive
         )

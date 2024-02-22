@@ -1,6 +1,8 @@
 package com.ritense.valtimo.backend.plugin.service
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.ritense.form.domain.FormTaskOpenResultProperties
+import com.ritense.form.service.impl.DefaultFormSubmissionService
 import com.ritense.processlink.exception.ProcessLinkNotFoundException
 import com.ritense.processlink.service.ProcessLinkActivityService
 import com.ritense.valtimo.backend.plugin.domain.PublicTaskEntity
@@ -14,13 +16,15 @@ import org.camunda.bpm.engine.delegate.DelegateTask
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.time.LocalDate
 import java.util.UUID
 
 class PublicTaskService(
     private val publicTaskRepository: PublicTaskRepository,
     private val runtimeService: RuntimeService,
     private val processLinkActivityService: ProcessLinkActivityService,
-    private val htmlRenderService: HtmlRenderService
+    private val htmlRenderService: HtmlRenderService,
+    private val defaultFormSubmissionService: DefaultFormSubmissionService,
 ) {
 
     @Value("\${valtimo.url}")
@@ -51,21 +55,12 @@ class PublicTaskService(
         val userTaskId = publicTaskRepository.getReferenceById(UUID.fromString(publicTaskId)).userTaskId
 
         val camundaTaskData = try {
-            processLinkActivityService.openTask(userTaskId).properties
+            processLinkActivityService.openTask(userTaskId).properties as FormTaskOpenResultProperties
         } catch (e: Exception) {
-            return when (e) {
-                is ProcessLinkNotFoundException, is NullPointerException -> {
-                    ResponseEntity.status(HttpStatus.NOT_FOUND).body("This is not the task you're looking for")
-                }
-
-                else -> {
-                    ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("Something went wrong, try again (later) or contact your administrator")
-                }
-            }
+            return taskNotAvailableResponse(e)
         }
 
-        val formIoForm = (camundaTaskData as FormTaskOpenResultProperties).prefilledForm.toPrettyString()
+        val formIoForm = camundaTaskData.prefilledForm.toPrettyString()
         val formHtml = htmlRenderService.generatePublicTaskHtml(
             fileName = PUBLIC_TASK_FILE_NAME,
             variables = mapOf(
@@ -77,8 +72,32 @@ class PublicTaskService(
         return ResponseEntity(formHtml, HttpStatus.OK)
     }
 
-    fun completeUserTaskWithPublicTaskSubmission(submission: Map<String, Any>): ResponseEntity<String> {
-        // TODO: build it ;)
+    fun completeUserTaskWithPublicTaskSubmission(
+        publicTaskId: String,
+        submission: JsonNode
+    ): ResponseEntity<String> {
+
+        val publicTaskEntity = publicTaskRepository.getReferenceById(UUID.fromString(publicTaskId))
+
+        if (LocalDate.parse(publicTaskEntity.taskExpirationDate).isBefore(LocalDate.now())) return TASK_NOT_AVAILABLE_ERROR
+
+        val camundaTask = try {
+            processLinkActivityService.openTask(publicTaskEntity.userTaskId)
+        } catch (e: Exception) {
+            return taskNotAvailableResponse(e)
+        }
+
+        val formSubmissionResult = defaultFormSubmissionService.handleSubmission(
+            processLinkId = camundaTask.processLinkId,
+            formData = submission,
+            documentId = publicTaskEntity.processBusinessKey,
+            taskInstanceId = publicTaskEntity.userTaskId.toString()
+        )
+
+        if (formSubmissionResult.errors().isNotEmpty()) SERVER_SIDE_ERROR
+
+        publicTaskRepository.save(publicTaskEntity.copy(isCompletedByPublicTask = true))
+
         return ResponseEntity("Your response has been submitted", HttpStatus.OK)
     }
 
@@ -87,11 +106,17 @@ class PublicTaskService(
             PublicTaskEntity(
                 publicTaskId = publicTaskData.publicTaskId,
                 userTaskId = publicTaskData.userTaskId,
+                processBusinessKey = publicTaskData.processBusinessKey,
                 assigneeCandidateContactData = publicTaskData.assigneeCandidateContactData,
-                timeToLive = publicTaskData.timeToLive,
+                taskExpirationDate = publicTaskData.taskExpirationDate,
                 isCompletedByPublicTask = publicTaskData.isCompletedByPublicTask
             )
         )
+    }
+
+    private fun taskNotAvailableResponse(e: Exception): ResponseEntity<String> = when (e) {
+        is ProcessLinkNotFoundException, is NullPointerException -> TASK_NOT_AVAILABLE_ERROR
+        else -> SERVER_SIDE_ERROR
     }
 
     companion object {
@@ -102,5 +127,11 @@ class PublicTaskService(
         private const val NOTIFY_ASSIGNEE_PROCESS_MESSAGE_NAME = "startNotifyAssigneeMessage"
 
         private const val PUBLIC_TASK_FILE_NAME = "public_task_html"
+
+        private val SERVER_SIDE_ERROR = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body("Something went wrong, try again (later) or contact your administrator")
+
+        private val TASK_NOT_AVAILABLE_ERROR = ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body("This task does not exist (anymore) or is already completed.")
     }
 }

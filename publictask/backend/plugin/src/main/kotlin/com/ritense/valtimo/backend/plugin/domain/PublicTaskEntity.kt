@@ -33,11 +33,14 @@ data class PublicTaskEntity(
     @field:Column(name = "user_task_id")
     val userTaskId: UUID = UUID.randomUUID(),
 
+    @field:Column(name = "process_business_key")
+    val processBusinessKey: String = "",
+
     @field:Column(name = "assignee_candidate_contact_data")
     val assigneeCandidateContactData: String = "",
 
-    @field:Column(name = "time_to_live")
-    val timeToLive: Int = 0,
+    @field:Column(name = "task_expiration_date")
+    val taskExpirationDate: String = "",
 
     @field:Column(name = "is_completed_by_public_task")
     val isCompletedByPublicTask: Boolean = false,

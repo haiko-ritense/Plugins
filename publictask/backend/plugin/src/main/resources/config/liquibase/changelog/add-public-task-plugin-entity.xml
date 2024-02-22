@@ -33,7 +33,7 @@
             <column name="assignee_candidate_contact_data" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ttl" type="VARCHAR(5)">
+            <column name="task_expiration_date" type="VARCHAR(20)">
                 <constraints nullable="false"/>
             </column>
             <column name="is_completed_by_public_task" type="boolean">

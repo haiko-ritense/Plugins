@@ -16,6 +16,7 @@ import org.camunda.bpm.engine.delegate.DelegateTask
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.time.LocalDate
 import java.util.UUID
 
 class PublicTaskService(
@@ -78,6 +79,8 @@ class PublicTaskService(
 
         val publicTaskEntity = publicTaskRepository.getReferenceById(UUID.fromString(publicTaskId))
 
+        if (LocalDate.parse(publicTaskEntity.taskExpirationDate).isBefore(LocalDate.now())) return TASK_NOT_AVAILABLE_ERROR
+
         val camundaTask = try {
             processLinkActivityService.openTask(publicTaskEntity.userTaskId)
         } catch (e: Exception) {
@@ -105,18 +108,15 @@ class PublicTaskService(
                 userTaskId = publicTaskData.userTaskId,
                 processBusinessKey = publicTaskData.processBusinessKey,
                 assigneeCandidateContactData = publicTaskData.assigneeCandidateContactData,
-                timeToLive = publicTaskData.timeToLive,
+                taskExpirationDate = publicTaskData.taskExpirationDate,
                 isCompletedByPublicTask = publicTaskData.isCompletedByPublicTask
             )
         )
     }
 
     private fun taskNotAvailableResponse(e: Exception): ResponseEntity<String> = when (e) {
-        is ProcessLinkNotFoundException, is NullPointerException -> {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body("This task does not exist or is already completed.")
-        }
-
-        else -> { SERVER_SIDE_ERROR }
+        is ProcessLinkNotFoundException, is NullPointerException -> TASK_NOT_AVAILABLE_ERROR
+        else -> SERVER_SIDE_ERROR
     }
 
     companion object {
@@ -130,5 +130,8 @@ class PublicTaskService(
 
         private val SERVER_SIDE_ERROR = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body("Something went wrong, try again (later) or contact your administrator")
+
+        private val TASK_NOT_AVAILABLE_ERROR = ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body("This task does not exist (anymore) or is already completed.")
     }
 }

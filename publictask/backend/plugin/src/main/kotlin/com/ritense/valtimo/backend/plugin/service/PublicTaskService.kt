@@ -24,7 +24,7 @@ class PublicTaskService(
     private val runtimeService: RuntimeService,
     private val processLinkActivityService: ProcessLinkActivityService,
     private val htmlRenderService: HtmlRenderService,
-    private val defaultFormSubmissionService: DefaultFormSubmissionService
+    private val defaultFormSubmissionService: DefaultFormSubmissionService,
 ) {
 
     @Value("\${valtimo.url}")
@@ -90,7 +90,7 @@ class PublicTaskService(
         val formSubmissionResult = defaultFormSubmissionService.handleSubmission(
             processLinkId = camundaTask.processLinkId,
             formData = submission,
-            documentId = "3b7d5a8a-d0dd-4a8b-b31a-27837cebbe6e",
+            documentId = publicTaskEntity.processBusinessKey,
             taskInstanceId = publicTaskEntity.userTaskId.toString()
         )
 

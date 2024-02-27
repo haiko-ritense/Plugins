@@ -154,21 +154,8 @@ Desktop.ini
 
 **/AwsCredentials.properties
 
-/.gradle/
-/.idea/
-/slack/.gradle/
-/slack/build/
-/slack/frontend/.gradle/
-/slack/frontend/dist/
-/slack/frontend/node_modules/
-/slack/backend/.gradle/
-/slack/backend/app/.gradle/
-/slack/backend/app/build/
-/slack/backend/plugin/.gradle/
-/slack/backend/plugin/build/
-/amsterdam-email-api/backend/build/
-/amsterdam-email-api/backend/plugin/build/
-/amsterdam-email-api/frontend/node_modules/
-/amsterdam-email-api/backend/plugin/.gradle/
-/amsterdam-email-api/backend/app/build/
-/amsterdam-email-api/backend/plugin/.gradle/7.5/fileChanges/
+
+**/.gradle
+**/build/
+**/node_modules/
+**/dist/

@@ -154,15 +154,8 @@ Desktop.ini
 
 **/AwsCredentials.properties
 
-/.gradle/
-/.idea/
-/slack/.gradle/
-/slack/build/
-/slack/frontend/.gradle/
-/slack/frontend/dist/
-/slack/frontend/node_modules/
-/slack/backend/.gradle/
-/slack/backend/app/.gradle/
-/slack/backend/app/build/
-/slack/backend/plugin/.gradle/
-/slack/backend/plugin/build/
+
+**/.gradle
+**/build/
+**/node_modules/
+**/dist/

@@ -8,4 +8,12 @@ include(
         "smtpmail:backend:app",
         "smtpmail:backend:plugin",
         "smtpmail:frontend",
+        "alfresco-authentication:backend",
+        "alfresco-authentication:backend:app",
+        "alfresco-authentication:backend:plugin",
+        "alfresco-authentication:frontend",
+        "amsterdam-email-api:backend",
+        "amsterdam-email-api:backend:app",
+        "amsterdam-email-api:backend:plugin",
+        "amsterdam-email-api:frontend"
 )

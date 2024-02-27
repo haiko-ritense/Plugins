@@ -15,8 +15,6 @@
  *
  */
 
-
-
 package com.ritense.valtimo.alfresco
 
 import com.ritense.plugin.PluginFactory

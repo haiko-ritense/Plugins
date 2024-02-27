@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package com.ritense.valtimo.alfresco
 
 import com.ritense.plugin.service.PluginService

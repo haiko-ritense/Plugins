@@ -53,10 +53,10 @@ class ApplicationReadyEventListener(
 
         val configurationProperties = """
             {   
-                "emailApiBaseUrl": "https://erfpacht-gwextern-ont.amsterdam.nl/hera/mail/api/v1/mail",
-                "clientId": "erfpachtmedewerker-portaal-m2m",
-                "clientSecret": "VzvTmec67g4NFs1pGxCZv89R6sdq7rG9",
-                "tokenEndpoint": "https://id-erfpacht-ont.amsterdam.nl/auth/realms/hera/protocol/openid-connect/token"
+                "emailApiBaseUrl": "https://emailurl/mail/api/v1/mail",
+                "clientId": "testClient",
+                "clientSecret": "testSecret"
+                "tokenEndpoint": "https://tokenendpoint/auth/realms/realm/protocol/openid-connect/token"
             }"""
 
         return pluginService.createPluginConfiguration(

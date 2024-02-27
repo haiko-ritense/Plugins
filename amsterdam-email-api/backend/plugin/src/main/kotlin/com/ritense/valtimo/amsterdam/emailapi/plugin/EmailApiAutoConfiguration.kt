@@ -70,6 +70,7 @@ class EmailApiAutoConfiguration {
     fun createRestTemplate(): RestTemplate {
         val httpClient: CloseableHttpClient =
             HttpClients.custom()
+                // for internal network use only
                 .setSSLHostnameVerifier(NoopHostnameVerifier())
                 .build()
 

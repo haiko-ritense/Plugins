@@ -54,6 +54,10 @@ dependencies {
 	implementation "com.ritense.valtimo:plugin-valtimo:${valtimoVersion}"
 	implementation "com.ritense.valtimo:form:${valtimoVersion}"
 	implementation "com.ritense.valtimo:contract:${valtimoVersion}"
+	implementation "com.ritense.valtimo:document:${valtimoVersion}"
+	implementation "com.ritense.valtimo:process-document:${valtimoVersion}"
+	implementation "com.ritense.valtimo:audit:${valtimoVersion}"
+	implementation "com.ritense.valtimo:authorization:${valtimoVersion}"
 	implementation "com.ritense.valtimo:value-resolver:${valtimoVersion}"
 
 	implementation "org.springframework.boot:spring-boot-starter-webflux:${springVersion}"

@@ -19,6 +19,7 @@ package com.ritense.valtimo.backend.plugin.autoconfiguration
 import com.ritense.valtimo.contract.config.LiquibaseMasterChangeLogLocation
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
@@ -30,6 +31,7 @@ class PublicTaskLiquibaseAutoConfiguration {
 
     @Order(Ordered.HIGHEST_PRECEDENCE + 25)
     @Bean
+    @ConditionalOnMissingBean(name = ["liquibaseMasterChangeLogLocation"])
     fun publicTaskLiquibaseChangeLogLocation(): LiquibaseMasterChangeLogLocation {
         return LiquibaseMasterChangeLogLocation("config/liquibase/public-task-master.xml")
     }

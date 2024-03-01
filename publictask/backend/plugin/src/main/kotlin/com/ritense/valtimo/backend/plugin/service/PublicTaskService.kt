@@ -1,6 +1,7 @@
 package com.ritense.valtimo.backend.plugin.service
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.ritense.authorization.AuthorizationContext.Companion.runWithoutAuthorization
 import com.ritense.form.domain.FormTaskOpenResultProperties
 import com.ritense.form.service.impl.DefaultFormSubmissionService
 import com.ritense.processlink.exception.ProcessLinkNotFoundException
@@ -51,23 +52,21 @@ class PublicTaskService(
     }
 
     fun createPublicTaskHtml(publicTaskId: String): ResponseEntity<String> {
-
-        val userTaskId = publicTaskRepository.getReferenceById(UUID.fromString(publicTaskId)).userTaskId
-
-        val camundaTaskData = try {
-            processLinkActivityService.openTask(userTaskId).properties as FormTaskOpenResultProperties
+        val formHtml = try {
+            val userTaskId = publicTaskRepository.getReferenceById(UUID.fromString(publicTaskId)).userTaskId
+            val camundaTaskData = runWithoutAuthorization {
+                 processLinkActivityService.openTask(userTaskId).properties as FormTaskOpenResultProperties
+            }
+            htmlRenderService.generatePublicTaskHtml(
+                fileName = PUBLIC_TASK_FILE_NAME,
+                variables = mapOf(
+                    "form_io_form" to camundaTaskData.prefilledForm.toPrettyString(),
+                    "public_task_url" to "$baseUrl$PUBLIC_TASK_URL?publicTaskId=$publicTaskId"
+                )
+            )
         } catch (e: Exception) {
             return taskNotAvailableResponse(e)
         }
-
-        val formIoForm = camundaTaskData.prefilledForm.toPrettyString()
-        val formHtml = htmlRenderService.generatePublicTaskHtml(
-            fileName = PUBLIC_TASK_FILE_NAME,
-            variables = mapOf(
-                "form_io_form" to formIoForm,
-                "public_task_url" to "$baseUrl$PUBLIC_TASK_URL?publicTaskId=$publicTaskId"
-            )
-        )
 
         return ResponseEntity(formHtml, HttpStatus.OK)
     }
@@ -82,21 +81,29 @@ class PublicTaskService(
         if (LocalDate.parse(publicTaskEntity.taskExpirationDate).isBefore(LocalDate.now())) return TASK_NOT_AVAILABLE_ERROR
 
         val camundaTask = try {
-            processLinkActivityService.openTask(publicTaskEntity.userTaskId)
+            runWithoutAuthorization {
+                processLinkActivityService.openTask(publicTaskEntity.userTaskId)
+            }
         } catch (e: Exception) {
             return taskNotAvailableResponse(e)
         }
 
-        val formSubmissionResult = defaultFormSubmissionService.handleSubmission(
-            processLinkId = camundaTask.processLinkId,
-            formData = submission,
-            documentId = publicTaskEntity.processBusinessKey,
-            taskInstanceId = publicTaskEntity.userTaskId.toString()
-        )
-
-        if (formSubmissionResult.errors().isNotEmpty()) SERVER_SIDE_ERROR
-
         publicTaskRepository.save(publicTaskEntity.copy(isCompletedByPublicTask = true))
+
+        val formSubmissionResult = runWithoutAuthorization {
+            defaultFormSubmissionService.handleSubmission(
+                processLinkId = camundaTask.processLinkId,
+                formData = submission,
+                documentId = publicTaskEntity.processBusinessKey,
+                documentDefinitionName = null,
+                taskInstanceId = publicTaskEntity.userTaskId.toString(),
+            )
+        }
+
+        if (formSubmissionResult.errors().isNotEmpty()) {
+            publicTaskRepository.save(publicTaskEntity.copy(isCompletedByPublicTask = false))
+            return SERVER_SIDE_ERROR
+        }
 
         return ResponseEntity("Your response has been submitted", HttpStatus.OK)
     }

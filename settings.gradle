@@ -14,4 +14,14 @@ include(
         "publictask:backend:app",
         "publictask:backend:plugin",
         "publictask:frontend",
+
+        "alfresco-authentication:backend",
+        "alfresco-authentication:backend:app",
+        "alfresco-authentication:backend:plugin",
+        "alfresco-authentication:frontend",
+
+        "amsterdam-email-api:backend",
+        "amsterdam-email-api:backend:app",
+        "amsterdam-email-api:backend:plugin",
+        "amsterdam-email-api:frontend"
 )

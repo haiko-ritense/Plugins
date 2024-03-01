@@ -1,8 +1,13 @@
 package com.ritense.valtimo.backend.plugin.audit
 
-import com.ritense.valtimo.contract.audit.*
+import com.ritense.valtimo.contract.audit.ProcessIdentity
+import com.ritense.valtimo.contract.audit.VariableScope
+import com.ritense.valtimo.contract.audit.AuditEvent
+import com.ritense.valtimo.contract.audit.AuditMetaData
+import com.ritense.valtimo.contract.audit.TaskIdentity
+import com.ritense.valtimo.contract.audit.TaskMetaData
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 data class PublicTaskCompletedEvent(
     private val id: UUID,

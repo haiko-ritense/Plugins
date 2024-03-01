@@ -44,7 +44,10 @@ class PublicTaskAutoConfiguration {
 
     @Bean
     fun htmlRenderService(
-        freemarkerConfig: FreemarkerConfig): HtmlRenderService = HtmlRenderService(freemarkerConfig = freemarkerConfig)
+        freemarkerConfig: FreemarkerConfig
+    ): HtmlRenderService = HtmlRenderService(
+        freemarkerConfig = freemarkerConfig
+    )
 
     @Bean
     @ProcessBean

@@ -9,7 +9,7 @@ import org.camunda.bpm.engine.delegate.DelegateTask
 import org.springframework.context.ApplicationEventPublisher
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.util.*
+import java.util.UUID
 
 class PublicTaskCompletedListener(
     private val applicationEventPublisher: ApplicationEventPublisher,

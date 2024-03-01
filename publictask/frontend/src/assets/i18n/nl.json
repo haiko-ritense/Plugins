@@ -5,7 +5,7 @@
     "TaskAssignedEvent": "Taak toegewezen <i class=\"mdi mdi-arrow-right\"></i> {{taskName}}",
     "JsonSchemaDocumentCreatedEvent": "Dossier aangemaakt",
     "JsonSchemaDocumentModifiedEvent": "Dossier aangepast",
-    "ProcessStartedEvent": "Proces gestart blaaaaaaa",
+    "ProcessStartedEvent": "Proces gestart",
     "ProcessEndedEvent": "Proces afgerond",
     "DossierDocumentGeneratedEvent": "Dossier document gegenereerd",
     "DocumentRelatedFileAddedEvent": "Gerelateerd bestand toegevoegd",

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2022 Ritense BV, the Netherlands.
+ * Copyright 2015-2024 Ritense BV, the Netherlands.
  *
  * Licensed under EUPL, Version 1.2 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import com.ritense.valtimo.backend.plugin.repository.PublicTaskRepository
 import com.ritense.valtimo.backend.plugin.service.PublicTaskService
 import com.ritense.valtimo.contract.annotation.ProcessBean
 import org.camunda.bpm.engine.RuntimeService
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.context.annotation.Bean
@@ -56,13 +57,15 @@ class PublicTaskAutoConfiguration {
         runtimeService: RuntimeService,
         processLinkActivityService: ProcessLinkActivityService,
         htmlRenderService: HtmlRenderService,
-        defaultFormSubmissionService: DefaultFormSubmissionService
+        defaultFormSubmissionService: DefaultFormSubmissionService,
+        @Value("\${valtimo.url}") baseUrl: String,
     ): PublicTaskService = PublicTaskService(
         publicTaskRepository = publicTaskRepository,
         runtimeService = runtimeService,
         processLinkActivityService = processLinkActivityService,
         htmlRenderService = htmlRenderService,
-        defaultFormSubmissionService = defaultFormSubmissionService
+        defaultFormSubmissionService = defaultFormSubmissionService,
+        baseUrl = baseUrl
     )
 
     @Bean

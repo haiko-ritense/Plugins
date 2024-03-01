@@ -1,12 +1,14 @@
 [
     {
-        "formName": "start-form-example",
-        "formLinkElementId": "StartEvent",
-        "formAssociationType": "start-event"
+        "activityId": "StartEvent",
+        "activityType": "bpmn:StartEvent:start",
+        "processLinkType": "form",
+        "formDefinitionName": "start-form-example"
     },
     {
-        "formName": "aanvraag-example",
-        "formLinkElementId": "PublicTaskUrlTask",
-        "formAssociationType": "user-task"
+        "activityId": "PublicTaskUrlTask",
+        "activityType": "bpmn:UserTask:start",
+        "processLinkType": "form",
+        "formDefinitionName": "aanvraag-example"
     }
 ]

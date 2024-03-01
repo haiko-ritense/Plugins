@@ -22,7 +22,6 @@ import {
   ValtimoKeycloakOptions,
 } from '@valtimo/keycloak';
 import {KeycloakConfig, KeycloakOnLoad} from 'keycloak-js';
-import {Injector} from '@angular/core';
 import {Auth, AuthProviders} from '@valtimo/config';
 
 const keycloakAuthenticationProviders: AuthProviders = {
@@ -31,7 +30,7 @@ const keycloakAuthenticationProviders: AuthProviders = {
 };
 
 const keycloakConfigDev: KeycloakConfig = {
-  url: 'http://localhost:8082/auth/',
+  url: 'http://localhost:8081/auth/',
   realm: 'valtimo',
   clientId: 'valtimo-console',
 };

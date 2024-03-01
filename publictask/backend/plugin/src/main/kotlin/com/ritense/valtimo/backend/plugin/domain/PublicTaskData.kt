@@ -1,6 +1,6 @@
 package com.ritense.valtimo.backend.plugin.domain
 
-import java.time.ZonedDateTime
+import java.time.LocalDate
 import java.util.UUID
 
 data class PublicTaskData(
@@ -23,7 +23,7 @@ data class PublicTaskData(
             userTaskId = userTaskId,
             processBusinessKey = processBusinessKey,
             assigneeCandidateContactData = assigneeCandidateContactData,
-            taskExpirationDate = ZonedDateTime.now().plusDays(timeToLive?.toLong() ?: 28L ).toString(),
+            taskExpirationDate = LocalDate.now().plusDays(timeToLive?.toLong() ?: 28L ).toString(),
             isCompletedByPublicTask = false
         )
     }

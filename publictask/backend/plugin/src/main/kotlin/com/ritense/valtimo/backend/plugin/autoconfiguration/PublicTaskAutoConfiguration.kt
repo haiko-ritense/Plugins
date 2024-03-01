@@ -25,6 +25,7 @@ import com.ritense.valtimo.backend.plugin.htmlrenderer.service.HtmlRenderService
 import com.ritense.valtimo.backend.plugin.plugin.PublicTaskPluginFactory
 import com.ritense.valtimo.backend.plugin.repository.PublicTaskRepository
 import com.ritense.valtimo.backend.plugin.service.PublicTaskService
+import com.ritense.valtimo.contract.annotation.ProcessBean
 import org.camunda.bpm.engine.RuntimeService
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.domain.EntityScan
@@ -46,6 +47,7 @@ class PublicTaskAutoConfiguration {
         freemarkerConfig: FreemarkerConfig): HtmlRenderService = HtmlRenderService(freemarkerConfig = freemarkerConfig)
 
     @Bean
+    @ProcessBean
     fun publicTaskService(
         publicTaskRepository: PublicTaskRepository,
         runtimeService: RuntimeService,

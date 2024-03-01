@@ -18,7 +18,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 import {NgxLoggerLevel} from 'ngx-logger';
-import {ROLE_ADMIN, ROLE_DEVELOPER, ROLE_USER, ValtimoConfig, UploadProvider, IncludeFunction} from '@valtimo/config';
+import {ROLE_ADMIN, ROLE_USER, ValtimoConfig, UploadProvider} from '@valtimo/config';
 import {authenticationKeycloak} from './auth/keycloak-config.dev';
 import {LOGO_BASE_64} from './logo';
 
@@ -58,22 +58,12 @@ export const environment: ValtimoConfig = {
           {link: ['/decision-tables'], title: 'Decision tables', sequence: 4},
           {link: ['/dossier-management'], title: 'Dossiers', sequence: 5},
           {link: ['/object-management'], title: 'Objects', sequence: 6},
-          {link: ['/connectors'], title: 'Connectors', sequence: 7},
           {link: ['/plugins'], title: 'Plugins', sequence: 8},
-          {link: ['/form-links'], title: 'Form links', sequence: 9},
-          {link: ['/process-links'], title: 'Form links Plugin', sequence: 10},
-          {title: 'A&E', textClass: 'text-dark font-weight-bold c-default', sequence: 11},
-          {link: ['/contexts'], title: 'Contexts', sequence: 12},
-          {link: ['/users'], title: 'Users', sequence: 13},
-          {link: ['/entitlements'], title: 'Entitlements', sequence: 14},
-          {title: 'Other', textClass: 'text-dark font-weight-bold c-default', sequence: 15},
-          {link: ['/process-migration'], title: 'Process migration', sequence: 16},
-          {link: ['/choice-fields'], title: 'Choice fields', sequence: 17},
-        ]
-      },
-      {
-        roles: [ROLE_DEVELOPER], title: 'Development', iconClass: 'icon mdi mdi-code', sequence: 5, children: [
-          {link: ['/swagger'], title: 'Swagger', iconClass: 'icon mdi mdi-dot-circle', sequence: 1}
+          {link: ['/process-links'], title: 'Process links', sequence: 9},
+          {link: ['/access-control'], title: 'Access Control', sequence: 10},
+          {title: 'Other', textClass: 'text-dark font-weight-bold c-default', sequence: 11},
+          {link: ['/process-migration'], title: 'Process migration', sequence: 12},
+          {link: ['/choice-fields'], title: 'Choice fields', sequence: 13},
         ]
       }
     ]
@@ -86,7 +76,7 @@ export const environment: ValtimoConfig = {
     endpointUri: '/api/',
   },
   swagger: {
-    endpointUri: '/v2/api-docs',
+    endpointUri: '/v3/api-docs',
   },
   logger: {
     level: NgxLoggerLevel.TRACE
@@ -97,6 +87,9 @@ export const environment: ValtimoConfig = {
   openZaak: {
     catalogus: '00000000-0000-0000-0000-000000000000',
   },
+  translationResources: [
+    './assets/i18n/'
+  ],
   uploadProvider: UploadProvider.S3,
   caseFileSizeUploadLimitMB: 100,
   defaultDefinitionTable: defaultDefinitionColumns,

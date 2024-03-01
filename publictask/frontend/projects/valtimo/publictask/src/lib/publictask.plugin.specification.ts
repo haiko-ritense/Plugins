@@ -29,18 +29,21 @@ const publictaskPluginSpecification: PluginSpecification = {
   pluginTranslations: {
     nl: {
       title: "public-task",
+      configurationTitle: "De naam van de plugin",
       description: "Met deze plugin kan een Usertask beschikbaar worden gemaakt buiten de Valtimo UI",
       pvAssigneeCandidateContactData: "de process variable waarin de assignee Candidate wordt bewaard. Start met pv:",
       timeToLive: "Time To Live voor de URL. Default is 28 dagen"
     },
     en: {
       title: "public-task",
+      configurationTitle: "The name of the plugin",
       description: "The Public Task plugin module contains a plugin for making user tasks available outside the Valtimo UI",
       pvAssigneeCandidateContactData: "the process variable in which the assignee Candidate is saved. Start with pv:",
       timeToLive: "Time To Live of the URL. Default is 28 days"
     },
     de: {
       title: "public-task",
+      configurationTitle: "Der Name des Plugins",
       description: "Das Public Task Plugin-Modul enthält ein Plugin, um Benutzeraufgaben außerhalb der Valtimo-Oberfläche verfügbar zu machen",
       pvAssigneeCandidateContactData: "Die Prozessvariable, in der der assignee Candidate gespeichert wird. Start mit pv: ",
       timeToLive: "Time To Live fur der URL. Standardmäßig sind es 28 Tage"

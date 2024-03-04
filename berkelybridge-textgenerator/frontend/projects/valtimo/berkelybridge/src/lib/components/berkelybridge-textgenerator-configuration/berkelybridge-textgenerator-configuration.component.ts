@@ -18,47 +18,50 @@
  */
 
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {FunctionConfigurationComponent} from '@valtimo/plugin';
+import {PluginConfigurationComponent} from '@valtimo/plugin';
 import {BehaviorSubject, combineLatest, Observable, Subscription, take} from 'rxjs';
-import {SendEmailConfig} from "../../models";
+import {BerkelyBridgeTextGeneratorConfig} from "../../models";
 
 @Component({
-  selector: 'valtimo-send-email-configuration',
-  templateUrl: './send-email-configuration.component.html',
-  styleUrls: ['./send-email-configuration.component.scss'],
+  selector: 'valtimo-berkelybridge-textgenerator-configuration',
+  templateUrl: './berkelybridge-textgenerator-configuration.component.html',
+  styleUrls: ['./berkelybridge-textgenerator-configuration.component.scss'],
 })
-export class SendEmailConfigurationComponent
-  implements FunctionConfigurationComponent, OnInit, OnDestroy
+export class BerkelybridgeTextgeneratorConfigurationComponent
+  implements PluginConfigurationComponent, OnInit, OnDestroy
 {
+  @Input() save$: Observable<void>;
   @Input() disabled$: Observable<boolean>;
   @Input() pluginId: string;
-  @Input() prefillConfiguration$: Observable<SendEmailConfig>;
-  @Input() save$: Observable<void>;
-  @Output() configuration: EventEmitter<SendEmailConfig> = new EventEmitter<SendEmailConfig>();
+  @Input() prefillConfiguration$: Observable<BerkelyBridgeTextGeneratorConfig>;
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() configuration: EventEmitter<BerkelyBridgeTextGeneratorConfig> =
+      new EventEmitter<BerkelyBridgeTextGeneratorConfig>();
 
-  private readonly formValue$ = new BehaviorSubject<SendEmailConfig | null>(null);
   private saveSubscription!: Subscription;
+
+  private readonly formValue$ = new BehaviorSubject<BerkelyBridgeTextGeneratorConfig | null>(null);
   private readonly valid$ = new BehaviorSubject<boolean>(false);
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.openSaveSubscription();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy() {
     this.saveSubscription?.unsubscribe();
   }
 
-  public formValueChange(formValue: SendEmailConfig): void {
+  formValueChange(formValue: BerkelyBridgeTextGeneratorConfig): void {
     this.formValue$.next(formValue);
     this.handleValid(formValue);
   }
 
-  private handleValid(formValue: SendEmailConfig): void {
-    const valid = !!(formValue.toEmail)
-        && !!(formValue.emailSubject)
-        && !!(formValue.contentHtml)
-        && !!(formValue.fromAddress);
+  private handleValid(formValue: BerkelyBridgeTextGeneratorConfig): void {
+    const valid = !!(formValue.configurationTitle
+        && formValue.clientId
+        && formValue.clientSecret
+        && formValue.emailApiBaseUrl
+        && formValue.tokenEndpoint);
 
     this.valid$.next(valid);
     this.valid.emit(valid);

@@ -18,50 +18,45 @@
  */
 
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {PluginConfigurationComponent} from '@valtimo/plugin';
+import {FunctionConfigurationComponent} from '@valtimo/plugin';
 import {BehaviorSubject, combineLatest, Observable, Subscription, take} from 'rxjs';
-import {AmsterdamEmailApiConfig} from "../../models";
+import {TextGeneratieConfig} from "../../models";
 
 @Component({
-  selector: 'valtimo-amsterdam-emailapi-configuration',
-  templateUrl: './amsterdam-emailapi-configuration.component.html',
-  styleUrls: ['./amsterdam-emailapi-configuration.component.scss'],
+  selector: 'valtimo-text-generation-configuration',
+  templateUrl: './text-generation-configuration.component.html',
+  styleUrls: ['./text-generation-configuration.component.scss'],
 })
-export class AmsterdamEmailapiConfigurationComponent
-  implements PluginConfigurationComponent, OnInit, OnDestroy
+export class TextGenerationConfigurationComponent
+  implements FunctionConfigurationComponent, OnInit, OnDestroy
 {
-  @Input() save$: Observable<void>;
   @Input() disabled$: Observable<boolean>;
   @Input() pluginId: string;
-  @Input() prefillConfiguration$: Observable<AmsterdamEmailApiConfig>;
+  @Input() prefillConfiguration$: Observable<TextGeneratieConfig>;
+  @Input() save$: Observable<void>;
+  @Output() configuration: EventEmitter<TextGeneratieConfig> = new EventEmitter<TextGeneratieConfig>();
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() configuration: EventEmitter<AmsterdamEmailApiConfig> =
-      new EventEmitter<AmsterdamEmailApiConfig>();
 
+  private readonly formValue$ = new BehaviorSubject<TextGeneratieConfig | null>(null);
   private saveSubscription!: Subscription;
-
-  private readonly formValue$ = new BehaviorSubject<AmsterdamEmailApiConfig | null>(null);
   private readonly valid$ = new BehaviorSubject<boolean>(false);
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.openSaveSubscription();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.saveSubscription?.unsubscribe();
   }
 
-  formValueChange(formValue: AmsterdamEmailApiConfig): void {
+  public formValueChange(formValue: TextGeneratieConfig): void {
     this.formValue$.next(formValue);
     this.handleValid(formValue);
   }
 
-  private handleValid(formValue: AmsterdamEmailApiConfig): void {
-    const valid = !!(formValue.configurationTitle
-        && formValue.clientId
-        && formValue.clientSecret
-        && formValue.emailApiBaseUrl
-        && formValue.tokenEndpoint);
+  private handleValid(formValue: TextGeneratieConfig): void {
+    const valid = !!(formValue.modelId)
+        && !!(formValue.templateId);
 
     this.valid$.next(valid);
     this.valid.emit(valid);

@@ -22,5 +22,5 @@
  */
 
 export * from './lib/models';
-export * from './lib/amsterdam-emailapi-plugin-module';
-export * from './lib/amsterdam-emailapi-plugin.specification';
+export * from './lib/berkelybridge-textgenerator-plugin-module';
+export * from './lib/berkelybridge-textgenerator-plugin.specification';

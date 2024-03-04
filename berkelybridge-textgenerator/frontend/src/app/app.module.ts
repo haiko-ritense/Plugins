@@ -63,11 +63,11 @@ import {
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {GridModule, IconModule, TilesModule} from "carbon-components-angular";
 import {
-  AmsterdamEmailapiPluginModule
-} from "../../projects/valtimo/berkelybridge/src/lib/amsterdam-emailapi-plugin-module";
+  BerkelybridgeTextgeneratorPluginModule
+} from "../../projects/valtimo/berkelybridge/src/lib/berkelybridge-textgenerator-plugin-module";
 import {
-  amsterdamEmailapiPluginSpecification
-} from "../../projects/valtimo/berkelybridge/src/lib/amsterdam-emailapi-plugin.specification";
+  berkelybridgeTextgeneratorPluginSpecification
+} from "../../projects/valtimo/berkelybridge/src/lib/berkelybridge-textgenerator-plugin.specification";
 import {ObjectManagementModule} from "@valtimo/object-management";
 import {ObjectModule} from "@valtimo/object";
 
@@ -144,13 +144,13 @@ export function tabsFactory() {
     ObjectTokenAuthenticationPluginModule,
     ObjectModule,
     ObjectManagementModule,
-    AmsterdamEmailapiPluginModule,
+    BerkelybridgeTextgeneratorPluginModule,
   ],
   providers: [
     {
       provide: PLUGINS_TOKEN,
       useValue: [
-        amsterdamEmailapiPluginSpecification,
+        berkelybridgeTextgeneratorPluginSpecification,
         objectenApiPluginSpecification,
         objecttypenApiPluginSpecification,
         objectTokenAuthenticationPluginSpecification

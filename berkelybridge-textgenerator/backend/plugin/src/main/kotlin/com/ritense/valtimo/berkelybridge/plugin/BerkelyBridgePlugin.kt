@@ -57,11 +57,12 @@ class BerkelyBridgePlugin(
     )
     fun generateText(
         execution: DelegateExecution,
+        @PluginActionProperty modelId: String,
         @PluginActionProperty templateId: String,
         @PluginActionProperty parametersId: String,
         @PluginActionProperty naam: String,
     ) {
-        bbClient.generate(bbUrl = bbUrl,  templateId = resolveValue(execution, templateId) as String,
+        bbClient.generate(bbUrl = bbUrl, modelId = resolveValue(execution, modelId) as String, templateId = resolveValue(execution, templateId) as String,
             parameterMap = resolveValue(execution, parametersId) as MutableMap<String, Object>,
             naam = resolveValue(execution, naam) as String)
 

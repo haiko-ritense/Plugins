@@ -18,23 +18,23 @@
  */
 
 import {NgModule} from '@angular/core';
-import {AmsterdamEmailapiConfigurationComponent} from './components/amsterdam-emailapi-configuration/amsterdam-emailapi-configuration.component';
+import {BerkelybridgeTextgeneratorConfigurationComponent} from './components/berkelybridge-textgenerator-configuration/berkelybridge-textgenerator-configuration.component';
 import {CommonModule} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
 
 import {FormsModule} from "@angular/forms";
 import {FormModule, InputModule} from "@valtimo/components";
-import {SendEmailConfigurationComponent} from "./components/send-email/send-email-configuration.component";
+import {TextGenerationConfigurationComponent} from "./components/text-generation/text-generation-configuration.component";
 
 @NgModule({
   declarations: [
-    AmsterdamEmailapiConfigurationComponent,
-    SendEmailConfigurationComponent
+    BerkelybridgeTextgeneratorConfigurationComponent,
+    TextGenerationConfigurationComponent
   ],
   imports: [CommonModule, PluginTranslatePipeModule, FormModule, InputModule, FormsModule, PluginTranslatePipeModule, FormModule, FormModule, FormModule, FormModule],
   exports: [
-    AmsterdamEmailapiConfigurationComponent,
-    SendEmailConfigurationComponent
+    BerkelybridgeTextgeneratorConfigurationComponent,
+    TextGenerationConfigurationComponent
   ],
 })
-export class AmsterdamEmailapiPluginModule {}
+export class BerkelybridgeTextgeneratorPluginModule {}

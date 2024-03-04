@@ -18,16 +18,16 @@
  */
 
 import {PluginSpecification} from '@valtimo/plugin';
-import {AmsterdamEmailapiConfigurationComponent} from './components/amsterdam-emailapi-configuration/amsterdam-emailapi-configuration.component';
+import {BerkelybridgeTextgeneratorConfigurationComponent} from './components/berkelybridge-textgenerator-configuration/berkelybridge-textgenerator-configuration.component';
 import {AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64} from './assets';
-import {SendEmailConfigurationComponent} from "./components/send-email/send-email-configuration.component";
+import {TextGenerationConfigurationComponent} from "./components/text-generation/text-generation-configuration.component";
 
-const amsterdamEmailapiPluginSpecification: PluginSpecification = {
+const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
   pluginId: 'amsterdamemailapi',
-  pluginConfigurationComponent: AmsterdamEmailapiConfigurationComponent,
+  pluginConfigurationComponent: BerkelybridgeTextgeneratorConfigurationComponent,
   pluginLogoBase64: AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64,
   functionConfigurationComponents: {
-    'zend-email': SendEmailConfigurationComponent
+    'zend-email': TextGenerationConfigurationComponent
   },
   pluginTranslations: {
     nl: {
@@ -94,4 +94,4 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
   },
 };
 
-export {amsterdamEmailapiPluginSpecification};
+export {berkelybridgeTextgeneratorPluginSpecification};

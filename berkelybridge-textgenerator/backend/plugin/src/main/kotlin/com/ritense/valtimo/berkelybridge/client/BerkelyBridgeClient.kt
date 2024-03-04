@@ -38,9 +38,9 @@ class BerkelyBridgeClient(
     private val restTemplate: RestTemplate,
     private val eventPublisher: ApplicationEventPublisher,
 ) {
-    fun generate(bbUrl: String, templateId: String, parameterMap: MutableMap<String, Object>, naam: String) {
+    fun generate(bbUrl: String, modelId: String, templateId: String, parameterMap: MutableMap<String, Object>, naam: String) {
         try {
-            logger.debug { "generating with template $templateId" }
+            logger.debug { "generating with template $templateId and model: $modelId" }
 
             val requestBody = BerkelyBridgeRequestBody(templateId = templateId, parameters = parameterMap, naam = naam)
 
@@ -57,7 +57,7 @@ class BerkelyBridgeClient(
             else if (response.statusCode.equals(HttpStatus.BAD_REQUEST)) {
                 var event = BerkelyBridgeClientEvent("failed to generate")
                 eventPublisher.publishEvent(event)
-                logger.warn { "failed to generate for templated: $templateId" }
+                logger.warn { "failed to generate for templated: $templateId and model: $modelId"  }
             }
             else if (response.statusCode.equals(HttpStatus.UNAUTHORIZED)) {
                 logger.warn { "berkely bridge generating unauthorized" }

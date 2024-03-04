@@ -19,16 +19,13 @@
 
 import {PluginConfigurationData} from '@valtimo/plugin';
 
-interface AmsterdamEmailApiConfig extends PluginConfigurationData {
-  emailApiBaseUrl: string;
-  clientId: string;
-  clientSecret: string;
-  tokenEndpoint: string;
+interface BerkelyBridgeTextGeneratorConfig extends PluginConfigurationData {
+  berkelybridgeBaseUrl: string;
 }
 
-interface SendEmailConfig {
-  toEmail: string;
-  toName: string;
+interface TextGeneratieConfig {
+  modelId: string;
+  templateId: string;
   fromAddress: string;
   ccEmail: string;
   ccName: string;
@@ -38,4 +35,4 @@ interface SendEmailConfig {
   contentHtml: string;
 }
 
-export {AmsterdamEmailApiConfig, SendEmailConfig};
+export {BerkelyBridgeTextGeneratorConfig, TextGeneratieConfig};

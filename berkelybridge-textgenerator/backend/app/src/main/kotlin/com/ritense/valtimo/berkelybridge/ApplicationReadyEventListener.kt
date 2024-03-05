@@ -26,6 +26,7 @@ import com.ritense.plugin.domain.PluginConfiguration
 import com.ritense.plugin.service.PluginConfigurationSearchParameters
 import com.ritense.plugin.service.PluginService
 import com.ritense.valtimo.contract.json.Mapper
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
@@ -34,6 +35,7 @@ import org.springframework.stereotype.Component
 class ApplicationReadyEventListener(
     private val pluginService: PluginService,
     private val documentDefinitionService: DocumentDefinitionService,
+    @Value("\${bbUrl}") private val bbUrl: String,
 ) {
 
     @EventListener(ApplicationReadyEvent::class)
@@ -51,10 +53,7 @@ class ApplicationReadyEventListener(
 
         val configurationProperties = """
             {   
-                "emailApiBaseUrl": "https://emailurl/mail/api/v1/mail",
-                "clientId": "testClient",
-                "clientSecret": "testSecret"
-                "tokenEndpoint": "https://tokenendpoint/auth/realms/realm/protocol/openid-connect/token"
+                "berkelybridgeBaseUrl": "${bbUrl}",
             }"""
 
         return pluginService.createPluginConfiguration(

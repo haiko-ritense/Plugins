@@ -42,7 +42,6 @@ private const val UTF8 = "utf-8"
 )
 class BerkelyBridgePlugin(
     private val bbClient: BerkelyBridgeClient,
-    private val restTemplate: RestTemplate,
     private val valueResolverService: ValueResolverService
 ) {
 

@@ -28,8 +28,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
-import java.awt.Stroke
-import java.net.URI
 
 
 private val logger = KotlinLogging.logger {}
@@ -39,32 +37,70 @@ class BerkelyBridgeClient(
     private val eventPublisher: ApplicationEventPublisher,
 ) {
     fun generate(bbUrl: String, modelId: String, templateId: String, parameterMap: MutableMap<String, Object>, naam: String) {
+        val openResponse = openFile(templateId, modelId, parameterMap, naam, bbUrl)
+
+
+
+    }
+
+    private fun openFile(
+        templateId: String,
+        modelId: String,
+        parameterMap: MutableMap<String, Object>,
+        naam: String,
+        bbUrl: String
+    ): OpenResponse? {
         try {
             logger.debug { "generating with template $templateId and model: $modelId" }
 
-            val requestBody = BerkelyBridgeRequestBody(templateId = templateId, parameters = parameterMap, naam = naam)
+            val openUrl = "$bbUrl/open?modelId=$modelId&fmt=json"
+
+            val requestBody = OpenRequestBody(templateId = templateId, parameters = parameterMap, naam = naam)
 
             val headers = HttpHeaders()
             headers.set("Content-Type", MediaType.APPLICATION_JSON.toString())
-            val httpEntity: HttpEntity<BerkelyBridgeRequestBody> = HttpEntity(requestBody, headers)
+            val httpEntity: HttpEntity<OpenRequestBody> = HttpEntity(requestBody, headers)
 
-            var response: ResponseEntity<String> = restTemplate.postForEntity(bbUrl, httpEntity, String::class.java)
+            var response: ResponseEntity<OpenResponse> =
+                restTemplate.postForEntity(openUrl, httpEntity, OpenResponse::class.java)
 
-            if(response.statusCode.is2xxSuccessful) {
+            if (response.statusCode.is2xxSuccessful) {
                 var event = BerkelyBridgeClientEvent("successfully generated")
                 eventPublisher.publishEvent(event)
+                return response.body
             }
-            else if (response.statusCode.equals(HttpStatus.BAD_REQUEST)) {
-                var event = BerkelyBridgeClientEvent("failed to generate")
-                eventPublisher.publishEvent(event)
-                logger.warn { "failed to generate for templated: $templateId and model: $modelId"  }
-            }
-            else if (response.statusCode.equals(HttpStatus.UNAUTHORIZED)) {
-                logger.warn { "berkely bridge generating unauthorized" }
+            else {
+                logger.error { "failed to generate for templated: $templateId and model: $modelId \n status: ${response.statusCode}"}
+                throw IllegalStateException("could not generate a file")
             }
         } catch (e: Exception) {
             logger.error { "error berkely bridge generating  \n" + e.message }
             throw e
         }
     }
+
+    private fun getDataLink(bbUrl: String, modelId: String, sessionId: String, uniqueId: String): String {
+        try {
+            logger.debug { "getting files for sessionId: $sessionId and uniqueId:$uniqueId" }
+
+            val getFilesUrl = "$bbUrl/getfiles?modelid=$modelId&sessionid=$sessionId&uniqueid=$uniqueId&fmt=json"
+
+
+            var response: ResponseEntity<GetFilesResponse> =
+                restTemplate.getForEntity(getFilesUrl, GetFilesResponse::class.java)
+
+            if (response.statusCode.is2xxSuccessful) {
+                var event = BerkelyBridgeClientEvent("successfully retrieved filelist")
+                eventPublisher.publishEvent(event)
+            }
+            else {
+                logger.error { "failed to retrieve filelist status: ${response.statusCode}"}
+                throw IllegalStateException("could not retrieve filelist")
+            }
+        } catch (e: Exception) {
+            logger.error { "error berkely bridge generating  \n" + e.message }
+            throw e
+        }
+    }
+
 }

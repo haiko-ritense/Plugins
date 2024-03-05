@@ -19,11 +19,8 @@
 
 package com.ritense.valtimo.berkelybridge.client
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import java.util.HashMap
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
-
-class BerkelyBridgeResponse(
+class GetFilesResponse(
     val sessionid: String,
     val uniqueid: String,
+    val filelist: List<FileListEntry>
 ) {}

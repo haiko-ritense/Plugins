@@ -17,16 +17,17 @@
  *
  */
 
-package com.ritense.valtimo.berkelybridge.client
+package com.ritense.valtimo.berkelybridge.plugin
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import java.util.HashMap
+import com.ritense.valtimo.berkelybridge.client.BerkelyBridgeClient
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-class BerkelyBridgeRequestBody(
-    val templateId: String,
-    val format: String = "html",
-    val output: String = "url",
-    val naam: String,
-    val parameters: MutableMap<String, Object> = HashMap()
-) {}
+class BerkelyBridgeService(private val bbClient: BerkelyBridgeClient) {
+
+    fun generateText(bbUrl: String, modelId: String, templateId: String, parameterMap: MutableMap<String, Object>, naam: String): String {
+
+        bbClient.generate(bbUrl, modelId, templateId, parameterMap, naam);
+
+
+        return ""
+    }
+}

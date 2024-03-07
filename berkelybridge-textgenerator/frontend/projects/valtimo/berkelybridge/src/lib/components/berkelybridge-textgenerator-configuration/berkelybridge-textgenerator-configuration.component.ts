@@ -58,10 +58,7 @@ export class BerkelybridgeTextgeneratorConfigurationComponent
 
   private handleValid(formValue: BerkelyBridgeTextGeneratorConfig): void {
     const valid = !!(formValue.configurationTitle
-        && formValue.clientId
-        && formValue.clientSecret
-        && formValue.emailApiBaseUrl
-        && formValue.tokenEndpoint);
+        && formValue.berkelybridgeBaseUrl);
 
     this.valid$.next(valid);
     this.valid.emit(valid);

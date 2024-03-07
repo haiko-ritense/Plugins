@@ -37,51 +37,15 @@
   >
   </v-input>
   <v-input
-          name="emailApiBaseUrl"
-          [title]="'emailApiBaseUrl' | pluginTranslate: pluginId | async"
+          name="berkelybridgeBaseUrl"
+          [title]="'berkelybridgeBaseUrl' | pluginTranslate: pluginId | async"
           [margin]="true"
           [disabled]="obs.disabled"
-          [defaultValue]="obs.prefill?.emailApiBaseUrl"
+          [defaultValue]="obs.prefill?.berkelybridgeBaseUrl"
           [widthPx]="350"
           [required]="true"
-          [tooltip]="'emailApiBaseUrlTooltip' | pluginTranslate: pluginId | async"
-          placeholder="emailApiBaseUrl"
-  >
-  </v-input>
-  <v-input
-          name="clientId"
-          [title]="'clientId' | pluginTranslate: pluginId | async"
-          [margin]="true"
-          [disabled]="obs.disabled"
-          [defaultValue]="obs.prefill?.clientId"
-          [widthPx]="350"
-          [required]="true"
-          [tooltip]="'clientIdTooltip' | pluginTranslate: pluginId | async"
-          placeholder="client-id"
-  >
-  </v-input>
-  <v-input
-          name="clientSecret"
-          type="password"
-          [title]="'clientSecret' | pluginTranslate: pluginId | async"
-          [margin]="true"
-          [disabled]="obs.disabled"
-          [defaultValue]="obs.prefill?.clientSecret"
-          [required]="true"
-          [fullWidth]="true"
-          [tooltip]="'clientSecretTooltip' | pluginTranslate: pluginId | async"
-  >
-  </v-input>
-  <v-input
-          name="tokenEndpoint"
-          [title]="'tokenEndpoint' | pluginTranslate: pluginId | async"
-          [margin]="true"
-          [disabled]="obs.disabled"
-          [defaultValue]="obs.prefill?.tokenEndpoint"
-          [widthPx]="350"
-          [required]="true"
-          [tooltip]="'tokenEndpointTooltip' | pluginTranslate: pluginId | async"
-          placeholder="token-endpoint"
+          [tooltip]="'berkelybridgeBaseUrlTooltip' | pluginTranslate: pluginId | async"
+          placeholder="Vul Berkely Bridge url in"
   >
   </v-input>
 </v-form>

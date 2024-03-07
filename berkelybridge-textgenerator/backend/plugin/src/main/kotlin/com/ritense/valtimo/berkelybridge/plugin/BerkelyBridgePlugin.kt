@@ -30,14 +30,9 @@ import com.ritense.valtimo.berkelybridge.client.BerkelyBridgeClient
 import com.ritense.valueresolver.ValueResolverService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 
-import org.springframework.web.client.RestTemplate
-
-
-private const val UTF8 = "utf-8"
-
 @Plugin(
     key = "bbtextgenerator",
-    title = "Berkely Bridge Text generator",
+    title = "Berkely Bridge tekst en PDF generator",
     description = "Berkely Bridge genereert text of PDF documenten"
 )
 class BerkelyBridgePlugin(
@@ -46,24 +41,26 @@ class BerkelyBridgePlugin(
 ) {
 
     @PluginProperty(key = "berkelybridgeBaseUrl", secret = false, required = true)
-    lateinit var bbUrl: String
+    lateinit var berkelybridgeBaseUrl: String
 
     @PluginAction(
-        key = "generate-text",
+        key = "genereer-tekst",
         title = "Genereer tekst",
-        description = "Genereer tekst met template en parameters",
+        description = "Genereer tekst met template en parameters. Specifeer met format parameter of de output html of text moet zijn",
         activityTypes = [ActivityType.SERVICE_TASK_START]
     )
     fun generateText(
         execution: DelegateExecution,
         @PluginActionProperty modelId: String,
         @PluginActionProperty templateId: String,
-        @PluginActionProperty parametersId: String,
+        @PluginActionProperty parameters: String?,
+        @PluginActionProperty format: String,
         @PluginActionProperty naam: String,
     ) {
-        bbClient.generate(bbUrl = bbUrl, modelId = resolveValue(execution, modelId) as String, templateId = resolveValue(execution, templateId) as String,
-            parameterMap = resolveValue(execution, parametersId) as MutableMap<String, Object>,
-            naam = resolveValue(execution, naam) as String)
+        bbClient.generate(bbUrl = berkelybridgeBaseUrl, modelId = resolveValue(execution, modelId) as String, templateId = resolveValue(execution, templateId) as String,
+            parameters = resolveValue(execution, parameters) as List<TemplateProperty>,
+            naam = resolveValue(execution, naam) as String,
+            format = resolveValue(execution, format) as String)
 
     }
 

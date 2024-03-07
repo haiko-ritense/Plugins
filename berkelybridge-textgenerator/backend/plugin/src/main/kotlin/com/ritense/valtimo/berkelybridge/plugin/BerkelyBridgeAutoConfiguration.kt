@@ -19,7 +19,6 @@
 
 package com.ritense.valtimo.berkelybridge.plugin
 
-import com.ritense.plugin.repository.PluginProcessLinkRepository
 import com.ritense.plugin.service.PluginService
 import com.ritense.valtimo.berkelybridge.client.BerkelyBridgeClient
 import com.ritense.valueresolver.ValueResolverService
@@ -41,10 +40,9 @@ class BerkelyBridgeAutoConfiguration {
     fun createBerkelyBridgePluginFactory(
         pluginService: PluginService,
         bbClient: BerkelyBridgeClient,
-        restTemplate: RestTemplate,
         valueResolver: ValueResolverService,
     ): BerkelyBridgePluginFactory {
-        return BerkelyBridgePluginFactory(pluginService, bbClient, restTemplate, valueResolver)
+        return BerkelyBridgePluginFactory(pluginService, bbClient, valueResolver)
     }
 
     @Bean

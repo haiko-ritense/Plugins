@@ -21,14 +21,14 @@
     "allowSyntheticDefaultImports": true
   },
   "paths": {
-    "@valtimo/amsterdam-emailapi-plugin": [
-      "dist/valtimo/amsterdam-emailapi"
+    "@valtimo/berkelybridge-textgenerator-plugin": [
+      "dist/valtimo/berkelybridge-textgenerator"
     ]
   },
   "files": [],
   "references": [
     {
-      "path": "./projects/valtimo/amsterdam/emailapi/tsconfig.spec.json"
+      "path": "./projects/valtimo/berkelybridge/tsconfig.spec.json"
     }
     ]
 }

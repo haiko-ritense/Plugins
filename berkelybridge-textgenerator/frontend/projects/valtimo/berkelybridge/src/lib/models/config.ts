@@ -26,13 +26,10 @@ interface BerkelyBridgeTextGeneratorConfig extends PluginConfigurationData {
 interface TextGeneratieConfig {
   modelId: string;
   templateId: string;
-  fromAddress: string;
-  ccEmail: string;
-  ccName: string;
-  bccEmail: string;
-  bccName: string;
-  emailSubject: string;
-  contentHtml: string;
+  parameters: Array<{key: string; value: string}>;
+  naam: string;
+  format: string;
 }
+
 
 export {BerkelyBridgeTextGeneratorConfig, TextGeneratieConfig};

@@ -28,11 +28,10 @@ import org.springframework.web.client.RestTemplate
 class BerkelyBridgePluginFactory(
     pluginService: PluginService,
     val bbClient: BerkelyBridgeClient,
-    val restTemplate: RestTemplate,
     val valueResolver: ValueResolverService
 ) : PluginFactory<BerkelyBridgePlugin>(pluginService) {
 
     override fun create(): BerkelyBridgePlugin {
-        return BerkelyBridgePlugin(bbClient, restTemplate, valueResolver)
+        return BerkelyBridgePlugin(bbClient, valueResolver)
     }
 }

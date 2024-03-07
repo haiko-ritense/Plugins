@@ -19,15 +19,4 @@
 
 package com.ritense.valtimo.berkelybridge.plugin
 
-import com.ritense.valtimo.berkelybridge.client.BerkelyBridgeClient
-
-class BerkelyBridgeService(private val bbClient: BerkelyBridgeClient) {
-
-    fun generateText(bbUrl: String, modelId: String, templateId: String, parameterMap: MutableMap<String, Object>, naam: String): String {
-
-        bbClient.generate(bbUrl, modelId, templateId, parameterMap, naam);
-
-
-        return ""
-    }
-}
+class TemplateProperty(val key: String, val value: String) {}

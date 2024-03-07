@@ -53,7 +53,7 @@ class ApplicationReadyEventListener(
 
         val configurationProperties = """
             {   
-                "berkelybridgeBaseUrl": "${bbUrl}",
+                "berkelybridgeBaseUrl": "$bbUrl"
             }"""
 
         return pluginService.createPluginConfiguration(

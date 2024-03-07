@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":amsterdam-email-api:backend:plugin"))
+    implementation(project(":berkelybridge-textgenerator:backend:plugin"))
 
     implementation "com.ritense.valtimo:audit:${valtimoVersion}"
     implementation "com.ritense.valtimo:case:${valtimoVersion}"

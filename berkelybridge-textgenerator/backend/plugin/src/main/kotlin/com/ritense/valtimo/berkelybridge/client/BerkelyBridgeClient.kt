@@ -37,20 +37,20 @@ class BerkelyBridgeClient(
     private val restTemplate: RestTemplate,
     private val eventPublisher: ApplicationEventPublisher,
 ) {
-    fun generate(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>, naam: String, format: String): String {
+    fun generate(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): String {
 
-        val openResponse = openFile(templateId, modelId, parameters, naam, bbUrl, format)
+        val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
         val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid)
         return getFile(bbUrl, fileUrl)
     }
 
     private fun openFile(
+        bbUrl: String,
         templateId: String,
         modelId: String,
         parameters: List<TemplateProperty>?,
         naam: String,
         format: String,
-        bbUrl: String
     ): OpenResponse {
         try {
             logger.debug { "generating with template $templateId and model: $modelId" }

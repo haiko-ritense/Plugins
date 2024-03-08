@@ -29,6 +29,7 @@ interface TextGeneratieConfig {
   parameters: Array<{key: string; value: string}>;
   naam: string;
   format: string;
+  variabeleNaam: string;
 }
 
 

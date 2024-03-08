@@ -64,6 +64,16 @@
           [required]="true"
   >
   </v-input>
+  <v-input
+          name="variabeleNaam"
+          [title]="'variabeleNaam' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.variabeleNaam"
+          [disabled]="obs.disabled"
+          [tooltip]="'variabeleNaamTooltip' | pluginTranslate: pluginId | async"
+          [required]="true"
+  >
+  </v-input>
   <valtimo-carbon-multi-input
           name="parameters"
           [title]="'parameters' | pluginTranslate: pluginId | async"

@@ -92,7 +92,7 @@ tasks.register("integrationTesting", Test) {
 }
 
 dockerCompose {
-    projectName = "slack"
+    projectName = "berkelybridge-textgenerator"
     isRequiredBy(integrationTesting)
     useComposeFiles.addAll("docker-compose-integration-test.yml")
 }

@@ -19,13 +19,13 @@
 
 import {PluginSpecification} from '@valtimo/plugin';
 import {BerkelybridgeTextgeneratorConfigurationComponent} from './components/berkelybridge-textgenerator-configuration/berkelybridge-textgenerator-configuration.component';
-import {AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64} from './assets';
 import {TextGenerationConfigurationComponent} from "./components/text-generation/text-generation-configuration.component";
+import {BERKELYBRIDGE_TEXTGENERATION_PLUGIN_LOGO_BASE64} from "./assets/berkelybridge-textgeneration-plugin-logo";
 
 const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
   pluginId: 'bbtextgenerator',
   pluginConfigurationComponent: BerkelybridgeTextgeneratorConfigurationComponent,
-  pluginLogoBase64: AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64,
+  pluginLogoBase64: BERKELYBRIDGE_TEXTGENERATION_PLUGIN_LOGO_BASE64,
   functionConfigurationComponents: {
     'genereer-tekst': TextGenerationConfigurationComponent
   },
@@ -50,63 +50,57 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
       formatTooltip: 'Vul hier het formaat in van de te genereren tekst of file',
       parameters: "Parameters",
       parametersTooltip: 'Vul hier de parameters die worden gebruikt in de template',
-      key: "Formaat",
-      keyTooltip: 'Vul hier het formaat in van de te genereren tekst of file',
-      value: "Formaat",
-      valueTooltip: 'Vul hier het formaat in van de te genereren tekst of file',
+      variabeleNaam: 'Naam process variabele',
+      variabeleNaamTooltip: 'Naam van de process variabele die de tekst bevat',
       addParameter: 'Voeg een parameter toe',
     },
     en: {
       title: 'Berkely Bridge text and PDF generator',
       description:
           'With the Berkely Bridge tekst and PDF generator plugin you can generate a text or PDF in a process step',
-      configurationTitle: 'Configuratienaam',
+      configurationTitle: 'Configuration name',
       configurationTitleTooltip:
-          'Onder deze naam zal de plugin te herkennen zijn in de rest van de applicatie',
+          'Under this name, the plugin will be recognizable in the rest of the application',
       berkelybridgeBaseUrl: 'Berkely Bridge base url',
       berkelybridgeBaseUrlTooltip:
-          'Vul hier url in waarop Berkely Bridge is te bereiken.',
+          'Enter the URL here where Berkely Bridge can be reached.',
       modelId: 'Model ID',
-      modelIdTooltip: 'Vul het Berkely Bridge model ID in',
+      modelIdTooltip: 'Enter the Berkely Bridge model ID',
       templateId: 'Template ID',
-      templateIdTooltip: 'Vul het template ID in om een tekst of PDF te genereren',
+      templateIdTooltip: 'Enter the template ID to generate a text or PDF',
       naam: 'Naam',
-      nameTooltip: 'Vul hier de naam in van de te genereren file.',
-      format: "Formaat",
-      formatTooltip: 'Vul hier het formaat in van de te genereren tekst of file',
+      nameTooltip: 'Enter the name of the file to be generated here.',
+      format: "Format",
+      formatTooltip: 'Enter the format of the text or file to be generated here',
       parameters: "Parameters",
-      parametersTooltip: 'Vul hier de parameters die worden gebruikt in de template',
-      key: "Formaat",
-      keyTooltip: 'Vul hier het formaat in van de te genereren tekst of file',
-      value: "Formaat",
-      valueTooltip: 'Vul hier het formaat in van de te genereren tekst of file',
-      addParameter: 'Voeg een parameter toe',
+      parametersTooltip: 'Enter the parameters used in the template here',
+      variabeleNaam: 'Process variable name',
+      variabeleNaamTooltip: 'Name of the process variable containing the text',
+      addParameter: 'Add a parameter',
     },
     de: {
       title: 'Berkely Bridge tekst en PDF generator',
       description:
           'Met de Berkely Bridge tekst en PDF generator plugin kun je in een process tekst of PDF\'s genereren',
-      configurationTitle: 'Configuratienaam',
+      configurationTitle: 'Konfigurationsname',
       configurationTitleTooltip:
-          'Onder deze naam zal de plugin te herkennen zijn in de rest van de applicatie',
+          'Unter diesem Namen wird das Plugin im Rest der Anwendung erkennbar sein',
       berkelybridgeBaseUrl: 'Berkely Bridge base url',
       berkelybridgeBaseUrlTooltip:
           'Vul hier url in waarop Berkely Bridge is te bereiken.',
       modelId: 'Model ID',
       modelIdTooltip: 'Vul het Berkely Bridge model ID in',
       templateId: 'Template ID',
-      templateIdTooltip: 'Vul het template ID in om een tekst of PDF te genereren',
-      naam: 'Naam',
-      nameTooltip: 'Vul hier de naam in van de te genereren file.',
-      format: "Formaat",
-      formatTooltip: 'Vul hier het formaat in van de te genereren tekst of file',
+      templateIdTooltip: 'Geben Sie die Vorlagen-ID ein, um einen Text oder ein PDF zu generieren',
+      naam: 'Name',
+      nameTooltip: 'Geben Sie hier den Namen der zu generierenden Datei ein.',
+      format: "Format",
+      formatTooltip: 'Geben Sie hier das Format des zu generierenden Textes oder der Datei ein',
       parameters: "Parameters",
-      parametersTooltip: 'Vul hier de parameters die worden gebruikt in de template',
-      key: "Key",
-      keyTooltip: 'Vul hier de key van property zoals in de template vermeldt',
-      value: "Waarde",
-      valueTooltip: 'Vul hier de waarde in voor de property.',
-      addParameter: 'Voeg een parameter toe',
+      parametersTooltip: 'Geben Sie hier die in der Vorlage verwendeten Parameter ein',
+      variabeleNaam: 'Name der Prozessvariablen',
+      variabeleNaamTooltip: 'Name der Prozessvariablen, die den Text enthält',
+      addParameter: 'Fügen Sie einen Parameter hinzu',
     },
   },
 };

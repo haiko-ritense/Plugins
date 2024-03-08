@@ -31,6 +31,7 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
   },
   pluginTranslations: {
     nl: {
+      'genereer-tekst': 'Genereer tekst',
       title: 'Berkely Bridge tekst en PDF generator',
       description:
           'Met de Berkely Bridge tekst en PDF generator plugin kun je in een process tekst of PDF\'s genereren',
@@ -55,6 +56,7 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
       addParameter: 'Voeg een parameter toe',
     },
     en: {
+      'genereer-tekst': 'Generate text',
       title: 'Berkely Bridge text and PDF generator',
       description:
           'With the Berkely Bridge tekst and PDF generator plugin you can generate a text or PDF in a process step',
@@ -79,6 +81,7 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
       addParameter: 'Add a parameter',
     },
     de: {
+      'genereer-tekst': 'Generate text',
       title: 'Berkely Bridge tekst en PDF generator',
       description:
           'Met de Berkely Bridge tekst en PDF generator plugin kun je in een process tekst of PDF\'s genereren',

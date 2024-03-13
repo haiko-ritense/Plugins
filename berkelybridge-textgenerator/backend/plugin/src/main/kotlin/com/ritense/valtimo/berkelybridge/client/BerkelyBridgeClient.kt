@@ -57,7 +57,10 @@ class BerkelyBridgeClient(
 
             val openUrl = "$bbUrl/open?modelId=$modelId&fmt=json"
 
-            val requestBody = OpenRequestBody(templateId = templateId, parameters = parameters, naam = naam, format = format)
+            val requestBody = OpenRequestBody(templateId = templateId, naam = naam, format = format)
+            parameters?.forEach { prop ->
+                requestBody.parameters.put(prop.key, prop.value);
+            }
 
             val headers = HttpHeaders()
             headers.set("Content-Type", MediaType.APPLICATION_JSON.toString())

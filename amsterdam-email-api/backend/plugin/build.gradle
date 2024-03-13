@@ -25,6 +25,7 @@ buildscript {
 
 plugins {
     id "idea"
+    id 'java-library'
 
     id "org.springframework.boot" version "${springVersion}"
     id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
@@ -33,6 +34,10 @@ plugins {
     id "org.jetbrains.kotlin.plugin.spring" version "${kotlinVersion}"
     id "org.jetbrains.kotlin.plugin.allopen" version "${kotlinVersion}"
     id "com.avast.gradle.docker-compose" version "0.16.9"
+}
+
+java {
+    withSourcesJar()
 }
 
 repositories {
@@ -83,6 +88,11 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit5"
 }
 
+java {
+    withSourcesJar()
+}
+
+
 tasks.register("integrationTesting", Test) {
     group = "verification"
     useJUnitPlatform {
@@ -92,7 +102,7 @@ tasks.register("integrationTesting", Test) {
 }
 
 dockerCompose {
-    projectName = "slack"
+    projectName = "amsterdam-emailapi"
     isRequiredBy(integrationTesting)
     useComposeFiles.addAll("docker-compose-integration-test.yml")
 }

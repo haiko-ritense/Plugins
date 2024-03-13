@@ -49,7 +49,6 @@ private const val UTF8 = "utf-8"
 class EmailApiPlugin(
     private val emailClient: EmailClient,
     private val restTemplate: RestTemplate,
-    private val valueResolverService: ValueResolverService
 ) {
 
     @PluginProperty(key = "emailApiBaseUrl", secret = false, required = true)
@@ -86,36 +85,38 @@ class EmailApiPlugin(
         val message = EmailMessage(
             to = setOf(
                 Recipient(
-                    address = resolveValue(execution, toEmail) as String,
-                    name = resolveValue(execution, toName) as String
+                    address = toEmail,
+                    name = toName as String
                 )
             ),
-            from = Recipient(address = resolveValue(execution, fromAddress) as String),
+            from = Recipient(address = fromAddress),
             content = setOf(
                 BodyPart(
-                    content = resolveValue(execution, contentHtml) as String,
+                    content = contentHtml,
                     mimeType = MimeTypeUtils.TEXT_HTML.toString(),
                     encoding = UTF8
                 )
             ),
-            subject = (resolveValue(execution, emailSubject) as String),
+            subject = emailSubject,
         )
 
 
         // set optional values
-        resolveValue(execution, ccEmail)?.let {
+        if(ccEmail != null) {
             message.cc = setOf(
                 Recipient(
-                    address = it as String,
-                    name = resolveValue(execution, ccName) as String?
+                    address = ccEmail,
+                    name = ccName
                 )
             )
+
         }
-        resolveValue(execution, bccEmail)?.let {
+
+        if(bccEmail != null) {
             message.bcc = setOf(
                 Recipient(
-                    address = it as String,
-                    name = resolveValue(execution, bccName) as String?
+                    address = bccEmail,
+                    name = bccName
                 )
             )
         }
@@ -146,19 +147,5 @@ class EmailApiPlugin(
              }
 
         return accessToken
-    }
-
-
-    private fun resolveValue(execution: DelegateExecution, value: String?): Any? {
-        return if (value == null) {
-            null
-        } else {
-            val resolvedValues = valueResolverService.resolveValues(
-                execution.processInstanceId,
-                execution,
-                listOf(value)
-            )
-            resolvedValues[value]
-        }
     }
 }

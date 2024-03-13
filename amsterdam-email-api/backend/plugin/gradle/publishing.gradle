@@ -22,8 +22,8 @@ publishing {
             version = pluginVersion
 
             pom {
-                name = "Alfresco Authentication plugin module"
-                description = "The Alfresco Authentication plugin module arranges auth settings for communication with Alfresco DRC"
+                name = "Amsterdam Email API plugin module"
+                description = "Zend emails via Email API"
                 developers {
                     developer {
                         id = "haiko-ritense"

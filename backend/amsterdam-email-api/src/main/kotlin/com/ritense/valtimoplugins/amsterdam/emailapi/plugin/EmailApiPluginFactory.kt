@@ -29,10 +29,9 @@ class EmailApiPluginFactory(
     pluginService: PluginService,
     val emailClient: EmailClient,
     val restTemplate: RestTemplate,
-    val valueResolver: ValueResolverService
 ) : PluginFactory<EmailApiPlugin>(pluginService) {
 
     override fun create(): EmailApiPlugin {
-        return EmailApiPlugin(emailClient, restTemplate, valueResolver)
+        return EmailApiPlugin(emailClient, restTemplate)
     }
 }

@@ -52,10 +52,9 @@ class EmailApiAutoConfiguration {
     fun createEmailApiPluginFactory(
         pluginService: PluginService,
         emailClient: EmailClient,
-        restTemplate: RestTemplate,
-        valueResolver: ValueResolverService,
+        restTemplate: RestTemplate
     ): EmailApiPluginFactory {
-        return EmailApiPluginFactory(pluginService, emailClient, restTemplate, valueResolver)
+        return EmailApiPluginFactory(pluginService, emailClient, restTemplate)
     }
 
     @Bean

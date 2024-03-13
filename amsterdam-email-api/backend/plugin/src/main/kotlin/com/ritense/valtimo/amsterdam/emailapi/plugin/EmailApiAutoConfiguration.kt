@@ -22,7 +22,6 @@ package com.ritense.valtimo.amsterdam.emailapi.plugin
 import com.ritense.plugin.repository.PluginProcessLinkRepository
 import com.ritense.plugin.service.PluginService
 import com.ritense.valtimo.amsterdam.emailapi.client.EmailClient
-import com.ritense.valueresolver.ValueResolverService
 import org.apache.http.conn.ssl.NoopHostnameVerifier
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients

@@ -59,10 +59,26 @@ class BerkelyBridgePlugin(
         @PluginActionProperty variabeleNaam: String
     ) {
         val text = bbClient.generate(bbUrl = berkelybridgeBaseUrl, modelId = modelId, templateId = templateId,
-            parameters = parameters,
+            parameters = resolveValue(execution, parameters),
             naam = naam,
             format = format)
 
             execution.setVariable(variabeleNaam, text);
+    }
+
+    private fun resolveValue(execution: DelegateExecution, keyValueList: List<TemplateProperty>?): List<TemplateProperty>? {
+        return if (keyValueList == null) {
+            null
+        } else {
+            keyValueList.map {
+                var resolvedValues = valueResolverService.resolveValues(
+                    execution.processInstanceId,
+                    execution,
+                    listOf(it.value)
+                )
+                var resolvedValue = resolvedValues[it.value]
+                TemplateProperty(it.key, resolvedValue as String)
+            }
+        }
     }
 }

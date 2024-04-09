@@ -25,10 +25,12 @@ import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.plugin.domain.ActivityType
+import com.ritense.documentenapi.client.DocumentStatusType
 import com.ritense.valtimo.berkelybridge.client.BerkelyBridgeClient
 
 import com.ritense.valueresolver.ValueResolverService
 import org.camunda.bpm.engine.delegate.DelegateExecution
+import org.hibernate.validator.constraints.Length
 
 @Plugin(
     key = "bbtextgenerator",
@@ -42,6 +44,10 @@ class BerkelyBridgePlugin(
 
     @PluginProperty(key = "berkelybridgeBaseUrl", secret = false, required = true)
     lateinit var berkelybridgeBaseUrl: String
+
+    @Length(min = 9, max = 9)
+    @PluginProperty(key = "bronorganisatie", secret = false)
+    lateinit var bronorganisatie: String
 
     @PluginAction(
         key = "genereer-tekst",
@@ -64,6 +70,33 @@ class BerkelyBridgePlugin(
             format = format)
 
             execution.setVariable(variabeleNaam, text);
+    }
+
+    @PluginAction(
+        key = "genereer-file-documenten-api",
+        title = "Genereer een file",
+        description = "Genereer een file die wordt opgeslagen in de documenten API",
+        activityTypes = [ActivityType.SERVICE_TASK_START]
+    )
+    fun generateFile(
+        execution: DelegateExecution,
+        @PluginActionProperty modelId: String,
+        @PluginActionProperty templateId: String,
+        @PluginActionProperty parameters: List<TemplateProperty>?,
+        @PluginActionProperty format: String,
+        @PluginActionProperty naam: String,
+        @PluginActionProperty taal: String,
+        @PluginActionProperty beschrijving: String,
+        @PluginActionProperty informatieObjectType: String,
+        @PluginActionProperty variabeleNaam: String,
+        @PluginActionProperty status: DocumentStatusType = DocumentStatusType.DEFINITIEF
+    ) {
+        val downloadLink = bbClient.generateFile(bbUrl = berkelybridgeBaseUrl, modelId = modelId, templateId = templateId,
+            parameters = resolveValue(execution, parameters),
+            naam = naam,
+            format = format)
+
+        execution.setVariable(variabeleNaam, downloadLink);
     }
 
     private fun resolveValue(execution: DelegateExecution, keyValueList: List<TemplateProperty>?): List<TemplateProperty>? {

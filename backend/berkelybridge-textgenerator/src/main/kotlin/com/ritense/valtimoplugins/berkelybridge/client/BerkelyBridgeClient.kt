@@ -28,6 +28,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
+import java.net.URL
 
 
 private val logger = KotlinLogging.logger {}
@@ -48,6 +49,12 @@ class BerkelyBridgeClient(
         val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
         val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid)
         return getFile(bbUrl, fileUrl)
+    }
+
+    fun generateFile(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): Any? {
+        val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
+        val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid)
+        return getFileAsByteArray(bbUrl, fileUrl)
     }
 
     private fun openFile(
@@ -137,4 +144,16 @@ class BerkelyBridgeClient(
         }
     }
 
+    private fun getFileAsByteArray(bbUrl: String, fileUrl: String): ByteArray {
+        try {
+            logger.debug { "getting file for fileUrl: $fileUrl " }
+
+            val getFileUrl = URL("$bbUrl/$fileUrl")
+            val fileData = getFileUrl.readBytes();
+            return fileData;
+        } catch (e: Exception) {
+            logger.error { "error berkely bridge retrieving file  \n" + e.message }
+            throw e
+        }
+    }
 }

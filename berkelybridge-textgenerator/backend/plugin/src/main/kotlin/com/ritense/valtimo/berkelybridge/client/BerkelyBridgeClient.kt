@@ -30,6 +30,7 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 import java.net.URL
+import kotlin.io.path.fileVisitor
 
 
 private val logger = KotlinLogging.logger {}
@@ -41,14 +42,14 @@ class BerkelyBridgeClient(
     fun generate(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): String {
 
         val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
-        val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid)
+        val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid, format)
         return getFile(bbUrl, fileUrl)
     }
 
-    fun generateFile(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): Any? {
+    fun generateFile(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): String {
         val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
-        val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid)
-        return getFileAsByteArray(bbUrl, fileUrl)
+        val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid, format)
+        return fileUrl
     }
 
     private fun openFile(
@@ -57,7 +58,7 @@ class BerkelyBridgeClient(
         modelId: String,
         parameters: List<TemplateProperty>?,
         naam: String,
-        format: String,
+        format: String
     ): OpenResponse {
         try {
             logger.debug { "generating with template $templateId and model: $modelId" }
@@ -91,7 +92,7 @@ class BerkelyBridgeClient(
         }
     }
 
-    private fun getDataLink(bbUrl: String, modelId: String, sessionId: String, uniqueId: String): String {
+    private fun getDataLink(bbUrl: String, modelId: String, sessionId: String, uniqueId: String, format: String): String {
         try {
             logger.debug { "getting files for sessionId: $sessionId and uniqueId:$uniqueId" }
 
@@ -105,7 +106,16 @@ class BerkelyBridgeClient(
                 var event = BerkelyBridgeClientEvent("successfully retrieved filelist")
                 eventPublisher.publishEvent(event)
 
-                return response.body.filelist.get(0).href
+                var filtered = response.body.filelist.filter { entry -> entry.value.contains(format, ignoreCase = true)}
+
+                if(filtered.size == 1 ) {
+                    return filtered.get(0).href
+                }
+                else {
+                    logger.error { "failed to retrieve file with format ${format} " +
+                            "\n Present formats are ${response.body.filelist.map{ entry -> entry.value }}"}
+                    throw IllegalStateException("could not retrieve file with format ${format}")
+                }
             }
             else {
                 logger.error { "failed to retrieve filelist status: ${response.statusCode}"}
@@ -137,19 +147,6 @@ class BerkelyBridgeClient(
                 logger.error { "failed to retrieve file status: ${response.statusCode}"}
                 throw IllegalStateException("could not retrieve file")
             }
-        } catch (e: Exception) {
-            logger.error { "error berkely bridge retrieving file  \n" + e.message }
-            throw e
-        }
-    }
-
-    private fun getFileAsByteArray(bbUrl: String, fileUrl: String): ByteArray {
-        try {
-            logger.debug { "getting file for fileUrl: $fileUrl " }
-
-            val getFileUrl = URL("$bbUrl/$fileUrl")
-            val fileData = getFileUrl.readBytes();
-            return fileData;
         } catch (e: Exception) {
             logger.error { "error berkely bridge retrieving file  \n" + e.message }
             throw e

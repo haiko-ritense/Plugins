@@ -26,11 +26,24 @@ import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.plugin.domain.ActivityType
 import com.ritense.documentenapi.client.DocumentStatusType
+import com.ritense.resource.domain.MetadataType
+import com.ritense.resource.domain.TemporaryResourceUploadedEvent
+import com.ritense.resource.service.TemporaryResourceStorageService
 import com.ritense.valtimo.berkelybridge.client.BerkelyBridgeClient
+import com.ritense.valtimo.berkelybridge.client.logger
+import com.ritense.valtimo.contract.utils.SecurityUtils
 
 import com.ritense.valueresolver.ValueResolverService
+import mu.KotlinLogging
+
+
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.hibernate.validator.constraints.Length
+import org.springframework.context.ApplicationEventPublisher
+import org.springframework.http.ResponseEntity
+import java.net.URL
+
+private val logger = KotlinLogging.logger {}
 
 @Plugin(
     key = "bbtextgenerator",
@@ -39,7 +52,9 @@ import org.hibernate.validator.constraints.Length
 )
 class BerkelyBridgePlugin(
     private val bbClient: BerkelyBridgeClient,
-    private val valueResolverService: ValueResolverService
+    private val valueResolverService: ValueResolverService,
+    private val resourceService: TemporaryResourceStorageService,
+    private val applicationEventPublisher: ApplicationEventPublisher,
 ) {
 
     @PluginProperty(key = "berkelybridgeBaseUrl", secret = false, required = true)
@@ -96,6 +111,22 @@ class BerkelyBridgePlugin(
             naam = naam,
             format = format)
 
+        val mutableMetaData = mutableMapOf<String, Any>()
+        mutableMetaData.put(MetadataType.FILE_NAME.key, naam)
+        mutableMetaData.put(MetadataType.CONTENT_TYPE.key, format)
+        SecurityUtils.getCurrentUserLogin()?.let { mutableMetaData.putIfAbsent(MetadataType.USER.key, it) }
+
+        val resourceId = resourceService.store( getFileAsByteArray(downloadLink).inputStream(), mutableMetaData)
+        applicationEventPublisher.publishEvent(TemporaryResourceUploadedEvent(resourceId))
+
+        return ResponseEntity.ok(
+            ResourceDto(
+                resourceId,
+                mutableMetaData[MetadataType.FILE_NAME.key] as String?,
+                file.size
+            )
+        )
+
         execution.setVariable(variabeleNaam, downloadLink);
     }
 
@@ -112,6 +143,19 @@ class BerkelyBridgePlugin(
                 var resolvedValue = resolvedValues[it.value]
                 TemplateProperty(it.key, resolvedValue as String)
             }
+        }
+    }
+
+    private fun getFileAsByteArray(bbUrl: String, fileUrl: String): ByteArray {
+        try {
+            logger.debug { "getting file for fileUrl: $fileUrl " }
+
+            val getFileUrl = URL("$bbUrl/$fileUrl")
+            val fileData = getFileUrl.readBytes();
+            return fileData;
+        } catch (e: Exception) {
+            logger.error { "error berkely bridge retrieving file  \n" + e.message }
+            throw e
         }
     }
 }

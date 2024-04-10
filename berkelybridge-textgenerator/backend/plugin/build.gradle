@@ -57,7 +57,8 @@ dependencies {
     implementation "com.ritense.valtimo:plugin-valtimo:${valtimoVersion}"
     implementation "com.ritense.valtimo:value-resolver:${valtimoVersion}"
     implementation "com.ritense.valtimo:documenten-api:${valtimoVersion}"
-
+    implementation "com.ritense.valtimo:openzaak-resource:${valtimoVersion}"
+    implementation "com.ritense.valtimo:temporary-resource-storage:${valtimoVersion}"
 
     implementation "org.springframework.boot:spring-boot-starter-webflux:${springVersion}"
 

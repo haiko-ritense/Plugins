@@ -21,13 +21,17 @@ import {PluginSpecification} from '@valtimo/plugin';
 import {BerkelybridgeTextgeneratorConfigurationComponent} from './components/berkelybridge-textgenerator-configuration/berkelybridge-textgenerator-configuration.component';
 import {TextGenerationConfigurationComponent} from "./components/text-generation/text-generation-configuration.component";
 import {BERKELYBRIDGE_TEXTGENERATION_PLUGIN_LOGO_BASE64} from "./assets/berkelybridge-textgeneration-plugin-logo";
+import {
+  FileGenerationConfigurationComponent
+} from "./components/file-generation/file-generation-configuration.component";
 
 const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
   pluginId: 'bbtextgenerator',
   pluginConfigurationComponent: BerkelybridgeTextgeneratorConfigurationComponent,
   pluginLogoBase64: BERKELYBRIDGE_TEXTGENERATION_PLUGIN_LOGO_BASE64,
   functionConfigurationComponents: {
-    'genereer-tekst': TextGenerationConfigurationComponent
+    'genereer-tekst': TextGenerationConfigurationComponent,
+    'genereer-file-documenten-api': FileGenerationConfigurationComponent
   },
   pluginTranslations: {
     nl: {

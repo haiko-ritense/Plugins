@@ -20,6 +20,7 @@
 package com.ritense.valtimo.berkelybridge.plugin
 
 import com.ritense.plugin.service.PluginService
+import com.ritense.resource.service.TemporaryResourceStorageService
 import com.ritense.valtimo.berkelybridge.client.BerkelyBridgeClient
 import com.ritense.valueresolver.ValueResolverService
 import org.apache.http.conn.ssl.NoopHostnameVerifier
@@ -41,8 +42,14 @@ class BerkelyBridgeAutoConfiguration {
         pluginService: PluginService,
         bbClient: BerkelyBridgeClient,
         valueResolver: ValueResolverService,
+        resourceStorageService: TemporaryResourceStorageService,
+        applicationEventPublisher: ApplicationEventPublisher
     ): BerkelyBridgePluginFactory {
-        return BerkelyBridgePluginFactory(pluginService, bbClient, valueResolver)
+        return BerkelyBridgePluginFactory(pluginService,
+            bbClient,
+            valueResolver,
+            resourceStorageService,
+            applicationEventPublisher)
     }
 
     @Bean

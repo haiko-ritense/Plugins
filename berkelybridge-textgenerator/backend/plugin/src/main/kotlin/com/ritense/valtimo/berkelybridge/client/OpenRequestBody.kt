@@ -28,5 +28,5 @@ class OpenRequestBody(
     val format: String = "html",
     val output: String = "url",
     val naam: String,
-    val parameters: MutableMap<String, String> = HashMap(),
+    val parameters: MutableMap<String, Any?> = HashMap(),
 ) {}

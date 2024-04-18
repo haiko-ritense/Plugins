@@ -25,18 +25,22 @@ import {CommonModule} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
 
 import {FormsModule} from "@angular/forms";
-import {CarbonMultiInputModule, FormModule, InputModule} from "@valtimo/components";
+import {CarbonMultiInputModule, FormModule, InputModule, SelectModule} from "@valtimo/components";
 import {
     TextGenerationConfigurationComponent
 } from "./components/text-generation/text-generation-configuration.component";
+import {
+    FileGenerationConfigurationComponent
+} from "./components/file-generation/file-generation-configuration.component";
 
 @NgModule({
     declarations: [
         BerkelybridgeTextgeneratorConfigurationComponent,
-        TextGenerationConfigurationComponent
+        TextGenerationConfigurationComponent,
+        FileGenerationConfigurationComponent
     ],
     imports: [CommonModule, PluginTranslatePipeModule,
-        FormModule, InputModule, FormsModule, PluginTranslatePipeModule, CarbonMultiInputModule,],
+        FormModule, InputModule, FormsModule, PluginTranslatePipeModule, CarbonMultiInputModule, SelectModule,],
     exports: [
         BerkelybridgeTextgeneratorConfigurationComponent,
         TextGenerationConfigurationComponent

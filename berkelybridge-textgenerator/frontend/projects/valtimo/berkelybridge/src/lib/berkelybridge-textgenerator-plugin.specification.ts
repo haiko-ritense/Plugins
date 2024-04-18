@@ -36,6 +36,7 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
   pluginTranslations: {
     nl: {
       'genereer-tekst': 'Genereer tekst',
+      'genereer-file-documenten-api': 'Genereer file Documenten API',
       title: 'Berkely Bridge tekst en PDF generator',
       description:
           'Met de Berkely Bridge tekst en PDF generator plugin kun je in een process tekst of PDF\'s genereren',
@@ -58,9 +59,19 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
       variabeleNaam: 'Naam process variabele',
       variabeleNaamTooltip: 'Naam van de process variabele die de tekst bevat',
       addParameter: 'Voeg een parameter toe',
+      documentDefinitie: 'Document definitie',
+      documentDefinitieTooltip: 'Vul hier de document definitie naam in voor ',
+      inputDescription: "Beschrijving",
+      inputDescriptionTooltip: "Een generieke beschrijving van de inhoud van het document",
+      language: "Taal",
+      languageTooltip: "De taal waarin het document is opgesteld",
+      informatieobjecttype: "Documenttype",
+      informatieobjecttypeTooltip: "Een documenttype dat gerelateerd is aan het zaaktype van het huidige dossier",
+
     },
     en: {
       'genereer-tekst': 'Generate text',
+      'genereer-file-documenten-api': 'Generate file Documenten API',
       title: 'Berkely Bridge text and PDF generator',
       description:
           'With the Berkely Bridge tekst and PDF generator plugin you can generate a text or PDF in a process step',
@@ -83,9 +94,16 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
       variabeleNaam: 'Process variable name',
       variabeleNaamTooltip: 'Name of the process variable containing the text',
       addParameter: 'Add a parameter',
+      inputDescription: "Description",
+      inputDescriptionTooltip: "A generic description of the content of the document",
+      language: "Language",
+      languageTooltip: "The language in which the document is written",
+      informatieobjecttype: "Document type",
+      informatieobjecttypeTooltip: "A document type which is related to the zaak type of the current case",
     },
     de: {
       'genereer-tekst': 'Generate text',
+      'genereer-file-documenten-api': 'Generieren file Documenten API',
       title: 'Berkely Bridge tekst en PDF generator',
       description:
           'Met de Berkely Bridge tekst en PDF generator plugin kun je in een process tekst of PDF\'s genereren',
@@ -108,6 +126,15 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
       variabeleNaam: 'Name der Prozessvariablen',
       variabeleNaamTooltip: 'Name der Prozessvariablen, die den Text enthält',
       addParameter: 'Fügen Sie einen Parameter hinzu',
+      inputDescription: "Beschreibung",
+      inputDescriptionTooltip: "Eine allgemeine Beschreibung des Inhalts des Dokuments",
+      nld: "Nederlands",
+      eng: "Engels",
+      deu: "Duits",
+      language: "Sprache",
+      languageTooltip: "Die Sprache, in der das Dokument geschrieben ist",
+      informatieobjecttype: "Dokumententyp",
+      informatieobjecttypeTooltip: "Ein Dokumenttyp, der sich auf den Falltyp des aktuellen Falls bezieht",
     },
   },
 };

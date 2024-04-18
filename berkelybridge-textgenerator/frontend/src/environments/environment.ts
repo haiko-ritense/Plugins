@@ -21,6 +21,7 @@ import {NgxLoggerLevel} from 'ngx-logger';
 import {ROLE_ADMIN, ROLE_DEVELOPER, ROLE_USER, ValtimoConfig, UploadProvider, IncludeFunction} from '@valtimo/config';
 import {authenticationKeycloak} from './auth/keycloak-config.dev';
 import {LOGO_BASE_64} from './logo';
+import {openZaakExtensionInitializer} from "@valtimo/open-zaak";
 
 const defaultDefinitionColumns = [
   {
@@ -42,6 +43,7 @@ export const environment: ValtimoConfig = {
   logoSvgBase64: LOGO_BASE_64,
   production: false,
   initializers: [
+    openZaakExtensionInitializer,
   ],
   authentication: authenticationKeycloak,
   menu: {
@@ -95,9 +97,9 @@ export const environment: ValtimoConfig = {
     dossiers: []
   },
   openZaak: {
-    catalogus: '00000000-0000-0000-0000-000000000000',
+    catalogus: '8225508a-6840-413e-acc9-6422af120db1',
   },
-  uploadProvider: UploadProvider.S3,
+  uploadProvider: UploadProvider.DOCUMENTEN_API,
   caseFileSizeUploadLimitMB: 100,
   defaultDefinitionTable: defaultDefinitionColumns,
   customDefinitionTables: {  },

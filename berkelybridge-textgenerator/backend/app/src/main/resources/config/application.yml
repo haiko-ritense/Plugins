@@ -82,6 +82,8 @@ valtimo:
                 - localhost
     swagger:
         enabled: false
+    connector-encryption:
+        secret: "abcdefghijklmnop"
     plugin:
         encryption-secret: "abcdefghijklmnop"
     web:

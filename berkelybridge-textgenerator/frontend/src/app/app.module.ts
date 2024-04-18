@@ -55,10 +55,14 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PluginManagementModule} from '@valtimo/plugin-management';
 import {ConnectorManagementModule} from '@valtimo/connector-management';
 import {
+  catalogiApiPluginSpecification,
+  documentenApiPluginSpecification,
   ObjectenApiPluginModule,
-  objectenApiPluginSpecification, ObjectTokenAuthenticationPluginModule,
-  objectTokenAuthenticationPluginSpecification, ObjecttypenApiPluginModule, objecttypenApiPluginSpecification,
-  PLUGINS_TOKEN, SmartDocumentsPluginModule, smartDocumentsPluginSpecification,
+  ObjectTokenAuthenticationPluginModule,
+  ObjecttypenApiPluginModule,
+  openZaakPluginSpecification,
+  PLUGINS_TOKEN,
+  zakenApiPluginSpecification,
 } from '@valtimo/plugin';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {GridModule, IconModule, TilesModule} from "carbon-components-angular";
@@ -151,9 +155,10 @@ export function tabsFactory() {
       provide: PLUGINS_TOKEN,
       useValue: [
         berkelybridgeTextgeneratorPluginSpecification,
-        objectenApiPluginSpecification,
-        objecttypenApiPluginSpecification,
-        objectTokenAuthenticationPluginSpecification
+        catalogiApiPluginSpecification,
+        documentenApiPluginSpecification,
+        openZaakPluginSpecification,
+        zakenApiPluginSpecification,
       ],
     },
     AuthGuardService,

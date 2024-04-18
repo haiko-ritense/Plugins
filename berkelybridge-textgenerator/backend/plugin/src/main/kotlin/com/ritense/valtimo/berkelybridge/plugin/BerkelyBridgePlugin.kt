@@ -57,10 +57,6 @@ class BerkelyBridgePlugin(
     @PluginProperty(key = "berkelybridgeBaseUrl", secret = false, required = true)
     lateinit var berkelybridgeBaseUrl: String
 
-    @Length(min = 9, max = 9)
-    @PluginProperty(key = "bronorganisatie", secret = false)
-    lateinit var bronorganisatie: String
-
     @PluginAction(
         key = "genereer-tekst",
         title = "Genereer tekst",
@@ -100,8 +96,7 @@ class BerkelyBridgePlugin(
         @PluginActionProperty taal: String,
         @PluginActionProperty beschrijving: String,
         @PluginActionProperty informatieObjectType: String,
-        @PluginActionProperty variabeleNaam: String,
-        @PluginActionProperty status: DocumentStatusType = DocumentStatusType.DEFINITIEF
+        @PluginActionProperty variabeleNaam: String
     ) {
         val downloadLink = bbClient.generateFile(bbUrl = berkelybridgeBaseUrl, modelId = modelId, templateId = templateId,
             parameters = resolveValue(execution, parameters),
@@ -112,8 +107,9 @@ class BerkelyBridgePlugin(
         val mutableMetaData = mutableMapOf<String, Any>()
         mutableMetaData.put(MetadataType.FILE_NAME.key, naam)
         mutableMetaData.put(MetadataType.CONTENT_TYPE.key, format)
+        mutableMetaData.put("status", DocumentStatusType.DEFINITIEF.name)
         mutableMetaData.put("bestandsomvang", bytes.size)
-        mutableMetaData.put(MetadataType.USER.key, execution.processBusinessKey.plus("-").plus(execution.processInstanceId))
+        mutableMetaData.put(MetadataType.USER.key, "Gegenereerd door BerkelyBridge in proces ".plus(execution.processBusinessKey).plus("-").plus(execution.processInstanceId))
 
         val resourceId = resourceService.store( getFileAsByteArray(downloadLink).inputStream(), mutableMetaData)
         applicationEventPublisher.publishEvent(TemporaryResourceUploadedEvent(resourceId))
@@ -125,14 +121,14 @@ class BerkelyBridgePlugin(
         return if (keyValueList == null) {
             null
         } else {
-            keyValueList.map {
+            keyValueList.filter { it.value is String }.map {
                 var resolvedValues = valueResolverService.resolveValues(
                     execution.processInstanceId,
                     execution,
-                    listOf(it.value)
+                    listOf(it.value as String)
                 )
                 var resolvedValue = resolvedValues[it.value]
-                TemplateProperty(it.key, resolvedValue as String)
+                TemplateProperty(it.key, resolvedValue)
             }
         }
     }
@@ -141,7 +137,7 @@ class BerkelyBridgePlugin(
         try {
             logger.debug { "getting file for fileUrl: $fileUrl " }
 
-            val getFileUrl = URL("$fileUrl")
+            val getFileUrl = URL(berkelybridgeBaseUrl.plus("/$fileUrl"))
             val fileData = getFileUrl.readBytes();
             return fileData;
         } catch (e: Exception) {

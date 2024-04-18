@@ -51,19 +51,40 @@
           [defaultValue]="obs.prefill?.naam"
           [disabled]="obs.disabled"
           [tooltip]="'nameTooltip' | pluginTranslate: pluginId | async"
-          [required]="false"
-  >
-  </v-input>
-  <v-input
-          name="format"
-          [title]="'format' | pluginTranslate: pluginId | async"
-          [margin]="true"
-          [defaultValue]="obs.prefill?.format"
-          [disabled]="obs.disabled"
-          [tooltip]="'formatTooltip' | pluginTranslate: pluginId | async"
           [required]="true"
   >
   </v-input>
+  <v-input
+          name="beschrijving"
+          [fullWidth]="true"
+          [defaultValue]="obs.prefill?.beschrijving"
+          [margin]="true"
+          [title]="'inputDescription' | pluginTranslate: pluginId | async"
+          [tooltip]="'inputDescriptionTooltip' | pluginTranslate: pluginId | async"
+          [required]="true"
+  ></v-input>
+<!--  <v-input-->
+<!--          name="format"-->
+<!--          [title]="'format' | pluginTranslate: pluginId | async"-->
+<!--          [margin]="true"-->
+<!--          [defaultValue]="obs.prefill?.format"-->
+<!--          [disabled]="obs.disabled"-->
+<!--          [tooltip]="'formatTooltip' | pluginTranslate: pluginId | async"-->
+<!--          [required]="true"-->
+<!--  >-->
+<!--  </v-input>-->
+  <v-select
+          *ngIf="formatItems$ | async as items"
+          [defaultSelectionId]="items[0].id"
+          [disabled]="obs.disabled"
+          [items]="items"
+          [margin]="true"
+          [required]="true"
+          [title]="'format' | pluginTranslate: pluginId | async"
+          [tooltip]="'formatTooltip' | pluginTranslate: pluginId | async"
+          [widthInPx]="200"
+          name="format"
+  ></v-select>
   <v-input
           name="variabeleNaam"
           [title]="'variabeleNaam' | pluginTranslate: pluginId | async"
@@ -74,6 +95,30 @@
           [required]="true"
   >
   </v-input>
+  <v-select
+          *ngIf="languageItems$ | async as languageItems"
+          [defaultSelectionId]="languageItems[0].id"
+          [disabled]="obs.disabled"
+          [items]="languageItems"
+          [margin]="true"
+          [required]="true"
+          [title]="'language' | pluginTranslate: pluginId | async"
+          [tooltip]="'languageTooltip' | pluginTranslate: pluginId | async"
+          [widthInPx]="200"
+          name="taal"
+  ></v-select>
+  <v-select
+          *ngIf="informatieObjectTypes$ | async as informatieTypeItems"
+          [defaultSelectionId]="informatieTypeItems[0]?.id"
+          [items]="informatieTypeItems"
+          [disabled]="obs.disabled"
+          [margin]="true"
+          [required]="true"
+          [title]="'informatieobjecttype' | pluginTranslate: pluginId | async"
+          [tooltip]="'informatieobjecttypeTooltip' | pluginTranslate: pluginId | async"
+          [widthInPx]="200"
+          name="informatieObjectType"
+  ></v-select>
   <valtimo-carbon-multi-input
           name="parameters"
           [title]="'parameters' | pluginTranslate: pluginId | async"

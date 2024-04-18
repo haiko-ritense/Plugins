@@ -19,58 +19,102 @@
 
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FunctionConfigurationComponent} from '@valtimo/plugin';
-import {BehaviorSubject, combineLatest, Observable, Subscription, take} from 'rxjs';
-import {TextGeneratieConfig} from "../../models";
+import {
+    BehaviorSubject,
+    combineLatest,
+    map,
+    Observable, of, Subject,
+    Subscription,
+    take,
+} from 'rxjs';
+import {FileGeneratieConfig} from "../../models";
+import {DocumentLanguage, SelectItem} from "@valtimo/components";
+import {TranslateService} from "@ngx-translate/core";
+import {DocumentService} from "@valtimo/document";
+import {OpenZaakService} from "@valtimo/resource";
 
 @Component({
-  selector: 'valtimo-text-generation-configuration',
-  templateUrl: './file-generation-configuration.component.html',
-  styleUrls: ['./file-generation-configuration.component.scss'],
+    selector: 'valtimo-text-generation-configuration',
+    templateUrl: './file-generation-configuration.component.html',
+    styleUrls: ['./file-generation-configuration.component.scss'],
 })
 export class FileGenerationConfigurationComponent
-  implements FunctionConfigurationComponent, OnInit, OnDestroy
-{
-  @Input() disabled$: Observable<boolean>;
-  @Input() pluginId: string;
-  @Input() prefillConfiguration$: Observable<TextGeneratieConfig>;
-  @Input() save$: Observable<void>;
-  @Output() configuration: EventEmitter<TextGeneratieConfig> = new EventEmitter<TextGeneratieConfig>();
-  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+    implements FunctionConfigurationComponent, OnInit, OnDestroy {
+    @Input() disabled$: Observable<boolean>;
+    @Input() pluginId: string;
+    @Input() prefillConfiguration$: Observable<FileGeneratieConfig>;
+    @Input() save$: Observable<void>;
+    @Output() configuration: EventEmitter<FileGeneratieConfig> = new EventEmitter<FileGeneratieConfig>();
+    @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  private readonly formValue$ = new BehaviorSubject<TextGeneratieConfig | null>(null);
-  private saveSubscription!: Subscription;
-  private readonly valid$ = new BehaviorSubject<boolean>(false);
+    private readonly formValue$ = new BehaviorSubject<FileGeneratieConfig | null>(null);
+    private saveSubscription!: Subscription;
+    private readonly valid$ = new BehaviorSubject<boolean>(false);
 
-  public ngOnInit(): void {
-    this.openSaveSubscription();
-  }
+    readonly LANGUAGES: Array<DocumentLanguage> = ['nld', 'eng', 'deu'];
+    readonly languageItems$: Observable<Array<SelectItem>> = this.translateService.stream('key').pipe(
+        map(() =>
+            this.LANGUAGES.map(language => ({
+                id: language,
+                text: this.translateService.instant(`document.${language}`),
+            }))
+        )
+    );
 
-  public ngOnDestroy(): void {
-    this.saveSubscription?.unsubscribe();
-  }
+    readonly formatItems$: Observable<Array<SelectItem>> = of(['pdf', 'docx']).pipe(
+        map(format => (
+                format.map(value => ({
+                    id: value,
+                    text: value,
+                }))
+            )
+        ));
 
-  public formValueChange(formValue: TextGeneratieConfig): void {
-    this.formValue$.next(formValue);
-    this.handleValid(formValue);
-  }
+    readonly informatieObjectTypes$: Observable<Array<SelectItem>> = this.openzaakService.getInformatieObjectTypes().pipe(
+        map(types => types.map(type => ({id: type.url, text: type.omschrijving})))
+    );
 
-  private handleValid(formValue: TextGeneratieConfig): void {
-    const valid = !!(formValue.modelId)
-        && !!(formValue.templateId);
+    constructor(
+        private readonly translateService: TranslateService,
+        private readonly documentService: DocumentService,
+        private readonly openzaakService: OpenZaakService,
+    ) {
+    }
 
-    this.valid$.next(valid);
-    this.valid.emit(valid);
-  }
+    public ngOnInit(): void {
+        this.openSaveSubscription();
+    }
 
-  private openSaveSubscription(): void {
-    this.saveSubscription = this.save$?.subscribe(save => {
-      combineLatest([this.formValue$, this.valid$])
-          .pipe(take(1))
-          .subscribe(([formValue, valid]) => {
-            if (valid) {
-              this.configuration.emit(formValue);
-            }
-          });
-    });
-  }
+    public ngOnDestroy(): void {
+        this.saveSubscription?.unsubscribe();
+    }
+
+    public formValueChange(formValue: FileGeneratieConfig): void {
+        this.formValue$.next(formValue);
+        this.handleValid(formValue);
+    }
+
+    private handleValid(formValue: FileGeneratieConfig): void {
+        const valid = !!(formValue.modelId)
+            && !!(formValue.templateId)
+            && !!(formValue.taal)
+            && !!(formValue.naam)
+            && !!(formValue.format)
+            && !!(formValue.variabeleNaam);
+
+        this.valid$.next(valid);
+        this.valid.emit(valid);
+    }
+
+    private openSaveSubscription(): void {
+        this.saveSubscription = this.save$?.subscribe(save => {
+            combineLatest([this.formValue$, this.valid$])
+                .pipe(take(1))
+                .subscribe(([formValue, valid]) => {
+                    if (valid) {
+                        this.configuration.emit(formValue);
+                    }
+                });
+        });
+    }
 }

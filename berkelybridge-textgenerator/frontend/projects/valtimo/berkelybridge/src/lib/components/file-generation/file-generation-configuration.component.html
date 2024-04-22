@@ -63,16 +63,6 @@
           [tooltip]="'inputDescriptionTooltip' | pluginTranslate: pluginId | async"
           [required]="true"
   ></v-input>
-<!--  <v-input-->
-<!--          name="format"-->
-<!--          [title]="'format' | pluginTranslate: pluginId | async"-->
-<!--          [margin]="true"-->
-<!--          [defaultValue]="obs.prefill?.format"-->
-<!--          [disabled]="obs.disabled"-->
-<!--          [tooltip]="'formatTooltip' | pluginTranslate: pluginId | async"-->
-<!--          [required]="true"-->
-<!--  >-->
-<!--  </v-input>-->
   <v-select
           *ngIf="formatItems$ | async as items"
           [defaultSelectionId]="items[0].id"

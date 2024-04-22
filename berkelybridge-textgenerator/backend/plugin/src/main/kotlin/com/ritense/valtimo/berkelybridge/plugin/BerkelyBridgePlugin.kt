@@ -105,11 +105,17 @@ class BerkelyBridgePlugin(
 
         var bytes = getFileAsByteArray(downloadLink)
         val mutableMetaData = mutableMapOf<String, Any>()
+        mutableMetaData.put(MetadataType.DOCUMENT_ID.key, execution.processBusinessKey)
         mutableMetaData.put(MetadataType.FILE_NAME.key, naam)
         mutableMetaData.put(MetadataType.CONTENT_TYPE.key, format)
+        mutableMetaData.put("title", naam)
         mutableMetaData.put("status", DocumentStatusType.DEFINITIEF.name)
         mutableMetaData.put("bestandsomvang", bytes.size)
-        mutableMetaData.put(MetadataType.USER.key, "Gegenereerd door BerkelyBridge in proces ".plus(execution.processBusinessKey).plus("-").plus(execution.processInstanceId))
+        mutableMetaData.put("description", beschrijving)
+        mutableMetaData.put("confidentialityLevel", "zaakvertrouwelijk")
+        mutableMetaData.put("language", taal)
+        mutableMetaData.put("informatieobjecttype", informatieObjectType)
+        mutableMetaData.put("author", "Gegenereerd door BerkelyBridge")
 
         val resourceId = resourceService.store( getFileAsByteArray(downloadLink).inputStream(), mutableMetaData)
         applicationEventPublisher.publishEvent(TemporaryResourceUploadedEvent(resourceId))

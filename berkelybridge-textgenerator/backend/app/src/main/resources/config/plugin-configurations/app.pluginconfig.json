@@ -13,7 +13,7 @@
         "title": "Zaken API",
         "pluginDefinitionKey": "zakenapi",
         "properties": {
-                "url": "${OPENZAAK_API_URL}",
+                "url": "${ZAKEN_API_URL}",
             "authenticationPluginConfiguration": "b609a0a3-886e-4b3d-ae0d-c01effb311ee"
         }
     },

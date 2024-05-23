@@ -12,17 +12,18 @@ import java.net.URI
 
 
 private val logger = KotlinLogging.logger {}
+private const val  headerKey = "X-MAIL-SUBSCRIPTIONKEY"
 
 class EmailClient(
     private val restTemplate: RestTemplate,
     private val eventPublisher: ApplicationEventPublisher,
 ) {
-    fun send(message: EmailMessage, baseUri: URI, token: String) {
+    fun send(message: EmailMessage, baseUri: URI, subscriptionKey: String) {
         try {
             logger.debug { "sending email naar " + message.to.toString() + " met onderwerp " + message.subject }
 
             val headers = HttpHeaders()
-            headers.setBearerAuth(token)
+            headers.set(headerKey, subscriptionKey)
             headers.set("Content-Type", MediaType.APPLICATION_JSON.toString())
             val httpEntity: HttpEntity<EmailMessage> = HttpEntity(message, headers)
 

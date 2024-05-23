@@ -58,10 +58,8 @@ export class AmsterdamEmailapiConfigurationComponent
 
   private handleValid(formValue: AmsterdamEmailApiConfig): void {
     const valid = !!(formValue.configurationTitle
-        && formValue.clientId
-        && formValue.clientSecret
         && formValue.emailApiBaseUrl
-        && formValue.tokenEndpoint);
+        && formValue.subscriptionKey);
 
     this.valid$.next(valid);
     this.valid.emit(valid);

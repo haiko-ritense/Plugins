@@ -21,9 +21,7 @@ import {PluginConfigurationData} from '@valtimo/plugin';
 
 interface AmsterdamEmailApiConfig extends PluginConfigurationData {
   emailApiBaseUrl: string;
-  clientId: string;
-  clientSecret: string;
-  tokenEndpoint: string;
+  subscriptionKey: string;
 }
 
 interface SendEmailConfig {

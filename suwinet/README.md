@@ -19,14 +19,14 @@ Other resources are Kadaster, DUO, RWD, UWV, SVB...
 Make sure docker is running. Then use the following commands:
 
 ```shell
-cd slack
+cd suwinet
 docker compose up
 ```
 
 #### Start frontend
 
 ```shell
-cd slack/frontend
+cd suwinet/frontend
 npm install
 npm run start
 ```
@@ -35,14 +35,14 @@ npm run start
 
 By gradle script:
 
-`Plugins -> slack -> backend -> app -> Tasks -> application -> bootRun`
+`Plugins -> suwinet -> backend -> app -> Tasks -> application -> bootRun`
 
 Or use commend line:
 
 ```shell
 brew install gradle
 
-cd slack/backend/app
+cd suwinet/backend/app
 gralde bootRun
 ```
 

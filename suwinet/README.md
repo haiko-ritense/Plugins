@@ -1,16 +1,20 @@
-# Slack plugin
+# Suwinet plugin
 
-For reading information from Suwinet (https://www.bkwi.nl/producten/suwinet-services/).
+For retrieving data from Suwinet (https://www.bkwi.nl/producten/suwinet-services/).
 
 ## Capabilities
 
-This suwinet plugin can access Suwinet soap webservices, and process the response.
+This plugin can access Suwinet soap webservices, and process the response.
 
 ## Example application
 
 This project contains a working example application which is meant to showcase the slack plugin. 
 It will send a request to a soap webservice to retrieve BRP data, which is one of the existing data sources of Siwunet.
 Other resources are Kadaster, DUO, RWD, UWV, SVB... 
+
+### Suwinet service Simulator
+The example will connect to a backend soap service. For test purposes we created a Suwinet Simulator that will have the same contract as the 'Real' suwinet services.
+You can find the repository at https://github.com/Gemeente-DenHaag/suwinet-simulator. It is easy to install and already includes example data.  
 
 ### Running the example application
 

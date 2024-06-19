@@ -45,8 +45,8 @@ repositories {
     mavenLocal()
     maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
     maven { url "https://oss.sonatype.org/content/repositories/releases" }
-    maven { url "https://s01.oss.sonatype.org/content/groups/staging/"}
-    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/"}
+    maven { url "https://s01.oss.sonatype.org/content/groups/staging/" }
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
@@ -124,6 +124,12 @@ tasks.register('genBRPDossierPersoonGSD', Wsdl2Java) {
         extendedSoapHeaders.set(true)
     }
     allJvmArgs = ['-Duser.language=en', '-Duser.country=NL']
+}
+
+tasks.named("compileKotlin") {
+    dependsOn(
+            "genBRPDossierPersoonGSD",
+    )
 }
 
 sourceCompatibility = 17

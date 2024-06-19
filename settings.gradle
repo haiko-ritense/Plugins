@@ -34,4 +34,9 @@ include(
         "spotler:backend:app",
         "spotler:backend:plugin",
         "spotler:frontend",
+
+        "suwinet:backend",
+        "suwinet:backend:app",
+        "suwinet:backend:plugin",
+        "suwinet:frontend",
 )

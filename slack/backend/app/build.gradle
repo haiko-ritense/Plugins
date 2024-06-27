@@ -40,7 +40,7 @@ dependencies {
     implementation "com.ritense.valtimo:core:${valtimoVersion}"
     implementation "com.ritense.valtimo:document:${valtimoVersion}"
     implementation "com.ritense.valtimo:form:${valtimoVersion}"
-    implementation "com.ritense.valtimo:form-link:${valtimoVersion}"
+    implementation "com.ritense.valtimo:process-link:${valtimoVersion}"
     implementation "com.ritense.valtimo:keycloak-iam:${valtimoVersion}"
     implementation "com.ritense.valtimo:local-resource:${valtimoVersion}"
     implementation "com.ritense.valtimo:local-mail:${valtimoVersion}"

@@ -21,6 +21,7 @@ import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.plugin.domain.ActivityType
+import com.ritense.processlink.domain.ActivityTypeWithEventName
 import com.ritense.resource.domain.MetadataType
 import com.ritense.resource.service.TemporaryResourceStorageService
 import com.ritense.valtimo.slack.client.SlackClient
@@ -49,7 +50,7 @@ class SlackPlugin(
         key = "post-message",
         title = "Post message",
         description = "Sends a message to a Slack channel",
-        activityTypes = [ActivityType.SERVICE_TASK_START]
+        activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     fun postMessage(
         execution: DelegateExecution,
@@ -68,7 +69,7 @@ class SlackPlugin(
         key = "post-message-with-file",
         title = "Post message with file",
         description = "Sends a message to a channel with a file",
-        activityTypes = [ActivityType.SERVICE_TASK_START]
+        activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     fun postMessageWithFile(
         execution: DelegateExecution,

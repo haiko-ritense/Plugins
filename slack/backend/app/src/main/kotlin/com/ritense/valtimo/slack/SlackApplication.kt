@@ -16,10 +16,10 @@
 
 package com.ritense.valtimo.slack
 
-import java.net.InetAddress
 import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import java.net.InetAddress
 
 @SpringBootApplication(scanBasePackages = ["com.ritense.*"])
 class SlackApplication {

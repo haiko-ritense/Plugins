@@ -67,7 +67,7 @@
               "node_modules/@valtimo/layout/assets/css/app.css",
               "node_modules/@valtimo/components/assets/css/design-tokens.css",
               "node_modules/@valtimo/components/assets/css/carbon.scss",
-              "node_modules/@valtimo/components/assets/css/carbon-beagle-compatibility.scss",
+              "node_modules/@valtimo/components/assets/css/compatibility.scss",
               "src/styles.scss"
             ],
             "scripts": [
@@ -105,13 +105,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "example-slack-plugin:build"
+            "buildTarget": "example-slack-plugin:build"
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "example-slack-plugin:build"
+            "buildTarget": "example-slack-plugin:build"
           }
         },
         "test": {

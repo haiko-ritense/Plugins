@@ -25,6 +25,11 @@
       "resourceType": "com.ritense.document.domain.impl.JsonSchemaDocumentDefinition",
       "action": "delete",
       "roleKey": "ROLE_ADMIN"
+    },
+    {
+      "resourceType": "com.ritense.valtimo.camunda.domain.CamundaExecution",
+      "action": "create",
+      "roleKey": "ROLE_ADMIN"
     }
   ]
 }

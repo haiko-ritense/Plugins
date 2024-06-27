@@ -41,8 +41,6 @@ const defaultDefinitionColumns = [
 export const environment: ValtimoConfig = {
   logoSvgBase64: LOGO_BASE_64,
   production: false,
-  initializers: [
-  ],
   authentication: authenticationKeycloak,
   menu: {
     menuItems: [
@@ -55,9 +53,8 @@ export const environment: ValtimoConfig = {
           {title: 'Basics', textClass: 'text-dark font-weight-bold c-default', sequence: 1},
           {link: ['/processes'], title: 'Processes', sequence: 2},
           {link: ['/form-management'], title: 'Forms', sequence: 3},
-          {link: ['/decision-tables'], title: 'Decision tables', sequence: 4},
-          {link: ['/dossier-management'], title: 'Dossiers', sequence: 5},
-          {link: ['/object-management'], title: 'Objects', sequence: 6},
+          {link: ['/task-management'], title: 'Tasks', sequence: 4},
+          {link: ['/dossier-management'], title: 'Dossiers', sequence: 6},
           {link: ['/plugins'], title: 'Plugins', sequence: 8},
           {link: ['/process-links'], title: 'Process links', sequence: 9},
           {link: ['/access-control'], title: 'Access Control', sequence: 10},
@@ -92,7 +89,8 @@ export const environment: ValtimoConfig = {
   defaultDefinitionTable: defaultDefinitionColumns,
   customDefinitionTables: {  },
   featureToggles: {
-    disableCaseCount: true
+    disableCaseCount: true,
+    enableObjectManagement: false
   }
 };
 

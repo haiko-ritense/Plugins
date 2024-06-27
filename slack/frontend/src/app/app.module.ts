@@ -31,7 +31,6 @@ import {
   registerFormioUploadComponent,
   WidgetModule
 } from '@valtimo/components';
-import {ChoicefieldModule} from '@valtimo/choicefield';
 import {
   DefaultTabs,
   DossierDetailTabAuditComponent,
@@ -41,7 +40,6 @@ import {
   DossierModule,
 } from '@valtimo/dossier';
 import {ProcessModule} from '@valtimo/process';
-import {ViewConfiguratorModule} from '@valtimo/view-configurator';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DocumentModule} from '@valtimo/document';
 import {AccountModule} from '@valtimo/account';
@@ -55,7 +53,6 @@ import {DecisionModule} from '@valtimo/decision';
 import {MilestoneModule} from '@valtimo/milestone';
 import {LoggerModule} from 'ngx-logger';
 import {FormManagementModule} from '@valtimo/form-management';
-import {FormLinkModule} from '@valtimo/form-link';
 import {MigrationModule} from '@valtimo/migration';
 import {DossierManagementModule} from '@valtimo/dossier-management';
 import {BootstrapModule} from '@valtimo/bootstrap';
@@ -67,6 +64,7 @@ import {AccessControlManagementModule} from '@valtimo/access-control-management'
 import {
   PLUGINS_TOKEN,
 } from '@valtimo/plugin';
+import {TaskManagementModule} from '@valtimo/task-management';
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -96,10 +94,8 @@ export function tabsFactory() {
     SecurityModule,
     MenuModule,
     TaskModule,
-    ChoicefieldModule,
     DossierModule.forRoot(tabsFactory),
     ProcessModule,
-    ViewConfiguratorModule,
     BpmnJsDiagramModule,
     FormsModule,
     ReactiveFormsModule,
@@ -114,7 +110,6 @@ export function tabsFactory() {
     DecisionModule,
     MilestoneModule,
     FormManagementModule,
-    FormLinkModule,
     MigrationModule,
     DossierManagementModule,
     PluginManagementModule,
@@ -126,7 +121,8 @@ export function tabsFactory() {
         useFactory: MultiTranslateHttpLoaderFactory,
         deps: [HttpBackend, ConfigService]
       }
-    })
+    }),
+    TaskManagementModule
   ],
   providers: [{
     provide: PLUGINS_TOKEN,

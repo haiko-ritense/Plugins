@@ -65,6 +65,7 @@ import {
   PLUGINS_TOKEN,
 } from '@valtimo/plugin';
 import {TaskManagementModule} from '@valtimo/task-management';
+import {ProcessLinkModule} from "@valtimo/process-link";
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -122,7 +123,8 @@ export function tabsFactory() {
         deps: [HttpBackend, ConfigService]
       }
     }),
-    TaskManagementModule
+    TaskManagementModule,
+    ProcessLinkModule
   ],
   providers: [{
     provide: PLUGINS_TOKEN,

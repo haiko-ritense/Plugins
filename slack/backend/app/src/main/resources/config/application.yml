@@ -16,7 +16,7 @@ spring:
     liquibase:
         enabled: false
     jpa:
-        database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
         database: postgresql
         show_sql: false
         open-in-view: false
@@ -36,10 +36,6 @@ spring:
                     provider_disables_autocommit: true
         hibernate:
             ddl-auto: none
-            naming:
-                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-            use-new-id-generator-mappings: false
     main:
         allow-bean-definition-overriding: true
 
@@ -108,6 +104,10 @@ camunda:
             id: Admin
             password: admin
             first-name: Admin account
+        generic-properties:
+            properties:
+                enforceHistoryTimeToLive: false
+
 
 # ==================
 # keycloak server to server config

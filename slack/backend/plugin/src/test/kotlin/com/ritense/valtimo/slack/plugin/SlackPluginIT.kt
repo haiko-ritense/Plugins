@@ -17,6 +17,7 @@
 package com.ritense.valtimo.slack.plugin
 
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.ritense.authorization.AuthorizationContext.Companion.runWithoutAuthorization
 import com.ritense.document.domain.impl.request.NewDocumentRequest
 import com.ritense.plugin.domain.PluginConfiguration
@@ -26,7 +27,6 @@ import com.ritense.processdocument.domain.impl.request.NewDocumentAndStartProces
 import com.ritense.processdocument.service.ProcessDocumentService
 import com.ritense.processlink.domain.ActivityTypeWithEventName.SERVICE_TASK_START
 import com.ritense.resource.service.TemporaryResourceStorageService
-import com.ritense.valtimo.contract.json.Mapper
 import com.ritense.valtimo.slack.BaseIntegrationTest
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -60,6 +60,8 @@ class SlackPluginIT : BaseIntegrationTest() {
     lateinit var executedRequests: MutableList<RecordedRequest>
     lateinit var server: MockWebServer
     lateinit var configuration: PluginConfiguration
+
+    private val mapper = jacksonObjectMapper()
 
     @BeforeEach
     internal fun setUp() {
@@ -172,7 +174,7 @@ class SlackPluginIT : BaseIntegrationTest() {
 
         return pluginService.createPluginConfiguration(
             "Slack plugin configuration",
-            Mapper.INSTANCE.get().readTree(slackConfigurationProperties) as ObjectNode,
+            mapper.readTree(slackConfigurationProperties) as ObjectNode,
             "slack"
         )
     }
@@ -189,7 +191,7 @@ class SlackPluginIT : BaseIntegrationTest() {
                 "ServiceTask",
                 configuration.id.id,
                 actionDefinitionKey,
-                Mapper.INSTANCE.get().readTree(actionProperties) as ObjectNode,
+                mapper.readTree(actionProperties) as ObjectNode,
                 SERVICE_TASK_START,
             )
         )
@@ -205,7 +207,7 @@ class SlackPluginIT : BaseIntegrationTest() {
             PROCESS_DEFINITION_KEY,
             NewDocumentRequest(
                 DOCUMENT_DEFINITION_KEY,
-                Mapper.INSTANCE.get().readTree(documentContent)
+                mapper.readTree(documentContent)
             )
         )
         request.withProcessVars(processVars)

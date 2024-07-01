@@ -104,6 +104,10 @@ camunda:
             id: Admin
             password: admin
             first-name: Admin account
+        generic-properties:
+            properties:
+                enforceHistoryTimeToLive: false
+
 
 # ==================
 # keycloak server to server config

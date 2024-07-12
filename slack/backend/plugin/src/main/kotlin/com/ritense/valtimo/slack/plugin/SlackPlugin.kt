@@ -24,7 +24,6 @@ import com.ritense.processlink.domain.ActivityTypeWithEventName
 import com.ritense.resource.domain.MetadataType
 import com.ritense.resource.service.TemporaryResourceStorageService
 import com.ritense.valtimo.slack.client.SlackClient
-import com.ritense.valueresolver.ValueResolverService
 import java.net.URI
 import org.camunda.bpm.engine.delegate.DelegateExecution
 
@@ -36,7 +35,6 @@ import org.camunda.bpm.engine.delegate.DelegateExecution
 class SlackPlugin(
     private val slackClient: SlackClient,
     private val storageService: TemporaryResourceStorageService,
-    private val valueResolverService: ValueResolverService,
 ) {
 
     @PluginProperty(key = "url", secret = false)
@@ -60,7 +58,7 @@ class SlackPlugin(
         slackClient.token = token
         slackClient.chatPostMessage(
             channel = channel,
-            message = resolveValue(execution, message)!!,
+            message = message,
         )
     }
 
@@ -85,23 +83,10 @@ class SlackPlugin(
         slackClient.token = token
         slackClient.filesUpload(
             channels = channels,
-            message = resolveValue(execution, message),
+            message = message,
             fileName = fileName ?: metadata[MetadataType.FILE_NAME.key] as String,
             file = contentAsInputStream
         )
-    }
-
-    private fun resolveValue(execution: DelegateExecution, value: String?): String? {
-        return if (value == null) {
-            null
-        } else {
-            val resolvedValues = valueResolverService.resolveValues(
-                execution.processInstanceId,
-                execution,
-                listOf(value)
-            )
-            resolvedValues[value] as String?
-        }
     }
 
     companion object {

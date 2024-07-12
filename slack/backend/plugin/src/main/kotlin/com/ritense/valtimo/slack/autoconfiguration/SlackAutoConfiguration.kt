@@ -20,7 +20,6 @@ import com.ritense.plugin.service.PluginService
 import com.ritense.resource.service.TemporaryResourceStorageService
 import com.ritense.valtimo.slack.client.SlackClient
 import com.ritense.valtimo.slack.plugin.SlackPluginFactory
-import com.ritense.valueresolver.ValueResolverService
 import io.netty.handler.logging.LogLevel
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
@@ -47,9 +46,8 @@ class SlackAutoConfiguration {
         pluginService: PluginService,
         slackClient: SlackClient,
         storageService: TemporaryResourceStorageService,
-        valueResolverService: ValueResolverService,
     ): SlackPluginFactory {
-        return SlackPluginFactory(pluginService, slackClient, storageService, valueResolverService)
+        return SlackPluginFactory(pluginService, slackClient, storageService)
     }
 
     @Bean

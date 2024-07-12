@@ -20,16 +20,14 @@ import com.ritense.plugin.PluginFactory
 import com.ritense.plugin.service.PluginService
 import com.ritense.resource.service.TemporaryResourceStorageService
 import com.ritense.valtimo.slack.client.SlackClient
-import com.ritense.valueresolver.ValueResolverService
 
 class SlackPluginFactory(
     pluginService: PluginService,
     val client: SlackClient,
     val storageService: TemporaryResourceStorageService,
-    val valueResolverService: ValueResolverService,
 ) : PluginFactory<SlackPlugin>(pluginService) {
 
     override fun create(): SlackPlugin {
-        return SlackPlugin(client, storageService, valueResolverService)
+        return SlackPlugin(client, storageService)
     }
 }

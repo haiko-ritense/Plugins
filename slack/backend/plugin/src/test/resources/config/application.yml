@@ -31,6 +31,12 @@ spring:
     hibernate:
       ddl-auto: none
 
+camunda:
+  bpm:
+    generic-properties:
+      properties:
+        enforceHistoryTimeToLive: false
+
 spring-actuator:
   username: test
   password: test

@@ -49,6 +49,14 @@ repositories {
     maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/"}
 }
 
+configurations.all {
+    // These dependencies are required by valtimo:core, but are lacking a version number, causing errors.
+    // Because this dependency isn't used, we chose to exclude it.
+    // (If removing these exclusions doesn't cause errors, feel free to remove it.)
+    exclude group: 'io.dropwizard.metrics', module: 'metrics-core'
+    exclude group: 'io.dropwizard.metrics', module: 'metrics-annotation'
+}
+
 dependencies {
     implementation "com.ritense.valtimo:contract:${valtimoVersion}"
     implementation "com.ritense.valtimo:core:${valtimoVersion}"
@@ -64,8 +72,8 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-core:2.14.2"
 
     // Apache deps
-    implementation "org.apache.httpcomponents:httpclient:4.5.14"
-    implementation 'org.apache.httpcomponents:httpcore:4.4.15'
+    implementation "org.apache.httpcomponents.client5:httpclient5"
+//    implementation 'org.apache.httpcomponents:httpcore:4.4.15'
 
     implementation 'com.auth0:java-jwt:4.4.0'
 

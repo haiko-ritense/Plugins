@@ -12,12 +12,12 @@ include(
 //        "alfresco-authentication:backend:app",
 //        "alfresco-authentication:backend:plugin",
 //        "alfresco-authentication:frontend",
-        "amsterdam-email-api:backend",
-        "amsterdam-email-api:backend:app",
-        "amsterdam-email-api:backend:plugin",
-        "amsterdam-email-api:frontend",
-//        "berkelybridge-textgenerator:backend",
-//        "berkelybridge-textgenerator:backend:app",
-//        "berkelybridge-textgenerator:backend:plugin",
-//        "berkelybridge-textgenerator:frontend"
+//        "amsterdam-email-api:backend",
+//        "amsterdam-email-api:backend:app",
+//        "amsterdam-email-api:backend:plugin",
+//        "amsterdam-email-api:frontend",
+        "berkelybridge-textgenerator:backend",
+        "berkelybridge-textgenerator:backend:app",
+        "berkelybridge-textgenerator:backend:plugin",
+        "berkelybridge-textgenerator:frontend"
 )

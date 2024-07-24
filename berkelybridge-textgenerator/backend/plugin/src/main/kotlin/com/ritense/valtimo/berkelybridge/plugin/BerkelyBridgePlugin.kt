@@ -20,25 +20,21 @@
 
 package com.ritense.valtimo.berkelybridge.plugin
 
+import com.ritense.documentenapi.client.DocumentStatusType
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
-import com.ritense.plugin.domain.ActivityType
-import com.ritense.documentenapi.client.DocumentStatusType
+import com.ritense.processlink.domain.ActivityTypeWithEventName
 import com.ritense.resource.domain.MetadataType
 import com.ritense.resource.domain.TemporaryResourceUploadedEvent
 import com.ritense.resource.service.TemporaryResourceStorageService
 import com.ritense.valtimo.berkelybridge.client.BerkelyBridgeClient
-
 import com.ritense.valueresolver.ValueResolverService
-import mu.KotlinLogging
-
-
-import org.camunda.bpm.engine.delegate.DelegateExecution
-import org.hibernate.validator.constraints.Length
-import org.springframework.context.ApplicationEventPublisher
 import java.net.URL
+import mu.KotlinLogging
+import org.camunda.bpm.engine.delegate.DelegateExecution
+import org.springframework.context.ApplicationEventPublisher
 
 private val logger = KotlinLogging.logger {}
 
@@ -61,7 +57,7 @@ class BerkelyBridgePlugin(
         key = "genereer-tekst",
         title = "Genereer tekst",
         description = "Genereer tekst met template en parameters. Specifeer met format parameter of de output html of text moet zijn",
-        activityTypes = [ActivityType.SERVICE_TASK_START]
+        activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     fun generateText(
         execution: DelegateExecution,
@@ -84,7 +80,7 @@ class BerkelyBridgePlugin(
         key = "genereer-file-documenten-api",
         title = "Genereer een file",
         description = "Genereer een file die wordt opgeslagen in de documenten API",
-        activityTypes = [ActivityType.SERVICE_TASK_START]
+        activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     fun generateFile(
         execution: DelegateExecution,

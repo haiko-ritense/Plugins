@@ -24,17 +24,15 @@ import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
-import com.ritense.plugin.domain.ActivityType
+import com.ritense.processlink.domain.ActivityTypeWithEventName
 import com.ritense.valtimo.amsterdam.emailapi.client.BodyPart
 import com.ritense.valtimo.amsterdam.emailapi.client.EmailClient
 import com.ritense.valtimo.amsterdam.emailapi.client.EmailMessage
 import com.ritense.valtimo.amsterdam.emailapi.client.Recipient
+import java.net.URI
 import org.camunda.bpm.engine.delegate.DelegateExecution
-import org.springframework.http.*
 import org.springframework.util.MimeTypeUtils
 import org.springframework.web.client.RestTemplate
-import java.net.URI
-import java.util.*
 
 
 private const val UTF8 = "utf-8"
@@ -59,7 +57,7 @@ class EmailApiPlugin(
         key = "zend-email",
         title = "Zend email via API",
         description = "Zend een email via de Email API",
-        activityTypes = [ActivityType.SERVICE_TASK_START]
+        activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     fun sendEmail(
         execution: DelegateExecution,

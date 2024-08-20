@@ -19,6 +19,9 @@ plugins {
     id "com.avast.gradle.docker-compose" version "0.14.9"
 }
 
+sourceCompatibility = 17
+targetCompatibility = 17
+
 repositories {
     mavenCentral()
     mavenLocal()
@@ -26,6 +29,14 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/releases" }
     maven { url "https://s01.oss.sonatype.org/content/groups/staging/"}
     maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/"}
+}
+
+configurations.all {
+    // These dependencies are required by valtimo:core, but are lacking a version number, causing errors.
+    // Because this dependency isn't used, we chose to exclude it.
+    // (If removing these exclusions doesn't cause errors, feel free to remove it.)
+    exclude group: 'io.dropwizard.metrics', module: 'metrics-core'
+    exclude group: 'io.dropwizard.metrics', module: 'metrics-annotation'
 }
 
 dependencies {
@@ -38,7 +49,6 @@ dependencies {
     implementation "com.ritense.valtimo:document:${valtimoVersion}"
     implementation "com.ritense.valtimo:form:${valtimoVersion}"
     implementation "com.ritense.valtimo:form-flow-valtimo:${valtimoVersion}"
-    implementation "com.ritense.valtimo:form-link:${valtimoVersion}"
     implementation "com.ritense.valtimo:keycloak-iam:${valtimoVersion}"
     implementation "com.ritense.valtimo:local-resource:${valtimoVersion}"
     implementation "com.ritense.valtimo:local-mail:${valtimoVersion}"

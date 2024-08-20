@@ -23,9 +23,11 @@ import com.ritense.plugin.service.PluginService
 import com.ritense.resource.service.TemporaryResourceStorageService
 import com.ritense.valtimo.berkelybridge.client.BerkelyBridgeClient
 import com.ritense.valueresolver.ValueResolverService
-import org.apache.http.conn.ssl.NoopHostnameVerifier
-import org.apache.http.impl.client.CloseableHttpClient
-import org.apache.http.impl.client.HttpClients
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
+import org.apache.hc.client5.http.impl.classic.HttpClients
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder
+import org.apache.hc.client5.http.ssl.NoopHostnameVerifier
+import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.annotation.Bean
@@ -61,14 +63,19 @@ class BerkelyBridgeAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(RestTemplate::class)
     fun createRestTemplate(): RestTemplate {
-        val httpClient: CloseableHttpClient =
-            HttpClients.custom()
-                // for internal network use only
-                .setSSLHostnameVerifier(NoopHostnameVerifier())
-                .build()
+        val httpClient: CloseableHttpClient = HttpClients.custom()
+            .setConnectionManager(
+                PoolingHttpClientConnectionManagerBuilder.create()
+                    .setSSLSocketFactory(
+                        SSLConnectionSocketFactoryBuilder.create()
+                            .setHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+                            .build()
+                    )
+                    .build()
+            )
+            .build()
 
-        val requestFactory = HttpComponentsClientHttpRequestFactory()
-        requestFactory.httpClient = httpClient
+        val requestFactory = HttpComponentsClientHttpRequestFactory(httpClient)
 
         return RestTemplate(requestFactory)
     }

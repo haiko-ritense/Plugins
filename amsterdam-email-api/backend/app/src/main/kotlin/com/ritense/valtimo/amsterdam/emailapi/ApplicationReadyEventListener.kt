@@ -54,9 +54,7 @@ class ApplicationReadyEventListener(
         val configurationProperties = """
             {   
                 "emailApiBaseUrl": "https://emailurl/mail/api/v1/mail",
-                "clientId": "testClient",
-                "clientSecret": "testSecret"
-                "tokenEndpoint": "https://tokenendpoint/auth/realms/realm/protocol/openid-connect/token"
+                "subscriptionKey": "notreallyakey"
             }"""
 
         return pluginService.createPluginConfiguration(

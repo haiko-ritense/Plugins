@@ -40,7 +40,7 @@ java {
     withSourcesJar()
 }
 
-version='1.2.0'
+version="${pluginVersion}"
 
 repositories {
     mavenCentral()
@@ -121,6 +121,14 @@ test {
 
 sourceCompatibility = 17
 targetCompatibility = 17
+
+task wrapper(type: Wrapper){
+    gradleVersion = '7.5'
+}
+
+task prepareKotlinBuildScriptModel {
+
+}
 
 apply plugin: "com.avast.gradle.docker-compose"
 

@@ -100,6 +100,7 @@ java {
     withSourcesJar()
 }
 
+version="${pluginVersion}"
 
 tasks.register("integrationTesting", Test) {
     group = "verification"

@@ -73,6 +73,12 @@ import {
 } from '@valtimo/plugin';
 import {TaskManagementModule} from '@valtimo/task-management';
 import {ProcessLinkModule} from "@valtimo/process-link";
+import {
+  MailTemplatePluginModule
+} from '../../projects/valtimo/freemarker/src/lib/plugins/mail-template/mail-template-plugin-module';
+import {
+  mailTemplatePluginSpecification
+} from '../../projects/valtimo/freemarker/src/lib/plugins/mail-template/mail-template-plugin.specification';
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -91,6 +97,7 @@ export function tabsFactory() {
     AlfrescoAuthPluginModule,
     AmsterdamEmailapiPluginModule,
     BerkelybridgeTextgeneratorPluginModule,
+    MailTemplatePluginModule,
     PublictaskPluginModule,
     SlackPluginModule,
     SmtpMailPluginModule,
@@ -148,6 +155,7 @@ export function tabsFactory() {
       alfrescoAuthPluginSpecification,
       amsterdamEmailapiPluginSpecification,
       berkelybridgeTextgeneratorPluginSpecification,
+      mailTemplatePluginSpecification,
       publictaskPluginSpecification,
       slackPluginSpecification,
       smtpmailPluginSpecification,

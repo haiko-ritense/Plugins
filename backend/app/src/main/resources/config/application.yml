@@ -71,9 +71,9 @@ valtimo:
     encryption-secret: "abcdefghijklmnop"
   changelog:
     pbac:
-      clear-tables: true
+      clear-tables: false
     case-tabs:
-      clear-tables: true
+      clear-tables: false
   web:
     cors:
       corsConfiguration:

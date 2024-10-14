@@ -58,8 +58,7 @@ export class SmtpMailPluginConfigurationComponent
   }
 
   private handleValid(formValue: SmtpMailConfig): void {
-    // The configuration is valid when a host and port are defined
-    const valid = !!(formValue.host && formValue.port);
+    const valid = !!(formValue.configurationTitle && formValue.host && formValue.port);
 
     this.valid$.next(valid);
     this.valid.emit(valid);

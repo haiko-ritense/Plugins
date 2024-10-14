@@ -18,13 +18,13 @@ import {PluginConfigurationData} from '@valtimo/plugin';
 
 interface SmtpMailConfig extends PluginConfigurationData {
     host: string;
-    port: string;
+    port: number;
     username: string;
     password: string;
     protocol: string;
-    debug: string;
-    auth: string;
-    startTlsEnable: string;
+    debug: boolean;
+    auth: boolean;
+    startTlsEnable: boolean;
 }
 
 interface SendMailConfig {

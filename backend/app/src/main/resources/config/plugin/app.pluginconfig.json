@@ -18,15 +18,6 @@
     }
   },
   {
-    "id": "531935ce-e9ae-45d7-bf1a-08993e358482",
-    "title": "SMTP mail configuration",
-    "pluginDefinitionKey": "smtp-mail",
-    "properties": {
-      "host": "http://localhost/",
-      "port": "25"
-    }
-  },
-  {
     "id": "9a100bdb-2825-4b7a-800c-5ae43a6b2fff",
     "title": "Berkely Bridge Text generator",
     "pluginDefinitionKey": "bbtextgenerator",

@@ -9,10 +9,10 @@ bower_components
 ######################
 # Node
 ######################
-/node/**
-/node_tmp/**
-/node_modules/**
-slack/frontend/node_modules/bl/node_modules/readable-stream
+frontend/node/**
+frontend/node_tmp/**
+frontend/node_modules/**
+frontend/node_modules/bl/node_modules/readable-stream
 
 ######################
 # SASS
@@ -160,3 +160,4 @@ Desktop.ini
 **/node_modules/**
 **/dist/**
 **/*.d.ts
+/.env.properties

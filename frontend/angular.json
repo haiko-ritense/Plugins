@@ -269,6 +269,47 @@
         }
       }
     },
+    "@valtimo/freemarker": {
+      "projectType": "library",
+      "root": "projects/valtimo/freemarker",
+      "sourceRoot": "projects/valtimo/freemarker/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/valtimo/freemarker/tsconfig.lib.json",
+            "project": "projects/valtimo/freemarker/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/valtimo/freemarker/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/valtimo/freemarker/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/valtimo/freemarker/src/test.ts",
+            "tsConfig": "projects/valtimo/freemarker/tsconfig.spec.json",
+            "karmaConfig": "projects/valtimo/freemarker/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/valtimo/freemarker/src/**/*.ts",
+              "projects/valtimo/freemarker/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "@valtimo/publictask": {
       "projectType": "library",
       "root": "projects/valtimo/publictask",

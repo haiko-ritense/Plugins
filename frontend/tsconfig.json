@@ -22,6 +22,7 @@
       "@valtimo/alfresco-auth": ["dist/valtimo/alfresco-auth"],
       "@valtimo/amsterdam-emailapi": ["dist/valtimo/amsterdam-emailapi"],
       "@valtimo/berkelybridge": ["dist/valtimo/berkelybridge"],
+      "@valtimo/freemarker": ["dist/valtimo/freemarker"],
       "@valtimo/publictask": ["dist/valtimo/publictask"],
       "@valtimo/slack": ["dist/valtimo/slack"],
       "@valtimo/smtpmail": ["dist/valtimo/smtpmail"],

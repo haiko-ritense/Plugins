@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2022 Ritense BV, the Netherlands.
+ * Copyright 2015-2023 Ritense BV, the Netherlands.
  *
  * Licensed under EUPL, Version 1.2 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimo.backend.plugin.dto
+package com.ritense.freemarker.model
 
-data class SmtpMailContextDto(
-    val sender: Email,
-    val recipients: List<Email>,
-    val ccList: List<Email>,
-    val bccList: List<Email>,
-    val subject: String,
-    val contentResourceId: String,
-    val attachmentResourceIds: List<String>
+data class TemplateDeploymentMetadata(
+    val templateKey: String,
+    val caseDefinitionName: String? = null,
+    val templateType: String,
+    val metadata: Map<String, Any?>? = null,
+    val content: String? = null,
+    val contentRef: String? = null,
 )
-
-@JvmInline
-value class Email(val address: String) {
-    init {
-        require(address.matches(Regex("^[A-Za-z0-9+_.-]+@(.+)$"))) { "$address is not a valid email address" }
-    }
-}

@@ -26,9 +26,12 @@ import {environment} from '../environments/environment';
 import {SecurityModule} from '@valtimo/security';
 import {
   BpmnJsDiagramModule,
-  CardModule, enableCustomFormioComponents,
-  MenuModule, registerFormioFileSelectorComponent,
-  registerFormioUploadComponent, registerFormioValueResolverSelectorComponent,
+  CardModule,
+  enableCustomFormioComponents,
+  MenuModule,
+  registerFormioFileSelectorComponent,
+  registerFormioUploadComponent,
+  registerFormioValueResolverSelectorComponent,
   WidgetModule
 } from '@valtimo/components';
 import {
@@ -56,29 +59,22 @@ import {FormManagementModule} from '@valtimo/form-management';
 import {MigrationModule} from '@valtimo/migration';
 import {DossierManagementModule} from '@valtimo/dossier-management';
 import {BootstrapModule} from '@valtimo/bootstrap';
-import {ConfigModule, ConfigService, LocalizationService, CustomMultiTranslateHttpLoaderFactory} from '@valtimo/config';
+import {ConfigModule, ConfigService, CustomMultiTranslateHttpLoaderFactory, LocalizationService} from '@valtimo/config';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PluginManagementModule} from '@valtimo/plugin-management';
-import {AlfrescoAuthPluginModule, alfrescoAuthPluginSpecification} from '../../projects/valtimo/alfresco-auth/src/public_api';
-import {AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} from '../../projects/valtimo/amsterdam-emailapi/src/public_api';
-import {BerkelybridgeTextgeneratorPluginModule, berkelybridgeTextgeneratorPluginSpecification} from '../../projects/valtimo/berkelybridge/src/public_api';
-import {PublictaskPluginModule, publictaskPluginSpecification} from '../../projects/valtimo/publictask/src/public_api';
-import {SlackPluginModule, slackPluginSpecification} from '../../projects/valtimo/slack/src/public_api';
-import {SmtpMailPluginModule, smtpmailPluginSpecification} from '../../projects/valtimo/smtpmail/src/public_api';
-import {SpotlerPluginModule, spotlerPluginSpecification} from '../../projects/valtimo/spotler/src/public_api';
-import {SuwinetPluginModule, suwinetPluginSpecification} from '../../projects/valtimo/suwinet/src/public_api';
+import {AlfrescoAuthPluginModule, alfrescoAuthPluginSpecification} from '@valtimo/alfresco-auth';
+import {AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} from '@valtimo/amsterdam-emailapi';
+import {BerkelybridgeTextgeneratorPluginModule, berkelybridgeTextgeneratorPluginSpecification} from '@valtimo/berkelybridge';
+import {PublictaskPluginModule, publictaskPluginSpecification} from '@valtimo/publictask';
+import {SlackPluginModule, slackPluginSpecification} from '@valtimo/slack';
+import {SmtpMailPluginModule, smtpmailPluginSpecification} from '@valtimo/smtpmail';
+import {SpotlerPluginModule, spotlerPluginSpecification} from '@valtimo/spotler';
+import {SuwinetPluginModule, suwinetPluginSpecification} from '@valtimo/suwinet';
 import {AccessControlManagementModule} from '@valtimo/access-control-management';
-import {
-  PLUGINS_TOKEN,
-} from '@valtimo/plugin';
+import {PLUGINS_TOKEN} from '@valtimo/plugin';
 import {TaskManagementModule} from '@valtimo/task-management';
-import {ProcessLinkModule} from "@valtimo/process-link";
-import {
-  MailTemplatePluginModule
-} from '../../projects/valtimo/freemarker/src/lib/plugins/mail-template/mail-template-plugin-module';
-import {
-  mailTemplatePluginSpecification
-} from '../../projects/valtimo/freemarker/src/lib/plugins/mail-template/mail-template-plugin.specification';
+import {ProcessLinkModule} from '@valtimo/process-link';
+import {MailTemplatePluginModule, mailTemplatePluginSpecification} from '@valtimo/freemarker';
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -167,7 +163,7 @@ export function tabsFactory() {
 })
 export class AppModule {
   constructor(injector: Injector) {
-    enableCustomFormioComponents(injector)
+    enableCustomFormioComponents(injector);
     registerFormioUploadComponent(injector);
     registerFormioFileSelectorComponent(injector);
     registerFormioValueResolverSelectorComponent(injector);

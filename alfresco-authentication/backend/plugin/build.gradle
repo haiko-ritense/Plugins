@@ -35,6 +35,8 @@ plugins {
     id "com.avast.gradle.docker-compose" version "0.16.9"
 }
 
+version="${pluginVersion}"
+
 repositories {
     mavenCentral()
     mavenLocal()
@@ -42,6 +44,20 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/releases" }
     maven { url "https://s01.oss.sonatype.org/content/groups/staging/"}
     maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/"}
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "com.fasterxml.jackson:jackson-bom:2.17.2"
+    }
+}
+
+configurations.all {
+    // These dependencies are required by valtimo:core, but are lacking a version number, causing errors.
+    // Because this dependency isn't used, we chose to exclude it.
+    // (If removing these exclusions doesn't cause errors, feel free to remove it.)
+    exclude group: 'io.dropwizard.metrics', module: 'metrics-core'
+    exclude group: 'io.dropwizard.metrics', module: 'metrics-annotation'
 }
 
 dependencies {
@@ -99,6 +115,14 @@ test {
 
 sourceCompatibility = 17
 targetCompatibility = 17
+
+task wrapper(type: Wrapper){
+    gradleVersion = '7.5'
+}
+
+task prepareKotlinBuildScriptModel {
+
+}
 
 apply plugin: "com.avast.gradle.docker-compose"
 

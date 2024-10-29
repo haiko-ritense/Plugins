@@ -34,6 +34,8 @@ import com.ritense.valueresolver.ValueResolverService
 import java.net.URL
 import mu.KotlinLogging
 import org.camunda.bpm.engine.delegate.DelegateExecution
+import org.camunda.bpm.engine.variable.Variables
+import org.camunda.bpm.engine.variable.value.SerializationDataFormat
 import org.springframework.context.ApplicationEventPublisher
 
 private val logger = KotlinLogging.logger {}
@@ -73,7 +75,12 @@ class BerkelyBridgePlugin(
             naam = naam,
             format = format)
 
-            execution.setVariable(variabeleNaam, text);
+            execution.setVariable(
+                variabeleNaam,
+                Variables.objectValue(text).serializationDataFormat(
+                    Variables.SerializationDataFormats.JAVA
+                ).create()
+            )
     }
 
     @PluginAction(

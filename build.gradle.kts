@@ -20,6 +20,7 @@ plugins {
 
     // Other
     id("com.avast.gradle.docker-compose")
+    id("cn.lalaki.central") version "1.2.5"
 }
 
 allprojects {
@@ -60,6 +61,7 @@ subprojects {
 
         dependencies {
             implementation(platform("com.ritense.valtimo:valtimo-dependency-versions:$valtimoVersion"))
+            implementation("cn.lalaki.central:central:1.2.5")
         }
 
         allOpen {
@@ -97,7 +99,7 @@ subprojects {
             }
         }
     }
-    if(project.path.startsWith(":backend") && project.name != "app" && project.name != "gradle" && project.name != "dependencies") {
+    if(project.path.startsWith(":backend") && project.name != "app" && project.name != "gradle" && project.name != "backend") {
         apply(from = "$rootDir/gradle/publishing.gradle")
     }
 }

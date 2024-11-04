@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.ritense.valtimo.amsterdam.emailapi.plugin.EmailApiAutoConfiguration
+  com.ritense.valtimoplugins.amsterdam.emailapi.plugin.EmailApiAutoConfiguration

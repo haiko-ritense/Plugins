@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 val valtimoVersion: String by project
 
@@ -80,6 +81,10 @@ subprojects {
             }
         }
 
+        tasks.getByName<BootJar>("bootJar") {
+            enabled = false
+        }
+
         apply(from = "$rootDir/gradle/test.gradle.kts")
         apply(from = "$rootDir/gradle/plugin-properties.gradle.kts")
         val pluginProperties = extra["pluginProperties"] as Map<*, *>
@@ -91,6 +96,9 @@ subprojects {
                 pluginProperties["pluginVersion"]?.let { attributes["Implementation-Version"] = it }
             }
         }
+    }
+    if(project.path.startsWith(":backend") && project.name != "app" && project.name != "gradle" && project.name != "dependencies") {
+        apply(from = "$rootDir/gradle/publishing.gradle")
     }
 }
 println("Configuring has finished")

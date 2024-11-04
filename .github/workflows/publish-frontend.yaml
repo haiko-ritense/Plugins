@@ -58,3 +58,7 @@ jobs:
       - run: npm run build
         working-directory: frontend/projects/${{ matrix.value }}
 
+
+
+
+

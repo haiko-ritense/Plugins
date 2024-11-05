@@ -1,6 +1,6 @@
 # Alfresco Authentication plugin
 
-Configureer OAuth credentials voor Alfresco DRC Documenten API koppeling.
+Configureer OAuth credentials voor Alfresco DRC Documenten API koppeling
 
 ## Configuratie
 

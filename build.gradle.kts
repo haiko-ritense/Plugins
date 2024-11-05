@@ -103,4 +103,9 @@ subprojects {
         apply(from = "$rootDir/gradle/publishing.gradle")
     }
 }
+
+tasks.bootJar {
+    enabled = false
+}
+
 println("Configuring has finished")

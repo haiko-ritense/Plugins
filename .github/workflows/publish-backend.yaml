@@ -37,6 +37,7 @@ jobs:
           matrix: 'true'
           files_ignore: |
             backend/README.md
+            .github/**
             frontend/**
             docker-resources/**
             gradle/**
@@ -68,8 +69,8 @@ jobs:
         run: echo ${{ matrix.value }}
 
       - id: gradleTaskAlize
-        name: Filter and gradle taskalize
-        run: CHANGED_DIR=${{ matrix.value }}; echo "TASK_NAME=$(echo :$CHANGED_DIR | sed -e 's/\//:/g')">>${GITHUB_OUTPUT}
+        name: Construct Gradle task name from matrix variant
+        run: CHANGED_DIR=${{ matrix.value }}; echo "TASK_NAME=$(echo :$CHANGED_DIR:publishToCentralPortal | sed -e 's/\//:/g')">>${GITHUB_OUTPUT}
         env:
           CHANGED_DIR: ${{ matrix.value }}
 

@@ -33,8 +33,13 @@ jobs:
         with:
           dir_names: 'true'
           dir_names_max_depth: '2'
+          dir_names_exclude_current_dir: 'true'
           matrix: 'true'
-          files_ignore: 'backend/README.md'
+          files_ignore: |
+            backend/README.md
+            frontend/**
+            docker-resources/**
+            gradle/**
         uses: tj-actions/changed-files@v45
       # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
 
@@ -59,7 +64,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
-      - name: Listing changes
+      - name: Listing changed plugin folders
         run: echo ${{ matrix.value }}
 
       - id: gradleTaskAlize
@@ -68,9 +73,6 @@ jobs:
         env:
           CHANGED_DIR: ${{ matrix.value }}
 
-      - name: Gradle task
-        run: echo ${{ steps.gradleTaskAlize.outputs.TASK_NAME }}
-
-      - name: Build with Gradle Wrapper
-        run: ./gradlew build
+      - name: Publish
+        run: ./gradlew ${{ steps.gradleTaskAlize.outputs.TASK_NAME }}
 

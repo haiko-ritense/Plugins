@@ -76,4 +76,9 @@ jobs:
 
       - name: Publish
         run: ./gradlew ${{ steps.gradleTaskAlize.outputs.TASK_NAME }}
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SONATYPE_USR: ${{ secrets.SONATYPE_USR }}
+          SONATYPE_PSW: ${{ secrets.SONATYPE_PSW }}
 

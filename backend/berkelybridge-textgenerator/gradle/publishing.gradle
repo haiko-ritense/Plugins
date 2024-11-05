@@ -24,7 +24,7 @@ pluginManager.withPlugin("maven-publish") {
 
                 pom {
                     name = "Berkely Bridge plugin module"
-                    description = "The Berkely Bridge plugin module allows to generate text filesand PDF documents"
+                    description = "The Berkely Bridge plugin module allows you to generate text files and PDF documents"
                     developers {
                         developer {
                             id = "haiko-ritense"

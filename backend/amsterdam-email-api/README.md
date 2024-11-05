@@ -1,6 +1,7 @@
 # Amsterdam Email API plugin
 
 Zend emails met de Email API (beschikbaar bij Gemeente Amsterdam)
+
 ## Configuratie
 
 ### Configureer plugin

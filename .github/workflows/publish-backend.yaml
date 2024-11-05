@@ -62,6 +62,15 @@ jobs:
       - name: Listing changes
         run: echo ${{ matrix.value }}
 
+      - id: gradleTaskAlize
+        name: Filter and gradle taskalize
+        run: CHANGED_DIR=${{ matrix.value }}; echo "TASK_NAME=$(echo :$CHANGED_DIR | sed -e 's/\//:/g')">>${GITHUB_OUTPUT}
+        env:
+          CHANGED_DIR: ${{ matrix.value }}
+
+      - name: Gradle task
+        run: echo ${{ steps.gradleTaskAlize.outputs.TASK_NAME }}
+
       - name: Build with Gradle Wrapper
         run: ./gradlew build
 

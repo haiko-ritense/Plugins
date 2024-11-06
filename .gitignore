@@ -157,6 +157,7 @@ Desktop.ini
 
 **/.gradle
 **/build/**
+**/sonatypeCentralStaging/**
 **/node_modules/**
 **/dist/**
 **/*.d.ts

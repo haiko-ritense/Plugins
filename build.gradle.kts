@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 val valtimoVersion: String by project
 
@@ -19,6 +20,7 @@ plugins {
 
     // Other
     id("com.avast.gradle.docker-compose")
+    id("cn.lalaki.central") version "1.2.5"
 }
 
 allprojects {
@@ -59,6 +61,7 @@ subprojects {
 
         dependencies {
             implementation(platform("com.ritense.valtimo:valtimo-dependency-versions:$valtimoVersion"))
+            implementation("cn.lalaki.central:central:1.2.5")
         }
 
         allOpen {
@@ -80,6 +83,10 @@ subprojects {
             }
         }
 
+        tasks.getByName<BootJar>("bootJar") {
+            enabled = false
+        }
+
         apply(from = "$rootDir/gradle/test.gradle.kts")
         apply(from = "$rootDir/gradle/plugin-properties.gradle.kts")
         val pluginProperties = extra["pluginProperties"] as Map<*, *>
@@ -92,5 +99,13 @@ subprojects {
             }
         }
     }
+    if(project.path.startsWith(":backend") && project.name != "app" && project.name != "gradle" && project.name != "backend") {
+        apply(from = "$rootDir/gradle/publishing.gradle")
+    }
 }
+
+tasks.bootJar {
+    enabled = false
+}
+
 println("Configuring has finished")

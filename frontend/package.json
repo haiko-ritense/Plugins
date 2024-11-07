@@ -6,6 +6,8 @@
     "npm": ">=8.19.3 <11.0.0"
   },
   "scripts": {
+    "libs-increment-all": "node ./frontend/scripts/libs.increment.all.js",
+    "libs-publish-all": "node ./frontend/scripts/libs.publish.all.js",
     "clean": "rimraf dist .angular node_modules package-lock.json",
     "ng": "ng",
     "start": "ng serve --proxy-config conf/proxy.conf.json",

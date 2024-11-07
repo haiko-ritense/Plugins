@@ -6,6 +6,7 @@ on:
       - 'frontend/**'
     branches:
       - main
+      - feature/github-actions-workflows
 
 jobs:
   # -------------------------------------------------------------
@@ -57,8 +58,5 @@ jobs:
         working-directory: frontend/projects/${{ matrix.value }}
       - run: npm run build
         working-directory: frontend/projects/${{ matrix.value }}
-
-
-
-
-
+      - run: npm run libs-publish-all -- npmjs ${{ secrets.NPMJS_SECRET }}
+        working-directory: frontend/projects/${{ matrix.value }}

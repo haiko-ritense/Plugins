@@ -63,7 +63,8 @@ jobs:
         env:
           CHANGED_DIR: ${{ matrix.value }}
 
-      - run: npm run ${TASK_NAME}
+      - run: npm run ${{ steps.constructBuildTask.outputs.TASK_NAME }}
         working-directory: frontend
+
       - run: npm --prefix . run libs-publish-all -- npmjs ${{ secrets.NPMJS_SECRET }}
         working-directory: frontend

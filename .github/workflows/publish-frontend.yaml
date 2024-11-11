@@ -59,7 +59,7 @@ jobs:
 
       - id: constructBuildTask
         name: Construct build task name from matrix variant
-        run: CHANGED_DIR=${{ matrix.value }}; PLUGIN=$(echo $CHANGED_DIR | sed 's/.*\///') echo "TASK_NAME=$(echo libs:build:$PLUGIN)">>${GITHUB_OUTPUT}
+        run: CHANGED_DIR=${{ matrix.value }}; PLUGIN=$(echo $CHANGED_DIR | sed 's/.*\///'); echo "TASK_NAME=$(echo libs:build:$PLUGIN)">>${GITHUB_OUTPUT}
         env:
           CHANGED_DIR: ${{ matrix.value }}
 

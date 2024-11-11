@@ -65,5 +65,5 @@ jobs:
 
       - run: npm run ${TASK_NAME}
         working-directory: frontend
-      - run: npm --prefix . run libs-publish-all -- npmjs ${NPMJS_SECRET}
+      - run: npm --prefix . run libs-publish-all -- npmjs ${{ secrets.NPMJS_SECRET }}
         working-directory: frontend

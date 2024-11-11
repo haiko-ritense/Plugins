@@ -53,10 +53,17 @@ jobs:
           node-version: 20
 
       - run: npm install --global @angular/cli
-        working-directory: frontend/projects/${{ matrix.value }}
+        working-directory: frontend
       - run: npm install --legacy-peer-deps
-        working-directory: frontend/projects/${{ matrix.value }}
-      - run: npm run build
-        working-directory: frontend/projects/${{ matrix.value }}
-      - run: npm run libs-publish-all -- npmjs ${{ secrets.NPMJS_SECRET }}
-        working-directory: frontend/projects/${{ matrix.value }}
+        working-directory: frontend
+
+      - id: constructBuildTask
+        name: Construct build task name from matrix variant
+        run: CHANGED_DIR=${{ matrix.value }}; echo "TASK_NAME=$(echo libs:build:$CHANGED_DIR | sed -e 's/\///g')">>${GITHUB_OUTPUT}
+        env:
+          CHANGED_DIR: ${{ matrix.value }}
+
+      - run: npm run ${TASK_NAME}
+        working-directory: frontend
+      - run: npm --prefix . run libs-publish-all -- npmjs ${NPMJS_SECRET}
+        working-directory: frontend

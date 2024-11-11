@@ -1,5 +1,5 @@
 {
-  "name": "@valtimo/kvk-handelsregister",
+  "name": "@valtimo-plugins/kvk-handelsregister",
   "license": "EUPL-1.2",
   "version": "1.0.0",
   "scripts": {

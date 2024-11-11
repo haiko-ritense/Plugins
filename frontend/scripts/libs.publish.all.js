@@ -34,20 +34,10 @@ const packageVersion = process.argv.slice(2)[3];
 let destinationRegistry = 'localhost'
 let accessModifier = ''
 switch (destinationArg) {
-    case 'ritense-nexus':
-        destinationRegistry = 'repo.ritense.com/repository/npm-ritense-private/';
-        if (!accessKeyIdOrNpmToken) throw 'Invalid npm token';
-        break;
     case 'npmjs':
         destinationRegistry = 'registry.npmjs.org/';
         if (!accessKeyIdOrNpmToken) throw 'Invalid npm token';
         accessModifier = ' --access public';
-        break;
-    case 's3':
-        destinationRegistry = 's3'
-        if (!accessKeyIdOrNpmToken) throw 'Access key id must be set';
-        if (!secretAccessKey) throw 'Secret access key must be set';
-        if (!packageVersion) throw 'Package version must be set';
         break;
     default:
         console.log('Invalid publishing option');
@@ -57,21 +47,11 @@ const distDir = './dist/valtimo';
 fs.readdirSync(distDir).forEach((dir) => {
     let cwd = process.cwd();
     process.chdir(path.resolve(`${distDir}/${dir}`));
-    if(destinationArg === 'ritense-nexus' || destinationArg === 'npmjs') {
-        fs.writeFileSync('.npmrc', `@valtimo:registry=https://${destinationRegistry}\n` +
+    if(destinationArg === 'npmjs') {
+        fs.writeFileSync('.npmrc', `@valtimo-plugins:registry=https://${destinationRegistry}\n` +
             `//${destinationRegistry}:_authToken=${accessKeyIdOrNpmToken}\n`);
 
         exec.execSync('npm publish'+accessModifier);
-    }
-    if(destinationArg === 's3') {
-        let envCopy = {};
-        for (e in process.env) envCopy[e] = process.env[e];
-        envCopy.AWS_ACCESS_KEY_ID = accessKeyIdOrNpmToken;
-        envCopy.AWS_SECRET_ACCESS_KEY = secretAccessKey;
-        envCopy.AWS_DEFAULT_REGION = 'eu-central-1';
-
-        exec.execSync('npm pack');
-        exec.execSync(`aws s3 cp --recursive --exclude \"*\" --include \"*.tgz\" . s3://valtimo-releases/snapshots/${packageVersion}/`, { env: envCopy });
     }
 
     process.chdir(cwd);

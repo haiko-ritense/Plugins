@@ -42,6 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: changed_files
     strategy:
+      max-parallel: 1
       matrix:
         value: ${{ fromJSON(needs.changed_files.outputs.matrix) }}
     name: Build and publish

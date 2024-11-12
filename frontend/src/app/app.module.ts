@@ -62,21 +62,21 @@ import {BootstrapModule} from '@valtimo/bootstrap';
 import {ConfigModule, ConfigService, CustomMultiTranslateHttpLoaderFactory, LocalizationService} from '@valtimo/config';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PluginManagementModule} from '@valtimo/plugin-management';
-import {AlfrescoAuthPluginModule, alfrescoAuthPluginSpecification} from '@valtimo/alfresco-auth';
-import {AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} from '@valtimo/amsterdam-emailapi';
-import {BerkelybridgeTextgeneratorPluginModule, berkelybridgeTextgeneratorPluginSpecification} from '@valtimo/berkelybridge';
-import {PublictaskPluginModule, publictaskPluginSpecification} from '@valtimo/publictask';
-import {SlackPluginModule, slackPluginSpecification} from '@valtimo/slack';
-import {SmtpMailPluginModule, smtpmailPluginSpecification} from '@valtimo/smtpmail';
-import {SpotlerPluginModule, spotlerPluginSpecification} from '@valtimo/spotler';
-import {SuwinetPluginModule, suwinetPluginSpecification} from '@valtimo/suwinet';
 import {AccessControlManagementModule} from '@valtimo/access-control-management';
 import {PLUGINS_TOKEN} from '@valtimo/plugin';
 import {TaskManagementModule} from '@valtimo/task-management';
 import {ProcessLinkModule} from '@valtimo/process-link';
-import {MailTemplatePluginModule, mailTemplatePluginSpecification} from '@valtimo/freemarker';
-import {notifyNlPluginSpecification} from "../../projects/valtimo/notify-nl/src/lib/notify-nl-plugin.specification";
-import {NotifyNlPluginModule} from "../../projects/valtimo/notify-nl/src/lib/notify-nl-plugin-module";
+
+import {AlfrescoAuthPluginModule, alfrescoAuthPluginSpecification} from '@valtimo-plugins/alfresco-auth';
+import {AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} from '@valtimo-plugins/amsterdam-emailapi';
+import {BerkelybridgeTextgeneratorPluginModule, berkelybridgeTextgeneratorPluginSpecification} from '@valtimo-plugins/berkelybridge';
+import {MailTemplatePluginModule, mailTemplatePluginSpecification} from '@valtimo-plugins/freemarker';
+import {NotifyNlPluginModule, notifyNlPluginSpecification} from '@valtimo-plugins/notify-nl';
+import {PublictaskPluginModule, publictaskPluginSpecification} from '@valtimo-plugins/publictask';
+import {SlackPluginModule, slackPluginSpecification} from '@valtimo-plugins/slack';
+import {SmtpMailPluginModule, smtpmailPluginSpecification} from '@valtimo-plugins/smtpmail';
+import {SpotlerPluginModule, spotlerPluginSpecification} from '@valtimo-plugins/spotler';
+import {SuwinetPluginModule, suwinetPluginSpecification} from '@valtimo-plugins/suwinet';
 
 export function tabsFactory() {
   return new Map<string, object>([

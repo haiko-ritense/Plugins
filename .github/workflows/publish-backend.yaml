@@ -40,6 +40,7 @@ jobs:
             frontend/**
             docker-resources/**
             gradle/**
+            backend/app/**
         uses: tj-actions/changed-files@v45
       # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
 

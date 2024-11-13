@@ -43,7 +43,7 @@ switch (destinationArg) {
         console.log('Invalid publishing option');
 }
 
-const distDir = './dist/valtimo';
+const distDir = './dist/valtimo-plugins';
 fs.readdirSync(distDir).forEach((dir) => {
     let cwd = process.cwd();
     process.chdir(path.resolve(`${distDir}/${dir}`));

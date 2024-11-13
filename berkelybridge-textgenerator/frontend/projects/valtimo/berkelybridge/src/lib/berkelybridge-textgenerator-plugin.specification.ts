@@ -46,6 +46,9 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
       berkelybridgeBaseUrl: 'Berkely Bridge base url',
       berkelybridgeBaseUrlTooltip:
           'Vul hier url in waarop Berkely Bridge is te bereiken.',
+      subscriptionKey: 'Subscription key',
+      subscriptionKeyTooltip:
+          'Vul hier de Subcription Key in.',
       modelId: 'Model ID',
       modelIdTooltip: 'Vul het Berkely Bridge model ID in',
       templateId: 'Template ID',
@@ -81,6 +84,9 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
       berkelybridgeBaseUrl: 'Berkely Bridge base url',
       berkelybridgeBaseUrlTooltip:
           'Enter the URL here where Berkely Bridge can be reached.',
+      subscriptionKey: 'Subscription key',
+      subscriptionKeyTooltip:
+          'Fill in the subcription Key for the Berkely Bridge API.',
       modelId: 'Model ID',
       modelIdTooltip: 'Enter the Berkely Bridge model ID',
       templateId: 'Template ID',
@@ -113,6 +119,9 @@ const berkelybridgeTextgeneratorPluginSpecification: PluginSpecification = {
       berkelybridgeBaseUrl: 'Berkely Bridge base url',
       berkelybridgeBaseUrlTooltip:
           'Vul hier url in waarop Berkely Bridge is te bereiken.',
+      subscriptionKey: 'Subscription key',
+      subscriptionKeyTooltip:
+          'Geben Sie hier die Subcription Key ein.',
       modelId: 'Model ID',
       modelIdTooltip: 'Vul het Berkely Bridge model ID in',
       templateId: 'Template ID',

@@ -17,9 +17,9 @@
  *
  */
 
-
 package com.ritense.valtimo.amsterdam.emailapi.plugin
 
+import com.github.ksuid.Ksuid
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
@@ -32,8 +32,6 @@ import com.ritense.valtimo.amsterdam.emailapi.client.Recipient
 import java.net.URI
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.springframework.util.MimeTypeUtils
-import org.springframework.web.client.RestTemplate
-
 
 private const val UTF8 = "utf-8"
 
@@ -44,7 +42,6 @@ private const val UTF8 = "utf-8"
 )
 class EmailApiPlugin(
     private val emailClient: EmailClient,
-    private val restTemplate: RestTemplate,
 ) {
 
     @PluginProperty(key = "emailApiBaseUrl", secret = false, required = true)
@@ -61,6 +58,7 @@ class EmailApiPlugin(
     )
     fun sendEmail(
         execution: DelegateExecution,
+        @PluginActionProperty zaakId: String?,
         @PluginActionProperty toEmail: String,
         @PluginActionProperty toName: String?,
         @PluginActionProperty fromAddress: String,
@@ -75,7 +73,7 @@ class EmailApiPlugin(
             to = setOf(
                 Recipient(
                     address = toEmail,
-                    name = toName as String
+                    name = toName
                 )
             ),
             from = Recipient(address = fromAddress),
@@ -87,6 +85,7 @@ class EmailApiPlugin(
                 )
             ),
             subject = emailSubject,
+            messageId = generateMessageId(zaakId),
         )
 
 
@@ -113,4 +112,6 @@ class EmailApiPlugin(
         // send
         emailClient.send(message, URI.create(emailApiBaseUrl), subscriptionKey)
     }
+
+    private fun generateMessageId(zaakId: String?) = listOfNotNull(Ksuid.newKsuid(), zaakId).joinToString(separator = "-")
 }

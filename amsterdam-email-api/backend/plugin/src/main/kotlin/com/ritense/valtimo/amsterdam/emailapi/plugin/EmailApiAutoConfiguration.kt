@@ -53,10 +53,9 @@ class EmailApiAutoConfiguration {
     @ConditionalOnMissingBean(EmailApiPluginFactory::class)
     fun createEmailApiPluginFactory(
         pluginService: PluginService,
-        emailClient: EmailClient,
-        restTemplate: RestTemplate
+        emailClient: EmailClient
     ): EmailApiPluginFactory {
-        return EmailApiPluginFactory(pluginService, emailClient, restTemplate)
+        return EmailApiPluginFactory(pluginService, emailClient)
     }
 
     @Bean

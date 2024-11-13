@@ -55,6 +55,13 @@ class BerkelyBridgePlugin(
     @PluginProperty(key = "berkelybridgeBaseUrl", secret = false, required = true)
     lateinit var berkelybridgeBaseUrl: String
 
+    @PluginProperty(key = "subscriptionKey", secret = true, required = true)
+    lateinit var subscriptionKey: String
+
+    init {
+        this.bbClient.subscriptionKey = subscriptionKey
+    }
+
     @PluginAction(
         key = "genereer-tekst",
         title = "Genereer tekst",
@@ -123,7 +130,7 @@ class BerkelyBridgePlugin(
         val resourceId = resourceService.store( getFileAsByteArray(downloadLink).inputStream(), mutableMetaData)
         applicationEventPublisher.publishEvent(TemporaryResourceUploadedEvent(resourceId))
 
-        execution.setVariable(variabeleNaam, downloadLink);
+        execution.setVariable(variabeleNaam, berkelybridgeBaseUrl.plus("/").plus(downloadLink));
     }
 
     private fun resolveValue(execution: DelegateExecution, keyValueList: List<TemplateProperty>?): List<TemplateProperty>? {

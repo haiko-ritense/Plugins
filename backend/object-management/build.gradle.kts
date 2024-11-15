@@ -32,8 +32,12 @@ dependencies {
     implementation("com.ritense.valtimo:value-resolver")
 
     implementation("com.ritense.valtimo:object-management")
+    implementation("com.ritense.valtimo:objecten-api")
+    implementation("com.ritense.valtimo:objecttypen-api")
 
     implementation("io.github.microutils:kotlin-logging")
+
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     // Testing
     testImplementation("com.ritense.valtimo:local-resource")

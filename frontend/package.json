@@ -35,7 +35,8 @@
     "libs:watch:slack": "ng build @valtimo-plugins/slack --watch",
     "libs:watch:smtpmail": "ng build @valtimo-plugins/smtpmail --watch",
     "libs:watch:spotler": "ng build @valtimo-plugins/spotler --watch",
-    "libs:watch:suwinet": "ng build @valtimo-plugins/suwinet --watch"
+    "libs:watch:suwinet": "ng build @valtimo-plugins/suwinet --watch",
+    "libs:watch:object-management": "ng build @valtimo-plugins/object-management --watch"
   },
   "private": true,
   "dependencies": {

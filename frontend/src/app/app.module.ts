@@ -77,6 +77,12 @@ import {SlackPluginModule, slackPluginSpecification} from '@valtimo-plugins/slac
 import {SmtpMailPluginModule, smtpmailPluginSpecification} from '@valtimo-plugins/smtpmail';
 import {SpotlerPluginModule, spotlerPluginSpecification} from '@valtimo-plugins/spotler';
 import {SuwinetPluginModule, suwinetPluginSpecification} from '@valtimo-plugins/suwinet';
+import {
+  ObjectManagementPluginModule
+} from "../../projects/valtimo-plugins/object-management/src/lib/object-management-plugin-module";
+import {
+  objectManagementSpecification
+} from "../../projects/valtimo-plugins/object-management/src/lib/object-management.specification";
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -98,6 +104,7 @@ export function tabsFactory() {
     MailTemplatePluginModule,
     PublictaskPluginModule,
     NotifyNlPluginModule,
+    ObjectManagementPluginModule,
     SlackPluginModule,
     SmtpMailPluginModule,
     SpotlerPluginModule,
@@ -157,6 +164,7 @@ export function tabsFactory() {
       mailTemplatePluginSpecification,
       publictaskPluginSpecification,
       notifyNlPluginSpecification,
+      objectManagementSpecification,
       slackPluginSpecification,
       smtpmailPluginSpecification,
       spotlerPluginSpecification,

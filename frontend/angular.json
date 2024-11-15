@@ -310,6 +310,47 @@
         }
       }
     },
+    "@valtimo-plugins/object-management": {
+      "projectType": "library",
+      "root": "projects/valtimo-plugins/object-management",
+      "sourceRoot": "projects/valtimo-plugins/object-management/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/valtimo-plugins/object-management/tsconfig.lib.json",
+            "project": "projects/valtimo-plugins/object-management/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/valtimo-plugins/object-management/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/valtimo-plugins/object-management/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/valtimo-plugins/object-management/src/test.ts",
+            "tsConfig": "projects/valtimo-plugins/object-management/tsconfig.spec.json",
+            "karmaConfig": "projects/valtimo-plugins/object-management/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/valtimo-plugins/object-management/src/**/*.ts",
+              "projects/valtimo-plugins/object-management/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "@valtimo-plugins/freemarker": {
       "projectType": "library",
       "root": "projects/valtimo-plugins/freemarker",

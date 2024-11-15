@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimoplugins.notifynl.autoconfiguration
+package com.ritense.valtimoplugins.objectmanagement.autoconfiguration
 
 import com.ritense.objectmanagement.repository.ObjectManagementRepository
 import com.ritense.plugin.service.PluginService
 import com.ritense.valtimoplugins.objectmanagement.plugin.ObjectManagementPluginFactory
 import com.ritense.valtimoplugins.objectmanagement.service.ObjectManagementCrudService
+import com.ritense.valueresolver.ValueResolverService
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
@@ -30,11 +31,13 @@ class ObjectManagementAutoConfiguration {
     @ConditionalOnMissingBean(ObjectManagementPluginFactory::class)
     fun objectManagementPluginFactory(
         pluginService: PluginService,
-        objectManagementCrudService: ObjectManagementCrudService
+        objectManagementCrudService: ObjectManagementCrudService,
+        valueResolverService: ValueResolverService,
     ): ObjectManagementPluginFactory {
         return ObjectManagementPluginFactory(
             pluginService,
-            objectManagementCrudService
+            objectManagementCrudService,
+            valueResolverService,
         )
     }
 

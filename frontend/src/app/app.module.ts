@@ -63,7 +63,15 @@ import {ConfigModule, ConfigService, CustomMultiTranslateHttpLoaderFactory, Loca
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PluginManagementModule} from '@valtimo/plugin-management';
 import {AccessControlManagementModule} from '@valtimo/access-control-management';
-import {PLUGINS_TOKEN} from '@valtimo/plugin';
+import {
+  ObjectenApiPluginModule,
+  objectenApiPluginSpecification,
+  ObjectTokenAuthenticationPluginModule,
+  objectTokenAuthenticationPluginSpecification,
+  ObjecttypenApiPluginModule,
+  objecttypenApiPluginSpecification,
+  PLUGINS_TOKEN
+} from '@valtimo/plugin';
 import {TaskManagementModule} from '@valtimo/task-management';
 import {ProcessLinkModule} from '@valtimo/process-link';
 
@@ -77,6 +85,7 @@ import {SlackPluginModule, slackPluginSpecification} from '@valtimo-plugins/slac
 import {SmtpMailPluginModule, smtpmailPluginSpecification} from '@valtimo-plugins/smtpmail';
 import {SpotlerPluginModule, spotlerPluginSpecification} from '@valtimo-plugins/spotler';
 import {SuwinetPluginModule, suwinetPluginSpecification} from '@valtimo-plugins/suwinet';
+import {ObjectManagementModule} from "@valtimo/object-management";
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -137,6 +146,10 @@ export function tabsFactory() {
     DossierManagementModule,
     PluginManagementModule,
     AccessControlManagementModule,
+    ObjectenApiPluginModule,
+    ObjecttypenApiPluginModule,
+    ObjectTokenAuthenticationPluginModule,
+    ObjectManagementModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -161,6 +174,9 @@ export function tabsFactory() {
       smtpmailPluginSpecification,
       spotlerPluginSpecification,
       suwinetPluginSpecification,
+      objectenApiPluginSpecification,
+      objecttypenApiPluginSpecification,
+      objectTokenAuthenticationPluginSpecification
     ]
   }],
   bootstrap: [AppComponent]

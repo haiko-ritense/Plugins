@@ -31,8 +31,7 @@ class ObjectManagementCrudService(
                 startAt = LocalDate.now()
             )
         )
-        objectenApiPlugin.createObject(objectRequest)
-        return URI.create("")
+        return objectenApiPlugin.createObject(objectRequest).url
     }
 
     fun updateObject(

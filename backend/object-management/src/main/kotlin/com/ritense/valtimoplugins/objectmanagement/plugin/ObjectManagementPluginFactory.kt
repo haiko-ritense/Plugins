@@ -20,16 +20,18 @@ import com.ritense.plugin.PluginFactory
 import com.ritense.plugin.service.PluginService
 import com.ritense.valtimo.contract.annotation.SkipComponentScan
 import com.ritense.valtimoplugins.objectmanagement.service.ObjectManagementCrudService
+import com.ritense.valueresolver.ValueResolverService
 import org.springframework.stereotype.Component
 
 @Component
 @SkipComponentScan
 class ObjectManagementPluginFactory(
     pluginService: PluginService,
-    val objectManagementCrudService: ObjectManagementCrudService
+    val objectManagementCrudService: ObjectManagementCrudService,
+    val valueResolverService: ValueResolverService
 ) : PluginFactory<ObjectManagementPlugin>(pluginService) {
 
     override fun create(): ObjectManagementPlugin {
-        return ObjectManagementPlugin(objectManagementCrudService)
+        return ObjectManagementPlugin(pluginService, objectManagementCrudService, valueResolverService)
     }
 }

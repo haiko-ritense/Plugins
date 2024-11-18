@@ -59,6 +59,7 @@ class EmailApiPlugin(
     fun sendEmail(
         execution: DelegateExecution,
         @PluginActionProperty zaakId: String?,
+        @PluginActionProperty relatieCode: String?,
         @PluginActionProperty toEmail: String,
         @PluginActionProperty toName: String?,
         @PluginActionProperty fromAddress: String,
@@ -85,7 +86,7 @@ class EmailApiPlugin(
                 )
             ),
             subject = emailSubject,
-            messageId = generateMessageId(zaakId),
+            messageId = generateMessageId(zaakId, relatieCode),
         )
 
 
@@ -113,5 +114,5 @@ class EmailApiPlugin(
         emailClient.send(message, URI.create(emailApiBaseUrl), subscriptionKey)
     }
 
-    private fun generateMessageId(zaakId: String?) = listOfNotNull(Ksuid.newKsuid(), zaakId).joinToString(separator = "-")
+    private fun generateMessageId(zaakId: String?, relatieCode: String?) = listOfNotNull(zaakId, relatieCode, Ksuid.newKsuid()).joinToString(separator = "-")
 }

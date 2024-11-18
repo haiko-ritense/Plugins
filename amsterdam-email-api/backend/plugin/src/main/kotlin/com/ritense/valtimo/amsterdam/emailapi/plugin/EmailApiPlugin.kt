@@ -52,8 +52,8 @@ class EmailApiPlugin(
 
     @PluginAction(
         key = "zend-email",
-        title = "Zend email via API",
-        description = "Zend een email via de Email API",
+        title = "Zend email via API met optioneel zaak ID en relatiecode",
+        description = "Zend een email via de Email API waarbij optioneel de zaak ID en relatiecode meegegeven kan worden. Deze worden verwerkt in de messageId.",
         activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     fun sendEmail(

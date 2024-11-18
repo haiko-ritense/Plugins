@@ -35,6 +35,15 @@
   >
   </v-input>
   <v-input
+          name="relatieCode"
+          [title]="'relatieCode' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.relatieCode"
+          [disabled]="obs.disabled"
+          [required]="false"
+  >
+  </v-input>
+  <v-input
           name="toEmail"
           [title]="'toEmail' | pluginTranslate: pluginId | async"
           [margin]="true"

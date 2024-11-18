@@ -26,12 +26,13 @@ class EmailApiPluginTest {
     }
 
     @Test
-    fun shouldAddZaakIdToMessageId() {
+    fun shouldAddZaakIdAndRelatieCodeToMessageId() {
         val messageCaptor = argumentCaptor<EmailMessage>()
 
         emailApiPlugin.sendEmail(
             execution = mock(DelegateExecution::class.java),
-            zaakId = "zaak1",
+            zaakId = "ZAAK-2024-0000000001",
+            relatieCode = "rc00000002",
             toEmail = "test@test.com",
             toName = null,
             fromAddress = "noreply@test.com",
@@ -47,6 +48,6 @@ class EmailApiPluginTest {
 
         val message = messageCaptor.firstValue
 
-        assertThat(message.messageId).endsWith("-zaak1")
+        assertThat(message.messageId).startsWith("ZAAK-2024-0000000001-rc00000002-")
     }
 }

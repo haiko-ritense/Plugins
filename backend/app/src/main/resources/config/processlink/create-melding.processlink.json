@@ -17,6 +17,10 @@
         {
           "key": "/description",
           "value": "doc:/description"
+        },
+        {
+          "key": "/title",
+          "value": "doc:/title"
         }
       ],
       "objectUrlProcessVariableName": "meldingUrl"

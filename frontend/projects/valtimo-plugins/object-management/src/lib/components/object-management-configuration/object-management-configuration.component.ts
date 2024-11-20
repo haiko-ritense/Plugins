@@ -24,7 +24,6 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
     selector: 'valtimo-object-management-configuration',
     templateUrl: './object-management-configuration.component.html',
-    styleUrls: ['./object-management-configuration.component.scss'],
 })
 export class ObjectManagementConfigurationComponent
     implements PluginConfigurationComponent, OnInit, OnDestroy
@@ -35,12 +34,6 @@ export class ObjectManagementConfigurationComponent
     @Input() prefillConfiguration$!: Observable<ObjectManagementConfig>;
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() configuration: EventEmitter<PluginConfigurationData> = new EventEmitter<PluginConfigurationData>();
-
-    constructor(
-        private readonly pluginManagementService: PluginManagementService,
-        private readonly translateService: TranslateService,
-        private readonly pluginTranslationService: PluginTranslationService
-    ) {}
 
     private saveSubscription!: Subscription;
     private readonly formValue$ = new BehaviorSubject<ObjectManagementConfig | null>(null);

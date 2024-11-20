@@ -6,13 +6,14 @@ include(
     "backend:amsterdam-email-api",
     "backend:berkelybridge-textgenerator",
     "backend:freemarker",
+    "backend:notify-nl",
+    "backend:object-management",
     "backend:publictask",
     "backend:slack",
     "backend:smtpmail",
     "backend:spotler",
     "backend:suwinet",
     "backend:kvk-handelsregister",
-    "backend:notify-nl",
     "frontend",
 )
 

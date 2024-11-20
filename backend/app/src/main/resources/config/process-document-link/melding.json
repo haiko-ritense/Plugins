@@ -1,0 +1,7 @@
+[
+  {
+    "processDefinitionKey": "create-melding",
+    "canInitializeDocument": true,
+    "startableByUser": true
+  }
+]

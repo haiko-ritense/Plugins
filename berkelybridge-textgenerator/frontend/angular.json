@@ -62,7 +62,6 @@
               "node_modules/@valtimo/layout/assets/css/app.css",
               "node_modules/@valtimo/components/assets/css/design-tokens.css",
               "node_modules/@valtimo/components/assets/css/carbon.scss",
-              "node_modules/@valtimo/components/assets/css/carbon-beagle-compatibility.scss",
               "src/styles.scss"
             ],
             "scripts": [

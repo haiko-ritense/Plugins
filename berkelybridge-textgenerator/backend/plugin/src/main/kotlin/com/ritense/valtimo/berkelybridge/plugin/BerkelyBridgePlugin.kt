@@ -21,10 +21,9 @@
 package com.ritense.valtimo.berkelybridge.plugin
 
 import com.ritense.documentenapi.client.DocumentStatusType
-import com.ritense.plugin.annotation.Plugin
-import com.ritense.plugin.annotation.PluginAction
-import com.ritense.plugin.annotation.PluginActionProperty
-import com.ritense.plugin.annotation.PluginProperty
+import com.ritense.plugin.annotation.*
+import com.ritense.plugin.domain.EventType
+import com.ritense.plugin.domain.PluginConfiguration
 import com.ritense.processlink.domain.ActivityTypeWithEventName
 import com.ritense.resource.domain.MetadataType
 import com.ritense.resource.domain.TemporaryResourceUploadedEvent
@@ -58,7 +57,8 @@ class BerkelyBridgePlugin(
     @PluginProperty(key = "subscriptionKey", secret = true, required = true)
     lateinit var subscriptionKey: String
 
-    init {
+    @PluginEvent(invokedOn = [EventType.CREATE, EventType.UPDATE])
+    fun setSubscriptionKey() {
         this.bbClient.subscriptionKey = subscriptionKey
     }
 

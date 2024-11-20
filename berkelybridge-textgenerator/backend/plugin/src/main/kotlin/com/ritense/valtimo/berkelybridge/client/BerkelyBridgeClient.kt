@@ -43,7 +43,7 @@ class BerkelyBridgeClient(
 ) {
     lateinit var subscriptionKey: String
 
-    init {
+    fun addSubscriptionKey() {
         logger.debug { "setting header subscription key: $headerKey" }
         restTemplate.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
             request.headers.set(headerKey, subscriptionKey)
@@ -53,13 +53,14 @@ class BerkelyBridgeClient(
 
 
     fun generate(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): String {
-
+        this.addSubscriptionKey()
         val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
         val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid, format)
         return getFile(bbUrl, fileUrl)
     }
 
     fun generateFile(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): String {
+        this.addSubscriptionKey()
         val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
         val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid, format)
         return fileUrl

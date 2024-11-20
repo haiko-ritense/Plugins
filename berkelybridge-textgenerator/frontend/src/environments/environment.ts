@@ -21,7 +21,6 @@ import {NgxLoggerLevel} from 'ngx-logger';
 import {ROLE_ADMIN, ROLE_DEVELOPER, ROLE_USER, ValtimoConfig, UploadProvider, IncludeFunction} from '@valtimo/config';
 import {authenticationKeycloak} from './auth/keycloak-config.dev';
 import {LOGO_BASE_64} from './logo';
-import {openZaakExtensionInitializer} from "@valtimo/open-zaak";
 
 const defaultDefinitionColumns = [
   {
@@ -42,9 +41,6 @@ const defaultDefinitionColumns = [
 export const environment: ValtimoConfig = {
   logoSvgBase64: LOGO_BASE_64,
   production: false,
-  initializers: [
-    openZaakExtensionInitializer,
-  ],
   authentication: authenticationKeycloak,
   menu: {
     menuItems: [
@@ -59,8 +55,6 @@ export const environment: ValtimoConfig = {
           {link: ['/form-management'], title: 'Forms', sequence: 3},
           {link: ['/decision-tables'], title: 'Decision tables', sequence: 4},
           {link: ['/dossier-management'], title: 'Dossiers', sequence: 5},
-          {link: ['/object-management'], title: 'Objects', sequence: 6},
-          {link: ['/connectors'], title: 'Connectors', sequence: 7},
           {link: ['/plugins'], title: 'Plugins', sequence: 8},
           {link: ['/form-links'], title: 'Form links', sequence: 9},
           {link: ['/process-links'], title: 'Form links Plugin', sequence: 10},

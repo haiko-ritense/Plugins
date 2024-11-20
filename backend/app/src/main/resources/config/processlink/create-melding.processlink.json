@@ -1,6 +1,6 @@
 [
   {
-    "activityId": "StartEvent",
+    "activityId": "StartEvent_1",
     "activityType": "bpmn:StartEvent:start",
     "formDefinitionName": "create-melding.start",
     "processLinkType": "form"

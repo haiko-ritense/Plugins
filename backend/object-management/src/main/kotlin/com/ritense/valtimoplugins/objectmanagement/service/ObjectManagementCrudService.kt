@@ -38,7 +38,7 @@ class ObjectManagementCrudService(
         objectUrl: URI,
         objectManagementId: UUID,
         objectData: JsonNode,
-    ) {
+    ): URI {
         val objectManagement = getObjectManagement(objectManagementId)
         val objectenApiPlugin = getObjectenApiPlugin(objectManagement.objectenApiPluginConfigurationId)
         val objecttypenApiPlugin = getObjecttypenApiPlugin(objectManagement.objecttypenApiPluginConfigurationId)

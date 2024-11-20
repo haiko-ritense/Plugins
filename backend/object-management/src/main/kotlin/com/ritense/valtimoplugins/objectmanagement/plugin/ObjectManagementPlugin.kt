@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.module.kotlin.convertValue
 import com.ritense.document.domain.patch.JsonPatchService
+import com.ritense.objectenapi.ObjectenApiPlugin
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
@@ -13,6 +14,7 @@ import com.ritense.valtimo.contract.json.patch.JsonPatchBuilder
 import com.ritense.valtimoplugins.objectmanagement.service.ObjectManagementCrudService
 import com.ritense.valueresolver.ValueResolverService
 import org.camunda.bpm.engine.delegate.DelegateExecution
+import java.net.URI
 import java.util.UUID
 
 @Plugin(
@@ -21,7 +23,7 @@ import java.util.UUID
     description = "Plugin for CRUD actions on the Objects registration"
 )
 open class ObjectManagementPlugin(
-    pluginService: PluginService,
+    val pluginService: PluginService,
     val objectManagementCrudService: ObjectManagementCrudService,
     val valueResolverService: ValueResolverService
 ) {
@@ -44,7 +46,7 @@ open class ObjectManagementPlugin(
             getObjectData(objectData, execution.businessKey),
         )
 
-        execution.setVariable(objectUrlProcessVariableName, objectUrl)
+        execution.setVariable(objectUrlProcessVariableName, objectUrl.toString())
     }
 
     @PluginAction(
@@ -53,7 +55,12 @@ open class ObjectManagementPlugin(
         description = "Update an existing Object",
         activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
-    open fun updateObject() {
+    open fun updateObject(
+        execution: DelegateExecution,
+        @PluginActionProperty objectUrl: URI,
+        @PluginActionProperty objectManagementConfigurationId: UUID,
+        @PluginActionProperty objectData: List<DataBindingConfig>,
+    ) {
 
     }
 

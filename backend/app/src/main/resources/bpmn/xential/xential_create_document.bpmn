@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0a6u1ke" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.23.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.21.0">
+  <bpmn:collaboration id="Collaboration_0d8bhbl">
+    <bpmn:participant id="Participant_163vbcv" name="Create Document with Xential" processRef="xential-create-document" />
+    <bpmn:textAnnotation id="TextAnnotation_1w3qlyq">
+      <bpmn:text>Plugin action
+Input:
+- sjabloon ID
+- Json content</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1w3pbja" associationDirection="None" sourceRef="XentialDocumentCreateTask" targetRef="TextAnnotation_1w3qlyq" />
+    <bpmn:textAnnotation id="TextAnnotation_1sls0ft">
+      <bpmn:text>ResumeURL received from create document resp
+onse</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0exucm4" associationDirection="None" sourceRef="Activity_0u1ft90" targetRef="TextAnnotation_1sls0ft" />
+    <bpmn:textAnnotation id="TextAnnotation_1km10fa">
+      <bpmn:text>Document ready event at Callback URL</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0zx3118" associationDirection="None" sourceRef="Event_1fk7r3m" targetRef="TextAnnotation_1km10fa" />
+    <bpmn:textAnnotation id="TextAnnotation_1xkmg84">
+      <bpmn:text>Plugin action</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0hryp0z" associationDirection="None" sourceRef="Activity_0d2lcv3" targetRef="TextAnnotation_1xkmg84" />
+    <bpmn:textAnnotation id="TextAnnotation_0rjtpdo">
+      <bpmn:text>Plugin action</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0exkqid" associationDirection="None" sourceRef="Activity_0iqhfcp" targetRef="TextAnnotation_0rjtpdo" />
+  </bpmn:collaboration>
+  <bpmn:process id="xential-create-document" name="Xential: create document" isExecutable="true">
+    <bpmn:exclusiveGateway id="Gateway_1psi3ng" default="Flow_0vfotic">
+      <bpmn:incoming>Flow_17vpvkk</bpmn:incoming>
+      <bpmn:outgoing>Flow_18cgt1d</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0vfotic</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_02pgu6r">
+      <bpmn:incoming>Flow_0vfotic</bpmn:incoming>
+      <bpmn:incoming>Flow_0tiuo9j</bpmn:incoming>
+      <bpmn:outgoing>Flow_0e9ikq5</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:intermediateCatchEvent id="Event_1fk7r3m" name="Xential document received" camunda:asyncBefore="true" camunda:asyncAfter="true">
+      <bpmn:incoming>Flow_0e9ikq5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1irr9bb</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0omvrk2" messageRef="Message_3h41r7d" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="Activity_0d2lcv3" name="Save in document API" camunda:expression="${true}">
+      <bpmn:incoming>Flow_1irr9bb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0gsefnf</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0iqhfcp" name="Link to zaak" camunda:expression="${true}">
+      <bpmn:incoming>Flow_0gsefnf</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jnpamh</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1g7zi1o</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_17vpvkk" sourceRef="XentialDocumentCreateTask" targetRef="Gateway_1psi3ng" />
+    <bpmn:sequenceFlow id="Flow_18cgt1d" name="Additional information needed" sourceRef="Gateway_1psi3ng" targetRef="Activity_0u1ft90">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.hasVariable('xentialStatus') &amp;&amp; execution.getVariable('xentialStatus') == 'ONVOLTOOID' }</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0vfotic" name="no additional content needed&#10;" sourceRef="Gateway_1psi3ng" targetRef="Gateway_02pgu6r" />
+    <bpmn:sequenceFlow id="Flow_0jnpamh" sourceRef="Activity_0iqhfcp" targetRef="XentialDocumentReady" />
+    <bpmn:sequenceFlow id="Flow_0tiuo9j" sourceRef="Activity_0u1ft90" targetRef="Gateway_02pgu6r" />
+    <bpmn:sequenceFlow id="Flow_0e9ikq5" sourceRef="Gateway_02pgu6r" targetRef="Event_1fk7r3m" />
+    <bpmn:sequenceFlow id="Flow_1irr9bb" sourceRef="Event_1fk7r3m" targetRef="Activity_0d2lcv3" />
+    <bpmn:sequenceFlow id="Flow_0gsefnf" sourceRef="Activity_0d2lcv3" targetRef="Activity_0iqhfcp" />
+    <bpmn:sequenceFlow id="Flow_1g7zi1o" sourceRef="StartEvent_1" targetRef="XentialDocumentCreateTask" />
+    <bpmn:serviceTask id="XentialDocumentCreateTask" name="Send document content to Xential" camunda:asyncAfter="true" camunda:expression="${true}">
+      <bpmn:incoming>Flow_1g7zi1o</bpmn:incoming>
+      <bpmn:outgoing>Flow_17vpvkk</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_0u1ft90" name="Open Xential wizard">
+      <bpmn:incoming>Flow_18cgt1d</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tiuo9j</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1y7ui8g">
+      <bpmn:incoming>Flow_1kmctqk</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="XentialDocumentReady" name="doc ready" camunda:candidateGroups="ROLE_ADMIN">
+      <bpmn:incoming>Flow_0jnpamh</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kmctqk</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1kmctqk" sourceRef="XentialDocumentReady" targetRef="Event_1y7ui8g" />
+  </bpmn:process>
+  <bpmn:message id="Message_3h41r7d" name="XENTIAL_TEST_DOC_RECEIVED" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0d8bhbl">
+      <bpmndi:BPMNShape id="Participant_163vbcv_di" bpmnElement="Participant_163vbcv" isHorizontal="true">
+        <dc:Bounds x="180" y="50" width="1441" height="400" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1psi3ng_di" bpmnElement="Gateway_1psi3ng" isMarkerVisible="true">
+        <dc:Bounds x="506" y="152" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_02pgu6r_di" bpmnElement="Gateway_02pgu6r" isMarkerVisible="true">
+        <dc:Bounds x="786" y="152" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0i7elvn_di" bpmnElement="Event_1fk7r3m">
+        <dc:Bounds x="903" y="159" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="881" y="202" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0zffupu_di" bpmnElement="Activity_0d2lcv3">
+        <dc:Bounds x="1001" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1et2hwx" bpmnElement="Activity_0iqhfcp">
+        <dc:Bounds x="1171" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="253" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ttc9nr_di" bpmnElement="XentialDocumentCreateTask">
+        <dc:Bounds x="351" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0gj74jm_di" bpmnElement="Activity_0u1ft90">
+        <dc:Bounds x="640" y="270" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1y7ui8g_di" bpmnElement="Event_1y7ui8g">
+        <dc:Bounds x="1533" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ndivw1_di" bpmnElement="XentialDocumentReady">
+        <dc:Bounds x="1340" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_17vpvkk_di" bpmnElement="Flow_17vpvkk">
+        <di:waypoint x="451" y="177" />
+        <di:waypoint x="506" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18cgt1d_di" bpmnElement="Flow_18cgt1d">
+        <di:waypoint x="531" y="202" />
+        <di:waypoint x="531" y="310" />
+        <di:waypoint x="640" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="562" y="260" width="55" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vfotic_di" bpmnElement="Flow_0vfotic">
+        <di:waypoint x="556" y="177" />
+        <di:waypoint x="786" y="177" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="636" y="140" width="76" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jnpamh_di" bpmnElement="Flow_0jnpamh">
+        <di:waypoint x="1271" y="177" />
+        <di:waypoint x="1340" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tiuo9j_di" bpmnElement="Flow_0tiuo9j">
+        <di:waypoint x="740" y="310" />
+        <di:waypoint x="811" y="310" />
+        <di:waypoint x="811" y="202" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e9ikq5_di" bpmnElement="Flow_0e9ikq5">
+        <di:waypoint x="836" y="177" />
+        <di:waypoint x="903" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1irr9bb_di" bpmnElement="Flow_1irr9bb">
+        <di:waypoint x="939" y="177" />
+        <di:waypoint x="1001" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gsefnf_di" bpmnElement="Flow_0gsefnf">
+        <di:waypoint x="1101" y="177" />
+        <di:waypoint x="1171" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g7zi1o_di" bpmnElement="Flow_1g7zi1o">
+        <di:waypoint x="289" y="177" />
+        <di:waypoint x="351" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kmctqk_di" bpmnElement="Flow_1kmctqk">
+        <di:waypoint x="1440" y="177" />
+        <di:waypoint x="1533" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1w3qlyq_di" bpmnElement="TextAnnotation_1w3qlyq">
+        <dc:Bounds x="351" y="250" width="100" height="68" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1sls0ft_di" bpmnElement="TextAnnotation_1sls0ft">
+        <dc:Bounds x="640" y="370" width="170" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1km10fa_di" bpmnElement="TextAnnotation_1km10fa">
+        <dc:Bounds x="871" y="70" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1xkmg84_di" bpmnElement="TextAnnotation_1xkmg84">
+        <dc:Bounds x="1001" y="250" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0rjtpdo_di" bpmnElement="TextAnnotation_0rjtpdo">
+        <dc:Bounds x="1171" y="250" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1w3pbja_di" bpmnElement="Association_1w3pbja">
+        <di:waypoint x="401" y="217" />
+        <di:waypoint x="401" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0exucm4_di" bpmnElement="Association_0exucm4">
+        <di:waypoint x="690" y="350" />
+        <di:waypoint x="690" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0zx3118_di" bpmnElement="Association_0zx3118">
+        <di:waypoint x="921" y="159" />
+        <di:waypoint x="921" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0hryp0z_di" bpmnElement="Association_0hryp0z">
+        <di:waypoint x="1051" y="217" />
+        <di:waypoint x="1051" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0exkqid_di" bpmnElement="Association_0exkqid">
+        <di:waypoint x="1221" y="217" />
+        <di:waypoint x="1221" y="250" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

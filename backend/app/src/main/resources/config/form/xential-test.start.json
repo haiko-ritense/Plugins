@@ -1,17 +1,33 @@
 {
     "components": [
         {
-            "label": "HTML",
-            "content": "<h2 style='font-weight: bold; margin-bottom: 10px;'>Xential test</h2>",
-            "refreshOnChange": false,
-            "key": "html",
-            "type": "htmlelement",
-            "input": false,
-            "tableView": false
+            "label": "Wizard testen",
+            "optionsLabelPosition": "right",
+            "inline": false,
+            "tableView": false,
+            "validate": {
+                "required": true
+            },
+            "values": [
+                {
+                    "label": "Ja",
+                    "value": "JA",
+                    "shortcut": ""
+                },
+                {
+                    "label": "Nee",
+                    "value": "NEE",
+                    "shortcut": ""
+                }
+            ],
+            "key": "pv.testWizard",
+            "type": "radio",
+            "input": true,
+            "defaultValue": "JA"
         },
         {
             "type": "button",
-            "label": "Indienen",
+            "label": "Genereer doc",
             "showValidations": false,
             "disableOnInvalid": true,
             "tableView": false,

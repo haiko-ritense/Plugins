@@ -21,10 +21,9 @@
 package com.ritense.valtimo.berkelybridge.plugin
 
 import com.ritense.documentenapi.client.DocumentStatusType
-import com.ritense.plugin.annotation.Plugin
-import com.ritense.plugin.annotation.PluginAction
-import com.ritense.plugin.annotation.PluginActionProperty
-import com.ritense.plugin.annotation.PluginProperty
+import com.ritense.plugin.annotation.*
+import com.ritense.plugin.domain.EventType
+import com.ritense.plugin.domain.PluginConfiguration
 import com.ritense.processlink.domain.ActivityTypeWithEventName
 import com.ritense.resource.domain.MetadataType
 import com.ritense.resource.domain.TemporaryResourceUploadedEvent
@@ -37,6 +36,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.variable.Variables
 import org.camunda.bpm.engine.variable.value.SerializationDataFormat
 import org.springframework.context.ApplicationEventPublisher
+import kotlin.math.log
 
 private val logger = KotlinLogging.logger {}
 
@@ -54,6 +54,15 @@ class BerkelyBridgePlugin(
 
     @PluginProperty(key = "berkelybridgeBaseUrl", secret = false, required = true)
     lateinit var berkelybridgeBaseUrl: String
+
+    @PluginProperty(key = "subscriptionKey", secret = true, required = true)
+    lateinit var subscriptionKey: String
+
+    @PluginEvent(invokedOn = [EventType.CREATE, EventType.UPDATE])
+    fun setSubscriptionKey() {
+        logger.debug { "zet subscription key" }
+        this.bbClient.subscriptionKey = subscriptionKey
+    }
 
     @PluginAction(
         key = "genereer-tekst",
@@ -123,7 +132,7 @@ class BerkelyBridgePlugin(
         val resourceId = resourceService.store( getFileAsByteArray(downloadLink).inputStream(), mutableMetaData)
         applicationEventPublisher.publishEvent(TemporaryResourceUploadedEvent(resourceId))
 
-        execution.setVariable(variabeleNaam, downloadLink);
+        execution.setVariable(variabeleNaam, berkelybridgeBaseUrl.plus("/").plus(downloadLink));
     }
 
     private fun resolveValue(execution: DelegateExecution, keyValueList: List<TemplateProperty>?): List<TemplateProperty>? {

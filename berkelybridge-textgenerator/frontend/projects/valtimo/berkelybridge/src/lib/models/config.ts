@@ -21,6 +21,7 @@ import {PluginConfigurationData} from '@valtimo/plugin';
 
 interface BerkelyBridgeTextGeneratorConfig extends PluginConfigurationData {
   berkelybridgeBaseUrl: string;
+  subscriptionKey: string;
 }
 
 interface TextGeneratieConfig {

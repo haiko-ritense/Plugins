@@ -42,6 +42,14 @@ java {
 
 version="${pluginVersion}"
 
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
+
 repositories {
     mavenCentral()
     mavenLocal()
@@ -78,7 +86,7 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-core:2.14.2"
 
     // Apache deps
-    implementation "org.apache.httpcomponents.client5:httpclient5"
+    implementation "org.apache.httpcomponents.client5:httpclient5:5.4.1"
 
     implementation 'com.auth0:java-jwt:4.4.0'
 

@@ -23,30 +23,44 @@ import com.ritense.valtimo.berkelybridge.plugin.BerkelyBridgeClientEvent
 import com.ritense.valtimo.berkelybridge.plugin.TemplateProperty
 import mu.KotlinLogging
 import org.springframework.context.ApplicationEventPublisher
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
+import org.springframework.http.*
+import org.springframework.http.client.ClientHttpRequestExecution
+import org.springframework.http.client.ClientHttpRequestInterceptor
+import org.springframework.http.client.ClientHttpResponse
+import org.springframework.web.client.RestClient
 import org.springframework.web.client.RestTemplate
 import java.net.URL
 import kotlin.io.path.fileVisitor
 
 
 private val logger = KotlinLogging.logger {}
+private const val headerKey = "X-BB-SUBSCRIPTIONKEY"
+
 
 class BerkelyBridgeClient(
     private val restTemplate: RestTemplate,
     private val eventPublisher: ApplicationEventPublisher,
 ) {
-    fun generate(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): String {
+    lateinit var subscriptionKey: String
 
+    fun addSubscriptionKey() {
+        logger.debug { "setting header subscription key: $headerKey" }
+        restTemplate.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+            request.headers.set(headerKey, subscriptionKey)
+            execution.execute(request, body)
+        })
+    }
+
+
+    fun generate(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): String {
+        this.addSubscriptionKey()
         val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
         val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid, format)
         return getFile(bbUrl, fileUrl)
     }
 
     fun generateFile(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): String {
+        this.addSubscriptionKey()
         val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
         val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid, format)
         return fileUrl

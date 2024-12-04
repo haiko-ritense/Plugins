@@ -25,7 +25,7 @@ import com.ritense.document.service.DocumentDefinitionService
 import com.ritense.plugin.domain.PluginConfiguration
 import com.ritense.plugin.service.PluginConfigurationSearchParameters
 import com.ritense.plugin.service.PluginService
-import com.ritense.valtimo.contract.json.Mapper
+import com.ritense.valtimo.contract.json.MapperSingleton
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
@@ -53,12 +53,13 @@ class ApplicationReadyEventListener(
 
         val configurationProperties = """
             {   
-                "berkelybridgeBaseUrl": "$bbUrl"
+                "berkelybridgeBaseUrl": "$bbUrl",
+                "subscriptionKey": "fakeKey"
             }"""
 
         return pluginService.createPluginConfiguration(
             "Berkely Bridge Text generator",
-            Mapper.INSTANCE.get().readTree(configurationProperties) as ObjectNode,
+            MapperSingleton.get().readTree(configurationProperties) as ObjectNode,
             "bbtextgenerator"
         )
     }

@@ -24,6 +24,25 @@
     prefill: prefillConfiguration$ ? (prefillConfiguration$ | async) : null
   } as obs"
 >
+
+  <v-input
+          name="zaakId"
+          [title]="'zaakId' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.zaakId"
+          [disabled]="obs.disabled"
+          [required]="false"
+  >
+  </v-input>
+  <v-input
+          name="relatieCode"
+          [title]="'relatieCode' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.relatieCode"
+          [disabled]="obs.disabled"
+          [required]="false"
+  >
+  </v-input>
   <v-input
           name="toEmail"
           [title]="'toEmail' | pluginTranslate: pluginId | async"

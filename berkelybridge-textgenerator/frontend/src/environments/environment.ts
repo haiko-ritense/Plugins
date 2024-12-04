@@ -74,6 +74,7 @@ export const environment: ValtimoConfig = {
       }
     ]
   },
+  translationResources: ['./valtimo-translation/custom/'],
   whitelistedDomains: ['localhost:4200'],
   mockApi: {
     endpointUri: '/mock-api/',
@@ -98,7 +99,8 @@ export const environment: ValtimoConfig = {
   defaultDefinitionTable: defaultDefinitionColumns,
   customDefinitionTables: {  },
   featureToggles: {
-    disableCaseCount: true
+    disableCaseCount: true,
+    enableObjectManagement: false
   }
 };
 

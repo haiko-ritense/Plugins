@@ -52,13 +52,16 @@ dependencies {
     implementation(project(":berkelybridge-textgenerator:backend:plugin"))
 
     implementation "com.ritense.valtimo:audit:${valtimoVersion}"
-    implementation("com.ritense.valtimo:authorization")
     implementation "com.ritense.valtimo:case:${valtimoVersion}"
     implementation "com.ritense.valtimo:contract:${valtimoVersion}"
     implementation "com.ritense.valtimo:core:${valtimoVersion}"
     implementation "com.ritense.valtimo:dashboard:${valtimoVersion}"
+    implementation "com.ritense.valtimo:documenten-api:${valtimoVersion}"
     implementation "com.ritense.valtimo:document:${valtimoVersion}"
     implementation "com.ritense.valtimo:form:${valtimoVersion}"
+    implementation "com.ritense.valtimo:form:${valtimoVersion}"
+    implementation "com.ritense.valtimo:form-flow-valtimo:$valtimoVersion"
+    implementation "com.ritense.valtimo:process-link:${valtimoVersion}"
     implementation "com.ritense.valtimo:objecten-api:${valtimoVersion}"
     implementation "com.ritense.valtimo:object-management:${valtimoVersion}"
     implementation "com.ritense.valtimo:form-flow-valtimo:${valtimoVersion}"
@@ -67,6 +70,7 @@ dependencies {
     implementation "com.ritense.valtimo:process-document:${valtimoVersion}"
     implementation "com.ritense.valtimo:plugin:${valtimoVersion}"
     implementation "com.ritense.valtimo:plugin-valtimo:${valtimoVersion}"
+    implementation "com.ritense.valtimo:value-resolver:${valtimoVersion}"
     implementation "com.ritense.valtimo:web:${valtimoVersion}"
 
     implementation "io.github.microutils:kotlin-logging:3.0.5"

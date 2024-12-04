@@ -36,6 +36,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.variable.Variables
 import org.camunda.bpm.engine.variable.value.SerializationDataFormat
 import org.springframework.context.ApplicationEventPublisher
+import kotlin.math.log
 
 private val logger = KotlinLogging.logger {}
 
@@ -59,6 +60,7 @@ class BerkelyBridgePlugin(
 
     @PluginEvent(invokedOn = [EventType.CREATE, EventType.UPDATE])
     fun setSubscriptionKey() {
+        logger.debug { "zet subscription key" }
         this.bbClient.subscriptionKey = subscriptionKey
     }
 

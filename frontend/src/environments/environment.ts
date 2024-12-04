@@ -70,6 +70,7 @@ export const environment: ValtimoConfig = {
       }
     ]
   },
+  translationResources: ['./valtimo-translation/custom/'],
   whitelistedDomains: ['localhost:4200'],
   mockApi: {
     endpointUri: '/mock-api/',

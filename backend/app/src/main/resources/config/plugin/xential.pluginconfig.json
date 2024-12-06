@@ -5,7 +5,7 @@
         "properties": {
             "applicationName": "${ROTTERDAM_XENTIAL_ACCOUNT_NAME}",
             "applicationPassword": "${ROTTERDAM_XENTIAL_ACCOUNT_PASSWORD}",
-            "baseUrl": "http://localhost:1080",
+            "baseUrl": "${ROTTERDAM_XENTIAL_BASEURL}",
             "serverCertificateFilename": "${ROTTERDAM_ESB_SERVER_CERTIFICATE_FILENAME}",
             "clientPrivateKeyFilename": "${ROTTERDAM_ESB_CLIENT_PRIVATE_KEY_FILENAME}",
             "clientCertificateFilename": "${ROTTERDAM_ESB_CLIENT_CERTIFICATE_FILENAME}"

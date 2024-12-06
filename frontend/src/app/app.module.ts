@@ -32,7 +32,9 @@ import {
   registerFormioFileSelectorComponent,
   registerFormioUploadComponent,
   registerFormioValueResolverSelectorComponent,
-  WidgetModule
+  WidgetModule,
+    ValuePathSelectorComponent
+
 } from '@valtimo/components';
 import {
   DefaultTabs,
@@ -108,6 +110,7 @@ export function tabsFactory() {
         AppComponent,
     ],
     imports: [
+        ValuePathSelectorComponent,
         AlfrescoAuthPluginModule,
         AmsterdamEmailapiPluginModule,
         BerkelybridgeTextgeneratorPluginModule,

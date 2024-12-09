@@ -19,6 +19,10 @@ plugins {
     id "com.avast.gradle.docker-compose" version "0.14.9"
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 repositories {
     mavenCentral()
     mavenLocal()
@@ -50,6 +54,7 @@ dependencies {
     implementation "com.ritense.valtimo:contract:${valtimoVersion}"
     implementation "com.ritense.valtimo:core:${valtimoVersion}"
     implementation "com.ritense.valtimo:document:${valtimoVersion}"
+    implementation "com.ritense.valtimo:documenten-api:${valtimoVersion}"
     implementation "com.ritense.valtimo:keycloak-iam:${valtimoVersion}"
     implementation "com.ritense.valtimo:local-resource:${valtimoVersion}"
     implementation "com.ritense.valtimo:local-mail:${valtimoVersion}"

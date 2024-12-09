@@ -19,8 +19,9 @@ plugins {
     id "com.avast.gradle.docker-compose" version "0.14.9"
 }
 
-sourceCompatibility = 17
-targetCompatibility = 17
+kotlin {
+    jvmToolchain(17)
+}
 
 repositories {
     mavenCentral()
@@ -41,12 +42,14 @@ configurations.all {
 
 dependencies {
     implementation(project(":amsterdam-email-api:backend:plugin"))
+    implementation(project(":alfresco-authentication:backend:plugin"))
 
     implementation "com.ritense.valtimo:audit:${valtimoVersion}"
     implementation "com.ritense.valtimo:case:${valtimoVersion}"
     implementation "com.ritense.valtimo:contract:${valtimoVersion}"
     implementation "com.ritense.valtimo:core:${valtimoVersion}"
     implementation "com.ritense.valtimo:document:${valtimoVersion}"
+    implementation "com.ritense.valtimo:documenten-api:${valtimoVersion}"
     implementation "com.ritense.valtimo:form:${valtimoVersion}"
     implementation "com.ritense.valtimo:form-flow-valtimo:${valtimoVersion}"
     implementation "com.ritense.valtimo:keycloak-iam:${valtimoVersion}"
@@ -56,6 +59,10 @@ dependencies {
     implementation "com.ritense.valtimo:plugin:${valtimoVersion}"
     implementation "com.ritense.valtimo:plugin-valtimo:${valtimoVersion}"
     implementation "com.ritense.valtimo:web:${valtimoVersion}"
+    implementation "com.ritense.valtimo:zgw:${valtimoVersion}"
+    implementation "com.ritense.valtimo:zaken-api:${valtimoVersion}"
+
+
 
     implementation "io.github.microutils:kotlin-logging:3.0.5"
 

@@ -29,7 +29,8 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/@valtimo/config/assets/core",
-                "output": "./valtimo-translation/core/",
+                "output": "./valtimo-translation/core/"
+              },
               {
                 "glob" : "**/*",
                 "input" : "node_modules/@valtimo/layout/assets/img",

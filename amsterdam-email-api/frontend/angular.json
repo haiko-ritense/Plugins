@@ -32,9 +32,24 @@
                 "output": "./valtimo-translation/core/"
               },
               {
+                "glob" : "**/*",
+                "input" : "node_modules/@valtimo/layout/assets/img",
+                "output" : "./valtimo-layout/img/"
+              },
+              {
+                "glob" : "**/*",
+                "input" : "node_modules/@valtimo/config/assets/core",
+                "output" : "./valtimo-translation/core/"
+              },
+              {
+                "glob" : "**/*",
+                "input" : "src/assets/i18n",
+                "output" : "./valtimo-translation/custom/"
+              },
+              {
                 "glob": "**/*",
-                "input": "src/assets/i18n",
-                "output": "./valtimo-translation/custom/"
+                "input": "node_modules/monaco-editor",
+                "output": "assets/monaco-editor"
               }
             ],
             "styles": [
@@ -62,7 +77,6 @@
               "node_modules/@valtimo/layout/assets/css/app.css",
               "node_modules/@valtimo/components/assets/css/design-tokens.css",
               "node_modules/@valtimo/components/assets/css/carbon.scss",
-              "node_modules/@valtimo/components/assets/css/carbon-beagle-compatibility.scss",
               "src/styles.scss"
             ],
             "scripts": [
@@ -145,12 +159,6 @@
               ]
             },
             "dev": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.dev.ts"
-                }
-              ],
               "optimization": false,
               "outputHashing": "all",
               "sourceMap": false,
@@ -262,6 +270,9 @@
           "configurations": {
             "production": {
               "browserTarget": "amsterdam-emailapi-plugin:build:production"
+            },
+            "dev": {
+              "browserTarget": "amsterdam-emailapi-plugin:build:dev"
             }
           }
         },

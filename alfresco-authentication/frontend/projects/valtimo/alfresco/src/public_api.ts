@@ -24,4 +24,5 @@
 export * from './lib/models/index';
 export * from './lib/alfresco-auth-plugin-module';
 export * from './lib/alfresco-auth-plugin.specification';
+export * from './lib/components/alfresco-auth-configuration/alfresco-auth-configuration.component';
 

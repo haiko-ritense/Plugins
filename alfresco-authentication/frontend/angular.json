@@ -29,12 +29,26 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/@valtimo/config/assets/core",
-                "output": "./valtimo-translation/core/"
+                "output": "./valtimo-translation/core/",
+              {
+                "glob" : "**/*",
+                "input" : "node_modules/@valtimo/layout/assets/img",
+                "output" : "./valtimo-layout/img/"
+              },
+              {
+                "glob" : "**/*",
+                "input" : "node_modules/@valtimo/config/assets/core",
+                "output" : "./valtimo-translation/core/"
+              },
+              {
+                "glob" : "**/*",
+                "input" : "src/assets/i18n",
+                "output" : "./valtimo-translation/custom/"
               },
               {
                 "glob": "**/*",
-                "input": "src/assets/i18n",
-                "output": "./valtimo-translation/custom/"
+                "input": "node_modules/monaco-editor",
+                "output": "assets/monaco-editor"
               }
             ],
             "styles": [
@@ -60,9 +74,8 @@
               "node_modules/bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css",
               "node_modules/flatpickr/dist/flatpickr.css",
               "node_modules/@valtimo/layout/assets/css/app.css",
-              "node_modules/@valtimo/user-interface/assets/design-tokens.css",
+              "node_modules/@valtimo/components/assets/css/design-tokens.css",
               "node_modules/@valtimo/components/assets/css/carbon.scss",
-              "node_modules/@valtimo/components/assets/css/carbon-beagle-compatibility.scss",
               "src/styles.scss"
             ],
             "scripts": [

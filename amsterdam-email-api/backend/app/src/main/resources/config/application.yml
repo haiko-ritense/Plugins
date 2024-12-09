@@ -37,9 +37,7 @@ spring:
         hibernate:
             ddl-auto: none
             naming:
-                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-            use-new-id-generator-mappings: false
     main:
         allow-bean-definition-overriding: true
 
@@ -108,6 +106,9 @@ audit:
 
 camunda:
     bpm:
+        generic-properties:
+            properties:
+                enforceHistoryTimeToLive: false
         history-level: AUDIT
         history-level-default: AUDIT
         admin-user:

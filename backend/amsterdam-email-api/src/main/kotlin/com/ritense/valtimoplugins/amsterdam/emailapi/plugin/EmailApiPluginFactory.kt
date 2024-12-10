@@ -17,21 +17,18 @@
  *
  */
 
-package com.ritense.valtimoplugins.amsterdam.emailapi.plugin
+package com.ritense.valtimo.amsterdam.emailapi.plugin
 
 import com.ritense.plugin.PluginFactory
 import com.ritense.plugin.service.PluginService
-import com.ritense.valtimoplugins.amsterdam.emailapi.client.EmailClient
-import com.ritense.valueresolver.ValueResolverService
-import org.springframework.web.client.RestTemplate
+import com.ritense.valtimo.amsterdam.emailapi.client.EmailClient
 
 class EmailApiPluginFactory(
     pluginService: PluginService,
     val emailClient: EmailClient,
-    val restTemplate: RestTemplate,
 ) : PluginFactory<EmailApiPlugin>(pluginService) {
 
     override fun create(): EmailApiPlugin {
-        return EmailApiPlugin(emailClient, restTemplate)
+        return EmailApiPlugin(emailClient)
     }
 }

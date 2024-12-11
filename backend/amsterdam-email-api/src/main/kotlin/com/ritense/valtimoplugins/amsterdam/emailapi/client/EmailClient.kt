@@ -20,7 +20,7 @@ class EmailClient(
 ) {
     fun send(message: EmailMessage, baseUri: URI, subscriptionKey: String) {
         try {
-            logger.debug { "sending email naar " + message.to.toString() + " met onderwerp " + message.subject }
+            logger.debug { "sending email naar "  + message.to.toString() + " met onderwerp " + message.subject}
 
             val headers = HttpHeaders()
             headers.set(headerKey, subscriptionKey)
@@ -29,14 +29,16 @@ class EmailClient(
 
             var response: ResponseEntity<String> = restTemplate.postForEntity(baseUri, httpEntity, String::class.java)
 
-            if (response.statusCode.is2xxSuccessful) {
+            if(response.statusCode.is2xxSuccessful) {
                 var event = EmailApiEvent("successfully send email")
                 eventPublisher.publishEvent(event)
-            } else if (response.statusCode.equals(HttpStatus.BAD_REQUEST)) {
+            }
+            else if (response.statusCode.equals(HttpStatus.BAD_REQUEST)) {
                 var event = EmailApiEvent("failed to send email")
                 eventPublisher.publishEvent(event)
-                logger.warn { "email invalide of incompleet \n" + message.toString() }
-            } else if (response.statusCode.equals(HttpStatus.UNAUTHORIZED)) {
+                logger.warn { "email invalide of incompleet \n" + message.toString()}
+            }
+            else if (response.statusCode.equals(HttpStatus.UNAUTHORIZED)) {
                 logger.warn { "email request unauthorized" }
             }
         } catch (e: Exception) {

@@ -1,4 +1,4 @@
-/*
+/*!
  * Copyright 2015-2024. Ritense BV, the Netherlands.
  *
  * Licensed under EUPL, Version 1.2 (the "License");
@@ -16,17 +16,3 @@
  * limitations under the License.
  *
  */
-
-package com.ritense.valtimoplugins.berkelybridge.client
-
-import com.fasterxml.jackson.annotation.JsonInclude
-import kotlin.collections.HashMap
-
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-class OpenRequestBody(
-    val templateId: String,
-    val format: String = "html",
-    val output: String = "url",
-    val naam: String,
-    val parameters: MutableMap<String, Any?> = HashMap(),
-) {}

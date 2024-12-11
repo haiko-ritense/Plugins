@@ -74,7 +74,7 @@ subprojects {
         }
 
         dockerCompose {
-            useDockerComposeV2 = true
+          //  useDockerComposeV2 = true
         }
 
         tasks.test {

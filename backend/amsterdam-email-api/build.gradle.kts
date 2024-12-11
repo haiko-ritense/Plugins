@@ -42,6 +42,7 @@ dependencies {
     implementation("org.apache.httpcomponents:httpcore:4.4.15")
 
     implementation("com.auth0:java-jwt:4.4.0")
+    implementation("com.github.ksuid:ksuid:1.1.3")
 
     // Testing
     testImplementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")

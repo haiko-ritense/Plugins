@@ -17,11 +17,11 @@
  *
  */
 
-package com.ritense.valtimo.berkelybridge.plugin
+package com.ritense.valtimoplugins.berkelybridge.plugin
 
 import com.ritense.plugin.service.PluginService
 import com.ritense.resource.service.TemporaryResourceStorageService
-import com.ritense.valtimo.berkelybridge.client.BerkelyBridgeClient
+import com.ritense.valtimoplugins.berkelybridge.client.BerkelyBridgeClient
 import com.ritense.valueresolver.ValueResolverService
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.client5.http.impl.classic.HttpClients

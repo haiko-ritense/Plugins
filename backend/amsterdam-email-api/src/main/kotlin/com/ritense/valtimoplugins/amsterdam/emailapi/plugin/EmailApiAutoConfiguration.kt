@@ -17,11 +17,11 @@
  *
  */
 
-package com.ritense.valtimo.amsterdam.emailapi.plugin
+package com.ritense.valtimoplugins.amsterdam.emailapi.plugin
 
 import com.ritense.plugin.repository.PluginProcessLinkRepository
 import com.ritense.plugin.service.PluginService
-import com.ritense.valtimo.amsterdam.emailapi.client.EmailClient
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.EmailClient
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.client5.http.impl.classic.HttpClients
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder

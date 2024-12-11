@@ -17,10 +17,10 @@
  *
  */
 
-package com.ritense.valtimo.berkelybridge.client
+package com.ritense.valtimoplugins.berkelybridge.client
 
-import com.ritense.valtimo.berkelybridge.plugin.BerkelyBridgeClientEvent
-import com.ritense.valtimo.berkelybridge.plugin.TemplateProperty
+import com.ritense.valtimoplugins.berkelybridge.plugin.BerkelyBridgeClientEvent
+import com.ritense.valtimoplugins.berkelybridge.plugin.TemplateProperty
 import mu.KotlinLogging
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.http.*

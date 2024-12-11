@@ -17,7 +17,7 @@
  *
  */
 
-package com.ritense.valtimo.amsterdam.emailapi.plugin
+package com.ritense.valtimoplugins.amsterdam.emailapi.plugin
 
 import com.github.ksuid.Ksuid
 import com.ritense.plugin.annotation.Plugin
@@ -25,10 +25,10 @@ import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.processlink.domain.ActivityTypeWithEventName
-import com.ritense.valtimo.amsterdam.emailapi.client.BodyPart
-import com.ritense.valtimo.amsterdam.emailapi.client.EmailClient
-import com.ritense.valtimo.amsterdam.emailapi.client.EmailMessage
-import com.ritense.valtimo.amsterdam.emailapi.client.Recipient
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.BodyPart
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.EmailClient
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.EmailMessage
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.Recipient
 import java.net.URI
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.springframework.util.MimeTypeUtils

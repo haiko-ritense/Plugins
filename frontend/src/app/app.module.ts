@@ -78,19 +78,19 @@ import {ProcessLinkModule} from '@valtimo/process-link';
 import {AlfrescoAuthPluginModule, alfrescoAuthPluginSpecification} from '@valtimo-plugins/alfresco-auth';
 import {AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} from '@valtimo-plugins/amsterdam-emailapi';
 import {BerkelybridgeTextgeneratorPluginModule, berkelybridgeTextgeneratorPluginSpecification} from '@valtimo-plugins/berkelybridge';
-import {MailTemplatePluginModule, mailTemplatePluginSpecification} from '@valtimo-plugins/freemarker';
-import {NotifyNlPluginModule, notifyNlPluginSpecification} from '@valtimo-plugins/notify-nl';
-import {PublictaskPluginModule, publictaskPluginSpecification} from '@valtimo-plugins/publictask';
-import {SlackPluginModule, slackPluginSpecification} from '@valtimo-plugins/slack';
-import {SmtpMailPluginModule, smtpmailPluginSpecification} from '@valtimo-plugins/smtpmail';
-import {SpotlerPluginModule, spotlerPluginSpecification} from '@valtimo-plugins/spotler';
-import {SuwinetPluginModule, suwinetPluginSpecification} from '@valtimo-plugins/suwinet';
-import {
-  ObjectManagementPluginModule
-} from "../../projects/valtimo-plugins/object-management/src/lib/object-management-plugin-module";
-import {
-  objectManagementPluginSpecification
-} from "../../projects/valtimo-plugins/object-management/src/lib/object-management-plugin.specification";
+// import {MailTemplatePluginModule, mailTemplatePluginSpecification} from '@valtimo-plugins/freemarker';
+// import {NotifyNlPluginModule, notifyNlPluginSpecification} from '@valtimo-plugins/notify-nl';
+// import {PublictaskPluginModule, publictaskPluginSpecification} from '@valtimo-plugins/publictask';
+// import {SlackPluginModule, slackPluginSpecification} from '@valtimo-plugins/slack';
+// import {SmtpMailPluginModule, smtpmailPluginSpecification} from '@valtimo-plugins/smtpmail';
+// import {SpotlerPluginModule, spotlerPluginSpecification} from '@valtimo-plugins/spotler';
+// import {SuwinetPluginModule, suwinetPluginSpecification} from '@valtimo-plugins/suwinet';
+// import {
+//   ObjectManagementPluginModule
+// } from "../../projects/valtimo-plugins/object-management/src/lib/object-management-plugin-module";
+// import {
+//   objectManagementPluginSpecification
+// } from "../../projects/valtimo-plugins/object-management/src/lib/object-management-plugin.specification";
 import {ObjectManagementModule} from "@valtimo/object-management";
 
 export function tabsFactory() {
@@ -110,14 +110,14 @@ export function tabsFactory() {
     AlfrescoAuthPluginModule,
     AmsterdamEmailapiPluginModule,
     BerkelybridgeTextgeneratorPluginModule,
-    MailTemplatePluginModule,
-    PublictaskPluginModule,
-    NotifyNlPluginModule,
-    ObjectManagementPluginModule,
-    SlackPluginModule,
-    SmtpMailPluginModule,
-    SpotlerPluginModule,
-    SuwinetPluginModule,
+    // MailTemplatePluginModule,
+    // PublictaskPluginModule,
+    // NotifyNlPluginModule,
+    // ObjectManagementPluginModule,
+    // SlackPluginModule,
+    // SmtpMailPluginModule,
+    // SpotlerPluginModule,
+    // SuwinetPluginModule,
     HttpClientModule,
     CommonModule,
     BrowserModule,
@@ -174,14 +174,14 @@ export function tabsFactory() {
       alfrescoAuthPluginSpecification,
       amsterdamEmailapiPluginSpecification,
       berkelybridgeTextgeneratorPluginSpecification,
-      mailTemplatePluginSpecification,
-      publictaskPluginSpecification,
-      notifyNlPluginSpecification,
-      objectManagementPluginSpecification,
-      slackPluginSpecification,
-      smtpmailPluginSpecification,
-      spotlerPluginSpecification,
-      suwinetPluginSpecification,
+      // mailTemplatePluginSpecification,
+      // publictaskPluginSpecification,
+      // notifyNlPluginSpecification,
+      // objectManagementPluginSpecification,
+      // slackPluginSpecification,
+      // smtpmailPluginSpecification,
+      // spotlerPluginSpecification,
+      // suwinetPluginSpecification,
       objectenApiPluginSpecification,
       objecttypenApiPluginSpecification,
       objectTokenAuthenticationPluginSpecification

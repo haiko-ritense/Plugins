@@ -18,9 +18,9 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 import {NgxLoggerLevel} from 'ngx-logger';
-import {ROLE_ADMIN, ROLE_USER, ValtimoConfig, UploadProvider} from '@valtimo/config';
+import {ROLE_ADMIN, ROLE_DEVELOPER, ROLE_USER, ValtimoConfig, UploadProvider, IncludeFunction} from '@valtimo/config';
 import {authenticationKeycloak} from './auth/keycloak-config.dev';
-import {DARK_MODE_LOGO_BASE_64, LOGO_BASE_64} from './logo';
+import {LOGO_BASE_64} from './logo';
 
 const defaultDefinitionColumns = [
   {
@@ -40,7 +40,6 @@ const defaultDefinitionColumns = [
 
 export const environment: ValtimoConfig = {
   logoSvgBase64: LOGO_BASE_64,
-  darkModeLogoSvgBase64: DARK_MODE_LOGO_BASE_64,
   production: false,
   authentication: authenticationKeycloak,
   menu: {
@@ -54,18 +53,23 @@ export const environment: ValtimoConfig = {
           {title: 'Basics', textClass: 'text-dark font-weight-bold c-default', sequence: 1},
           {link: ['/processes'], title: 'Processes', sequence: 2},
           {link: ['/form-management'], title: 'Forms', sequence: 3},
-          {link: ['/form-flow-management'], title: 'Form flows', sequence: 4},
-          {link: ['/decision-tables'], title: 'Decision tables', sequence: 5},
-          {link: ['/dossier-management'], title: 'Dossiers', sequence: 6},
-          {link: ['/task-management'], title: 'Tasks', sequence: 7},
-          {link: ['/object-management'], title: 'Objects', sequence: 8},
-          {link: ['/plugins'], title: 'Plugins', sequence: 9},
-          {link: ['/process-links'], title: 'Process links', sequence: 10},
-          {link: ['/dashboard-management'], title: 'Dashboard', sequence: 11},
-          {link: ['/access-control'], title: 'Access Control', sequence: 12},
-          {title: 'Other', textClass: 'text-dark font-weight-bold c-default', sequence: 14},
-          {link: ['/process-migration'], title: 'Process migration', sequence: 15},
-          {link: ['/choice-fields'], title: 'Choice fields', sequence: 16},
+          {link: ['/decision-tables'], title: 'Decision tables', sequence: 4},
+          {link: ['/dossier-management'], title: 'Dossiers', sequence: 5},
+          {link: ['/plugins'], title: 'Plugins', sequence: 8},
+          {link: ['/form-links'], title: 'Form links', sequence: 9},
+          {link: ['/process-links'], title: 'Form links Plugin', sequence: 10},
+          {title: 'A&E', textClass: 'text-dark font-weight-bold c-default', sequence: 11},
+          {link: ['/contexts'], title: 'Contexts', sequence: 12},
+          {link: ['/users'], title: 'Users', sequence: 13},
+          {link: ['/entitlements'], title: 'Entitlements', sequence: 14},
+          {title: 'Other', textClass: 'text-dark font-weight-bold c-default', sequence: 15},
+          {link: ['/process-migration'], title: 'Process migration', sequence: 16},
+          {link: ['/choice-fields'], title: 'Choice fields', sequence: 17},
+        ]
+      },
+      {
+        roles: [ROLE_DEVELOPER], title: 'Development', iconClass: 'icon mdi mdi-code', sequence: 5, children: [
+          {link: ['/swagger'], title: 'Swagger', iconClass: 'icon mdi mdi-dot-circle', sequence: 1}
         ]
       }
     ]
@@ -79,7 +83,7 @@ export const environment: ValtimoConfig = {
     endpointUri: '/api/',
   },
   swagger: {
-    endpointUri: '/v3/api-docs',
+    endpointUri: '/v2/api-docs',
   },
   logger: {
     level: NgxLoggerLevel.TRACE
@@ -88,9 +92,9 @@ export const environment: ValtimoConfig = {
     dossiers: []
   },
   openZaak: {
-    catalogus: '00000000-0000-0000-0000-000000000000',
+    catalogus: '8225508a-6840-413e-acc9-6422af120db1',
   },
-  uploadProvider: UploadProvider.S3,
+  uploadProvider: UploadProvider.DOCUMENTEN_API,
   caseFileSizeUploadLimitMB: 100,
   defaultDefinitionTable: defaultDefinitionColumns,
   customDefinitionTables: {  },

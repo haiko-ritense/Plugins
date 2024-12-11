@@ -48,7 +48,6 @@ private const val UTF8 = "utf-8"
 )
 class EmailApiPlugin(
     private val emailClient: EmailClient,
-    private val restTemplate: RestTemplate,
 ) {
 
     @PluginProperty(key = "emailApiBaseUrl", secret = false, required = true)

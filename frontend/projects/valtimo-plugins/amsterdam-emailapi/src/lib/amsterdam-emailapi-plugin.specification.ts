@@ -42,6 +42,9 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
           'Vul hier de Subcription Key in.',
       emailApiBaseUrl: 'Email API base URL',
       emailApiBaseUrlTooltip: 'Vul hier de base url in van de Email API inclusief pad eindigend op ../mail',
+      authenticationPluginConfiguration: 'Configuratie authenticatie-plug-in',
+      authenticationPluginConfigurationTooltip:
+          'Selecteer de plugin die de authenticatie kan afhandelen. Wanneer de selectiebox leeg blijft zal de authenticatie plugin (bv. OpenZaak) eerst aangemaakt moeten worden',
       zaakId: "De ID van de zaak",
       relatieCode: "De code van de relatie",
       toEmail: "Email verzend adres",
@@ -54,6 +57,7 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
       bccEmail: "bcc email",
       bccName: "bcc naam",
       'zend-email': 'Zend E-mail',
+      attachmentsPvName: "Process variabele voor attachements"
     },
     en: {
       title: 'Amsterdam Email API',
@@ -67,10 +71,15 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
           'Fill in the Subcription Key for the Email API.',
       emailApiBaseUrl: 'Email API base URL',
       emailApiBaseUrlTooltip: 'Enter the base URL of the Email API here, including the path ending in ../mail',
+      authenticationPluginConfiguration: 'Authentication plugin configuration',
+      authenticationPluginConfigurationTooltip:
+          'Select the plugin that can handle the authentication. If the selection box remains empty, the authentication plugin (e.g. OpenZaak) will have to be created first',
       zaakId: 'The ID of the case',
       relatieCode: "De code of the relation",
       toEmail: "Email To address",
       'zend-email': 'Send E-mail',
+      attachmentsPvName: "Process variabele for attachements"
+
     },
     de: {
       title: 'Amsterdam Email API',
@@ -85,6 +94,10 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
       emailApiBaseUrl: 'Email API base URL',
       emailApiBaseUrlTooltip: 'Geben Sie hier die Basis-URL der E-Mail-API ein, einschließlich des Pfads, der auf ../mail endet',
       'zend-email': 'Schick E-mail',
+      authenticationPluginConfiguration: 'Authentifizierungs-Plugin-Konfiguration',
+      authenticationPluginConfigurationTooltip:
+          'Wählen Sie das Plugin aus, das die Authentifizierung verarbeiten kann. Bleibt das Auswahlfeld leer, muss zunächst das Authentifizierungs-Plugin (z. B. OpenZaak) erstellt werden',
+      attachmentsPvName: "Process variabele fur attachements"
     },
   },
 };

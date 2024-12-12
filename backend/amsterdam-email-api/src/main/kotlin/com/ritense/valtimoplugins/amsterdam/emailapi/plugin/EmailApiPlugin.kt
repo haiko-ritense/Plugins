@@ -1,39 +1,30 @@
-/*
- * Copyright 2015-2024. Ritense BV, the Netherlands.
- *
- * Licensed under EUPL, Version 1.2 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" basis,
- *
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
 package com.ritense.valtimoplugins.amsterdam.emailapi.plugin
 
 import com.github.ksuid.Ksuid
+import com.ritense.documentenapi.DocumentenApiAuthentication
+import com.ritense.documentenapi.client.DocumentInformatieObject
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.processlink.domain.ActivityTypeWithEventName
-import com.ritense.valtimoplugins.amsterdam.emailapi.client.BodyPart
-import com.ritense.valtimoplugins.amsterdam.emailapi.client.EmailClient
-import com.ritense.valtimoplugins.amsterdam.emailapi.client.EmailMessage
-import com.ritense.valtimoplugins.amsterdam.emailapi.client.Recipient
-import java.net.URI
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.*
+import mu.KotlinLogging
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.springframework.util.MimeTypeUtils
+import org.springframework.util.StringUtils
+import org.springframework.web.client.RestClient
+import org.springframework.web.client.body
+
+import java.net.URI
+import java.nio.ByteBuffer
+import java.util.Base64
 
 private const val UTF8 = "utf-8"
+private val logger = KotlinLogging.logger {}
+
+
+private const val ATTACHEMENT = "attachement"
 
 @Plugin(
     key = "amsterdamemailapi",
@@ -42,13 +33,17 @@ private const val UTF8 = "utf-8"
 )
 class EmailApiPlugin(
     private val emailClient: EmailClient,
-) {
+    private val restClientBuilder: RestClient.Builder
+    ) {
 
     @PluginProperty(key = "emailApiBaseUrl", secret = false, required = true)
     lateinit var emailApiBaseUrl: String
 
     @PluginProperty(key = "subscriptionKey", secret = true, required = true)
     lateinit var subscriptionKey: String
+
+    @PluginProperty(key = "authenticationPluginConfiguration", secret = false)
+    lateinit var authenticationPluginConfiguration: DocumentenApiAuthentication
 
     @PluginAction(
         key = "zend-email",
@@ -65,6 +60,7 @@ class EmailApiPlugin(
         @PluginActionProperty fromAddress: String,
         @PluginActionProperty emailSubject: String,
         @PluginActionProperty contentHtml: String,
+        @PluginActionProperty attachmentsPvName: String?,
         @PluginActionProperty ccEmail: String?,
         @PluginActionProperty ccName: String?,
         @PluginActionProperty bccEmail: String?,
@@ -89,8 +85,14 @@ class EmailApiPlugin(
             messageId = generateMessageId(zaakId, relatieCode),
         )
 
-
         // set optional values
+        if(StringUtils.hasText(attachmentsPvName)) {
+            var documentNames: List<String> = execution.getVariable(attachmentsPvName) as List<String>
+            if(documentNames.isNotEmpty()) {
+                handleAttachements(message, documentNames)
+            }
+        }
+
         if(ccEmail != null) {
             message.cc = setOf(
                 Recipient(
@@ -112,6 +114,46 @@ class EmailApiPlugin(
 
         // send
         emailClient.send(message, URI.create(emailApiBaseUrl), subscriptionKey)
+    }
+
+    private fun handleAttachements(message: EmailMessage, documentNames: List<String>) {
+        var restClient = authenticationPluginConfiguration.applyAuth(restClientBuilder).build()
+
+        documentNames.forEach{
+            var informatieObject =  restClient
+                .get()
+                .uri(it)
+                .retrieve()
+                .body<DocumentInformatieObject>()!!
+            logger.debug { "found object for url:" + it }
+
+            if(tooBigAsAttachement(informatieObject.bestandsomvang)) {
+                logger.info(it + "is too big. Size is " + informatieObject.bestandsomvang)
+            }
+            else {
+                var content = restClient
+                    .get()
+                    .uri(informatieObject.link)
+                    .retrieve()
+                    .body<ByteArray>()!!
+
+                var attachement: Attachement = Attachement(
+                    ATTACHEMENT,
+                    informatieObject.bestandsnaam,
+                    Base64.getEncoder().encodeToString(content),
+                    informatieObject.formaat
+                )
+                message.attachements.add(attachement)
+            }
+        }
+
+    }
+
+    private fun tooBigAsAttachement(bestandsomvang: Long?): Boolean {
+        if(bestandsomvang != null && bestandsomvang/1024*1024 > 20) {
+            return true
+        }
+        return false
     }
 
     private fun generateMessageId(zaakId: String?, relatieCode: String?) = listOfNotNull(zaakId, relatieCode, Ksuid.newKsuid()).joinToString(separator = "-")

@@ -13,6 +13,7 @@ data class EmailMessage(
     val channel: String = "mail",
     var cc: Set<Recipient> = emptySet(),
     var bcc: Set<Recipient> = emptySet(),
-    val messageId: String = UUID.randomUUID().toString()
+    val messageId: String = UUID.randomUUID().toString(),
+    val attachements: MutableList<Attachement> = mutableListOf()
 
 )

@@ -80,6 +80,15 @@
   >
   </v-input>
   <v-input
+          name="attachmentsPvName"
+          [title]="'attachmentsPvName' | pluginTranslate: pluginId | async"
+          [margin]="true"
+          [defaultValue]="obs.prefill?.attachmentsPvName"
+          [disabled]="obs.disabled"
+          [required]="false"
+  >
+  </v-input>
+  <v-input
           name="ccEmail"
           [title]="'ccEmail' | pluginTranslate: pluginId | async"
           [margin]="true"

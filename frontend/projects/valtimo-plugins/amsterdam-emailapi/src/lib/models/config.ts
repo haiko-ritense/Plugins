@@ -37,7 +37,7 @@ interface SendEmailConfig {
   bccName: string;
   emailSubject: string;
   contentHtml: string;
-  attachmentsPvName: string;
+  attachments: string;
 }
 
 export {AmsterdamEmailApiConfig, SendEmailConfig};

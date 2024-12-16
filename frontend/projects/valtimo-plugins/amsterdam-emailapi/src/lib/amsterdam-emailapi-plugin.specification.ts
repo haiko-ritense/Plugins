@@ -57,7 +57,7 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
       bccEmail: "bcc email",
       bccName: "bcc naam",
       'zend-email': 'Zend E-mail',
-      attachmentsPvName: "Process variabele voor attachements"
+      attachments: "Attachments"
     },
     en: {
       title: 'Amsterdam Email API',
@@ -78,7 +78,7 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
       relatieCode: "De code of the relation",
       toEmail: "Email To address",
       'zend-email': 'Send E-mail',
-      attachmentsPvName: "Process variabele for attachements"
+      attachments: "Attachments"
 
     },
     de: {
@@ -97,7 +97,7 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
       authenticationPluginConfiguration: 'Authentifizierungs-Plugin-Konfiguration',
       authenticationPluginConfigurationTooltip:
           'Wählen Sie das Plugin aus, das die Authentifizierung verarbeiten kann. Bleibt das Auswahlfeld leer, muss zunächst das Authentifizierungs-Plugin (z. B. OpenZaak) erstellt werden',
-      attachmentsPvName: "Process variabele fur attachements"
+      attachments: "Attachments"
     },
   },
 };

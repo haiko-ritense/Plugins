@@ -9,15 +9,14 @@ import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.processlink.domain.ActivityTypeWithEventName
 import com.ritense.valtimoplugins.amsterdam.emailapi.client.*
+import jakarta.ws.rs.core.UriBuilder
 import mu.KotlinLogging
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.springframework.util.MimeTypeUtils
-import org.springframework.util.StringUtils
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.body
 
 import java.net.URI
-import java.nio.ByteBuffer
 import java.util.Base64
 
 private const val UTF8 = "utf-8"
@@ -60,7 +59,7 @@ class EmailApiPlugin(
         @PluginActionProperty fromAddress: String,
         @PluginActionProperty emailSubject: String,
         @PluginActionProperty contentHtml: String,
-        @PluginActionProperty attachmentsPvName: String?,
+        @PluginActionProperty attachments: List<String>?,
         @PluginActionProperty ccEmail: String?,
         @PluginActionProperty ccName: String?,
         @PluginActionProperty bccEmail: String?,
@@ -86,11 +85,8 @@ class EmailApiPlugin(
         )
 
         // set optional values
-        if(StringUtils.hasText(attachmentsPvName)) {
-            var documentNames: List<String> = execution.getVariable(attachmentsPvName) as List<String>
-            if(documentNames.isNotEmpty()) {
-                handleAttachements(message, documentNames)
-            }
+        if(!attachments.isNullOrEmpty()) {
+                handleAttachements(message, attachments)
         }
 
         if(ccEmail != null) {
@@ -127,13 +123,16 @@ class EmailApiPlugin(
                 .body<DocumentInformatieObject>()!!
             logger.debug { "found object for url:" + it }
 
-            if(tooBigAsAttachement(informatieObject.bestandsomvang)) {
+            if(tooBigAsAttachement(informatieObject.bestandsomvang!!)) {
                 logger.info(it + "is too big. Size is " + informatieObject.bestandsomvang)
             }
             else {
+                logger.debug { "adding attachement: " +  informatieObject.bestandsnaam}
+
+                var downloadURI = URI(informatieObject.url.toString().plus("/download"))
                 var content = restClient
                     .get()
-                    .uri(informatieObject.link)
+                    .uri(downloadURI)
                     .retrieve()
                     .body<ByteArray>()!!
 
@@ -149,11 +148,8 @@ class EmailApiPlugin(
 
     }
 
-    private fun tooBigAsAttachement(bestandsomvang: Long?): Boolean {
-        if(bestandsomvang != null && bestandsomvang/1024*1024 > 20) {
-            return true
-        }
-        return false
+    private fun tooBigAsAttachement(bestandsomvang: Long): Boolean {
+        return bestandsomvang/(1024*1024) > 20
     }
 
     private fun generateMessageId(zaakId: String?, relatieCode: String?) = listOfNotNull(zaakId, relatieCode, Ksuid.newKsuid()).joinToString(separator = "-")

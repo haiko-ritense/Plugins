@@ -19,8 +19,11 @@
 
 package com.ritense.valtimoplugins.amsterdam.emailapi.plugin
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.ritense.documentenapi.client.DocumentInformatieObject
 import com.ritense.plugin.repository.PluginProcessLinkRepository
 import com.ritense.plugin.service.PluginService
+import com.ritense.valtimo.jackson.ZonedLocalDateTimeDeserializer
 import com.ritense.valtimoplugins.amsterdam.emailapi.client.EmailClient
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.client5.http.impl.classic.HttpClients
@@ -28,11 +31,15 @@ import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuil
 import org.apache.hc.client5.http.ssl.NoopHostnameVerifier
 import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchProperties.Restclient
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+import org.springframework.web.client.RestClient
 import org.springframework.web.client.RestTemplate
+import java.time.LocalDateTime
 
 @Configuration
 class EmailApiAutoConfiguration {
@@ -53,9 +60,10 @@ class EmailApiAutoConfiguration {
     @ConditionalOnMissingBean(EmailApiPluginFactory::class)
     fun createEmailApiPluginFactory(
         pluginService: PluginService,
-        emailClient: EmailClient
+        emailClient: EmailClient,
+        restclientBuilder: RestClient.Builder
     ): EmailApiPluginFactory {
-        return EmailApiPluginFactory(pluginService, emailClient)
+        return EmailApiPluginFactory(pluginService, emailClient, restclientBuilder)
     }
 
     @Bean
@@ -83,4 +91,23 @@ class EmailApiAutoConfiguration {
 
         return RestTemplate(requestFactory)
     }
+
+    @Bean
+    @ConditionalOnMissingBean(RestClient.Builder::class)
+    fun createRestclientBuilder(): RestClient.Builder {
+        var builder = RestClient.builder()
+        builder.messageConverters {
+          it.forEach {
+              if(it is MappingJackson2HttpMessageConverter) {
+                  it.objectMapper.addMixIn(DocumentInformatieObject::class.java, DocumentInformatieObjectMixin::class.java)
+              }
+          }
+        }
+        return builder
+    }
+
+    abstract class DocumentInformatieObjectMixin(
+        @get:JsonDeserialize(using = ZonedLocalDateTimeDeserializer::class)
+        val beginRegistratie: LocalDateTime
+    )
 }

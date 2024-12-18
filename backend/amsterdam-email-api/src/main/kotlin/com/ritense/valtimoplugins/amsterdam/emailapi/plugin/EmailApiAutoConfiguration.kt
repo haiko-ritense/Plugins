@@ -63,7 +63,7 @@ class EmailApiAutoConfiguration {
         emailClient: EmailClient,
         restclientBuilder: RestClient.Builder
     ): EmailApiPluginFactory {
-        return EmailApiPluginFactory(pluginService, emailClient, restclientBuilder)
+        return EmailApiPluginFactory(pluginService, emailClient, adjustRestclientBuilder(restclientBuilder))
     }
 
     @Bean
@@ -92,10 +92,8 @@ class EmailApiAutoConfiguration {
         return RestTemplate(requestFactory)
     }
 
-    @Bean
-    @ConditionalOnMissingBean(RestClient.Builder::class)
-    fun createRestclientBuilder(): RestClient.Builder {
-        var builder = RestClient.builder()
+    fun adjustRestclientBuilder( buidlder: RestClient.Builder): RestClient.Builder {
+        var builder = RestClient.builder().clone()
         builder.messageConverters {
           it.forEach {
               if(it is MappingJackson2HttpMessageConverter) {

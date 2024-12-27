@@ -15,6 +15,15 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0ndg7zz" sourceRef="SendMail" targetRef="Event_1i2t034" />
     <bpmn:serviceTask id="SendMail" name="Send mail" implementation="##WebService" camunda:expression="${null}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="recipients">
+            <camunda:list>
+              <camunda:value>paul.van.beukering@ritense.com</camunda:value>
+            </camunda:list>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0ux7rym</bpmn:incoming>
       <bpmn:outgoing>Flow_0ndg7zz</bpmn:outgoing>
     </bpmn:serviceTask>

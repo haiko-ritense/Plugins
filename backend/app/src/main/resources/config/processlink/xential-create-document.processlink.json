@@ -10,20 +10,7 @@
       "fileFormat": "PDF",
       "documentId": "docId",
       "messageName": "XENTIAL_TEST_DOC_RECEIVED",
-      "templateData": [
-        {
-          "key": "voornaam",
-          "value": "piet"
-        },
-        {
-          "key": "achternaam",
-          "value": "klaasen"
-        },
-        {
-          "key": "email",
-          "value": "piet@klaasen.nl"
-        }
-      ]
+      "contentProcessVariable": "pv:xentialContentId"
     }
   },
   {

@@ -8,33 +8,11 @@
     <bpmn:startEvent id="XentialTestStartEvent" name="Start event">
       <bpmn:outgoing>Flow_1iic9b3</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_1iic9b3" sourceRef="XentialTestStartEvent" targetRef="MaakDocumentTask" />
-    <bpmn:sequenceFlow id="Flow_0z4j34w" sourceRef="MaakDocumentTask" targetRef="xential-create-and-store-document" />
+    <bpmn:sequenceFlow id="Flow_1iic9b3" sourceRef="XentialTestStartEvent" targetRef="PrepareContentTask" />
+    <bpmn:sequenceFlow id="Flow_0z4j34w" sourceRef="PrepareContentTask" targetRef="xential-create-and-store-document" />
     <bpmn:sequenceFlow id="Flow_1licevm" sourceRef="xential-create-and-store-document" targetRef="Event_1hl2nsy" />
-    <bpmn:serviceTask id="MaakDocumentTask" name="Create document prepare" camunda:expression="${true}">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="personalia">
-            <camunda:map>
-              <camunda:entry key="voornaam">piet</camunda:entry>
-              <camunda:entry key="achternaam">Klaassen</camunda:entry>
-              <camunda:entry key="geboortedatum">10-03-1976</camunda:entry>
-            </camunda:map>
-          </camunda:inputParameter>
-          <camunda:inputParameter name="contactgegevens">
-            <camunda:map>
-              <camunda:entry key="email">piet@test.nl</camunda:entry>
-              <camunda:entry key="telefoonnummer">06-12345678</camunda:entry>
-            </camunda:map>
-          </camunda:inputParameter>
-          <camunda:outputParameter name="documentObject">
-            <camunda:map>
-              <camunda:entry key="personalia">${personalia}</camunda:entry>
-              <camunda:entry key="contactgegevens">${contactgegevens}</camunda:entry>
-            </camunda:map>
-          </camunda:outputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
+    <bpmn:serviceTask id="PrepareContentTask" name="Create document prepare" camunda:asyncAfter="true" camunda:expression="${true}">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_1iic9b3</bpmn:incoming>
       <bpmn:outgoing>Flow_0z4j34w</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -63,7 +41,7 @@
           <dc:Bounds x="260" y="241" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1q8w7gi_di" bpmnElement="MaakDocumentTask">
+      <bpmndi:BPMNShape id="Activity_1q8w7gi_di" bpmnElement="PrepareContentTask">
         <dc:Bounds x="370" y="176" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>

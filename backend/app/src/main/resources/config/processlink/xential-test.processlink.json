@@ -4,41 +4,5 @@
     "activityType": "bpmn:StartEvent:start",
     "processLinkType": "form",
     "formDefinitionName": "xential-test.start"
-  },
-  {
-    "activityId": "PrepareContentTask",
-    "activityType": "bpmn:ServiceTask:start",
-    "processLinkType": "plugin",
-    "pluginConfigurationId": "6e034748-8ed5-43de-a5f2-f80e1a4b60dd",
-    "pluginActionDefinitionKey": "prepare-content",
-    "actionProperties": {
-      "resultProcessVariableName": "xentialContentId",
-      "verzendAdresData": [
-        {
-          "key": "voornaam",
-          "value": "piet"
-        }
-      ],
-      "colofonData": [
-        {
-          "key": "onderwerp",
-          "value": "ontvangstbevestiging"
-        }
-      ],
-      "creatieData": [
-        {
-          "key": "besluit_uitkomst",
-          "value": "geaccepteerd"
-        },
-        {
-          "key": "besluit_datum",
-          "value": "21-10-2024"
-        },
-        {
-          "key": "besluit_toelichting",
-          "value": "Allemaal prima"
-        }
-      ]
-    }
   }
 ]

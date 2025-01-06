@@ -16,11 +16,11 @@
       <bpmn:incoming>Flow_1iic9b3</bpmn:incoming>
       <bpmn:outgoing>Flow_0z4j34w</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:callActivity id="xential-create-and-store-document" name="Create and store document" camunda:asyncBefore="true" camunda:asyncAfter="true" calledElement="xential-create-document">
+    <bpmn:callActivity id="xential-create-and-store-document" name="Create document with Xential" camunda:asyncBefore="true" camunda:asyncAfter="true" calledElement="xential-create-document">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
-        <camunda:in source="documentObject" target="documentObject" />
         <camunda:in source="testWizard" target="testWizard" />
+        <camunda:in source="xentialDocumentId" target="xentialDocumentId" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0z4j34w</bpmn:incoming>
       <bpmn:outgoing>Flow_1licevm</bpmn:outgoing>

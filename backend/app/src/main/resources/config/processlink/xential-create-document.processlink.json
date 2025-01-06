@@ -1,19 +1,5 @@
 [
   {
-    "activityId": "XentialDocumentCreateTask",
-    "activityType": "bpmn:ServiceTask:start",
-    "processLinkType": "plugin",
-    "pluginConfigurationId": "6e034748-8ed5-43de-a5f2-f80e1a4b60dd",
-    "pluginActionDefinitionKey": "generate-document",
-    "actionProperties": {
-      "templateId": "e0a8ace5-06df-4ef7-bcbb-9d694d25e03b",
-      "fileFormat": "PDF",
-      "documentId": "docId",
-      "messageName": "XENTIAL_TEST_DOC_RECEIVED",
-      "contentProcessVariable": "pv:xentialContentId"
-    }
-  },
-  {
     "activityId": "OpenXentialWizardTask",
     "activityType": "bpmn:UserTask:create",
     "processLinkType": "form",

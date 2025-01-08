@@ -20,7 +20,7 @@
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
         <camunda:in source="testWizard" target="testWizard" />
-        <camunda:in source="xentialDocumentId" target="xentialDocumentId" />
+        <camunda:in source="xentialContentId" target="xentialContentId" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0z4j34w</bpmn:incoming>
       <bpmn:outgoing>Flow_1licevm</bpmn:outgoing>

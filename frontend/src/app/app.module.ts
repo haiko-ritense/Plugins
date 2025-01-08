@@ -32,7 +32,9 @@ import {
   registerFormioFileSelectorComponent,
   registerFormioUploadComponent,
   registerFormioValueResolverSelectorComponent,
-  WidgetModule
+  WidgetModule,
+    ValuePathSelectorComponent
+
 } from '@valtimo/components';
 import {
   DefaultTabs,
@@ -85,6 +87,7 @@ import {SlackPluginModule, slackPluginSpecification} from '@valtimo-plugins/slac
 import {SmtpMailPluginModule, smtpmailPluginSpecification} from '@valtimo-plugins/smtpmail';
 import {SpotlerPluginModule, spotlerPluginSpecification} from '@valtimo-plugins/spotler';
 import {SuwinetPluginModule, suwinetPluginSpecification} from '@valtimo-plugins/suwinet';
+import {XentialPluginModule, XentialPluginSpecification} from '@valtimo-plugins/xential';
 import {
   ObjectManagementPluginModule
 } from "../../projects/valtimo-plugins/object-management/src/lib/object-management-plugin-module";
@@ -103,97 +106,100 @@ export function tabsFactory() {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    AlfrescoAuthPluginModule,
-    AmsterdamEmailapiPluginModule,
-    BerkelybridgeTextgeneratorPluginModule,
-    MailTemplatePluginModule,
-    PublictaskPluginModule,
-    NotifyNlPluginModule,
-    ObjectManagementPluginModule,
-    SlackPluginModule,
-    SmtpMailPluginModule,
-    SpotlerPluginModule,
-    SuwinetPluginModule,
-    HttpClientModule,
-    CommonModule,
-    BrowserModule,
-    AppRoutingModule,
-    LayoutModule,
-    CardModule,
-    WidgetModule,
-    BootstrapModule,
-    ConfigModule.forRoot(environment),
-    LoggerModule.forRoot(environment.logger),
-    environment.authentication.module,
-    SecurityModule,
-    MenuModule,
-    TaskModule,
-    DossierModule.forRoot(tabsFactory),
-    ProcessModule,
-    BpmnJsDiagramModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DocumentModule,
-    AccountModule,
-    ChoiceFieldModule,
-    ResourceModule,
-    FormModule,
-    AnalyseModule,
-    SwaggerModule,
-    ProcessManagementModule,
-    DecisionModule,
-    MilestoneModule,
-    FormManagementModule,
-    ProcessLinkModule,
-    MigrationModule,
-    DossierManagementModule,
-    PluginManagementModule,
-    AccessControlManagementModule,
-    ObjectenApiPluginModule,
-    ObjecttypenApiPluginModule,
-    ObjectTokenAuthenticationPluginModule,
-    ObjectManagementModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: CustomMultiTranslateHttpLoaderFactory,
-        deps: [HttpBackend, HttpClient, ConfigService, LocalizationService],
-      },
-    }),
-    TranslationManagementModule,
-    TaskManagementModule,
-  ],
-  providers: [{
-    provide: PLUGINS_TOKEN,
-    useValue: [
-      alfrescoAuthPluginSpecification,
-      amsterdamEmailapiPluginSpecification,
-      berkelybridgeTextgeneratorPluginSpecification,
-      mailTemplatePluginSpecification,
-      publictaskPluginSpecification,
-      notifyNlPluginSpecification,
-      objectManagementPluginSpecification,
-      slackPluginSpecification,
-      smtpmailPluginSpecification,
-      spotlerPluginSpecification,
-      suwinetPluginSpecification,
-      objectenApiPluginSpecification,
-      objecttypenApiPluginSpecification,
-      objectTokenAuthenticationPluginSpecification
-    ]
-  }],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+    ],
+    imports: [
+        ValuePathSelectorComponent,
+        AlfrescoAuthPluginModule,
+        AmsterdamEmailapiPluginModule,
+        BerkelybridgeTextgeneratorPluginModule,
+        MailTemplatePluginModule,
+        PublictaskPluginModule,
+        NotifyNlPluginModule,
+        ObjectManagementPluginModule,
+        SlackPluginModule,
+        SmtpMailPluginModule,
+        SpotlerPluginModule,
+        SuwinetPluginModule,
+        XentialPluginModule,
+        HttpClientModule,
+        CommonModule,
+        BrowserModule,
+        AppRoutingModule,
+        LayoutModule,
+        CardModule,
+        WidgetModule,
+        BootstrapModule,
+        ConfigModule.forRoot(environment),
+        LoggerModule.forRoot(environment.logger),
+        environment.authentication.module,
+        SecurityModule,
+        MenuModule,
+        TaskModule,
+        DossierModule.forRoot(tabsFactory),
+        ProcessModule,
+        BpmnJsDiagramModule,
+        FormsModule,
+        ReactiveFormsModule,
+        DocumentModule,
+        AccountModule,
+        ChoiceFieldModule,
+        ResourceModule,
+        FormModule,
+        AnalyseModule,
+        SwaggerModule,
+        ProcessManagementModule,
+        DecisionModule,
+        MilestoneModule,
+        FormManagementModule,
+        ProcessLinkModule,
+        MigrationModule,
+        DossierManagementModule,
+        PluginManagementModule,
+        AccessControlManagementModule,
+        ObjectenApiPluginModule,
+        ObjecttypenApiPluginModule,
+        ObjectTokenAuthenticationPluginModule,
+        ObjectManagementModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: CustomMultiTranslateHttpLoaderFactory,
+                deps: [HttpBackend, HttpClient, ConfigService, LocalizationService],
+            },
+        }),
+        TranslationManagementModule,
+        TaskManagementModule,
+    ],
+    providers: [{
+        provide: PLUGINS_TOKEN,
+        useValue: [
+            alfrescoAuthPluginSpecification,
+            amsterdamEmailapiPluginSpecification,
+            berkelybridgeTextgeneratorPluginSpecification,
+            mailTemplatePluginSpecification,
+            publictaskPluginSpecification,
+            notifyNlPluginSpecification,
+            objectManagementPluginSpecification,
+            slackPluginSpecification,
+            smtpmailPluginSpecification,
+            spotlerPluginSpecification,
+            suwinetPluginSpecification,
+            XentialPluginSpecification,
+            objectenApiPluginSpecification,
+            objecttypenApiPluginSpecification,
+            objectTokenAuthenticationPluginSpecification
+        ]
+    }],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(injector: Injector) {
-    enableCustomFormioComponents(injector);
-    registerFormioUploadComponent(injector);
-    registerFormioFileSelectorComponent(injector);
-    registerFormioValueResolverSelectorComponent(injector);
-  }
+    constructor(injector: Injector) {
+        enableCustomFormioComponents(injector);
+        registerFormioUploadComponent(injector);
+        registerFormioFileSelectorComponent(injector);
+        registerFormioValueResolverSelectorComponent(injector);
+    }
 }

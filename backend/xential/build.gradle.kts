@@ -94,3 +94,11 @@ tasks.named("compileKotlin") {
         "openApiGenerate",
     )
 }
+
+tasks.named("sourcesJar") {
+    dependsOn(
+        "openApiGenerate",
+    )
+}
+
+

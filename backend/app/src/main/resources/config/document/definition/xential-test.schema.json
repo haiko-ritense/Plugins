@@ -4,6 +4,9 @@
     "title": "Xential Test",
     "type": "object",
     "properties": {
+        "openzaak": {
+            "$ref": "openzaak.schema.json#/definitions/openzaakgegevens"
+        },
         "persoon": {
             "type": "object",
             "properties": {

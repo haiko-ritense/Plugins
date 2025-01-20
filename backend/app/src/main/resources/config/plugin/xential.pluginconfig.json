@@ -6,9 +6,9 @@
             "applicationName": "${XENTIAL_ACCOUNT_NAME}",
             "applicationPassword": "${XENTIAL_ACCOUNT_PASSWORD}",
             "baseUrl": "${XENTIAL_BASEURL}",
-            "serverCertificateFilename": "${ESB_SERVER_CERTIFICATE_FILENAME}",
-            "clientPrivateKeyFilename": "${ESB_CLIENT_PRIVATE_KEY_FILENAME}",
-            "clientCertificateFilename": "${ESB_CLIENT_CERTIFICATE_FILENAME}"
+            "serverCertificate": "${PKIO_FULLCHAIN}",
+            "clientPrivateKey": "${PKIO_PRIVATE_KEY}",
+            "clientCertificate": "${PKIO_CERT}"
         },
         "pluginDefinitionKey": "xential"
     }

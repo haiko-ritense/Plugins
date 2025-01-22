@@ -31,7 +31,6 @@ import com.ritense.valtimoplugins.xential.plugin.XentialPlugin.Companion.PLUGIN_
 import com.ritense.valtimoplugins.xential.service.DocumentGenerationService
 import mu.KotlinLogging
 import org.camunda.bpm.engine.delegate.DelegateExecution
-import java.io.File
 import java.net.URI
 import java.util.UUID
 
@@ -53,14 +52,14 @@ class XentialPlugin(
     @PluginProperty(key = "baseUrl", secret = false, required = true)
     lateinit var baseUrl: URI
 
-    @PluginProperty(key = "serverCertificateFilename", secret = false, required = true)
-    private lateinit var serverCertificateFilename: String
+    @PluginProperty(key = "serverCertificate", secret = true, required = true)
+    var serverCertificate: String? = null
 
-    @PluginProperty(key = "clientPrivateKeyFilename", secret = false, required = false)
-    var clientPrivateKeyFilename: String? = null
+    @PluginProperty(key = "clientPrivateKey", secret = true, required = false)
+    var clientPrivateKey: String? = null
 
-    @PluginProperty(key = "clientCertificateFilename", secret = false, required = false)
-    var clientCertificateFilename: String? = null
+    @PluginProperty(key = "clientCertificate", secret = true, required = false)
+    var clientCertificate: String? = null
 
     @PluginAction(
         key = "generate-document",
@@ -79,9 +78,9 @@ class XentialPlugin(
             applicationName,
             applicationPassword,
             baseUrl,
-            File(serverCertificateFilename),
-            clientPrivateKeyFilename?.let { File(it) },
-            clientCertificateFilename?.let { File(it) }
+            serverCertificate,
+            clientPrivateKey,
+            clientCertificate
         )
 
         documentGenerationService.generateDocument(

@@ -26,7 +26,6 @@ pluginManagement {
     val kotlinVersion: String by settings
     val ktlintVersion: String by settings
     val spotlessVersion: String by settings
-    val xentialVersion: String by settings
     val dockerComposePluginVersion: String by settings
 
     plugins {

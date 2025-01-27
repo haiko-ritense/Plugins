@@ -67,8 +67,7 @@ export class XentialConfigurationComponent
         const valid = !!(
             formValue.applicationName &&
             formValue.applicationPassword &&
-            formValue.baseUrl &&
-            formValue.serverCertificateFilename
+            formValue.baseUrl
         );
 
         this.valid$.next(valid);
@@ -87,6 +86,6 @@ export class XentialConfigurationComponent
         });
     }
 
-    protected readonly ValuePathSelectorPrefix = ValuePathSelectorPrefix;
-    documentDefinitionName: string = "xential-test";
+    // protected readonly ValuePathSelectorPrefix = ValuePathSelectorPrefix;
+    // documentDefinitionName: string = "xential-test";
 }

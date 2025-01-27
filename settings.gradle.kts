@@ -9,6 +9,7 @@ include(
     "backend:notify-nl",
     "backend:object-management",
     "backend:publictask",
+    "backend:rotterdam-oracle-ebs",
     "backend:slack",
     "backend:smtpmail",
     "backend:spotler",

@@ -83,8 +83,8 @@ import {BerkelybridgeTextgeneratorPluginModule, berkelybridgeTextgeneratorPlugin
 import {
     MailTemplatePluginModule,
     mailTemplatePluginSpecification,
-    TextTemplatePluginModule,
-    textTemplatePluginSpecification
+//    TextTemplatePluginModule,
+//    textTemplatePluginSpecification
 } from '@valtimo-plugins/freemarker';
 import {NotifyNlPluginModule, notifyNlPluginSpecification} from '@valtimo-plugins/notify-nl';
 import {PublictaskPluginModule, publictaskPluginSpecification} from '@valtimo-plugins/publictask';
@@ -120,7 +120,7 @@ export function tabsFactory() {
         AmsterdamEmailapiPluginModule,
         BerkelybridgeTextgeneratorPluginModule,
         MailTemplatePluginModule,
-        TextTemplatePluginModule,
+//        TextTemplatePluginModule,
         PublictaskPluginModule,
         NotifyNlPluginModule,
         ObjectManagementPluginModule,
@@ -186,7 +186,7 @@ export function tabsFactory() {
             amsterdamEmailapiPluginSpecification,
             berkelybridgeTextgeneratorPluginSpecification,
             mailTemplatePluginSpecification,
-            textTemplatePluginSpecification,
+//            textTemplatePluginSpecification,
             publictaskPluginSpecification,
             notifyNlPluginSpecification,
             objectManagementPluginSpecification,

@@ -82,7 +82,9 @@ import {AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} fro
 import {BerkelybridgeTextgeneratorPluginModule, berkelybridgeTextgeneratorPluginSpecification} from '@valtimo-plugins/berkelybridge';
 import {
     MailTemplatePluginModule,
-    mailTemplatePluginSpecification
+    mailTemplatePluginSpecification,
+    TextTemplatePluginModule,
+    textTemplatePluginSpecification
 } from '@valtimo-plugins/freemarker';
 import {NotifyNlPluginModule, notifyNlPluginSpecification} from '@valtimo-plugins/notify-nl';
 import {PublictaskPluginModule, publictaskPluginSpecification} from '@valtimo-plugins/publictask';
@@ -98,6 +100,13 @@ import {
   objectManagementPluginSpecification
 } from "../../projects/valtimo-plugins/object-management/src/lib/object-management-plugin.specification";
 import {ObjectManagementModule} from "@valtimo/object-management";
+import {
+  ExterneKlanttaakPluginModule
+} from "../../projects/valtimo-plugins/externe-klanttaak/src/lib/externe-klanttaak-plugin.module";
+import {
+  externeKlanttaakPluginSpecification
+} from "../../projects/valtimo-plugins/externe-klanttaak/src/lib/externe-klanttaak-plugin.specification";
+import {ObjectModule} from "@valtimo/object";
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -118,6 +127,7 @@ export function tabsFactory() {
         AmsterdamEmailapiPluginModule,
         BerkelybridgeTextgeneratorPluginModule,
         MailTemplatePluginModule,
+        TextTemplatePluginModule,
         PublictaskPluginModule,
         NotifyNlPluginModule,
         ObjectManagementPluginModule,
@@ -164,6 +174,7 @@ export function tabsFactory() {
         ObjectenApiPluginModule,
         ObjecttypenApiPluginModule,
         ObjectTokenAuthenticationPluginModule,
+        ObjectModule,
         ObjectManagementModule,
         HttpClientModule,
         TranslateModule.forRoot({
@@ -175,6 +186,7 @@ export function tabsFactory() {
         }),
         TranslationManagementModule,
         TaskManagementModule,
+        ExterneKlanttaakPluginModule,
     ],
     providers: [{
         provide: PLUGINS_TOKEN,
@@ -183,6 +195,8 @@ export function tabsFactory() {
             amsterdamEmailapiPluginSpecification,
             berkelybridgeTextgeneratorPluginSpecification,
             mailTemplatePluginSpecification,
+            externeKlanttaakPluginSpecification,
+            textTemplatePluginSpecification,
             publictaskPluginSpecification,
             notifyNlPluginSpecification,
             objectManagementPluginSpecification,
@@ -193,7 +207,8 @@ export function tabsFactory() {
             XentialPluginSpecification,
             objectenApiPluginSpecification,
             objecttypenApiPluginSpecification,
-            objectTokenAuthenticationPluginSpecification
+            objectTokenAuthenticationPluginSpecification,
+            externeKlanttaakPluginSpecification,
         ]
     }],
     bootstrap: [AppComponent]

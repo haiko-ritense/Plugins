@@ -1076,7 +1076,10 @@ components:
         factuur:
           $ref: '#/components/schemas/Verkoopfactuur'
         bijlage:
-          $ref: '#/components/schemas/VerkoopfactuurBijlage'
+          type: object
+          oneOf:
+            - $ref: '#/components/schemas/VerkoopfactuurBijlage'
+            - $ref: '#/components/schemas/VerkoopfactuurBijlagen'
     Verkoopfactuur:
       required:
         - factuurtype
@@ -1390,6 +1393,11 @@ components:
           type: integer
         categorie:
           type: string
+    VerkoopfactuurBijlagen:
+      type: array
+      minItems: 1
+      items:
+        $ref: '#/components/schemas/VerkoopfactuurBijlage'
 
     OpvoerenInkoopfactuurVraag:
       required:

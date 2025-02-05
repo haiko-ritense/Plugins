@@ -15,7 +15,7 @@
  */
 
 plugins {
-    id("org.openapi.generator") version "7.10.0"
+    id("org.openapi.generator") version "7.11.0"
 }
 
 dockerCompose {
@@ -31,42 +31,44 @@ dependencies {
     implementation("com.ritense.valtimo:core")
     implementation("com.ritense.valtimo:plugin-valtimo")
 
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework:spring-web")
 
     implementation("io.github.microutils:kotlin-logging")
 
+    implementation("org.apache.httpcomponents.client5:httpclient5")
+
     // Testing
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.mockito:mockito-core")
+    testImplementation("org.hamcrest:hamcrest-library")
+    testImplementation("org.mockito.kotlin:mockito-kotlin")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+
     testImplementation("com.ritense.valtimo:document")
     testImplementation("com.ritense.valtimo:local-resource")
     testImplementation("com.ritense.valtimo:process-document")
     testImplementation("com.ritense.valtimo:test-utils-common")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
-
-    testImplementation("org.mockito:mockito-core")
-    testImplementation("org.hamcrest:hamcrest-library")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
-
-    testImplementation("org.postgresql:postgresql")
-
     testImplementation("com.squareup.okhttp3:mockwebserver")
-    testImplementation("com.squareup.okhttp3:okhttp")
-
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-
 }
 
 apply(from = "gradle/publishing.gradle")
 
 openApiGenerate {
-    inputSpec.set("$rootDir/backend/rotterdam-oracle-ebs/src/main/resources/verkoopfactuur_journaalpost.yaml")
-    generatorName.set("kotlin")
-    outputDir.set("${getLayout().buildDirectory.get()}/generated")
-    apiPackage.set("com.rotterdam.oracle-ebs.api")
-    invokerPackage.set("com.rotterdam.oracle-ebs.invoker")
-    modelPackage.set("com.rotterdam.oracle-ebs.model")
+    generatorName = "kotlin"
+    inputSpec = "$rootDir/backend/rotterdam-oracle-ebs/src/main/resources/opvoeren_api.yaml"
+    outputDir = "${getLayout().buildDirectory.get()}/generated"
+    packageName = "com.rotterdam.opvoeren"
+    generateApiDocumentation = false
+    generateApiTests = false
+    generateModelDocumentation = false
+    generateModelTests = false
+    configOptions = mapOf(
+        "useSpringBoot3" to "true",
+        "library" to "jvm-spring-restclient",
+        "serializationLibrary" to "jackson"
+    )
 }
 
 sourceSets {

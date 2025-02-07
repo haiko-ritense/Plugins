@@ -1,13 +1,13 @@
 [
     {
         "id": "df627853-1efa-4ad0-92fd-284688ca33f7",
-        "title": "Gemeente Rotterdam - Oracle EBS",
+        "title": "Gemeente Rotterdam - Oracle EBS - Journaalpost plugin",
         "properties": {
             "baseUrl": "${ROTTERDAM_ORACLE_EBS_BASEURL}",
             "serverCertificate": "${ROTTERDAM_ORACLE_EBS_SERVER_CERT}",
             "clientPrivateKey": "${ROTTERDAM_ORACLE_EBS_PRIVATE_KEY}",
             "clientCertificate": "${ROTTERDAM_ORACLE_EBS_CLIENT_CERT}"
         },
-        "pluginDefinitionKey": "rotterdam-oracle-ebs"
+        "pluginDefinitionKey": "rotterdam-oracle-ebs-journaalpost"
     }
 ]

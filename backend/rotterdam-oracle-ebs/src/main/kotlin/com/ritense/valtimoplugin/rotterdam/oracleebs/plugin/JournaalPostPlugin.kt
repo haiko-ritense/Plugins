@@ -19,8 +19,8 @@ import java.time.OffsetDateTime
 import java.util.UUID
 
 @Plugin(
-    key = "rotterdam-oracle-ebs-journaal-post",
-    title = "Gemeente Rotterdam - Oracle EBS - Journaal Post Plugin",
+    key = "rotterdam-oracle-ebs-journaalpost",
+    title = "Gemeente Rotterdam - Oracle EBS - Journaalpost Plugin",
     description = "Deze plugin maakt het mogelijk om Journaalpost acties uit te voeren in Oracle E-Business Suite via de ESB van de Gemeente Rotterdam"
 )
 class JournaalPostPlugin(

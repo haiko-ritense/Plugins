@@ -31,10 +31,20 @@ dependencies {
     implementation("com.ritense.valtimo:core")
     implementation("com.ritense.valtimo:plugin-valtimo")
 
+    // Spring core web functionality
     implementation("org.springframework:spring-web")
 
-    implementation("io.github.microutils:kotlin-logging")
+    // Logging
+    implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
 
+    // Jackson FasterXML
+//    implementation("com.fasterxml.jackson.core:jackson-core")
+//    implementation("com.fasterxml.jackson.core:jackson-databind")
+//    implementation("com.fasterxml.jackson.core:jackson-annotations")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // Apache HTTP Client
+    implementation("org.apache.httpcomponents.core5:httpcore5")
     implementation("org.apache.httpcomponents.client5:httpclient5")
 
     // Testing
@@ -46,8 +56,6 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 
     testImplementation("com.ritense.valtimo:document")
-    testImplementation("com.ritense.valtimo:local-resource")
-    testImplementation("com.ritense.valtimo:process-document")
     testImplementation("com.ritense.valtimo:test-utils-common")
 
     testImplementation("com.squareup.okhttp3:mockwebserver")
@@ -59,7 +67,7 @@ openApiGenerate {
     generatorName = "kotlin"
     inputSpec = "$rootDir/backend/rotterdam-oracle-ebs/src/main/resources/opvoeren_api.yaml"
     outputDir = "${getLayout().buildDirectory.get()}/generated"
-    packageName = "com.rotterdam.opvoeren"
+    packageName = "com.rotterdam.esb.opvoeren"
     generateApiDocumentation = false
     generateApiTests = false
     generateModelDocumentation = false

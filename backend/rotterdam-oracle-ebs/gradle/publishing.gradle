@@ -23,8 +23,8 @@ pluginManager.withPlugin("maven-publish") {
                 version = pluginProperties.pluginVersion
 
                 pom {
-                    name = "Rotterdam Oracle EBS plugin module"
-                    description = "The Rotterdam Oracle EBS plugin module contains plugin actions for 'Journaalpost opvoeren' and 'Verkoopfactuur opvoeren'"
+                    name = "Gemeente Rotterdam - Oracle EBS plugin module"
+                    description = "De Gemeente Rotterdam Oracle EBS plugin module bevat plugin acties voor 'Journaalpost opvoeren' en 'Verkoopfactuur opvoeren'"
                     developers {
                         developer {
                             id = "team-valtimo"

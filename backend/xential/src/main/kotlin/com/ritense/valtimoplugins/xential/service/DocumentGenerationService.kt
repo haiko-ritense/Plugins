@@ -26,7 +26,7 @@ import com.ritense.valtimoplugins.xential.plugin.TemplateDataEntry
 import com.ritense.valtimoplugins.xential.repository.XentialTokenRepository
 import com.ritense.valueresolver.ValueResolverService
 import com.rotterdam.xential.model.Sjabloondata
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import java.io.ByteArrayInputStream
@@ -40,6 +40,7 @@ class DocumentGenerationService(
     private val valueResolverService: ValueResolverService,
     private val httpClientConfig: HttpClientConfig
 ) {
+    @Suppress("UNCHECKED_CAST")
     fun generateContent(
         documentDetailsData: Array<TemplateDataEntry>,
         colofonData: Array<TemplateDataEntry>,
@@ -62,7 +63,7 @@ class DocumentGenerationService(
         val api = httpClientConfig.configureClient(httpClientProperties)
         val sjabloonVulData = generateXml(xentialDocumentProperties.content)
         val result = api.creeerDocument(
-            gebruikersId = httpClientProperties.applicationName,
+            gebruikersId = xentialDocumentProperties.gebruikersId,
             accepteerOnbekend = false,
             sjabloondata = Sjabloondata(
                 sjabloonId = xentialDocumentProperties.templateId.toString(),
@@ -101,17 +102,15 @@ class DocumentGenerationService(
         map: MutableMap<String, Any>
     ): String {
         val verzendadres = map["verzendAdres"] as Map<*, *>
-        val colofon = map["verzendAdres"] as Map<*, *>
-        val documentDetails = map["verzendAdres"] as Map<*, *>
+        val colofon = map["colofon"] as Map<*, *>
+        val documentDetails = map["documentDetails"] as Map<*, *>
 
         return """
                 <root>
                     <verzendAdres>
                         ${verzendadres.map { "<${it.key}>${it.value}</${it.key}>" }.joinToString()}
                     </verzendAdres>
-                    <colofon>
-                        ${colofon.map { "<${it.key}>${it.value}</${it.key}>" }.joinToString()}
-                    </colofon>
+                    ${colofon.map { "<${it.key}>${it.value}</${it.key}>" }.joinToString()}
                     <documentDetails>
                         ${documentDetails.map { "<${it.key}>${it.value}</${it.key}>" }.joinToString()}
                     </documentDetails>
@@ -126,14 +125,15 @@ class DocumentGenerationService(
         val xentialToken = xentialTokenRepository.findById(UUID.fromString(message.documentCreatieSessieId))
             .orElseThrow { NoSuchElementException("Could not find Xential Token ${message.documentCreatieSessieId}") }
 
+        logger.info { "Retrieved content from Xential Callback, token: ${xentialToken.token}" }
+
         ByteArrayInputStream(bytes).use { inputStream ->
             val metadata =
                 mapOf(MetadataType.FILE_NAME.key to "${xentialToken.processId}-${xentialToken.messageName}.tmp")
             val resourceId = temporaryResourceStorageService.store(inputStream, metadata)
-            val resourceIdMap = mapOf("resourceId" to resourceId)
             runtimeService.createMessageCorrelation(xentialToken.messageName)
                 .processInstanceId(xentialToken.processId.toString())
-                .setVariables(resourceIdMap)
+                .setVariable("xentialResourceId", resourceId)
                 .correlate()
         }
     }

@@ -29,7 +29,7 @@ import com.ritense.valtimoplugins.xential.domain.FileFormat
 import com.ritense.valtimoplugins.xential.domain.XentialDocumentProperties
 import com.ritense.valtimoplugins.xential.plugin.XentialPlugin.Companion.PLUGIN_KEY
 import com.ritense.valtimoplugins.xential.service.DocumentGenerationService
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import java.net.URI
 import java.util.UUID
@@ -101,6 +101,7 @@ class XentialPlugin(
         @PluginActionProperty templateId: UUID,
         @PluginActionProperty fileFormat: FileFormat,
         @PluginActionProperty documentId: String,
+        @PluginActionProperty gebruikersId: String,
         @PluginActionProperty eventMessageName: String,
         @PluginActionProperty xentialContentId: String,
         @PluginActionProperty verzendAdresData: Array<TemplateDataEntry>,
@@ -117,6 +118,7 @@ class XentialPlugin(
             ).let {
                 val xentialDocumentProperties = XentialDocumentProperties(
                     templateId,
+                    gebruikersId,
                     fileFormat,
                     documentId,
                     eventMessageName,

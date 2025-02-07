@@ -1,6 +1,6 @@
 [
     {
-        "id": "6e034748-8ed5-43de-a5f2-f80e1a4b60dd",
+        "id": "df627853-1efa-4ad0-92fd-284688ca33f7",
         "title": "Gemeente Rotterdam - Oracle EBS",
         "properties": {
             "baseUrl": "${ROTTERDAM_ORACLE_EBS_BASEURL}",

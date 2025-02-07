@@ -1,0 +1,13 @@
+[
+    {
+        "id": "6e034748-8ed5-43de-a5f2-f80e1a4b60dd",
+        "title": "Gemeente Rotterdam - Oracle EBS",
+        "properties": {
+            "baseUrl": "${ROTTERDAM_ORACLE_EBS_BASEURL}",
+            "serverCertificate": "${ROTTERDAM_ORACLE_EBS_SERVER_CERT}",
+            "clientPrivateKey": "${ROTTERDAM_ORACLE_EBS_PRIVATE_KEY}",
+            "clientCertificate": "${ROTTERDAM_ORACLE_EBS_CLIENT_CERT}"
+        },
+        "pluginDefinitionKey": "rotterdam-oracle-ebs"
+    }
+]

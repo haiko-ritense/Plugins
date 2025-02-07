@@ -7,7 +7,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.postgresql:postgresql")
-    implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
+    runtimeOnly("io.github.oshai:kotlin-logging-jvm:7.0.3")
 
     if (System.getProperty("os.arch") == "aarch64") {
         runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.105.Final:osx-aarch_64")
@@ -22,6 +22,7 @@ dependencies {
     implementation(project(":backend:notify-nl"))
     implementation(project(":backend:object-management"))
     implementation(project(":backend:publictask"))
+    implementation(project(":backend:rotterdam-oracle-ebs"))
     implementation(project(":backend:slack"))
     implementation(project(":backend:smtpmail"))
     implementation(project(":backend:spotler"))

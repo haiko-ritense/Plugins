@@ -474,6 +474,47 @@
         }
       }
     },
+    "@valtimo-plugins/rotterdam-oracle-ebs": {
+      "projectType": "library",
+      "root": "projects/valtimo-plugins/rotterdam-oracle-ebs",
+      "sourceRoot": "projects/valtimo-plugins/rotterdam-oracle-ebs/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/valtimo-plugins/rotterdam-oracle-ebs/tsconfig.lib.json",
+            "project": "projects/valtimo-plugins/rotterdam-oracle-ebs/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/valtimo-plugins/rotterdam-oracle-ebs/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/valtimo-plugins/rotterdam-oracle-ebs/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/valtimo-plugins/rotterdam-oracle-ebs/src/test.ts",
+            "tsConfig": "projects/valtimo-plugins/rotterdam-oracle-ebs/tsconfig.spec.json",
+            "karmaConfig": "projects/valtimo-plugins/rotterdam-oracle-ebs/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/valtimo-plugins/rotterdam-oracle-ebs/src/**/*.ts",
+              "projects/valtimo-plugins/rotterdam-oracle-ebs/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "@valtimo-plugins/slack": {
       "projectType": "library",
       "root": "projects/valtimo-plugins/slack",

@@ -24,6 +24,7 @@
       "@valtimo-plugins/berkelybridge": ["dist/valtimo-plugins/berkelybridge"],
       "@valtimo-plugins/freemarker": ["dist/valtimo-plugins/freemarker"],
       "@valtimo-plugins/publictask": ["dist/valtimo-plugins/publictask"],
+      "@valtimo-plugins/rotterdam-oracle-ebs": ["dist/valtimo-plugins/rotterdam-oracle-ebs"],
       "@valtimo-plugins/slack": ["dist/valtimo-plugins/slack"],
       "@valtimo-plugins/smtpmail": ["dist/valtimo-plugins/smtpmail"],
       "@valtimo-plugins/spotler": ["dist/valtimo-plugins/spotler"],

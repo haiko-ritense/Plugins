@@ -28,16 +28,28 @@ const RotterdamOracleEbsPluginSpecification: PluginSpecification = {
     },
     pluginTranslations: {
         nl: {
-            title: 'Oracle E-Business Suite for Rotterdam',
-            description: 'Oracle E-Business Suite plugin',
+            title: 'Oracle E-Business Suite koppeling voor Gemeente Rotterdam',
+            description: 'Oracle E-Business Suite plugin voor o.a. het Opvoeren van een Journaalpost',
+            baseUrl: 'ESB Url',
+            serverCertificate: 'Server certificaat (In Base64 format)',
+            clientCertificate: 'Client certificaat (In Base64 format)',
+            clientPrivateKey: 'Private key (In Base64 format)'
         },
         en: {
-            title: 'Oracle E-Business Suite for Rotterdam',
-            description: 'Oracle E-Business Suite plugin',
+            title: 'Oracle E-Business Suite connection for the Municipality of Rotterdam',
+            description: 'Oracle E-Business Suite plugin for, among other things, entering a journal entry',
+            baseUrl: 'ESB Url',
+            serverCertificate: 'Server certificate (In Base64 format)',
+            clientCertificate: 'Client certificate (In Base64 format)',
+            clientPrivateKey: 'Private key (In Base64 format)'
         },
         de: {
-            title: 'Oracle E-Business Suite for Rotterdam',
-            description: 'Oracle E-Business Suite plugin',
+            title: 'Oracle E-Business Suite-Anbindung für die Gemeinde Rotterdam',
+            description: 'Oracle E-Business Suite Plugin, u.a. zur Erfassung eines Journaleintrags',
+            baseUrl: 'ESB Url',
+            serverCertificate: 'Serverzertifikat (im Base64-Format)',
+            clientCertificate: 'Client-Zertifikat (im Base64-Format)',
+            clientPrivateKey: 'Privater Schlüssel (im Base64-Format)'
         },
     },
 };

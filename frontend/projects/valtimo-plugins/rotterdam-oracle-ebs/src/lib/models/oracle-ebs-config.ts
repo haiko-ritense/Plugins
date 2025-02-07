@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2022 Ritense BV, the Netherlands.
+ * Copyright 2015-2025 Ritense BV, the Netherlands.
  *
  * Licensed under EUPL, Version 1.2 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,8 @@
 import {PluginConfigurationData} from '@valtimo/plugin';
 
 export interface OracleEbsConfig extends PluginConfigurationData {
-    applicationName: string;
-    applicationPassword: string;
     baseUrl: string;
-    serverCertificateFilename: string;
-    clientPrivateKeyFilename: string;
-    clientCertificateFilename: string;
+    serverCertificate: string;
+    clientPrivateKey: string;
+    clientCertificate: string;
 }

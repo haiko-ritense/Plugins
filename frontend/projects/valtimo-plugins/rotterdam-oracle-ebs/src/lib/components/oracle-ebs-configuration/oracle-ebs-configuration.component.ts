@@ -27,8 +27,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {ValuePathSelectorPrefix} from "@valtimo/components";
 
 @Component({
-    selector: 'valtimo-xential-configuration',
-    templateUrl: './xential-configuration.component.html',
+    selector: 'valtimo-oracle-ebs-configuration',
+    templateUrl: './oracle-ebs-configuration.component.html',
 })
 export class OracleEbsConfigurationComponent
     implements PluginConfigurationComponent, OnInit, OnDestroy {
@@ -65,10 +65,10 @@ export class OracleEbsConfigurationComponent
 
     private handleValid(formValue: OracleEbsConfig): void {
         const valid = !!(
-            formValue.applicationName &&
-            formValue.applicationPassword &&
             formValue.baseUrl &&
-            formValue.serverCertificateFilename
+            formValue.serverCertificate &&
+            formValue.clientCertificate &&
+            formValue.clientPrivateKey
         );
 
         this.valid$.next(valid);
@@ -86,7 +86,4 @@ export class OracleEbsConfigurationComponent
                 });
         });
     }
-
-    protected readonly ValuePathSelectorPrefix = ValuePathSelectorPrefix;
-    documentDefinitionName: string = "xential-test";
 }

@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export * from './oracle-ebs-config';
+export * from './rotterdam-oracle-ebs-plugin-logo';

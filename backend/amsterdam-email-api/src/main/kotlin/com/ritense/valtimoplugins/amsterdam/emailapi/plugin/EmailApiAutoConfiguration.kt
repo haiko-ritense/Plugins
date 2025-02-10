@@ -63,7 +63,7 @@ class EmailApiAutoConfiguration {
         emailClient: EmailClient,
         restclientBuilder: RestClient.Builder
     ): EmailApiPluginFactory {
-        return EmailApiPluginFactory(pluginService, emailClient, adjustRestclientBuilder(restclientBuilder))
+        return EmailApiPluginFactory(pluginService, emailClient, restclientBuilder)
     }
 
     @Bean
@@ -92,20 +92,23 @@ class EmailApiAutoConfiguration {
         return RestTemplate(requestFactory)
     }
 
-    fun adjustRestclientBuilder( buidlder: RestClient.Builder): RestClient.Builder {
-        var builder = RestClient.builder().clone()
-        builder.messageConverters {
-          it.forEach {
-              if(it is MappingJackson2HttpMessageConverter) {
-                  it.objectMapper.addMixIn(DocumentInformatieObject::class.java, DocumentInformatieObjectMixin::class.java)
-              }
-          }
-        }
-        return builder
-    }
-
-    abstract class DocumentInformatieObjectMixin(
-        @get:JsonDeserialize(using = ZonedLocalDateTimeDeserializer::class)
-        val beginRegistratie: LocalDateTime
-    )
+    /**
+     * Only for plugin development
+     */
+//    fun adjustRestclientBuilder( buidlder: RestClient.Builder): RestClient.Builder {
+//        var builder = RestClient.builder().clone()
+//        builder.messageConverters {
+//          it.forEach {
+//              if(it is MappingJackson2HttpMessageConverter) {
+//                  it.objectMapper.addMixIn(DocumentInformatieObject::class.java, DocumentInformatieObjectMixin::class.java)
+//              }
+//          }
+//        }
+//        return builder
+//    }
+//
+//    abstract class DocumentInformatieObjectMixin(
+//        @get:JsonDeserialize(using = ZonedLocalDateTimeDeserializer::class)
+//        val beginRegistratie: LocalDateTime
+//    )
 }

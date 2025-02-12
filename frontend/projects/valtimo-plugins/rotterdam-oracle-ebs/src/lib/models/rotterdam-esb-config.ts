@@ -16,9 +16,9 @@
 
 import {PluginConfigurationData} from '@valtimo/plugin';
 
-export interface OracleEbsConfig extends PluginConfigurationData {
+export interface RotterdamEsbConfig extends PluginConfigurationData {
     baseUrl: string;
-    serverCertificate: string;
-    clientPrivateKey: string;
-    clientCertificate: string;
+    base64ServerCertificate: string;
+    base64ClientPrivateKey: string;
+    base64ClientCertificate: string;
 }

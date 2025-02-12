@@ -17,39 +17,57 @@
 import {PluginSpecification} from '@valtimo/plugin';
 import {ROTTERDAM_ORACLE_EBS_PLUGIN_LOGO_BASE64} from './assets';
 import {
-    OracleEbsConfigurationComponent
-} from "./components/oracle-ebs-configuration/oracle-ebs-configuration.component";
+    RotterdamOracleEbsConfigurationComponent
+} from "./components/rotterdam-oracle-ebs-configuration/rotterdam-oracle-ebs-configuration.component";
 
 const RotterdamOracleEbsPluginSpecification: PluginSpecification = {
     pluginId: 'rotterdam-oracle-ebs',
-    pluginConfigurationComponent: OracleEbsConfigurationComponent,
+    pluginConfigurationComponent: RotterdamOracleEbsConfigurationComponent,
     pluginLogoBase64: ROTTERDAM_ORACLE_EBS_PLUGIN_LOGO_BASE64,
     functionConfigurationComponents: {
     },
     pluginTranslations: {
         nl: {
-            title: 'Oracle E-Business Suite koppeling voor Gemeente Rotterdam',
+            title: 'Gemeente Rotterdam: Oracle E-Business Suite koppeling',
             description: 'Oracle E-Business Suite plugin voor o.a. het Opvoeren van een Journaalpost',
+            configurationTitle: 'Configuratienaam',
+            configurationTitleTooltip: 'De naam van de huidige plugin-configuratie. Onder deze naam kan de configuratie in de rest van de applicatie teruggevonden worden.',
             baseUrl: 'ESB Url',
-            serverCertificate: 'Server certificaat (In Base64 format)',
-            clientCertificate: 'Client certificaat (In Base64 format)',
-            clientPrivateKey: 'Private key (In Base64 format)'
+            baseUrlTooltip: '',
+            serverCertificate: 'Server certificaat',
+            serverCertificateTooltip: 'In Base64 format)',
+            clientCertificate: 'Client certificaat',
+            clientCertificateTooltip: 'In Base64 format)',
+            clientPrivateKey: 'Private key',
+            clientPrivateKeyTooltip: 'In Base64 format)'
         },
         en: {
-            title: 'Oracle E-Business Suite connection for the Municipality of Rotterdam',
+            title: 'Municipality of Rotterdam: Oracle E-Business Suite connection',
             description: 'Oracle E-Business Suite plugin for, among other things, entering a journal entry',
+            configurationTitle: 'Configuration name',
+            configurationTitleTooltip: 'The name of the current plugin configuration. Under this name, the configuration can be found in the rest of the application.',
             baseUrl: 'ESB Url',
-            serverCertificate: 'Server certificate (In Base64 format)',
-            clientCertificate: 'Client certificate (In Base64 format)',
-            clientPrivateKey: 'Private key (In Base64 format)'
+            baseUrlTooltip: '',
+            serverCertificate: 'Server certificate',
+            serverCertificateTooltip: 'In Base64 format',
+            clientCertificate: 'Client certificate',
+            clientCertificateTooltip: 'In Base64 format',
+            clientPrivateKey: 'Private key',
+            clientPrivateKeyTooltip: 'In Base64 format'
         },
         de: {
-            title: 'Oracle E-Business Suite-Anbindung für die Gemeinde Rotterdam',
+            title: 'Gemeinde Rotterdam: Oracle E-Business Suite-Anbindung',
             description: 'Oracle E-Business Suite Plugin, u.a. zur Erfassung eines Journaleintrags',
+            configurationTitle: 'Konfigurationsname',
+            configurationTitleTooltip: 'Der Name der aktuellen Plugin-Konfiguration. Unter diesem Namen ist die Konfiguration im weiteren Verlauf der Anwendung zu finden.',
             baseUrl: 'ESB Url',
-            serverCertificate: 'Serverzertifikat (im Base64-Format)',
+            baseUrlTooltip: '',
+            serverCertificate: 'Serverzertifikat',
+            serverCertificateTooltip: 'im Base64-Format',
             clientCertificate: 'Client-Zertifikat (im Base64-Format)',
-            clientPrivateKey: 'Privater Schlüssel (im Base64-Format)'
+            clientCertificateTooltip: 'im Base64-Format)',
+            clientPrivateKey: 'Privater Schlüssel (im Base64-Format)',
+            clientPrivateKeyTooltip: 'im Base64-Format)'
         },
     },
 };

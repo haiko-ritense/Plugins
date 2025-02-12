@@ -21,34 +21,31 @@ import {
     PluginManagementService,
     PluginTranslationService
 } from '@valtimo/plugin';
-import {BehaviorSubject, combineLatest, map, Observable, Subscription, take} from 'rxjs';
-import {OracleEbsConfig} from '../../models';
+import {BehaviorSubject, combineLatest, Observable, Subscription, take} from 'rxjs';
+import {RotterdamEsbConfig} from '../../models';
 import {TranslateService} from "@ngx-translate/core";
-import {ValuePathSelectorPrefix} from "@valtimo/components";
 
 @Component({
-    selector: 'valtimo-oracle-ebs-configuration',
-    templateUrl: './oracle-ebs-configuration.component.html',
+    selector: 'valtimo-rotterdam-oracle-ebs-configuration',
+    templateUrl: './rotterdam-oracle-ebs-configuration.component.html',
 })
-export class OracleEbsConfigurationComponent
-    implements PluginConfigurationComponent, OnInit, OnDestroy {
+export class RotterdamOracleEbsConfigurationComponent implements PluginConfigurationComponent, OnInit, OnDestroy {
     @Input() save$!: Observable<void>;
     @Input() disabled$!: Observable<boolean>;
     @Input() pluginId!: string;
-    @Input() prefillConfiguration$!: Observable<OracleEbsConfig>;
+    @Input() prefillConfiguration$!: Observable<RotterdamEsbConfig>;
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() configuration: EventEmitter<PluginConfigurationData> = new EventEmitter<PluginConfigurationData>();
 
     private saveSubscription!: Subscription;
-    private readonly formValue$ = new BehaviorSubject<OracleEbsConfig | null>(null);
+    private readonly formValue$ = new BehaviorSubject<RotterdamEsbConfig | null>(null);
     private readonly valid$ = new BehaviorSubject<boolean>(false);
 
     constructor(
         private readonly pluginManagementService: PluginManagementService,
         private readonly translateService: TranslateService,
         private readonly pluginTranslationService: PluginTranslationService
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         this.openSaveSubscription();
@@ -58,17 +55,18 @@ export class OracleEbsConfigurationComponent
         this.saveSubscription?.unsubscribe();
     }
 
-    formValueChange(formValue: OracleEbsConfig): void {
+    formValueChange(formValue: RotterdamEsbConfig): void {
         this.formValue$.next(formValue);
         this.handleValid(formValue);
     }
 
-    private handleValid(formValue: OracleEbsConfig): void {
+    private handleValid(formValue: RotterdamEsbConfig): void {
         const valid = !!(
+            formValue.configurationTitle &&
             formValue.baseUrl &&
-            formValue.serverCertificate &&
-            formValue.clientCertificate &&
-            formValue.clientPrivateKey
+            formValue.base64ServerCertificate &&
+            formValue.base64ClientCertificate &&
+            formValue.base64ClientPrivateKey
         );
 
         this.valid$.next(valid);

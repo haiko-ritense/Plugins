@@ -15,35 +15,26 @@
  */
 
 import {NgModule} from '@angular/core';
-import {OracleEbsConfigurationComponent} from './components/oracle-ebs-configuration/oracle-ebs-configuration.component';
 import {CommonModule} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
+import {FormModule, InputLabelModule, InputModule} from '@valtimo/components';
 import {
-    CarbonMultiInputModule,
-    FormModule, InputLabelModule,
-    InputModule,
-    SelectModule,
-    ValuePathSelectorComponent
-} from '@valtimo/components';
-import {DropdownModule} from "carbon-components-angular";
+    RotterdamOracleEbsConfigurationComponent
+} from './components/rotterdam-oracle-ebs-configuration/rotterdam-oracle-ebs-configuration.component';
 
 @NgModule({
     declarations: [
-        OracleEbsConfigurationComponent
+        RotterdamOracleEbsConfigurationComponent
     ],
     imports: [
         CommonModule,
         PluginTranslatePipeModule,
         FormModule,
         InputModule,
-        SelectModule,
-        DropdownModule,
-        CarbonMultiInputModule,
-        ValuePathSelectorComponent,
-        InputLabelModule
+        InputLabelModule,
     ],
     exports: [
-        OracleEbsConfigurationComponent
+        RotterdamOracleEbsConfigurationComponent
     ],
 })
 export class RotterdamOracleEbsPluginModule {

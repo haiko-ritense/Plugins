@@ -107,6 +107,10 @@ import {
   externeKlanttaakPluginSpecification
 } from "../../projects/valtimo-plugins/externe-klanttaak/src/lib/externe-klanttaak-plugin.specification";
 import {ObjectModule} from "@valtimo/object";
+import {RotterdamOracleEbsPluginModule} from "@valtimo-plugins/rotterdam-oracle-ebs";
+import {
+    RotterdamOracleEbsPluginSpecification
+} from "../../projects/valtimo-plugins/rotterdam-oracle-ebs/src/lib/rotterdam-oracle-ebs.plugin.specification";
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -187,6 +191,7 @@ export function tabsFactory() {
         TranslationManagementModule,
         TaskManagementModule,
         ExterneKlanttaakPluginModule,
+        RotterdamOracleEbsPluginModule
     ],
     providers: [{
         provide: PLUGINS_TOKEN,
@@ -209,6 +214,7 @@ export function tabsFactory() {
             objecttypenApiPluginSpecification,
             objectTokenAuthenticationPluginSpecification,
             externeKlanttaakPluginSpecification,
+            RotterdamOracleEbsPluginSpecification
         ]
     }],
     bootstrap: [AppComponent]

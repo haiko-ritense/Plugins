@@ -21,4 +21,5 @@
 export * from './lib/models';
 export * from './lib/rotterdam-oracle-ebs.plugin.module';
 export * from './lib/rotterdam-oracle-ebs-plugin.specification';
-export * from './lib/components/rotterdam-oracle-ebs-configuration/rotterdam-oracle-ebs-configuration.component';
+export * from './lib/components/configuration/configuration.component';
+export * from './lib/components/journaalpost-opvoeren/journaalpost-opvoeren.component';

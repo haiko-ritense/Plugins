@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export * from './rotterdam-esb-config';
+export * from './config';

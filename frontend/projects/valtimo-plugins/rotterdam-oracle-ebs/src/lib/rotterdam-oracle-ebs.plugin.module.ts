@@ -18,13 +18,13 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
 import {FormModule, InputLabelModule, InputModule} from '@valtimo/components';
-import {
-    RotterdamOracleEbsConfigurationComponent
-} from './components/rotterdam-oracle-ebs-configuration/rotterdam-oracle-ebs-configuration.component';
+import {ConfigurationComponent} from './components/configuration/configuration.component';
+import {JournaalpostOpvoerenComponent} from "./components/journaalpost-opvoeren/journaalpost-opvoeren.component";
 
 @NgModule({
     declarations: [
-        RotterdamOracleEbsConfigurationComponent
+        ConfigurationComponent,
+        JournaalpostOpvoerenComponent
     ],
     imports: [
         CommonModule,
@@ -34,7 +34,8 @@ import {
         InputLabelModule,
     ],
     exports: [
-        RotterdamOracleEbsConfigurationComponent
+        ConfigurationComponent,
+        JournaalpostOpvoerenComponent
     ],
 })
 export class RotterdamOracleEbsPluginModule {

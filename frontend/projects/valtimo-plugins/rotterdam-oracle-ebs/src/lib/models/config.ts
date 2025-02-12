@@ -16,9 +16,18 @@
 
 import {PluginConfigurationData} from '@valtimo/plugin';
 
-export interface RotterdamEsbConfig extends PluginConfigurationData {
+interface RotterdamEsbConfig extends PluginConfigurationData {
     baseUrl: string;
     base64ServerCertificate: string;
     base64ClientPrivateKey: string;
     base64ClientCertificate: string;
 }
+
+interface JournaalpostOpvoerenConfig {
+    procesCode: string;
+    grootboekSleutel: string;
+    sleutel: string;
+    categorie: string;
+}
+
+export {RotterdamEsbConfig, JournaalpostOpvoerenConfig}

@@ -49,9 +49,19 @@ class OracleEbsPlugin(
     )
     fun journaalpostOpvoeren(
         execution: DelegateExecution,
-        @PluginActionProperty templateId: UUID,
+        @PluginActionProperty procesCode: String,
+        @PluginActionProperty grootboekSleutel: String,
+        @PluginActionProperty sleutel: String,
+        @PluginActionProperty categorie: String,
     ) {
-        logger.info { "Journaalpost Opvoeren" }
+        logger.info {
+            "Journaalpost Opvoeren(" +
+                "processCode: $procesCode, " +
+                "grootboekSleutel: $grootboekSleutel, " +
+                "sleutel: $sleutel, " +
+                "categorie: $categorie" +
+            ")"
+        }
         OpvoerenJournaalpostVraag(
             procescode = "",
             referentieNummer = "",

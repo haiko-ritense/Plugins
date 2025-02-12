@@ -16,15 +16,15 @@
 
 import {PluginSpecification} from '@valtimo/plugin';
 import {ROTTERDAM_ORACLE_EBS_PLUGIN_LOGO_BASE64} from './assets';
-import {
-    RotterdamOracleEbsConfigurationComponent
-} from "./components/rotterdam-oracle-ebs-configuration/rotterdam-oracle-ebs-configuration.component";
+import {ConfigurationComponent} from "./components/configuration/configuration.component";
+import {JournaalpostOpvoerenComponent} from "./components/journaalpost-opvoeren/journaalpost-opvoeren.component";
 
 const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
     pluginId: 'rotterdam-oracle-ebs',
-    pluginConfigurationComponent: RotterdamOracleEbsConfigurationComponent,
+    pluginConfigurationComponent: ConfigurationComponent,
     pluginLogoBase64: ROTTERDAM_ORACLE_EBS_PLUGIN_LOGO_BASE64,
     functionConfigurationComponents: {
+        'journaalpost-opvoeren': JournaalpostOpvoerenComponent
     },
     pluginTranslations: {
         nl: {

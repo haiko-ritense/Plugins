@@ -27,9 +27,9 @@ import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'valtimo-rotterdam-oracle-ebs-configuration',
-    templateUrl: './rotterdam-oracle-ebs-configuration.component.html',
+    templateUrl: './configuration.component.html',
 })
-export class RotterdamOracleEbsConfigurationComponent implements PluginConfigurationComponent, OnInit, OnDestroy {
+export class ConfigurationComponent implements PluginConfigurationComponent, OnInit, OnDestroy {
     @Input() save$!: Observable<void>;
     @Input() disabled$!: Observable<boolean>;
     @Input() pluginId!: string;

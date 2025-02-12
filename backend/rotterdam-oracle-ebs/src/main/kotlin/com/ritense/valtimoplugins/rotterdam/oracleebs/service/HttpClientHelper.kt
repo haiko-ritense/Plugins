@@ -1,4 +1,4 @@
-package com.ritense.valtimoplugin.rotterdam.oracleebs.service
+package com.ritense.valtimoplugins.rotterdam.oracleebs.service
 
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.client5.http.impl.classic.HttpClients

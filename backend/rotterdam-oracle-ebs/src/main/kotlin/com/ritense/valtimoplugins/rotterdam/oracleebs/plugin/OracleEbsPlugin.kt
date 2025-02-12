@@ -1,11 +1,11 @@
-package com.ritense.valtimoplugin.rotterdam.oracleebs.plugin
+package com.ritense.valtimoplugins.rotterdam.oracleebs.plugin
 
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.processlink.domain.ActivityTypeWithEventName
-import com.ritense.valtimoplugin.rotterdam.oracleebs.service.EsbClient
+import com.ritense.valtimoplugins.rotterdam.oracleebs.service.EsbClient
 import com.rotterdam.esb.opvoeren.models.Grootboekrekening
 import com.rotterdam.esb.opvoeren.models.Journaalpost
 import com.rotterdam.esb.opvoeren.models.Journaalpostregel
@@ -19,35 +19,35 @@ import java.time.OffsetDateTime
 import java.util.UUID
 
 @Plugin(
-    key = "rotterdam-oracle-ebs-journaalpost",
-    title = "Gemeente Rotterdam - Oracle EBS - Journaalpost Plugin",
+    key = "rotterdam-oracle-ebs",
+    title = "Gemeente Rotterdam - Oracle EBS plugin",
     description = "Deze plugin maakt het mogelijk om Journaalpost acties uit te voeren in Oracle E-Business Suite via de ESB van de Gemeente Rotterdam"
 )
-class JournaalPostPlugin(
+class OracleEbsPlugin(
     private val esbClient: EsbClient,
 ) {
 
     @PluginProperty(key = "baseUrl", secret = false, required = true)
     lateinit var baseUrl: URI
 
-    @PluginProperty(key = "serverCertificate", secret = true, required = false)
-    var serverCertificate: String? = null
+    @PluginProperty(key = "base64ServerCertificate", secret = true, required = false)
+    var base64ServerCertificate: String? = null
 
-    @PluginProperty(key = "clientPrivateKey", secret = true, required = false)
-    var clientPrivateKey: String? = null
+    @PluginProperty(key = "base64ClientPrivateKey", secret = true, required = false)
+    var base64ClientPrivateKey: String? = null
 
-    @PluginProperty(key = "clientCertificate", secret = true, required = false)
-    var clientCertificate: String? = null
+    @PluginProperty(key = "base64ClientCertificate", secret = true, required = false)
+    var base64ClientCertificate: String? = null
 
     @PluginAction(
         key = "journaalpost-opvoeren",
         title = "Journaalpost Opvoeren",
-        description = "",
+        description = "Het opvoeren van een Journaalpost in Oracle EBS",
         activityTypes = [
             ActivityTypeWithEventName.SERVICE_TASK_START
         ]
     )
-    fun opvoeren(
+    fun journaalpostOpvoeren(
         execution: DelegateExecution,
         @PluginActionProperty templateId: UUID,
     ) {
@@ -94,9 +94,9 @@ class JournaalPostPlugin(
     private fun restClient(): RestClient =
         esbClient.createRestClient(
             baseUrl = baseUrl.toString(),
-            base64PrivateKey = clientPrivateKey,
-            base64ClientCert = clientCertificate,
-            base64ServerCert = serverCertificate
+            base64PrivateKey = base64ClientPrivateKey,
+            base64ClientCert = base64ClientCertificate,
+            base64ServerCert = base64ServerCertificate
         )
 
     companion object {

@@ -1,8 +1,8 @@
-package com.ritense.valtimoplugin.rotterdam.oracleebs.autoconfiguration
+package com.ritense.valtimoplugins.rotterdam.oracleebs.autoconfiguration
 
 import com.ritense.plugin.service.PluginService
-import com.ritense.valtimoplugin.rotterdam.oracleebs.service.EsbClient
-import com.ritense.valtimoplugins.oracleebs.plugin.JournaalPostPluginFactory
+import com.ritense.valtimoplugins.rotterdam.oracleebs.service.EsbClient
+import com.ritense.valtimoplugins.rotterdam.oracleebs.plugin.OracleEbsPluginFactory
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Bean
 class OracleEbsAutoConfiguration {
 
     @Bean
-    @ConditionalOnMissingBean(JournaalPostPluginFactory::class)
+    @ConditionalOnMissingBean(OracleEbsPluginFactory::class)
     fun journaalPostPluginFactory(
         pluginService: PluginService,
         esbClient: EsbClient
-    ) = JournaalPostPluginFactory(
+    ) = OracleEbsPluginFactory(
         pluginService,
         esbClient
     )

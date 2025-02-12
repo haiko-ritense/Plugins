@@ -1,4 +1,4 @@
-package com.ritense.valtimoplugin.rotterdam.oracleebs.service
+package com.ritense.valtimoplugins.rotterdam.oracleebs.service
 
 import com.rotterdam.esb.opvoeren.apis.JournaalpostenApi
 import io.github.oshai.kotlinlogging.KotlinLogging

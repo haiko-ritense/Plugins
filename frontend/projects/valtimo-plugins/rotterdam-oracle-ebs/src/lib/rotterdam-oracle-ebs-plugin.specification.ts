@@ -33,13 +33,13 @@ const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
             configurationTitle: 'Configuratienaam',
             configurationTitleTooltip: 'De naam van de huidige plugin-configuratie. Onder deze naam kan de configuratie in de rest van de applicatie teruggevonden worden.',
             baseUrl: 'ESB Url',
-            baseUrlTooltip: '',
+            baseUrlTooltip: 'De URL van de Gemeente Rotterdam (Opentunnel) ESB',
             serverCertificate: 'Server certificaat',
-            serverCertificateTooltip: 'In Base64 format)',
+            serverCertificateTooltip: 'Het certificaat in Base64 formaat',
             clientCertificate: 'Client certificaat',
-            clientCertificateTooltip: 'In Base64 format)',
+            clientCertificateTooltip: 'Het certificaat in Base64 formaat',
             clientPrivateKey: 'Private key',
-            clientPrivateKeyTooltip: 'In Base64 format)'
+            clientPrivateKeyTooltip: 'De private key in Base64 formaat'
         },
         en: {
             title: 'Municipality of Rotterdam: Oracle E-Business Suite connection',
@@ -47,13 +47,13 @@ const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
             configurationTitle: 'Configuration name',
             configurationTitleTooltip: 'The name of the current plugin configuration. Under this name, the configuration can be found in the rest of the application.',
             baseUrl: 'ESB Url',
-            baseUrlTooltip: '',
+            baseUrlTooltip: 'The URL of the Municipality of Rotterdam (Opentunnel) ESB',
             serverCertificate: 'Server certificate',
-            serverCertificateTooltip: 'In Base64 format',
+            serverCertificateTooltip: 'The certificate in Base64 format',
             clientCertificate: 'Client certificate',
-            clientCertificateTooltip: 'In Base64 format',
+            clientCertificateTooltip: 'The certifcate in Base64 format',
             clientPrivateKey: 'Private key',
-            clientPrivateKeyTooltip: 'In Base64 format'
+            clientPrivateKeyTooltip: 'The private key in Base64 format'
         },
         de: {
             title: 'Gemeinde Rotterdam: Oracle E-Business Suite-Anbindung',
@@ -61,13 +61,13 @@ const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
             configurationTitle: 'Konfigurationsname',
             configurationTitleTooltip: 'Der Name der aktuellen Plugin-Konfiguration. Unter diesem Namen ist die Konfiguration im weiteren Verlauf der Anwendung zu finden.',
             baseUrl: 'ESB Url',
-            baseUrlTooltip: '',
+            baseUrlTooltip: 'De URL van de Gemeinde Rotterdam (Opentunnel) ESB',
             serverCertificate: 'Serverzertifikat',
-            serverCertificateTooltip: 'im Base64-Format',
-            clientCertificate: 'Client-Zertifikat (im Base64-Format)',
-            clientCertificateTooltip: 'im Base64-Format)',
-            clientPrivateKey: 'Privater Schlüssel (im Base64-Format)',
-            clientPrivateKeyTooltip: 'im Base64-Format)'
+            serverCertificateTooltip: 'Zertifikat im Base64-Format',
+            clientCertificate: 'Client-Zertifikat',
+            clientCertificateTooltip: 'Zertifikat im Base64-Format',
+            clientPrivateKey: 'Privater Schlüssel',
+            clientPrivateKeyTooltip: 'Privater Schlüssel im Base64-Format'
         },
     },
 };

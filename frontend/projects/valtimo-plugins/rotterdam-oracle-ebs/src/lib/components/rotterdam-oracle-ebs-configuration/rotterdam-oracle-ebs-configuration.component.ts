@@ -28,6 +28,7 @@ import {TranslateService} from "@ngx-translate/core";
 @Component({
     selector: 'valtimo-rotterdam-oracle-ebs-configuration',
     templateUrl: './rotterdam-oracle-ebs-configuration.component.html',
+    styleUrls: ['./rotterdam-oracle-ebs-configuration.component.scss'],
 })
 export class RotterdamOracleEbsConfigurationComponent implements PluginConfigurationComponent, OnInit, OnDestroy {
     @Input() save$!: Observable<void>;
@@ -63,10 +64,7 @@ export class RotterdamOracleEbsConfigurationComponent implements PluginConfigura
     private handleValid(formValue: RotterdamEsbConfig): void {
         const valid = !!(
             formValue.configurationTitle &&
-            formValue.baseUrl &&
-            formValue.base64ServerCertificate &&
-            formValue.base64ClientCertificate &&
-            formValue.base64ClientPrivateKey
+            formValue.baseUrl
         );
 
         this.valid$.next(valid);

@@ -22,61 +22,60 @@
   } as obs"
 >
   <v-input
+    type="text"
     name="configurationTitle"
+    required="true"
+    margin="true"
+    widthPx="350"
+    placeholder="Gemeente Rotterdam Oracle EBS Plugin"
     [title]="'configurationTitle' | pluginTranslate: pluginId | async"
-    [margin]="true"
     [disabled]="obs.disabled"
     [defaultValue]="obs.prefill?.configurationTitle"
-    [required]="true"
     [tooltip]="'configurationTitleTooltip' | pluginTranslate: pluginId | async"
-    [widthPx]="350"
-    placeholder="Gemeente Rotterdam Oracle EBS Plugin"
   >
   </v-input>
   <v-input
+    type="text"
     name="baseUrl"
+    required="true"
+    margin="true"
     [title]="'baseUrl' | pluginTranslate: pluginId | async"
-    [fullWidth]="true"
-    [margin]="true"
     [disabled]="obs.disabled"
     [defaultValue]="obs.prefill?.baseUrl"
-    [required]="true"
     [tooltip]="'baseUrlTooltip' | pluginTranslate: pluginId | async"
   >
   </v-input>
+
   <v-input
     name="base64ServerCertificate"
     type="textarea"
+    margin="true"
+    rows="5"
     [title]="'serverCertificate' | pluginTranslate: pluginId | async"
-    [margin]="true"
     [disabled]="obs.disabled"
     [defaultValue]="obs.prefill?.base64ServerCertificate"
-    [required]="true"
-    [fullWidth]="true"
     [tooltip]="'serverCertificateTooltip' | pluginTranslate: pluginId | async"
   >
   </v-input>
   <v-input
-    name="base64ClientCertificate"
     type="textarea"
+    name="base64ClientCertificate"
+    margin="true"
+    rows="5"
     [title]="'serverCertificate' | pluginTranslate: pluginId | async"
-    [margin]="true"
     [disabled]="obs.disabled"
     [defaultValue]="obs.prefill?.base64ClientCertificate"
-    [required]="true"
-    [fullWidth]="true"
     [tooltip]="'serverCertificateTooltip' | pluginTranslate: pluginId | async"
   >
   </v-input>
   <v-input
-    name="base64ClientPrivateKey"
     type="textarea"
+    name="base64ClientPrivateKey"
+    margin="true"
+    rows="5"
     [title]="'clientPrivateKey' | pluginTranslate: pluginId | async"
-    [margin]="true"
     [disabled]="obs.disabled"
     [defaultValue]="obs.prefill?.base64ClientPrivateKey"
-    [required]="true"
-    [fullWidth]="true"
     [tooltip]="'clientPrivateKeyTooltip' | pluginTranslate: pluginId | async"
   >
   </v-input>

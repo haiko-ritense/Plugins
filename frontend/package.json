@@ -33,6 +33,7 @@
     "libs:watch:alfresco-auth": "ng build @valtimo-plugins/alfresco-auth --watch",
     "libs:watch:amsterdam-emailapi": "ng build @valtimo-plugins/amsterdam-emailapi --watch",
     "libs:watch:berkelybridge": "ng build @valtimo-plugins/berkelybridge --watch",
+    "libs:watch:externe-klanttaak": "ng build @valtimo-plugins/externe-klanttaak --watch",
     "libs:watch:freemarker": "ng build @valtimo-plugins/freemarker --watch",
     "libs:watch:notify-nl": "ng build @valtimo-plugins/notify-nl --watch",
     "libs:watch:object-management": "ng build @valtimo-plugins/object-management --watch",

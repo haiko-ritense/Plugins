@@ -20,7 +20,7 @@ import {
     RotterdamOracleEbsConfigurationComponent
 } from "./components/rotterdam-oracle-ebs-configuration/rotterdam-oracle-ebs-configuration.component";
 
-const RotterdamOracleEbsPluginSpecification: PluginSpecification = {
+const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
     pluginId: 'rotterdam-oracle-ebs',
     pluginConfigurationComponent: RotterdamOracleEbsConfigurationComponent,
     pluginLogoBase64: ROTTERDAM_ORACLE_EBS_PLUGIN_LOGO_BASE64,
@@ -72,4 +72,4 @@ const RotterdamOracleEbsPluginSpecification: PluginSpecification = {
     },
 };
 
-export {RotterdamOracleEbsPluginSpecification};
+export {rotterdamOracleEbsPluginSpecification};

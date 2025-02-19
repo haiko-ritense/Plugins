@@ -45,7 +45,15 @@ const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
             clientCertificate: 'Client certificaat',
             clientCertificateTooltip: 'Het certificaat in Base64 formaat',
             clientPrivateKey: 'Private key',
-            clientPrivateKeyTooltip: 'De private key in Base64 formaat'
+            clientPrivateKeyTooltip: 'De private key in Base64 formaat',
+            procesCode: 'Proces code',
+            procesCodeTooltip: '',
+            grootboekSleutel: 'Grootboek sleuten',
+            grootboekSleutelTooltip: '',
+            sleutel: 'Journaalpost sleutel',
+            sleutelTooltip: '',
+            categorie: 'Journaalpost categorie',
+            categorieTooltip: ''
         },
         en: {
             title: 'Municipality of Rotterdam: Oracle E-Business Suite connection',
@@ -63,7 +71,15 @@ const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
             clientCertificate: 'Client certificate',
             clientCertificateTooltip: 'The certifcate in Base64 format',
             clientPrivateKey: 'Private key',
-            clientPrivateKeyTooltip: 'The private key in Base64 format'
+            clientPrivateKeyTooltip: 'The private key in Base64 format',
+            procesCode: 'Proces code',
+            procesCodeTooltip: '',
+            grootboekSleutel: 'Grootboek sleuten',
+            grootboekSleutelTooltip: '',
+            sleutel: 'Journaalpost sleutel',
+            sleutelTooltip: '',
+            categorie: 'Journaalpost categorie',
+            categorieTooltip: ''
         },
         de: {
             title: 'Gemeinde Rotterdam: Oracle E-Business Suite-Anbindung',
@@ -81,7 +97,15 @@ const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
             clientCertificate: 'Client-Zertifikat',
             clientCertificateTooltip: 'Zertifikat im Base64-Format',
             clientPrivateKey: 'Privater Schlüssel',
-            clientPrivateKeyTooltip: 'Privater Schlüssel im Base64-Format'
+            clientPrivateKeyTooltip: 'Privater Schlüssel im Base64-Format',
+            procesCode: 'Proces code',
+            procesCodeTooltip: '',
+            grootboekSleutel: 'Grootboek sleuten',
+            grootboekSleutelTooltip: '',
+            sleutel: 'Journaalpost sleutel',
+            sleutelTooltip: '',
+            categorie: 'Journaalpost categorie',
+            categorieTooltip: ''
         },
     },
 };

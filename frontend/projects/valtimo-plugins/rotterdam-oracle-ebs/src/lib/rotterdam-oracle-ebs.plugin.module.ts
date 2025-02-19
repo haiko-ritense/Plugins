@@ -15,16 +15,19 @@
  */
 
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {AsyncPipe, CommonModule, NgIf} from '@angular/common';
 import {PluginTranslatePipeModule} from '@valtimo/plugin';
 import {FormModule, InputLabelModule, InputModule} from '@valtimo/components';
 import {ConfigurationComponent} from './components/configuration/configuration.component';
 import {JournaalpostOpvoerenComponent} from "./components/journaalpost-opvoeren/journaalpost-opvoeren.component";
+import {NotificationModule, ToggleModule} from "carbon-components-angular";
+import {VerkoopfactuurOpvoerenComponent} from "./components/verkoopfactuur-opvoeren/verkoopfactuur-opvoeren.component";
 
 @NgModule({
     declarations: [
         ConfigurationComponent,
-        JournaalpostOpvoerenComponent
+        JournaalpostOpvoerenComponent,
+        VerkoopfactuurOpvoerenComponent
     ],
     imports: [
         CommonModule,
@@ -32,10 +35,16 @@ import {JournaalpostOpvoerenComponent} from "./components/journaalpost-opvoeren/
         FormModule,
         InputModule,
         InputLabelModule,
+        AsyncPipe,
+        NotificationModule,
+        AsyncPipe,
+        ToggleModule,
+        NgIf,
     ],
     exports: [
         ConfigurationComponent,
-        JournaalpostOpvoerenComponent
+        JournaalpostOpvoerenComponent,
+        VerkoopfactuurOpvoerenComponent
     ],
 })
 export class RotterdamOracleEbsPluginModule {

@@ -18,13 +18,15 @@ import {PluginSpecification} from '@valtimo/plugin';
 import {ROTTERDAM_ORACLE_EBS_PLUGIN_LOGO_BASE64} from './assets';
 import {ConfigurationComponent} from "./components/configuration/configuration.component";
 import {JournaalpostOpvoerenComponent} from "./components/journaalpost-opvoeren/journaalpost-opvoeren.component";
+import {VerkoopfactuurOpvoerenComponent} from "./components/verkoopfactuur-opvoeren/verkoopfactuur-opvoeren.component";
 
 const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
     pluginId: 'rotterdam-oracle-ebs',
     pluginConfigurationComponent: ConfigurationComponent,
     pluginLogoBase64: ROTTERDAM_ORACLE_EBS_PLUGIN_LOGO_BASE64,
     functionConfigurationComponents: {
-        'journaalpost-opvoeren': JournaalpostOpvoerenComponent
+        'journaalpost-opvoeren': JournaalpostOpvoerenComponent,
+        'verkoopfactuur-opvoeren': VerkoopfactuurOpvoerenComponent,
     },
     pluginTranslations: {
         nl: {
@@ -34,6 +36,10 @@ const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
             configurationTitleTooltip: 'De naam van de huidige plugin-configuratie. Onder deze naam kan de configuratie in de rest van de applicatie teruggevonden worden.',
             baseUrl: 'ESB Url',
             baseUrlTooltip: 'De URL van de Gemeente Rotterdam (Opentunnel) ESB',
+            authenticationEnabled: 'Schakel Client Certificate Authenticatie (mTLS) in',
+            'toggle.yes': 'Ja',
+            'toggle.no': 'Nee',
+            certificateConfigurationInfo: 'Na opslaan wordt onderstaande informatie niet meer getoond bij opnieuw openen van het configuratie formulier.',
             serverCertificate: 'Server certificaat',
             serverCertificateTooltip: 'Het certificaat in Base64 formaat',
             clientCertificate: 'Client certificaat',
@@ -48,6 +54,10 @@ const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
             configurationTitleTooltip: 'The name of the current plugin configuration. Under this name, the configuration can be found in the rest of the application.',
             baseUrl: 'ESB Url',
             baseUrlTooltip: 'The URL of the Municipality of Rotterdam (Opentunnel) ESB',
+            authenticationEnabled: 'Enable Client Certificate Authenticatie (mTLS)',
+            'toggle.yes': 'Yes',
+            'toggle.no': 'No',
+            certificateConfigurationInfo: 'After saving, the information below will no longer be shown when reopening the configuration form.',
             serverCertificate: 'Server certificate',
             serverCertificateTooltip: 'The certificate in Base64 format',
             clientCertificate: 'Client certificate',
@@ -62,6 +72,10 @@ const rotterdamOracleEbsPluginSpecification: PluginSpecification = {
             configurationTitleTooltip: 'Der Name der aktuellen Plugin-Konfiguration. Unter diesem Namen ist die Konfiguration im weiteren Verlauf der Anwendung zu finden.',
             baseUrl: 'ESB Url',
             baseUrlTooltip: 'De URL van de Gemeinde Rotterdam (Opentunnel) ESB',
+            authenticationEnabled: 'Client-Zertifikatauthentifizierung (mTLS) aktivieren',
+            'toggle.yes': 'Ja',
+            'toggle.no': 'Nein',
+            certificateConfigurationInfo: 'Nach dem Speichern werden die untenstehenden Informationen beim erneuten Öffnen des Konfigurationsformulars nicht mehr angezeigt.',
             serverCertificate: 'Serverzertifikat',
             serverCertificateTooltip: 'Zertifikat im Base64-Format',
             clientCertificate: 'Client-Zertifikat',

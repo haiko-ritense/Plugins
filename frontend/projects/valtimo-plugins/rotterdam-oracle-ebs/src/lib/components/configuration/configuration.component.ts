@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {
     PluginConfigurationComponent,
     PluginConfigurationData,
@@ -24,10 +24,12 @@ import {
 import {BehaviorSubject, combineLatest, Observable, Subscription, take} from 'rxjs';
 import {RotterdamEsbConfig} from '../../models';
 import {TranslateService} from "@ngx-translate/core";
+import {Toggle} from "carbon-components-angular";
 
 @Component({
     selector: 'valtimo-rotterdam-oracle-ebs-configuration',
     templateUrl: './configuration.component.html',
+    styleUrl: 'configuration.component.scss'
 })
 export class ConfigurationComponent implements PluginConfigurationComponent, OnInit, OnDestroy {
     @Input() save$!: Observable<void>;
@@ -36,6 +38,7 @@ export class ConfigurationComponent implements PluginConfigurationComponent, OnI
     @Input() prefillConfiguration$!: Observable<RotterdamEsbConfig>;
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() configuration: EventEmitter<PluginConfigurationData> = new EventEmitter<PluginConfigurationData>();
+    @ViewChild('authenticationEnabled') authenticationEnabled: Toggle;
 
     private saveSubscription!: Subscription;
     private readonly formValue$ = new BehaviorSubject<RotterdamEsbConfig | null>(null);
@@ -75,8 +78,22 @@ export class ConfigurationComponent implements PluginConfigurationComponent, OnI
             combineLatest([this.formValue$, this.valid$])
                 .pipe(take(1))
                 .subscribe(([formValue, valid]) => {
+                    console.log('formValue', formValue)
                     if (valid) {
-                        this.configuration.emit(formValue!);
+                        if (this.authenticationEnabled.checked) {
+                            this.configuration.emit({
+                                authenticationEnabled: true,
+                                ...formValue
+                            }!);
+                        } else {
+                            this.configuration.emit({
+                                authenticationEnabled: false,
+                                base64ServerCertificate: "",
+                                base64ClientPrivateKey: "",
+                                base64ClientCertificate: "",
+                                ...formValue
+                            }!);
+                        }
                     }
                 });
         });

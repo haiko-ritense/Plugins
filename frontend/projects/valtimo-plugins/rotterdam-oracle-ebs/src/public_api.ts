@@ -23,3 +23,4 @@ export * from './lib/rotterdam-oracle-ebs.plugin.module';
 export * from './lib/rotterdam-oracle-ebs-plugin.specification';
 export * from './lib/components/configuration/configuration.component';
 export * from './lib/components/journaalpost-opvoeren/journaalpost-opvoeren.component';
+export * from './lib/components/verkoopfactuur-opvoeren/verkoopfactuur-opvoeren.component';

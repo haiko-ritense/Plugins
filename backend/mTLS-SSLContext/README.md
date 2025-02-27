@@ -1,51 +1,24 @@
-# Xential plugin
+# mTLS SSLContext Plugin
 
-For generating documents at xential (https://www.xential.com/documentcreatie)
+Helper Plugin for initializing your HTTP client with a SSLContext that is populated with configuration to enable mTLS.<br>
 
-## Capabilities
+Mutual TLS (mTLS) is an extension of the TLS (Transport Layer Security) protocol that enhances security by requiring both the client and the server to authenticate themselves to each other before any data is exchanged. This ensures a bidirectional verification, making mTLS a popular choice for securing server-to-server communication and API endpoints, especially in microservices architectures where services need to securely communicate over a network.
 
-This plugin can access Xential webservices, and handle callback requests to store generated documents.
+All Configuration input fields are in base64 encoded strings, all fields are required, these are:
+* Server certificate
+* Client private key
+* Client certificate
 
+Currently most settings are hardcoded, this might become configurable in the future.
+* the Keystore and Truststore use type <strong>PKCS12</strong>
+* The key factory is of type <strong>RSA</strong>
+* The Certificate Factory is of type <strong>X.509</strong>
 
-### Running the example application
-
-#### Start docker
-
-Make sure docker is running. Then use the following commands:
-
-```shell
-cd suwinet
-docker compose up
-```
-
-#### Start frontend
-
-```shell
-cd frontend
-npm use 18 
-npm run libs:build:xential
-npm start
-```
-
-#### Start backend
-
-By gradle script:
-
-`Plugins -> backend -> app -> Tasks -> application -> bootRun`
-
-#### Keycloak users
-
-The example application has a few test users that are preconfigured.
-
-| Name | Role | Username | Password |
-|---|---|---|---|
-| James Vance | ROLE_USER | user | user |
-| Asha Miller | ROLE_ADMIN | admin | admin |
-| Morgan Finch | ROLE_DEVELOPER | developer | developer |
+For more details see documentation [SSLContext Documentation](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/javax/net/ssl/SSLContext.html)
 
 ## Source code
 
 The source code is split up into 2 modules:
 
-1. [Frontend](./frontend)
-2. [Backend](./backend)
+1. [Frontend](./../../frontend/projects/valtimo-plugins/mtls-sslcontext)
+2. [Backend](./)

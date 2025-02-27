@@ -20,8 +20,10 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.ritense.objectenapi.ObjectenApiPlugin
 import com.ritense.objectenapi.client.ObjectRecord
 import com.ritense.objectenapi.client.ObjectRequest
+import com.ritense.objectenapi.client.ObjectsList
 import com.ritense.objectmanagement.domain.ObjectManagement
 import com.ritense.objectmanagement.repository.ObjectManagementRepository
+import com.ritense.objectmanagement.service.ObjectManagementFacade
 import com.ritense.objecttypenapi.ObjecttypenApiPlugin
 import com.ritense.plugin.service.PluginService
 import java.net.URI
@@ -29,8 +31,9 @@ import java.time.LocalDate
 import java.util.*
 
 class ObjectManagementCrudService(
-    val pluginService: PluginService,
-    val objectManagementRepository: ObjectManagementRepository
+    private val pluginService: PluginService,
+    private val objectManagementRepository: ObjectManagementRepository,
+    private val objectManagementFacade: ObjectManagementFacade
 ) {
     fun createObject(
         objectManagementId: UUID,
@@ -71,6 +74,24 @@ class ObjectManagementCrudService(
 
     fun deleteObject(objectUrl: URI) {
         return
+    }
+
+    fun getObjectsByObjectManagementTitle(
+        objectManagementId: UUID,
+        searchString: String? = null,
+        ordering: String? = null
+    ): ObjectsList {
+        val objectManagement = getObjectManagement(objectManagementId)
+
+        return try {
+            objectManagementFacade.getObjectsUnpaged(
+                objectName = objectManagement.title,
+                searchString = searchString,
+                ordering = ordering
+            )
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to fetch objects for objectManagement: ${objectManagement.title}", e)
+        }
     }
 
     private fun getObjectenApiPlugin(objectenApiPluginConfigurationId: UUID): ObjectenApiPlugin {

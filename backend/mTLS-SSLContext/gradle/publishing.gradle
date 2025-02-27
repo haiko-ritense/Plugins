@@ -24,7 +24,7 @@ pluginManager.withPlugin("maven-publish") {
 
                 pom {
                     name = "mTLS SSLContext plugin module"
-                    description = "The HttpClient plugin module contains plugin actions to SSLContext clients"
+                    description = "Helper Plugin for initializing your HTTP client with a SSLContext that is populated with configuration to enable mTLS."
                     developers {
                         developer {
                             id = "team-valtimo"

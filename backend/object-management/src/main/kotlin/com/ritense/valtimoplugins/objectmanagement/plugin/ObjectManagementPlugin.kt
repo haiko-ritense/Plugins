@@ -103,7 +103,7 @@ open class ObjectManagementPlugin(
         @PluginActionProperty listOfObjectProcessVariableName: String
     ) {
         logger.debug {
-            "Fetching Objecten API objects | objectManagementId: $objectManagementConfigurationTitle"
+            "Fetching Objecten API objects | objectManagement: $objectManagementConfigurationTitle"
         }
 
         try {

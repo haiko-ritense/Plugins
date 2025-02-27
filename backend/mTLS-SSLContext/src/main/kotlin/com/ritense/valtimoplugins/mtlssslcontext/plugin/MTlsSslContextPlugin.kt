@@ -20,7 +20,9 @@ package com.ritense.valtimoplugins.mtlssslcontext.plugin
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.valtimoplugins.mtlssslcontext.plugin.MTlsSslContextPlugin.Companion.PLUGIN_KEY
+import com.ritense.valtimoplugins.mtlssslcontext.service.MTlsSSLContextHelper
 import io.github.oshai.kotlinlogging.KotlinLogging
+import javax.net.ssl.SSLContext
 
 @Plugin(
     key = PLUGIN_KEY,
@@ -29,18 +31,30 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 )
 @Suppress("UNUSED")
 class MTlsSslContextPlugin {
-    @PluginProperty(key = "serverCertificate", secret = true, required = false)
-    var serverCertificate: String? = null
+    @PluginProperty(key = "base64ServerCert", secret = true, required = true)
+    val base64ServerCert: String? = null
 
-    @PluginProperty(key = "clientPrivateKey", secret = true, required = false)
-    var clientPrivateKey: String? = null
+    @PluginProperty(key = "base64PrivateKey", secret = true, required = true)
+    val base64PrivateKey: String? = null
 
-    @PluginProperty(key = "clientCertificate", secret = true, required = false)
-    var clientCertificate: String? = null
+    @PluginProperty(key = "base64ClientCert", secret = true, required = true)
+    val base64ClientCert: String? = null
+
+    fun generateSSLContext() : SSLContext {
+        require(base64PrivateKey != null)
+        require(base64ClientCert != null)
+        require(base64ServerCert != null)
+        return MTlsSSLContextHelper.createSslContext(
+            base64PrivateKey = base64PrivateKey,
+            base64ClientCert = base64ClientCert,
+            base64CaCert = base64ServerCert
+        ).also {
+            logger.debug { "Using secure HttpClient with Client Certificate authentication" }
+        }
+    }
 
     companion object {
         private val logger = KotlinLogging.logger { }
-        const val PLUGIN_KEY = "mtls-sslcontext"
+        const val PLUGIN_KEY = "mTLS-SSLContext"
     }
-
 }

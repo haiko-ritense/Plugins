@@ -1,9 +1,5 @@
 package com.ritense.valtimoplugins.mtlssslcontext.service
 
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
-import org.apache.hc.client5.http.impl.classic.HttpClients
-import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder
-import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder
 import org.apache.hc.core5.ssl.SSLContextBuilder
 import java.io.ByteArrayInputStream
 import java.security.KeyFactory
@@ -14,36 +10,13 @@ import java.security.spec.PKCS8EncodedKeySpec
 import java.util.Base64
 import javax.net.ssl.SSLContext
 
-object HttpClientHelper {
+object MTlsSSLContextHelper {
 
     private const val PKCS12 = "PKCS12"
     private const val X_509 = "X.509"
     private const val RSA = "RSA"
 
-    fun createDefaultHttpClient(): CloseableHttpClient {
-        return HttpClients.createDefault()
-    }
-
-    fun createSecureHttpClient(
-        base64PrivateKey: String,
-        base64ClientCert: String,
-        base64CaCert: String
-    ): CloseableHttpClient =
-        createSslContext(base64PrivateKey, base64ClientCert, base64CaCert).let { sslContext ->
-            PoolingHttpClientConnectionManagerBuilder.create()
-                .setSSLSocketFactory(
-                    SSLConnectionSocketFactoryBuilder.create()
-                        .setSslContext(sslContext)
-                        .build()
-                )
-                .build().let { connectionManager ->
-                    HttpClients.custom()
-                        .setConnectionManager(connectionManager)
-                        .build()
-                }
-        }
-
-    private fun createSslContext(
+    fun createSslContext(
         base64PrivateKey: String,
         base64ClientCert: String,
         base64CaCert: String

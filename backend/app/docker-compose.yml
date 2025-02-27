@@ -1,7 +1,7 @@
 services:
 
   example-core-db:
-    container_name: example-core-db-app
+    container_name: example-core-db
     image: postgres:15
     ports:
       - "54340:5432"

@@ -17,7 +17,7 @@
 import {PluginConfigurationData} from '@valtimo/plugin';
 
 export interface MtlsSslcontextConfig extends PluginConfigurationData {
-    serverCertificate: string;
-    clientPrivateKey: string;
-    clientCertificate: string;
+    base64ServerCert: string;
+    base64PrivateKey: string;
+    base64ClientCert: string;
 }

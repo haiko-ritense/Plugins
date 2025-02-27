@@ -63,7 +63,11 @@ export class MTlsSslContextConfigurationComponent
     }
 
     private handleValid(formValue: MtlsSslcontextConfig): void {
-        const valid = true
+        const valid = !!(
+            formValue.base64ClientCert &&
+            formValue.base64PrivateKey &&
+            formValue.base64ServerCert
+        );
 
         this.valid$.next(valid);
         this.valid.emit(valid);

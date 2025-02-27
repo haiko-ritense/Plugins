@@ -18,31 +18,34 @@ import {PluginSpecification} from '@valtimo/plugin';
 import {MTlsSslContextConfigurationComponent} from './components/mtls-sslcontextl-configuration/mtls-sslcontext-configuration.component';
 import {MTLS_PLUGIN_LOGO_BASE64} from './assets';
 const mTlsSslcontextPluginSpecification: PluginSpecification = {
-    pluginId: 'mtls-sslcontext',
+    pluginId: 'mTLS-SSLContext',
     pluginConfigurationComponent: MTlsSslContextConfigurationComponent,
     pluginLogoBase64: MTLS_PLUGIN_LOGO_BASE64,
     functionConfigurationComponents: {},
     pluginTranslations: {
         nl: {
             title: 'mTLS-SSLContext',
+            configurationTitle: 'Configuratienaam',
             description: 'Met deze plugin kan een mTLS SSLContext geconfigureerd worden.',
-            serverCertificate: 'Server certificaat als Base64 encoded string',
-            clientPrivateKey: 'Client private key als Base64 encoded string',
-            clientCertificate: 'Client certificaat als Base64 encoded string'
+            base64ServerCert: 'Server certificaat als Base64 encoded string',
+            base64PrivateKey: 'Client private key als Base64 encoded string',
+            base64ClientCert: 'Client certificaat als Base64 encoded string'
         },
         en: {
             title: 'mTLS-SSLContext',
+            configurationTitle: 'Configuration title',
             description: 'This plugin allows you to configure an mTLS SSLContext.',
-            serverCertificate: 'Server certificate as Base64 encoded string',
-            clientPrivateKey: 'Client private key as Base64 encoded string',
-            clientCertificate: 'Client certificate as Base64 encoded string'
+            base64ServerCert: 'Server certificate as Base64 encoded string',
+            base64PrivateKey: 'Client private key as Base64 encoded string',
+            base64ClientCert: 'Client certificate as Base64 encoded string'
         },
         de: {
             title: 'mTLS-SSLContext',
+            configurationTitle: 'Konfigurationstitel',
             description: 'Mit diesem Plugin können Sie einen mTLS SSLContext konfigurieren.',
-            serverCertificate: 'Serverzertifikat als Base64-kodierter String',
-            clientPrivateKey: 'Privater Clientschlüssel als Base64-codierte Zeichenfolge',
-            clientCertificate: 'Client-Zertifikat als Base64-kodierter String'
+            base64ServerCert: 'Serverzertifikat als Base64-kodierter String',
+            base64PrivateKey: 'Privater Clientschlüssel als Base64-codierte Zeichenfolge',
+            base64ClientCert: 'Client-Zertifikat als Base64-kodierter String'
         },
     },
 };

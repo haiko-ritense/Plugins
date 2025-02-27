@@ -76,10 +76,13 @@ import {
 } from '@valtimo/plugin';
 import {TaskManagementModule} from '@valtimo/task-management';
 import {ProcessLinkModule} from '@valtimo/process-link';
+import {ObjectManagementModule} from '@valtimo/object-management'
+import {ObjectModule} from "@valtimo/object";
 
 import {AlfrescoAuthPluginModule, alfrescoAuthPluginSpecification} from '@valtimo-plugins/alfresco-auth';
 import {AmsterdamEmailapiPluginModule, amsterdamEmailapiPluginSpecification} from '@valtimo-plugins/amsterdam-emailapi';
 import {BerkelybridgeTextgeneratorPluginModule, berkelybridgeTextgeneratorPluginSpecification} from '@valtimo-plugins/berkelybridge';
+import {ExterneKlanttaakPluginModule, externeKlanttaakPluginSpecification} from '@valtimo-plugins/externe-klanttaak';
 import {
     MailTemplatePluginModule,
     mailTemplatePluginSpecification,
@@ -87,26 +90,15 @@ import {
     textTemplatePluginSpecification
 } from '@valtimo-plugins/freemarker';
 import {NotifyNlPluginModule, notifyNlPluginSpecification} from '@valtimo-plugins/notify-nl';
+import {ObjectManagementPluginModule, objectManagementPluginSpecification} from '@valtimo-plugins/object-management';
 import {PublictaskPluginModule, publictaskPluginSpecification} from '@valtimo-plugins/publictask';
+import {RotterdamOracleEbsPluginModule, rotterdamOracleEbsPluginSpecification} from "@valtimo-plugins/rotterdam-oracle-ebs";
 import {SlackPluginModule, slackPluginSpecification} from '@valtimo-plugins/slack';
 import {SmtpMailPluginModule, smtpmailPluginSpecification} from '@valtimo-plugins/smtpmail';
 import {SpotlerPluginModule, spotlerPluginSpecification} from '@valtimo-plugins/spotler';
 import {SuwinetPluginModule, suwinetPluginSpecification} from '@valtimo-plugins/suwinet';
 import {XentialPluginModule, XentialPluginSpecification} from '@valtimo-plugins/xential';
-import {
-  ObjectManagementPluginModule
-} from "../../projects/valtimo-plugins/object-management/src/lib/object-management-plugin-module";
-import {
-  objectManagementPluginSpecification
-} from "../../projects/valtimo-plugins/object-management/src/lib/object-management-plugin.specification";
-import {ObjectManagementModule} from "@valtimo/object-management";
-import {
-  ExterneKlanttaakPluginModule
-} from "../../projects/valtimo-plugins/externe-klanttaak/src/lib/externe-klanttaak-plugin.module";
-import {
-  externeKlanttaakPluginSpecification
-} from "../../projects/valtimo-plugins/externe-klanttaak/src/lib/externe-klanttaak-plugin.specification";
-import {ObjectModule} from "@valtimo/object";
+import {MtlsSslcontextPluginModule,mTlsSslcontextPluginSpecification} from '@valtimo-plugins/mtls-sslcontext';
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -131,6 +123,7 @@ export function tabsFactory() {
         PublictaskPluginModule,
         NotifyNlPluginModule,
         ObjectManagementPluginModule,
+        MtlsSslcontextPluginModule,
         SlackPluginModule,
         SmtpMailPluginModule,
         SpotlerPluginModule,
@@ -187,6 +180,7 @@ export function tabsFactory() {
         TranslationManagementModule,
         TaskManagementModule,
         ExterneKlanttaakPluginModule,
+        RotterdamOracleEbsPluginModule
     ],
     providers: [{
         provide: PLUGINS_TOKEN,
@@ -194,21 +188,22 @@ export function tabsFactory() {
             alfrescoAuthPluginSpecification,
             amsterdamEmailapiPluginSpecification,
             berkelybridgeTextgeneratorPluginSpecification,
-            mailTemplatePluginSpecification,
             externeKlanttaakPluginSpecification,
-            textTemplatePluginSpecification,
-            publictaskPluginSpecification,
+            mailTemplatePluginSpecification,
             notifyNlPluginSpecification,
             objectManagementPluginSpecification,
+            objectTokenAuthenticationPluginSpecification,
+            objectenApiPluginSpecification,
+            objecttypenApiPluginSpecification,
+            publictaskPluginSpecification,
+            rotterdamOracleEbsPluginSpecification,
             slackPluginSpecification,
             smtpmailPluginSpecification,
             spotlerPluginSpecification,
             suwinetPluginSpecification,
-            XentialPluginSpecification,
-            objectenApiPluginSpecification,
-            objecttypenApiPluginSpecification,
-            objectTokenAuthenticationPluginSpecification,
-            externeKlanttaakPluginSpecification,
+            textTemplatePluginSpecification,
+            mTlsSslcontextPluginSpecification,
+            XentialPluginSpecification
         ]
     }],
     bootstrap: [AppComponent]

@@ -1,0 +1,111 @@
+<!--
+  ~ Copyright 2015-2025 Ritense BV, the Netherlands.
+  ~
+  ~ Licensed under EUPL, Version 1.2 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" basis,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<v-form
+  (valueChange)="formValueChange($event)"
+  *ngIf="{
+    disabled: disabled$ | async,
+    prefill: prefillConfiguration$ ? (prefillConfiguration$ | async) : null
+  } as obs"
+>
+    <v-input
+        type="text"
+        name="configurationTitle"
+        required="true"
+        margin="true"
+        widthPx="350"
+        placeholder="Gemeente Rotterdam Oracle EBS Plugin"
+        [title]="'configurationTitle' | pluginTranslate: pluginId | async"
+        [disabled]="obs.disabled"
+        [defaultValue]="obs.prefill?.configurationTitle"
+        [tooltip]="'configurationTitleTooltip' | pluginTranslate: pluginId | async"
+    >
+    </v-input>
+    <v-input
+        type="text"
+        name="baseUrl"
+        required="true"
+        margin="true"
+        [title]="'baseUrl' | pluginTranslate: pluginId | async"
+        [disabled]="obs.disabled"
+        [defaultValue]="obs.prefill?.baseUrl"
+        [tooltip]="'baseUrlTooltip' | pluginTranslate: pluginId | async"
+    >
+    </v-input>
+
+    <cds-toggle
+        #authenticationEnabled
+        [label]="'authenticationEnabled' | pluginTranslate: pluginId | async"
+        [ngClass]="'v-input--margin'"
+        [onText]="'toggle.yes' | pluginTranslate: pluginId | async"
+        [offText]="'toggle.no' | pluginTranslate: pluginId | async"
+        [checked]="!!obs.prefill?.authenticationEnabled"
+        [disabled]="obs.disabled"
+    >
+    </cds-toggle>
+    <ng-container *ngIf="authenticationEnabled.checked">
+        <div class="certificate-configuration-info">
+            <cds-inline-notification
+                [notificationObj]="{
+                    closeLabel: undefined,
+                    duration: 0,
+                    lowContrast: true,
+                    smart: false,
+                    target: '',
+                    template: undefined,
+                    title: '',
+                    message: 'certificateConfigurationInfo' | pluginTranslate: pluginId | async,
+                    type: 'info',
+                    showClose: false,
+                }"
+            >
+            </cds-inline-notification>
+        </div>
+        <v-input
+            name="base64ServerCertificate"
+            type="textarea"
+            margin="true"
+            rows="5"
+            [title]="'serverCertificate' | pluginTranslate: pluginId | async"
+            [disabled]="obs.disabled"
+            [defaultValue]="obs.prefill?.base64ServerCertificate"
+            [tooltip]="'serverCertificateTooltip' | pluginTranslate: pluginId | async"
+        >
+        </v-input>
+        <v-input
+            type="textarea"
+            name="base64ClientCertificate"
+            margin="true"
+            rows="5"
+            [title]="'serverCertificate' | pluginTranslate: pluginId | async"
+            [disabled]="obs.disabled"
+            [defaultValue]="obs.prefill?.base64ClientCertificate"
+            [tooltip]="'serverCertificateTooltip' | pluginTranslate: pluginId | async"
+        >
+        </v-input>
+        <v-input
+            type="textarea"
+            name="base64ClientPrivateKey"
+            margin="true"
+            rows="5"
+            [title]="'clientPrivateKey' | pluginTranslate: pluginId | async"
+            [disabled]="obs.disabled"
+            [defaultValue]="obs.prefill?.base64ClientPrivateKey"
+            [tooltip]="'clientPrivateKeyTooltip' | pluginTranslate: pluginId | async"
+        >
+        </v-input>
+    </ng-container>
+</v-form>

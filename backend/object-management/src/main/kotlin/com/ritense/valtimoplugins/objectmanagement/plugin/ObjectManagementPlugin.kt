@@ -102,24 +102,11 @@ open class ObjectManagementPlugin(
         @PluginActionProperty objectManagementConfigurationTitle: String,
         @PluginActionProperty listOfObjectProcessVariableName: String
     ) {
-        logger.debug {
-            "Fetching Objecten API objects | objectManagement: $objectManagementConfigurationTitle"
-        }
+        val objects = objectManagementCrudService.getObjectsByObjectManagementTitle(objectManagementConfigurationTitle)
+        val processedObject = objects.results.map { it.record.data }
 
-        try {
-            val objects = objectManagementCrudService.getObjectsByObjectManagementTitle(
-                objectManagementTitle = objectManagementConfigurationTitle
-            ).results
-
-            val processedObject = objects.map { it.record.data }
-
-            execution.setVariable(listOfObjectProcessVariableName, processedObject)
-
-            logger.info { "Successfully retrieved ${objects.size} objects for objectManagement: $objectManagementConfigurationTitle" }
-        } catch (e: Exception) {
-            logger.error(e) { "Failed to fetch objects for objectManagement: $objectManagementConfigurationTitle" }
-            throw RuntimeException("Could not retrieve objects", e)
-        }
+        execution.setVariable(listOfObjectProcessVariableName, processedObject)
+        logger.info { "Successfully retrieved ${objects.results.size} objects for object management: $objectManagementConfigurationTitle" }
     }
 
     private fun getObjectData(keyValueMap: List<DataBindingConfig>, documentId: String): JsonNode {

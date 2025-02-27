@@ -77,20 +77,18 @@ class ObjectManagementCrudService(
     }
 
     fun getObjectsByObjectManagementTitle(
-        objectManagementId: UUID,
+        objectManagementTitle: String,
         searchString: String? = null,
         ordering: String? = null
     ): ObjectsList {
-        val objectManagement = getObjectManagement(objectManagementId)
-
         return try {
             objectManagementFacade.getObjectsUnpaged(
-                objectName = objectManagement.title,
+                objectName = objectManagementTitle,
                 searchString = searchString,
                 ordering = ordering
             )
         } catch (e: Exception) {
-            throw RuntimeException("Failed to fetch objects for objectManagement: ${objectManagement.title}", e)
+            throw RuntimeException("Failed to fetch objects for objectManagement: $objectManagementTitle", e)
         }
     }
 

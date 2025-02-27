@@ -99,25 +99,25 @@ open class ObjectManagementPlugin(
     )
     open fun getObjectsUnpaged(
         execution: DelegateExecution,
-        @PluginActionProperty objectManagementConfigurationId: UUID,
+        @PluginActionProperty objectManagementConfigurationTitle: String,
         @PluginActionProperty listOfObjectProcessVariableName: String
     ) {
         logger.debug {
-            "Fetching Objecten API objects | objectManagementId: $objectManagementConfigurationId"
+            "Fetching Objecten API objects | objectManagementId: $objectManagementConfigurationTitle"
         }
 
         try {
             val objects = objectManagementCrudService.getObjectsByObjectManagementTitle(
-                objectManagementId = objectManagementConfigurationId
+                objectManagementTitle = objectManagementConfigurationTitle
             ).results
 
             val processedObject = objects.map { it.record.data }
 
             execution.setVariable(listOfObjectProcessVariableName, processedObject)
 
-            logger.info { "Successfully retrieved ${objects.size} objects for objectManagementId: $objectManagementConfigurationId" }
+            logger.info { "Successfully retrieved ${objects.size} objects for objectManagement: $objectManagementConfigurationTitle" }
         } catch (e: Exception) {
-            logger.error(e) { "Failed to fetch objects for objectManagementId: $objectManagementConfigurationId" }
+            logger.error(e) { "Failed to fetch objects for objectManagement: $objectManagementConfigurationTitle" }
             throw RuntimeException("Could not retrieve objects", e)
         }
     }

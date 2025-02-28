@@ -19,6 +19,7 @@ package com.ritense.valtimoplugins.mtlssslcontext.plugin
 
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginProperty
+import com.ritense.valtimoplugins.mtlssslcontext.MTlsSslContext
 import com.ritense.valtimoplugins.mtlssslcontext.plugin.MTlsSslContextPlugin.Companion.PLUGIN_KEY
 import com.ritense.valtimoplugins.mtlssslcontext.service.MTlsSSLContextHelper
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -30,7 +31,7 @@ import javax.net.ssl.SSLContext
     description = "Creates SSLContexts to acts as an environment for implementing Transport Layer Security (TLS) or Secure Sockets Layer (SSL) protocols"
 )
 @Suppress("UNUSED")
-class MTlsSslContextPlugin {
+class MTlsSslContextPlugin : MTlsSslContext {
     @PluginProperty(key = "base64ServerCert", secret = true, required = true)
     val base64ServerCert: String? = null
 
@@ -40,7 +41,7 @@ class MTlsSslContextPlugin {
     @PluginProperty(key = "base64ClientCert", secret = true, required = true)
     val base64ClientCert: String? = null
 
-    fun generateSSLContext() : SSLContext {
+    override fun createSslContext() : SSLContext {
         require(base64PrivateKey != null)
         require(base64ClientCert != null)
         require(base64ServerCert != null)
@@ -57,4 +58,5 @@ class MTlsSslContextPlugin {
         private val logger = KotlinLogging.logger { }
         const val PLUGIN_KEY = "mTLS-SSLContext"
     }
+
 }

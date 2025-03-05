@@ -1,7 +1,7 @@
 services:
 
   example-core-db:
-    container_name: example-core-db-app
+    container_name: example-core-db
     image: postgres:15
     ports:
       - "54340:5432"
@@ -11,7 +11,7 @@ services:
       POSTGRES_DB: example-core-db
 
   example-core-keycloak:
-    container_name: example-core-keycloak-app
+    container_name: example-core-keycloak
     depends_on:
       - example-core-keycloak-db
     image: quay.io/keycloak/keycloak:17.0.1-legacy
@@ -34,7 +34,7 @@ services:
 
   example-core-keycloak-db:
     image: postgres:15
-    container_name: example-core-keycloak-db-app
+    container_name: example-core-keycloak-db
     ports:
       - "54329:5432"
     environment:
@@ -44,7 +44,7 @@ services:
   #zgw
   openzaak:
     image: openzaak/open-zaak:1.12.4
-    container_name: openzaak-app
+    container_name: openzaak
     platform: linux/amd64
     environment:
       - DB_HOST=openzaak-database

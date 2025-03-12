@@ -5,7 +5,8 @@
         "properties": {
             "applicationName": "${XENTIAL_ACCOUNT_NAME}",
             "applicationPassword": "${XENTIAL_ACCOUNT_PASSWORD}",
-            "baseUrl": "${XENTIAL_BASEURL}"
+            "baseUrl": "${XENTIAL_BASEURL}",
+            "mTlsSslContextAutoConfiguration": "${MTLS-SSLCONTEXT-AUTOCONFIGURATION}"
         },
         "pluginDefinitionKey": "xential"
     }

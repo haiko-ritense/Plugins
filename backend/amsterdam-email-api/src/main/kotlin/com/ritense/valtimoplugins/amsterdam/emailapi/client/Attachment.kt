@@ -6,6 +6,6 @@ data class Attachment (
     val disposition: String,
     val filename: String?,
     val content: String?,
-    val contentType: String?
+    val contentType: String?,
     val href: URI
 )

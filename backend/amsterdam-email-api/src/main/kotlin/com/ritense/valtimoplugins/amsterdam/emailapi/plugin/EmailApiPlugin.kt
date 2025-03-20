@@ -81,7 +81,7 @@ class EmailApiPlugin(
             ),
             subject = emailSubject,
             zaakId = zaakId,
-            relatieCodes = relatieCodes.stream().map { it.toInt() },
+            relatieCodes = relatieCodes.map {it.toInt() },
             messageId = generateMessageId(zaakId, relatieCodes.get(0)),
         )
 

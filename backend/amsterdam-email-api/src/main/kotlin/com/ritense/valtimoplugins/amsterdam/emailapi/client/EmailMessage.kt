@@ -14,6 +14,8 @@ data class EmailMessage(
     var cc: Set<Recipient> = emptySet(),
     var bcc: Set<Recipient> = emptySet(),
     val messageId: String = UUID.randomUUID().toString(),
+    val zaakId: String,
+    val relatieCodes: List<Integer>,
     val attachments: MutableList<Attachment> = mutableListOf()
 
 )

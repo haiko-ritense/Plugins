@@ -14,7 +14,7 @@
         "pluginActionDefinitionKey": "zend-email",
         "actionProperties": {
             "zaakId": "ZAAK-123456",
-            "relatieCode": "pv:relatieCodes",
+            "relatieCodes": "pv:relatieCodes",
             "toEmail": "pv:toEmail",
             "toName": "pv:toName",
             "fromAddress": "pv:fromAddress",

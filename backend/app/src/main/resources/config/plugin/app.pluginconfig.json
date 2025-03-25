@@ -13,7 +13,8 @@
     "title": "Berkely Bridge Text generator",
     "pluginDefinitionKey": "bbtextgenerator",
     "properties": {
-      "berkelybridgeBaseUrl": "http://localhost/"
+      "berkelybridgeBaseUrl": "http://localhost/",
+      "subscriptionKey": "aSubscriptionKey"
     }
   },
   {

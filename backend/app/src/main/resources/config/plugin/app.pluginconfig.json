@@ -13,7 +13,8 @@
     "title": "Berkely Bridge Text generator",
     "pluginDefinitionKey": "bbtextgenerator",
     "properties": {
-      "berkelybridgeBaseUrl": "http://localhost/"
+      "berkelybridgeBaseUrl": "http://localhost/",
+      "subscriptionKey": "aSubscriptionKey"
     }
   },
   {
@@ -22,9 +23,8 @@
     "pluginDefinitionKey": "amsterdamemailapi",
     "properties": {
       "emailApiBaseUrl": "https://emailurl/mail/api/v1/mail",
-      "clientId": "testClient",
-      "clientSecret": "testSecret",
-      "tokenEndpoint": "https://tokenendpoint/auth/realms/realm/protocol/openid-connect/token"
+      "subscriptionKey": "aSubscriptionKey",
+      "authenticationPluginConfiguration": "2fc20b94-19d3-4b20-ac90-efb77777d46a"
     }
   }
 ]

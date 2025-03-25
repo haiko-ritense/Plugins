@@ -31,16 +31,16 @@
           [margin]="true"
           [defaultValue]="obs.prefill?.zaakId"
           [disabled]="obs.disabled"
-          [required]="false"
+          [required]="true"
   >
   </v-input>
   <v-input
-          name="relatieCode"
-          [title]="'relatieCode' | pluginTranslate: pluginId | async"
+          name="relatieCodes"
+          [title]="'relatieCodes' | pluginTranslate: pluginId | async"
           [margin]="true"
-          [defaultValue]="obs.prefill?.relatieCode"
+          [defaultValue]="obs.prefill?.relatieCodes"
           [disabled]="obs.disabled"
-          [required]="false"
+          [required]="true"
   >
   </v-input>
   <v-input

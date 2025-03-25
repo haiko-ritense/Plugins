@@ -51,8 +51,8 @@ class EmailApiPlugin(
     )
     fun sendEmail(
         execution: DelegateExecution,
-        @PluginActionProperty zaakId: String?,
-        @PluginActionProperty relatieCode: String?,
+        @PluginActionProperty zaakId: String,
+        @PluginActionProperty relatieCodes: List<String>,
         @PluginActionProperty toEmail: String,
         @PluginActionProperty toName: String?,
         @PluginActionProperty fromAddress: String,
@@ -80,7 +80,9 @@ class EmailApiPlugin(
                 )
             ),
             subject = emailSubject,
-            messageId = generateMessageId(zaakId, relatieCode),
+            zaakId = zaakId,
+            relatieCodes = relatieCodes.map { it.toInt() },
+            messageId = generateMessageId(zaakId, relatieCodes.get(0)),
         )
 
         // set optional values
@@ -111,10 +113,10 @@ class EmailApiPlugin(
         emailClient.send(message, URI.create(emailApiBaseUrl), subscriptionKey)
     }
 
-    private fun handleAttachments(message: EmailMessage, documentNames: List<String>) {
+    private fun handleAttachments(message: EmailMessage, documentUrls: List<String>) {
         var restClient = authenticationPluginConfiguration.applyAuth(restClientBuilder).build()
 
-        documentNames.forEach{
+        documentUrls.forEach{
             var informatieObject =  restClient
                 .get()
                 .uri(it)
@@ -139,7 +141,8 @@ class EmailApiPlugin(
                     ATTACHMENT,
                     informatieObject.bestandsnaam,
                     Base64.getEncoder().encodeToString(content),
-                    informatieObject.formaat
+                    informatieObject.formaat,
+                    downloadURI
                 )
                 message.attachments.add(attachment)
             }
@@ -151,5 +154,5 @@ class EmailApiPlugin(
         return bestandsomvang/(1024*1024) > 20
     }
 
-    private fun generateMessageId(zaakId: String?, relatieCode: String?) = listOfNotNull(zaakId, relatieCode, Ksuid.newKsuid()).joinToString(separator = "-")
+    private fun generateMessageId(zaakId: String, relatieCode: String?) = listOfNotNull(zaakId, relatieCode, Ksuid.newKsuid()).joinToString(separator = "-")
 }

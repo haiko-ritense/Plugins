@@ -17,7 +17,7 @@
             "relatieCodes": "pv:relatieCodes",
             "toEmail": "pv:toEmail",
             "toName": "pv:toName",
-            "fromAddress": "pv:fromAddress",
+            "fromAddress": "test@test.com",
             "emailSubject": "pv:emailSubject",
             "contentHtml": "pv:contentHtml",
             "bccEmail": "pv:bccEmail",

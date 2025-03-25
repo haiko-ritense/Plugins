@@ -52,7 +52,7 @@ class EmailApiPlugin(
     fun sendEmail(
         execution: DelegateExecution,
         @PluginActionProperty zaakId: String,
-        @PluginActionProperty relatieCodes: List<String>,
+        @PluginActionProperty relatieCodes: Any,
         @PluginActionProperty toEmail: String,
         @PluginActionProperty toName: String?,
         @PluginActionProperty fromAddress: String,
@@ -64,6 +64,15 @@ class EmailApiPlugin(
         @PluginActionProperty bccEmail: String?,
         @PluginActionProperty bccName: String?,
     ) {
+        val relatieCodesDerived = mutableListOf<String>()
+
+        if(relatieCodes is String) {
+            relatieCodesDerived.add(relatieCodes)
+        }
+        else if( relatieCodes is List<*>) {
+            relatieCodesDerived.addAll(relatieCodes as Collection<String>)
+        }
+
         val message = EmailMessage(
             to = setOf(
                 Recipient(
@@ -81,8 +90,8 @@ class EmailApiPlugin(
             ),
             subject = emailSubject,
             zaakId = zaakId,
-            relatieCodes = relatieCodes.map { it.toInt() },
-            messageId = generateMessageId(zaakId, relatieCodes.get(0)),
+            relatieCodes = relatieCodesDerived.map { it.toInt() },
+            messageId = generateMessageId(zaakId, relatieCodesDerived.get(0)),
         )
 
         // set optional values

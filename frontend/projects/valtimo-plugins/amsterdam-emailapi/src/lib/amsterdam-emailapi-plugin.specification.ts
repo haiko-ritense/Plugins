@@ -46,7 +46,7 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
       authenticationPluginConfigurationTooltip:
           'Selecteer de plugin die de authenticatie kan afhandelen. Wanneer de selectiebox leeg blijft zal de authenticatie plugin (bv. OpenZaak) eerst aangemaakt moeten worden',
       zaakId: "De ID van de zaak",
-      relatieCode: "De code van de relatie",
+      relatieCodes: "De code van de relatie(s)",
       toEmail: "Email verzend adres",
       toName: "Naam van ontvanger",
       fromAddress: "Afzender",
@@ -75,7 +75,7 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
       authenticationPluginConfigurationTooltip:
           'Select the plugin that can handle the authentication. If the selection box remains empty, the authentication plugin (e.g. OpenZaak) will have to be created first',
       zaakId: 'The ID of the case',
-      relatieCode: "De code of the relation",
+      relatieCode: "The code of the relation(s)",
       toEmail: "Email To address",
       'zend-email': 'Send E-mail',
       attachments: "Attachments"
@@ -97,7 +97,8 @@ const amsterdamEmailapiPluginSpecification: PluginSpecification = {
       authenticationPluginConfiguration: 'Authentifizierungs-Plugin-Konfiguration',
       authenticationPluginConfigurationTooltip:
           'Wählen Sie das Plugin aus, das die Authentifizierung verarbeiten kann. Bleibt das Auswahlfeld leer, muss zunächst das Authentifizierungs-Plugin (z. B. OpenZaak) erstellt werden',
-      attachments: "Attachments"
+      attachments: "Attachments",
+      relatieCode: "Der code der Beziehung(s)",
     },
   },
 };

@@ -52,7 +52,7 @@ class EmailApiPlugin(
     fun sendEmail(
         execution: DelegateExecution,
         @PluginActionProperty zaakId: String,
-        @PluginActionProperty relatieCodes: Any,
+        @PluginActionProperty relatieCodes: Any?,
         @PluginActionProperty toEmail: String,
         @PluginActionProperty toName: String?,
         @PluginActionProperty fromAddress: String,
@@ -91,7 +91,7 @@ class EmailApiPlugin(
             subject = emailSubject,
             zaakId = zaakId,
             relatieCodes = relatieCodesDerived.map { it.toInt() },
-            messageId = generateMessageId(zaakId, relatieCodesDerived.get(0)),
+            messageId = generateMessageId(zaakId, if(relatieCodesDerived.isEmpty()) "" else relatieCodesDerived.get(0)),
         )
 
         // set optional values

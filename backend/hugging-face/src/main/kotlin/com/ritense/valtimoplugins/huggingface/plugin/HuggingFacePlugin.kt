@@ -81,7 +81,6 @@ open class HuggingFacePlugin(
     )
     open fun chat(
         execution: DelegateExecution,
-        @PluginActionProperty caseKey: String,
         @PluginActionProperty question: String
     ) {
         huggingFaceTextGenerationModel.baseUri = url

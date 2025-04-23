@@ -76,7 +76,7 @@ open class HuggingFacePlugin(
     @PluginAction(
         key = "chat",
         title = "Chat",
-        description = "Sends a chat prompt to the Gemma Agent",
+        description = "Sends a chat prompt to a AI Agent",
         activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     open fun chat(
@@ -90,7 +90,7 @@ open class HuggingFacePlugin(
         val id = JsonSchemaDocumentId.existingId(UUID.fromString(execution.businessKey))
         val jsonSchemaDocument = documentService.getDocumentBy(id)
         val interpolatedQuestion = generate(question, jsonSchemaDocument)
-        val chatResult = huggingFaceTextGenerationModel.chat(
+        val chatResult = huggingFaceTextGenerationModel.mistralChat(
             question = interpolatedQuestion,
         )
         execution.setVariable("question", interpolatedQuestion)

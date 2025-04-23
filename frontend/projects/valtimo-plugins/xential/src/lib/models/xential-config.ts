@@ -20,7 +20,6 @@ export interface XentialConfig extends PluginConfigurationData {
     applicationName: string;
     applicationPassword: string;
     baseUrl: string;
-    serverCertificate: string;
-    clientPrivateKey: string;
-    clientCertificate: string;
+    gebruikersId: string;
+    mTlsSslContextAutoConfigurationId: string;
 }

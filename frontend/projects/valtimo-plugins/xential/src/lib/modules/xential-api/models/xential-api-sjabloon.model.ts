@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2025 Ritense BV, the Netherlands.
+ * Copyright 2015-2024 Ritense BV, the Netherlands.
  *
  * Licensed under EUPL, Version 1.2 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,20 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimoplugins.mtlssslcontext.plugin
+interface XentialApiSjabloon {
+  sjablonen: Sjabloon[];
+  sjabloongroepen: SjabloonGroep[];
+}
 
-data class TemplateDataEntry(
-    val key: String,
-    val value: String,
-)
+interface Sjabloon {
+  id: string;
+  naam: string;
+}
+
+
+interface SjabloonGroep {
+  id: string;
+  naam: string;
+}
+
+export {XentialApiSjabloon};

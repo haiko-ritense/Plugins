@@ -23,7 +23,8 @@
     "pluginActionDefinitionKey": "send-mail",
     "processLinkType": "plugin",
     "actionProperties": {
-      "sender": "noreply@example.com",
+      "sender": "noreply@roza.rotterdam.nl",
+      "fromName": "Carola Schouten",
       "recipients": "doc:recipients",
       "cc": null,
       "bcc": null,

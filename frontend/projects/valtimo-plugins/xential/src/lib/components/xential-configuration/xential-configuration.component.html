@@ -21,23 +21,6 @@
     prefill: prefillConfiguration$ ? (prefillConfiguration$ | async) : null
   } as obs"
 >
-    <div>
-        <v-input-label
-                [title]="'maak plugin'"
-        ></v-input-label>
-    </div>
-<!--
-    <div>
-        <v-input-label
-                [title]="'val1'"
-        ></v-input-label>
-        <valtimo-value-path-selector
-                formControlName="path"
-                [documentDefinitionName]=documentDefinitionName
-                [prefixes]="[ValuePathSelectorPrefix.DOC, ValuePathSelectorPrefix.CASE]"
-        ></valtimo-value-path-selector>
-    </div>
--->
     <v-input
             name="configurationTitle"
             [title]="'configurationTitle' | pluginTranslate: pluginId | async"
@@ -76,38 +59,27 @@
             [required]="true"
     >
     </v-input>
+    <v-input
+            name="gebruikersId"
+            [title]="'gebruikersId' | pluginTranslate: pluginId | async"
+            [margin]="true"
+            [defaultValue]="obs.prefill?.gebruikersId"
+            [disabled]="obs.disabled"
+            [required]="true"
+    />
     <hr/>
-    <v-input
-            name="serverCertificate"
-            type="textarea"
-            [title]="'serverCertificate' | pluginTranslate: pluginId | async"
-            [margin]="true"
-            [fullWidth]="true"
-            [defaultValue]="obs.prefill?.serverCertificate"
-            [disabled]="obs.disabled"
-            [required]="false"
+    <ng-container
+            *ngIf="{authenticationPluginSelectItems: authenticationPluginSelectItems$ | async} as authObs"
     >
-    </v-input>
-    <v-input
-            name="clientPrivateKey"
-            type="textarea"
-            [title]="'clientPrivateKey' | pluginTranslate: pluginId | async"
-            [margin]="true"
-            [fullWidth]="true"
-            [defaultValue]="obs.prefill?.clientPrivateKey"
-            [disabled]="obs.disabled"
-            [required]="false"
-    >
-    </v-input>
-    <v-input
-            name="clientCertificate"
-            type="textarea"
-            [title]="'clientCertificate' | pluginTranslate: pluginId | async"
-            [margin]="true"
-            [fullWidth]="true"
-            [defaultValue]="obs.prefill?.clientCertificate"
-            [disabled]="obs.disabled"
-            [required]="false"
-    >
-    </v-input>
+        <v-select
+                [items]="authObs.authenticationPluginSelectItems"
+                [margin]="true"
+                name="mTlsSslContextAutoConfigurationId"
+                [title]="'mTlsSslContextAutoConfigurationId' | pluginTranslate: pluginId | async"
+                [disabled]="obs.disabled"
+                [defaultSelectionId]="obs.prefill?.mTlsSslContextAutoConfigurationId"
+                [required]="true"
+                [loading]="!authObs.authenticationPluginSelectItems"
+        ></v-select>
+    </ng-container>
 </v-form>

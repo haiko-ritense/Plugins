@@ -5,10 +5,9 @@
         "properties": {
             "applicationName": "${XENTIAL_ACCOUNT_NAME}",
             "applicationPassword": "${XENTIAL_ACCOUNT_PASSWORD}",
+            "gebruikersId": "${XENTIAL_GEBRUIKERS_ID}",
             "baseUrl": "${XENTIAL_BASEURL}",
-            "serverCertificate": "${PKIO_FULLCHAIN}",
-            "clientPrivateKey": "${PKIO_PRIVATE_KEY}",
-            "clientCertificate": "${PKIO_CERT}"
+            "mTlsSslContextAutoConfigurationId": "63b44b21-9bd2-42f2-a11e-a4f68837e076"
         },
         "pluginDefinitionKey": "xential"
     }

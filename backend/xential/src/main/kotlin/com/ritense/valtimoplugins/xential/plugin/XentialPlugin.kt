@@ -24,6 +24,7 @@ import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.processlink.domain.ActivityTypeWithEventName
+import com.ritense.valtimoplugins.mtlssslcontext.MTlsSslContext
 import com.ritense.valtimoplugins.xential.domain.FileFormat
 import com.ritense.valtimoplugins.xential.domain.XentialDocumentProperties
 import com.ritense.valtimoplugins.xential.plugin.XentialPlugin.Companion.PLUGIN_KEY
@@ -46,22 +47,19 @@ class XentialPlugin(
     private val documentGenerationService: DocumentGenerationService
 ) {
     @PluginProperty(key = "applicationName", secret = false, required = true)
-    private lateinit var applicationName: String
+    lateinit var applicationName: String
 
     @PluginProperty(key = "applicationPassword", secret = true, required = true)
-    private lateinit var applicationPassword: String
+    lateinit var applicationPassword: String
+
+    @PluginProperty(key = "gebruikersId", secret = false, required = true)
+    lateinit var gebruikersId: String
 
     @PluginProperty(key = "baseUrl", secret = false, required = true)
     lateinit var baseUrl: URI
 
-    @PluginProperty(key = "serverCertificate", secret = true, required = false)
-    var serverCertificate: String? = null
-
-    @PluginProperty(key = "clientPrivateKey", secret = true, required = false)
-    var clientPrivateKey: String? = null
-
-    @PluginProperty(key = "clientCertificate", secret = true, required = false)
-    var clientCertificate: String? = null
+    @PluginProperty(key = "mTlsSslContextAutoConfigurationId", secret = false, required = true)
+    private lateinit var mTlsSslContextAutoConfigurationId: MTlsSslContext
 
     @PluginAction(
         key = "generate-document",
@@ -71,14 +69,17 @@ class XentialPlugin(
     )
     fun generateDocument(
         @PluginActionProperty xentialContentId: Map<String, Any>,
+        @PluginActionProperty xentialSjabloonId: String,
         execution: DelegateExecution
     ) {
 
         logger.info { "generating document with XentialContent: $xentialContentId" }
 
         documentGenerationService.generateDocument(
-            esbClient.documentApi(restClient()),
+            esbClient.documentApi(restClient(mTlsSslContextAutoConfigurationId)),
             UUID.fromString(execution.processInstanceId),
+            gebruikersId,
+            xentialSjabloonId,
             objectMapper.convertValue(xentialContentId) as XentialDocumentProperties,
             execution
         )
@@ -91,15 +92,17 @@ class XentialPlugin(
         activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     fun prepareContent(
-        @PluginActionProperty templateId: UUID,
         @PluginActionProperty fileFormat: FileFormat,
         @PluginActionProperty documentId: String,
-        @PluginActionProperty gebruikersId: String,
         @PluginActionProperty eventMessageName: String,
         @PluginActionProperty xentialContentId: String,
         @PluginActionProperty verzendAdresData: Array<TemplateDataEntry>,
         @PluginActionProperty colofonData: Array<TemplateDataEntry>,
         @PluginActionProperty documentDetailsData: Array<TemplateDataEntry>,
+        @PluginActionProperty firstTemplateGroupId: UUID,
+        @PluginActionProperty secondTemplateGroupId: UUID?,
+        @PluginActionProperty thirdTemplateGroupId: UUID?,
+
         execution: DelegateExecution
     ) {
         try {
@@ -110,8 +113,7 @@ class XentialPlugin(
                 execution
             ).let {
                 val xentialDocumentProperties = XentialDocumentProperties(
-                    templateId,
-                    gebruikersId,
+                    thirdTemplateGroupId?: secondTemplateGroupId ?: firstTemplateGroupId,
                     fileFormat,
                     documentId,
                     eventMessageName,
@@ -122,7 +124,7 @@ class XentialPlugin(
                 )
             }
         } catch (e: Exception) {
-            logger.error("Exiting scope due to nested error.", e)
+            logger.error { "Exiting scope due to nested error. $e" }
             return
         }
     }
@@ -134,43 +136,43 @@ class XentialPlugin(
         activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     fun prepareContentWithTemplate(
-        @PluginActionProperty templateId: UUID,
         @PluginActionProperty fileFormat: FileFormat,
         @PluginActionProperty documentId: String,
-        @PluginActionProperty gebruikersId: String,
         @PluginActionProperty eventMessageName: String,
         @PluginActionProperty xentialContentId: String,
         @PluginActionProperty textTemplateId: String,
+        @PluginActionProperty firstTemplateGroupId: UUID,
+        @PluginActionProperty secondTemplateGroupId: UUID?,
+        @PluginActionProperty thirdTemplateGroupId: UUID?,
         execution: DelegateExecution
     ) {
         try {
             val xentialDocumentProperties = XentialDocumentProperties(
-                templateId,
-                gebruikersId,
+                thirdTemplateGroupId?: secondTemplateGroupId ?: firstTemplateGroupId,
                 fileFormat,
                 documentId,
                 eventMessageName,
                 textTemplateId
             )
+
             execution.processInstance.setVariable(
                 xentialContentId, objectMapper.convertValue(xentialDocumentProperties)
             )
         } catch (e: Exception) {
-            logger.error("Exiting scope due to nested error.", e)
+            logger.error { "Exiting scope due to nested error. $e" }
             return
         }
     }
 
-    private fun restClient(): RestClient =
-        esbClient.createRestClient(
+    private fun restClient(mTlsSslContextAutoConfiguration: MTlsSslContext?): RestClient {
+
+        return esbClient.createRestClient(
             baseUrl = baseUrl.toString(),
             applicationName = applicationName,
             applicationPassword = applicationPassword,
-            authenticationEnabled = true,
-            base64PrivateKey = clientPrivateKey,
-            base64ClientCert = clientCertificate,
-            base64ServerCert = serverCertificate
+            mTlsSslContextAutoConfiguration?.createSslContext()
         )
+    }
 
     companion object {
         private val logger = KotlinLogging.logger { }

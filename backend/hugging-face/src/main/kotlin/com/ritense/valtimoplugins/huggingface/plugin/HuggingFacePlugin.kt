@@ -16,7 +16,6 @@
 
 package com.ritense.valtimoplugins.huggingface.plugin
 
-import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.module.kotlin.convertValue
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.ritense.document.domain.Document
@@ -39,9 +38,9 @@ import java.net.URI
 import java.util.UUID
 
 @Plugin(
-    key = "hugging-face",
-    title = "Hugging Face Plugin",
-    description = "Chat with AI agent"
+    key = "smart-task-plugin",
+    title = "Smart Task Plugin",
+    description = "Interact with AI agents"
 )
 open class HuggingFacePlugin(
     private val huggingFaceSummaryModel: HuggingFaceSummaryModel,

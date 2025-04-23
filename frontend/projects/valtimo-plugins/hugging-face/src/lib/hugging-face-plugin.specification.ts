@@ -23,7 +23,7 @@ import {GiveSummaryConfigurationComponent} from './components/give-summary/give-
 import {ChatConfigurationComponent} from "./components/chat/chat-configuration.component";
 
 const huggingFacePluginSpecification: PluginSpecification = {
-    pluginId: 'hugging-face',
+    pluginId: 'smart-task-plugin',
     pluginConfigurationComponent: HuggingFaceConfigurationComponent,
     pluginLogoBase64: HUGGING_FACE_PLUGIN_LOGO_BASE64,
     functionConfigurationComponents: {
@@ -32,7 +32,7 @@ const huggingFacePluginSpecification: PluginSpecification = {
     },
     pluginTranslations: {
         nl: {
-            title: 'Hugging Face AI',
+            title: 'Smart Task Plugin',
             'give-summary': 'Vat een lange tekst samen met het BART-model',
             chat: 'Stel een vraag aan een chatmodel',
             url: 'API-URL',
@@ -50,7 +50,7 @@ const huggingFacePluginSpecification: PluginSpecification = {
             questionTooltip: 'Voer je vraag voor het chatmodel in.',
         },
         en: {
-            title: 'Hugging Face AI',
+            title: 'Smart Task Plugin',
             'give-summary': 'Summarize long text with the BART model',
             chat: 'Ask a question to a chat model',
             url: 'API URL',

@@ -23,7 +23,7 @@ import {GiveSummaryConfigurationComponent} from './components/give-summary/give-
 import {ChatConfigurationComponent} from "./components/chat/chat-configuration.component";
 
 const huggingFacePluginSpecification: PluginSpecification = {
-    pluginId: 'hugging-face',
+    pluginId: 'smart-task-plugin',
     pluginConfigurationComponent: HuggingFaceConfigurationComponent,
     pluginLogoBase64: HUGGING_FACE_PLUGIN_LOGO_BASE64,
     functionConfigurationComponents: {

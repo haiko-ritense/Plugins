@@ -59,7 +59,6 @@ export class SendEmailConfigurationComponent
         && !!(formValue.emailSubject)
         && !!(formValue.contentHtml)
         && !!(formValue.zaakId)
-        && !!(formValue.relatieCodes)
         && !!(formValue.fromAddress);
 
     this.valid$.next(valid);

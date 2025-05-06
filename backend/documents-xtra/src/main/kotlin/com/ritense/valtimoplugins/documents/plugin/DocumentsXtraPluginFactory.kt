@@ -28,11 +28,10 @@ import org.springframework.context.ApplicationEventPublisher
 
 class DocumentsXtraPluginFactory(
     pluginService: PluginService,
-    val bbClient: BerkelyBridgeClient,
+    val client: DocumentApiClient,
     val valueResolver: ValueResolverService,
-    val resourceService: TemporaryResourceStorageService,
     val applicationEventPublisher: ApplicationEventPublisher,
-) : PluginFactory<BerkelyBridgePlugin>(pluginService) {
+) : PluginFactory<DocumentsXtraPlugin>(pluginService) {
 
     override fun create(): DocumentsXtraPlugin {
         return DocumentsXtraPlugin(valueResolver, resourceService, applicationEventPublisher)

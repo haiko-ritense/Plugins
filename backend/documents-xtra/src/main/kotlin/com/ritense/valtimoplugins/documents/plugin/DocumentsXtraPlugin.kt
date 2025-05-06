@@ -20,25 +20,29 @@
 
 package com.ritense.valtimoplugins.documents.plugin
 
+import com.ritense.documentenapi.DocumentenApiAuthentication
+import com.ritense.documentenapi.DocumentenApiPlugin
+import com.ritense.documentenapi.client.CreateDocumentRequest
+import com.ritense.documentenapi.client.DocumentInformatieObject
 import com.ritense.documentenapi.client.DocumentStatusType
+import com.ritense.documentenapi.client.DocumentenApiClient
+import com.ritense.documentenapi.event.DocumentCreated
 import com.ritense.plugin.annotation.*
-import com.ritense.plugin.domain.EventType
-import com.ritense.plugin.domain.PluginConfiguration
 import com.ritense.processlink.domain.ActivityTypeWithEventName
 import com.ritense.resource.domain.MetadataType
 import com.ritense.resource.domain.TemporaryResourceUploadedEvent
-import com.ritense.resource.service.TemporaryResourceStorageService
-import com.ritense.valtimoplugins.berkelybridge.client.BerkelyBridgeClient
+import com.ritense.valtimo.contract.validation.Url
 import com.ritense.valueresolver.ValueResolverService
 import java.net.URL
 import mu.KotlinLogging
 import org.camunda.bpm.engine.delegate.DelegateExecution
-import org.camunda.bpm.engine.variable.Variables
-import org.camunda.bpm.engine.variable.value.SerializationDataFormat
 import org.springframework.context.ApplicationEventPublisher
-import kotlin.math.log
+import java.io.InputStream
+import java.net.URI
+import java.time.LocalDate
 
 private val logger = KotlinLogging.logger {}
+private const val COPY_KEY = "COPY_URL"
 
 @Plugin(
     key = "documentsXtra",
@@ -47,115 +51,67 @@ private val logger = KotlinLogging.logger {}
 )
 class DocumentsXtraPlugin(
     private val valueResolverService: ValueResolverService,
-    private val resourceService: TemporaryResourceStorageService,
+    private val client: DocumentenApiClient,
     private val applicationEventPublisher: ApplicationEventPublisher,
 ) {
 
-    @PluginProperty(key = "berkelybridgeBaseUrl", secret = false, required = true)
-    lateinit var berkelybridgeBaseUrl: String
+    @PluginProperty(key = "authenticationPluginConfiguration", secret = false)
+    lateinit var authenticationPluginConfiguration: DocumentenApiAuthentication
 
-    @PluginProperty(key = "subscriptionKey", secret = true, required = true)
-    lateinit var subscriptionKey: String
+    @Url
+    @PluginProperty(key = DocumentenApiPlugin.URL_PROPERTY, secret = false)
+    lateinit var url: URI
 
-    @PluginEvent(invokedOn = [EventType.CREATE, EventType.UPDATE])
-    fun setSubscriptionKey() {
-        logger.debug { "zet subscription key" }
-        this.bbClient.subscriptionKey = subscriptionKey
-    }
 
     @PluginAction(
         key = "copy-eio",
         title = "Kopieer enkelvoudig informatieobject",
-        description = "Genereer tekst met template en parameters. Specifeer met format parameter of de output html of text moet zijn",
+        description = "Kopieer gegeven enkelvoudig informatie object naar een nieuwe informatie object",
         activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     fun copyInformationObject(
         execution: DelegateExecution,
-        @PluginActionProperty eioUrl: String,
-        @PluginActionProperty variabeleNaam: String
+        @PluginActionProperty eioUrl: String
     ) {
-        val text = bbClient.generate(bbUrl = berkelybridgeBaseUrl, modelId = modelId, templateId = templateId,
-            parameters = resolveValue(execution, parameters),
-            naam = naam,
-            format = format)
+        val objectUrl = URI.create(eioUrl);
+        val dio = client.getInformatieObject(authenticationPluginConfiguration, objectUrl)
+        val content = client.downloadInformatieObjectContent(authenticationPluginConfiguration, objectUrl)
+        val request = createDocRequest(dio, content)
 
-            execution.setVariable(
-                variabeleNaam,
-                Variables.objectValue(text).serializationDataFormat(
-                    Variables.SerializationDataFormats.JAVA
-                ).create()
-            )
+        DocumentenApiPlugin.logger.info { "Store document $request" }
+        val documentCreateResult = client.storeDocument(authenticationPluginConfiguration, url, request)
+
+        val event = DocumentCreated(
+            documentCreateResult.url,
+            documentCreateResult.auteur,
+            documentCreateResult.bestandsnaam,
+            documentCreateResult.bestandsomvang,
+            documentCreateResult.beginRegistratie
+        )
+        applicationEventPublisher.publishEvent(event)
+        execution.setVariable(COPY_KEY, documentCreateResult.url)
+
     }
 
-    @PluginAction(
-        key = "genereer-file-documenten-api",
-        title = "Genereer een file",
-        description = "Genereer een file die wordt opgeslagen in de documenten API",
-        activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
-    )
-    fun generateFile(
-        execution: DelegateExecution,
-        @PluginActionProperty modelId: String,
-        @PluginActionProperty templateId: String,
-        @PluginActionProperty parameters: List<TemplateProperty>?,
-        @PluginActionProperty format: String,
-        @PluginActionProperty naam: String,
-        @PluginActionProperty taal: String,
-        @PluginActionProperty beschrijving: String,
-        @PluginActionProperty informatieObjectType: String,
-        @PluginActionProperty variabeleNaam: String
-    ) {
-        val downloadLink = bbClient.generateFile(bbUrl = berkelybridgeBaseUrl, modelId = modelId, templateId = templateId,
-            parameters = resolveValue(execution, parameters),
-            naam = naam,
-            format = format)
-
-        var bytes = getFileAsByteArray(downloadLink)
-        val mutableMetaData = mutableMapOf<String, Any>()
-        mutableMetaData.put(MetadataType.DOCUMENT_ID.key, execution.processBusinessKey)
-        mutableMetaData.put(MetadataType.FILE_NAME.key, naam)
-        mutableMetaData.put(MetadataType.CONTENT_TYPE.key, format)
-        mutableMetaData.put("title", naam)
-        mutableMetaData.put("status", DocumentStatusType.DEFINITIEF.name)
-        mutableMetaData.put("bestandsomvang", bytes.size)
-        mutableMetaData.put("description", beschrijving)
-        mutableMetaData.put("confidentialityLevel", "zaakvertrouwelijk")
-        mutableMetaData.put("language", taal)
-        mutableMetaData.put("informatieobjecttype", informatieObjectType)
-        mutableMetaData.put("author", "Gegenereerd door BerkelyBridge")
-
-        val resourceId = resourceService.store( getFileAsByteArray(downloadLink).inputStream(), mutableMetaData)
-        applicationEventPublisher.publishEvent(TemporaryResourceUploadedEvent(resourceId))
-
-        execution.setVariable(variabeleNaam, berkelybridgeBaseUrl.plus("/").plus(downloadLink));
-    }
-
-    private fun resolveValue(execution: DelegateExecution, keyValueList: List<TemplateProperty>?): List<TemplateProperty>? {
-        return if (keyValueList == null) {
-            null
-        } else {
-            keyValueList.filter { it.value is String }.map {
-                var resolvedValues = valueResolverService.resolveValues(
-                    execution.processInstanceId,
-                    execution,
-                    listOf(it.value as String)
-                )
-                var resolvedValue = resolvedValues[it.value]
-                TemplateProperty(it.key, resolvedValue)
-            }
-        }
-    }
-
-    private fun getFileAsByteArray(fileUrl: String): ByteArray {
-        try {
-            logger.debug { "getting file for fileUrl: $fileUrl " }
-
-            val getFileUrl = URL(berkelybridgeBaseUrl.plus("/$fileUrl"))
-            val fileData = getFileUrl.readBytes();
-            return fileData;
-        } catch (e: Exception) {
-            logger.error { "error berkely bridge retrieving file for $fileUrl \n" + e.message }
-            throw e
-        }
+    private fun createDocRequest(dio: DocumentInformatieObject, content: InputStream): CreateDocumentRequest {
+        val request = CreateDocumentRequest(
+            bronorganisatie = dio.bronorganisatie.toString(),
+            creatiedatum = LocalDate.now(),
+            titel = dio.titel,
+            vertrouwelijkheidaanduiding = dio.vertrouwelijkheidaanduiding,
+            auteur = dio.auteur,
+            status = dio.status,
+            taal = dio.taal,
+            bestandsnaam = dio.bestandsnaam,
+            bestandsomvang = dio.bestandsomvang,
+            inhoud = content,
+            beschrijving = dio.beschrijving,
+            ontvangstdatum = dio.ontvangstdatum,
+            verzenddatum = dio.verzenddatum,
+            informatieobjecttype = dio.informatieobjecttype,
+            formaat = dio.formaat,
+            trefwoorden = dio.trefwoorden,
+        )
+        return request
     }
 }

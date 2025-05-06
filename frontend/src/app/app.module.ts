@@ -92,6 +92,12 @@ import {BerkelybridgeTextgeneratorPluginModule, berkelybridgeTextgeneratorPlugin
 //   objectManagementPluginSpecification
 // } from "../../projects/valtimo-plugins/object-management/src/lib/object-management-plugin.specification";
 import {ObjectManagementModule} from "@valtimo/object-management";
+import {
+  documentsXtraPluginSpecification
+} from "../../projects/valtimo-plugins/documents-xtra/src/lib/documents-xtra-plugin.specification";
+import {
+  DocumentsXtraPluginModule
+} from "../../projects/valtimo-plugins/documents-xtra/src/lib/documents-xtra-plugin-module";
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -110,6 +116,7 @@ export function tabsFactory() {
     AlfrescoAuthPluginModule,
     AmsterdamEmailapiPluginModule,
     BerkelybridgeTextgeneratorPluginModule,
+    DocumentsXtraPluginModule,
     // MailTemplatePluginModule,
     // PublictaskPluginModule,
     // NotifyNlPluginModule,
@@ -174,6 +181,7 @@ export function tabsFactory() {
       alfrescoAuthPluginSpecification,
       amsterdamEmailapiPluginSpecification,
       berkelybridgeTextgeneratorPluginSpecification,
+      documentsXtraPluginSpecification,
       // mailTemplatePluginSpecification,
       // publictaskPluginSpecification,
       // notifyNlPluginSpecification,

@@ -24,16 +24,13 @@ import com.ritense.documentenapi.DocumentenApiAuthentication
 import com.ritense.documentenapi.DocumentenApiPlugin
 import com.ritense.documentenapi.client.CreateDocumentRequest
 import com.ritense.documentenapi.client.DocumentInformatieObject
-import com.ritense.documentenapi.client.DocumentStatusType
 import com.ritense.documentenapi.client.DocumentenApiClient
 import com.ritense.documentenapi.event.DocumentCreated
 import com.ritense.plugin.annotation.*
 import com.ritense.processlink.domain.ActivityTypeWithEventName
-import com.ritense.resource.domain.MetadataType
-import com.ritense.resource.domain.TemporaryResourceUploadedEvent
+
 import com.ritense.valtimo.contract.validation.Url
-import com.ritense.valueresolver.ValueResolverService
-import java.net.URL
+
 import mu.KotlinLogging
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.springframework.context.ApplicationEventPublisher
@@ -47,14 +44,12 @@ private const val COPY_KEY = "COPY_URL"
 @Plugin(
     key = "documentsXtra",
     title = "DocumentsXtra olugin ",
-    description = "DocumentsXtra more actions for the Documenten API"
+    description = "DocumentsXtra adds more actions for the Documenten API"
 )
 class DocumentsXtraPlugin(
-    private val valueResolverService: ValueResolverService,
     private val client: DocumentenApiClient,
     private val applicationEventPublisher: ApplicationEventPublisher,
 ) {
-
     @PluginProperty(key = "authenticationPluginConfiguration", secret = false)
     lateinit var authenticationPluginConfiguration: DocumentenApiAuthentication
 
@@ -73,6 +68,7 @@ class DocumentsXtraPlugin(
         execution: DelegateExecution,
         @PluginActionProperty eioUrl: String
     ) {
+        logger.debug { "copying $eioUrl" }
         val objectUrl = URI.create(eioUrl);
         val dio = client.getInformatieObject(authenticationPluginConfiguration, objectUrl)
         val content = client.downloadInformatieObjectContent(authenticationPluginConfiguration, objectUrl)

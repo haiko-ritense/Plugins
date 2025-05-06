@@ -24,7 +24,7 @@ pluginManager.withPlugin("maven-publish") {
 
                 pom {
                     name = "Document Xtra plugin module"
-                    description = "The Document Xtra plugin module allows you to do extra action on information objects in the Docuementen API"
+                    description = "The Document Xtra plugin module allows you to do extra actions on information objects in the Docuementen API"
                     developers {
                         developer {
                             id = "haiko-ritense"

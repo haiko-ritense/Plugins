@@ -27,21 +27,15 @@ dependencies {
     implementation("com.ritense.valtimo:contract")
     implementation("com.ritense.valtimo:core")
     implementation("com.ritense.valtimo:plugin-valtimo")
-    implementation("com.ritense.valtimo:value-resolver")
+    implementation("com.ritense.valtimo:zgw")
     implementation("com.ritense.valtimo:documenten-api") {
         exclude(group = "com.ritense.valtimo", module = "catalogi-api")
     }
-
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
 
     implementation("io.github.microutils:kotlin-logging")
     implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("com.fasterxml.jackson.core:jackson-annotations")
     implementation("com.fasterxml.jackson.core:jackson-core")
-
-    // Apache deps
-    implementation("org.apache.httpcomponents.client5:httpclient5:5.4")
-    implementation("org.apache.httpcomponents:httpcore:4.4.15")
 
     implementation("com.auth0:java-jwt:4.4.0")
 

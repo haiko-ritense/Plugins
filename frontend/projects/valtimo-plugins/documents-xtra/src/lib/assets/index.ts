@@ -17,20 +17,4 @@
  *
  */
 
-package com.ritense.valtimoplugins.documents.plugin
-
-import com.ritense.documentenapi.client.DocumentenApiClient
-import com.ritense.plugin.PluginFactory
-import com.ritense.plugin.service.PluginService
-import org.springframework.context.ApplicationEventPublisher
-
-class DocumentsXtraPluginFactory(
-    pluginService: PluginService,
-    val client: DocumentenApiClient,
-    val applicationEventPublisher: ApplicationEventPublisher,
-) : PluginFactory<DocumentsXtraPlugin>(pluginService) {
-
-    override fun create(): DocumentsXtraPlugin {
-        return DocumentsXtraPlugin(client, applicationEventPublisher)
-    }
-}
+export * from './amsterdam-emailapi-plugin-logo';

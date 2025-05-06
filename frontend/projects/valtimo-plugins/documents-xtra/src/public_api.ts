@@ -17,20 +17,12 @@
  *
  */
 
-package com.ritense.valtimoplugins.documents.plugin
+/*
+ * Public API Surface of slack
+ */
 
-import com.ritense.documentenapi.client.DocumentenApiClient
-import com.ritense.plugin.PluginFactory
-import com.ritense.plugin.service.PluginService
-import org.springframework.context.ApplicationEventPublisher
-
-class DocumentsXtraPluginFactory(
-    pluginService: PluginService,
-    val client: DocumentenApiClient,
-    val applicationEventPublisher: ApplicationEventPublisher,
-) : PluginFactory<DocumentsXtraPlugin>(pluginService) {
-
-    override fun create(): DocumentsXtraPlugin {
-        return DocumentsXtraPlugin(client, applicationEventPublisher)
-    }
-}
+export * from './lib/models/index';
+export * from './lib/documents-xtra-plugin-module';
+export * from './lib/documents-xtra-plugin.specification';
+export * from './lib/components/copy-informationobject/copy-informationobject-configuration.component';
+export * from './lib/components/documents-xtra-configuration/documents-xtra-configuration.component';

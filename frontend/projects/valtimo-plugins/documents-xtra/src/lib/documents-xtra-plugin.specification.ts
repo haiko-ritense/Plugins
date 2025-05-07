@@ -19,13 +19,13 @@
 
 import {PluginSpecification} from '@valtimo/plugin';
 import {DocumentsXtraConfigurationComponent} from './components/documents-xtra-configuration/documents-xtra-configuration.component';
-import {AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64} from './assets';
+import {DOCUMENTEN_API_PLUGIN_LOGO_BASE64} from './assets';
 import {CopyInformationobjectConfigurationComponent} from "./components/copy-informationobject/copy-informationobject-configuration.component";
 
 const documentsXtraPluginSpecification: PluginSpecification = {
   pluginId: 'documentsXtra',
   pluginConfigurationComponent: DocumentsXtraConfigurationComponent,
-  pluginLogoBase64: AMSTERDAM_EMAILAPI_PLUGIN_LOGO_BASE64,
+  pluginLogoBase64: DOCUMENTEN_API_PLUGIN_LOGO_BASE64,
   functionConfigurationComponents: {
     'copy-eio': CopyInformationobjectConfigurationComponent
   },
@@ -43,7 +43,8 @@ const documentsXtraPluginSpecification: PluginSpecification = {
       authenticationPluginConfiguration: 'Configuratie authenticatie-plug-in',
       authenticationPluginConfigurationTooltip:
           'Selecteer de plugin die de authenticatie kan afhandelen. Wanneer de selectiebox leeg blijft zal de authenticatie plugin (bv. OpenZaak) eerst aangemaakt moeten worden',
-      eioUrl: 'Url van enkelvoudig informatieobject'
+      eioUrl: 'Url van enkelvoudig informatieobject',
+      'copy-eio': 'Kopieer informatie object'
     },
     en: {
       title: 'Documents Xtra plugin',
@@ -58,7 +59,8 @@ const documentsXtraPluginSpecification: PluginSpecification = {
       authenticationPluginConfiguration: 'Authentication plugin configuration',
       authenticationPluginConfigurationTooltip:
           'Select the plugin that can handle the authentication. If the selection box remains empty, the authentication plugin (e.g. OpenZaak) will have to be created first',
-      eioUrl: 'Url of enkelvoudig informatieobject'
+      eioUrl: 'Url of enkelvoudig informatieobject',
+      'copy-eio': 'Copy information object'
     },
     de: {
       title: 'Documents Xtra plugin',
@@ -73,7 +75,8 @@ const documentsXtraPluginSpecification: PluginSpecification = {
       authenticationPluginConfiguration: 'Authentifizierungs-Plugin-Konfiguration',
       authenticationPluginConfigurationTooltip:
           'Wählen Sie das Plugin aus, das die Authentifizierung verarbeiten kann. Bleibt das Auswahlfeld leer, muss zunächst das Authentifizierungs-Plugin (z. B. OpenZaak) erstellt werden',
-      eioUrl: 'Url von enkelvoudig informatieobject'
+      eioUrl: 'Url von enkelvoudig informatieobject',
+      'copy-eio': 'Kopier information object'
     },
   },
 };

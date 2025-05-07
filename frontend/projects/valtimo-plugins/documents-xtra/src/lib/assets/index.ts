@@ -17,4 +17,4 @@
  *
  */
 
-export * from './amsterdam-emailapi-plugin-logo';
+export * from './documenten-api-plugin-logo';

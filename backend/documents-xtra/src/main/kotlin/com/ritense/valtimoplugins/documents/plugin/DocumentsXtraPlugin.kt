@@ -43,7 +43,7 @@ private const val COPY_KEY = "COPY_URL"
 
 @Plugin(
     key = "documentsXtra",
-    title = "DocumentsXtra olugin ",
+    title = "DocumentsXtra plugin",
     description = "DocumentsXtra adds more actions for the Documenten API"
 )
 class DocumentsXtraPlugin(

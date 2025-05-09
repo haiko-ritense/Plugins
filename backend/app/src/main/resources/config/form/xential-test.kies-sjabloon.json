@@ -3,7 +3,7 @@
         {
             "label": "pv sjabloon groep",
             "tableView": false,
-            "key": "pv.xentialContentId",
+            "key": "pv.xentialContent",
             "type": "hidden",
             "input": true
         },
@@ -23,7 +23,7 @@
                 "required": true
             },
             "data": {
-                "url": "../api/v1/xential/sjablonen?sjabloonGroupId={{ data.pv.xentialContentId.xentialGroupId }}",
+                "url": "../api/v1/xential/sjablonen?sjabloonGroupId={{ data.pv.xentialContent.xentialGroupId }}",
                 "method": "GET",
                 "headers": [
                     {
@@ -110,7 +110,7 @@
             "customConditional": "show = data.pv.document ? true : false;"
         },
         {
-            "key": "pv.xentialContentId.content",
+            "key": "pv.xentialData",
             "type": "hidden",
             "input": true,
             "label": "set template",

@@ -28,6 +28,7 @@
         <camunda:in source="xentialContent" target="xentialContent" />
         <camunda:in source="xentialSjabloonId" target="xentialSjabloonId" />
         <camunda:in source="xentialGebruikersId" target="xentialGebruikersId" />
+        <camunda:in source="xentialData" target="xentialData" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_066us9u</bpmn:incoming>
       <bpmn:outgoing>Flow_1licevm</bpmn:outgoing>

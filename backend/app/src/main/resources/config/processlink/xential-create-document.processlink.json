@@ -13,6 +13,7 @@
     "processLinkType": "plugin",
     "actionProperties": {
       "xentialContent": "pv:xentialContent",
+      "xentialData": "pv:xentialData",
       "xentialSjabloonId": "pv:xentialSjabloonId",
       "xentialGebruikersId": "pv:xentialGebruikersId"
     }

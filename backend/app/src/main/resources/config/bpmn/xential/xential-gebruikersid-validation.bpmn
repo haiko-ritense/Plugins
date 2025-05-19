@@ -38,16 +38,16 @@
       <bpmn:incoming>Flow_1nxrev5</bpmn:incoming>
       <bpmn:outgoing>Flow_1v4sryp</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0b6i49v" name="Test gebruikerid" camunda:expression="${xentialUserIdHelper.testGebruikersId(xentialGebruikersId)}" camunda:resultVariable="xentialAccessStatus">
+    <bpmn:serviceTask id="XentialAccessValidation" name="Test gebruikerid" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:expression="${true}">
       <bpmn:incoming>Flow_1gqx9rc</bpmn:incoming>
       <bpmn:outgoing>Flow_0icdgqe</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1g0az7m" sourceRef="StartEvent_1" targetRef="Gateway_19zl4ry" />
-    <bpmn:sequenceFlow id="Flow_1gqx9rc" name="gebruikersid gevonden" sourceRef="Gateway_19zl4ry" targetRef="Activity_0b6i49v" />
+    <bpmn:sequenceFlow id="Flow_1gqx9rc" name="gebruikersid gevonden" sourceRef="Gateway_19zl4ry" targetRef="XentialAccessValidation" />
     <bpmn:sequenceFlow id="Flow_1nxrev5" name="gebruikersid niet gevonden" sourceRef="Gateway_19zl4ry" targetRef="Activity_0xf379z">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!execution.hasVariable('xentialGebruikersId')}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0icdgqe" sourceRef="Activity_0b6i49v" targetRef="Gateway_1dbhnl9" />
+    <bpmn:sequenceFlow id="Flow_0icdgqe" sourceRef="XentialAccessValidation" targetRef="Gateway_1dbhnl9" />
     <bpmn:sequenceFlow id="Flow_1fllpcy" sourceRef="Gateway_1dbhnl9" targetRef="Activity_1av3zma">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.getVariable('xentialAccessStatus') != 'VALID_ACCESS' }</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -92,7 +92,7 @@
         <dc:Bounds x="745" y="380" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_01rre7f_di" bpmnElement="Activity_0b6i49v">
+      <bpmndi:BPMNShape id="Activity_01rre7f_di" bpmnElement="XentialAccessValidation">
         <dc:Bounds x="485" y="177" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>

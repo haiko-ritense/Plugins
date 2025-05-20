@@ -43,8 +43,8 @@ const documentsXtraPluginSpecification: PluginSpecification = {
       authenticationPluginConfiguration: 'Configuratie authenticatie-plug-in',
       authenticationPluginConfigurationTooltip:
           'Selecteer de plugin die de authenticatie kan afhandelen. Wanneer de selectiebox leeg blijft zal de authenticatie plugin (bv. OpenZaak) eerst aangemaakt moeten worden',
-      eioUrl: 'Url van enkelvoudig informatieobject',
-      'copy-eio': 'Kopieer informatie object'
+      eioUrl: 'Urls van enkelvoudig informatieobjecten',
+      'copy-eio': 'Kopieer informatie objecten'
     },
     en: {
       title: 'Documents Xtra plugin',
@@ -59,8 +59,8 @@ const documentsXtraPluginSpecification: PluginSpecification = {
       authenticationPluginConfiguration: 'Authentication plugin configuration',
       authenticationPluginConfigurationTooltip:
           'Select the plugin that can handle the authentication. If the selection box remains empty, the authentication plugin (e.g. OpenZaak) will have to be created first',
-      eioUrl: 'Url of enkelvoudig informatieobject',
-      'copy-eio': 'Copy information object'
+      eioUrl: 'Url of enkelvoudig informatieobjects',
+      'copy-eio': 'Copy information objects'
     },
     de: {
       title: 'Documents Xtra plugin',
@@ -75,8 +75,8 @@ const documentsXtraPluginSpecification: PluginSpecification = {
       authenticationPluginConfiguration: 'Authentifizierungs-Plugin-Konfiguration',
       authenticationPluginConfigurationTooltip:
           'Wählen Sie das Plugin aus, das die Authentifizierung verarbeiten kann. Bleibt das Auswahlfeld leer, muss zunächst das Authentifizierungs-Plugin (z. B. OpenZaak) erstellt werden',
-      eioUrl: 'Url von enkelvoudig informatieobject',
-      'copy-eio': 'Kopier information object'
+      eioUrl: 'Url von enkelvoudig informatieobjecten',
+      'copy-eio': 'Kopier information objecten'
     },
   },
 };

@@ -25,7 +25,7 @@ interface DocumentsXtraConfig extends PluginConfigurationData {
 }
 
 interface CopyInformationObjectConfig {
-  eioUrl: string;
+  eioUrls: string;
 }
 
 export {DocumentsXtraConfig, CopyInformationObjectConfig};

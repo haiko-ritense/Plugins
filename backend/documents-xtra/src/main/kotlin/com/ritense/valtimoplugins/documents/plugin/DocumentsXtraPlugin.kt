@@ -39,7 +39,7 @@ import java.net.URI
 import java.time.LocalDate
 
 private val logger = KotlinLogging.logger {}
-private const val COPY_KEY = "COPY_URL"
+private const val COPY_KEY = "COPY_URLS"
 
 @Plugin(
     key = "documentsXtra",
@@ -60,33 +60,38 @@ class DocumentsXtraPlugin(
 
     @PluginAction(
         key = "copy-eio",
-        title = "Kopieer enkelvoudig informatieobject",
-        description = "Kopieer gegeven enkelvoudig informatie object naar een nieuwe informatie object",
+        title = "Kopieer enkelvoudig informatieobjecten",
+        description = "Kopieer gegeven enkelvoudig informatie objecten  naar  nieuwe informatie objecten",
         activityTypes = [ActivityTypeWithEventName.SERVICE_TASK_START]
     )
     fun copyInformationObject(
         execution: DelegateExecution,
-        @PluginActionProperty eioUrl: String
+        @PluginActionProperty eioUrls: List<String>
     ) {
-        logger.debug { "copying $eioUrl" }
-        val objectUrl = URI.create(eioUrl);
-        val dio = client.getInformatieObject(authenticationPluginConfiguration, objectUrl)
-        val content = client.downloadInformatieObjectContent(authenticationPluginConfiguration, objectUrl)
-        val request = createDocRequest(dio, content)
+        logger.debug { "copying ${eioUrls.toString()}" }
 
-        DocumentenApiPlugin.logger.info { "Store document $request" }
-        val documentCreateResult = client.storeDocument(authenticationPluginConfiguration, url, request)
+        var copyUrls = eioUrls.map { eioUrl ->
+            logger.debug { "copying $eioUrl" }
+            val objectUrl = URI.create(eioUrl);
+            val dio = client.getInformatieObject(authenticationPluginConfiguration, objectUrl)
+            val content = client.downloadInformatieObjectContent(authenticationPluginConfiguration, objectUrl)
+            val request = createDocRequest(dio, content)
 
-        val event = DocumentCreated(
-            documentCreateResult.url,
-            documentCreateResult.auteur,
-            documentCreateResult.bestandsnaam,
-            documentCreateResult.bestandsomvang,
-            documentCreateResult.beginRegistratie
-        )
-        applicationEventPublisher.publishEvent(event)
-        execution.setVariable(COPY_KEY, documentCreateResult.url)
+            DocumentenApiPlugin.logger.info { "Store document $request" }
+            val documentCreateResult = client.storeDocument(authenticationPluginConfiguration, url, request)
 
+            val event = DocumentCreated(
+                documentCreateResult.url,
+                documentCreateResult.auteur,
+                documentCreateResult.bestandsnaam,
+                documentCreateResult.bestandsomvang,
+                documentCreateResult.beginRegistratie
+            )
+            applicationEventPublisher.publishEvent(event)
+            documentCreateResult.url
+        }
+
+        execution.setVariable(COPY_KEY, copyUrls)
     }
 
     private fun createDocRequest(dio: DocumentInformatieObject, content: InputStream): CreateDocumentRequest {

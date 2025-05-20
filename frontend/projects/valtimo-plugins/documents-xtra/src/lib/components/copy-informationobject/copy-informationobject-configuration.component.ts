@@ -55,7 +55,7 @@ export class CopyInformationobjectConfigurationComponent
   }
 
   private handleValid(formValue: CopyInformationObjectConfig): void {
-    const valid = !!(formValue.eioUrl);
+    const valid = !!(formValue.eioUrls);
 
     this.valid$.next(valid);
     this.valid.emit(valid);

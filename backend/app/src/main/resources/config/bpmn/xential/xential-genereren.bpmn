@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0a6u1ke" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.23.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.21.0">
+  <bpmn:collaboration id="Collaboration_0d8bhbl">
+    <bpmn:participant id="Participant_163vbcv" name="Xential genereren document" processRef="xential-genereren" />
+  </bpmn:collaboration>
+  <bpmn:process id="xential-genereren" name="Xential: genereer document" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0i4nzah</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0i4nzah" sourceRef="StartEvent_1" targetRef="XentialTestFlowDocGenererenStart" />
+    <bpmn:sequenceFlow id="Flow_145r09f" sourceRef="XentialTestFlowDocGenererenStart" targetRef="Event_1y7ui8g" />
+    <bpmn:userTask id="XentialTestFlowDocGenererenStart" name="Doc genereren">
+      <bpmn:incoming>Flow_0i4nzah</bpmn:incoming>
+      <bpmn:outgoing>Flow_145r09f</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1y7ui8g">
+      <bpmn:incoming>Flow_145r09f</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmn:message id="Message_3h41r7d" name="XENTIAL_TEST_DOC_RECEIVED" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0d8bhbl">
+      <bpmndi:BPMNShape id="Participant_163vbcv_di" bpmnElement="Participant_163vbcv" isHorizontal="true">
+        <dc:Bounds x="180" y="40" width="430" height="280" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="253" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cp5rz6_di" bpmnElement="XentialTestFlowDocGenererenStart">
+        <dc:Bounds x="350" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1y7ui8g_di" bpmnElement="Event_1y7ui8g">
+        <dc:Bounds x="522" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0i4nzah_di" bpmnElement="Flow_0i4nzah">
+        <di:waypoint x="289" y="177" />
+        <di:waypoint x="350" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_145r09f_di" bpmnElement="Flow_145r09f">
+        <di:waypoint x="450" y="177" />
+        <di:waypoint x="522" y="177" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

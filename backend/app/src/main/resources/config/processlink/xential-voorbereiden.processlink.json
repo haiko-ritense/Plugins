@@ -1,0 +1,8 @@
+[
+  {
+    "activityId": "XentialTestFlowGenererenVoorbereidenStart",
+    "activityType": "bpmn:UserTask:create",
+    "processLinkType": "form",
+    "formDefinitionName": "xential.voorbereiden-start"
+  }
+]

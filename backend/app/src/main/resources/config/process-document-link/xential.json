@@ -1,0 +1,17 @@
+[
+  {
+    "processDefinitionKey": "xential",
+    "canInitializeDocument": true,
+    "startableByUser": false
+  },
+  {
+    "processDefinitionKey": "xential-voorbereiden",
+    "canInitializeDocument": false,
+    "startableByUser": false
+  },
+  {
+    "processDefinitionKey": "xential-genereren",
+    "canInitializeDocument": false,
+    "startableByUser": false
+  }
+]

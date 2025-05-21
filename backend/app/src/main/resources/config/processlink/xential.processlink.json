@@ -1,0 +1,14 @@
+[
+  {
+    "activityId": "XentialStarten",
+    "activityType": "bpmn:StartEvent:start",
+    "processLinkType": "form",
+    "formDefinitionName": "xential.starten"
+  },
+  {
+    "activityId": "XentialFlowStarten",
+    "activityType": "bpmn:UserTask:create",
+    "processLinkType": "form",
+    "formDefinitionName": "xential.start-xential-flow"
+  }
+]

@@ -31,7 +31,7 @@
         },
         {
             "type": "button",
-            "label": "error na document genereren",
+            "label": "Resultaat tot toegang",
             "showValidations": false,
             "disableOnInvalid": true,
             "tableView": false,

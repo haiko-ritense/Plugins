@@ -12,10 +12,16 @@
     "formDefinitionName": "xential.error-na-kies-sjabloon"
   },
   {
-    "activityId": "XentialErrorNaDocumentGenereren",
+    "activityId": "XentialToegangControleren",
     "activityType": "bpmn:UserTask:create",
     "processLinkType": "form",
-    "formDefinitionName": "xential.error-na-document-genereren"
+    "formDefinitionName": "xential.resultaat-toegang-controleren"
+  },
+  {
+    "activityId": "OpenXentialWizardTask",
+    "activityType": "bpmn:UserTask:create",
+    "processLinkType": "form",
+    "formDefinitionName": "xential.wizard"
   },
   {
     "activityId": "XentialTestMapToegang",

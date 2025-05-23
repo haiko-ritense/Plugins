@@ -1,8 +1,8 @@
 {
-  "changesetId": "example.case-tabs.3424234242423424",
+  "changesetId": "xential.case-tabs.453456",
   "case-definitions": [
     {
-      "key": "xential-test",
+      "key": "xential",
       "tabs": [
         {
           "key": "summary",

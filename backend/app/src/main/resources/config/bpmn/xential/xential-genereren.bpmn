@@ -25,7 +25,7 @@
     <bpmn:sequenceFlow id="Flow_0h5fcao" sourceRef="XentialDocumentCreateTask" targetRef="Gateway_1psi3ng" />
     <bpmn:sequenceFlow id="Flow_03t6kr1" name="toegang succesvol" sourceRef="Gateway_1cu6631" targetRef="XentialSelecteerSjabloon" />
     <bpmn:sequenceFlow id="Flow_15hwqes" name="toegang niet succesvol" sourceRef="Gateway_1cu6631" targetRef="Event_1eagg87">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.hasVariable('toegangResultaat') &amp;&amp; execution.getVariable('toegangResultaat').statusCode != 'OK' }</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.hasVariable('toegangResultaat') &amp;&amp; execution.getVariable('toegangResultaat').statusCode != '200 OK' }</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="XentialTestMapToegang" name="Test toegang" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:expression="${true}">
       <bpmn:incoming>Flow_0i4nzah</bpmn:incoming>

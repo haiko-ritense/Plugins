@@ -15,7 +15,7 @@
     "activityId": "XentialSjabloonMapSelecteren",
     "activityType": "bpmn:ServiceTask:start",
     "pluginConfigurationId": "6e034748-8ed5-43de-a5f2-f80e1a4b60dd",
-    "pluginActionDefinitionKey": "prepare-content-with-template",
+    "pluginActionDefinitionKey": "prepare-content",
     "processLinkType": "plugin",
     "actionProperties": {
       "xentialDocumentPropertiesId": "xentialDocumentProperties",

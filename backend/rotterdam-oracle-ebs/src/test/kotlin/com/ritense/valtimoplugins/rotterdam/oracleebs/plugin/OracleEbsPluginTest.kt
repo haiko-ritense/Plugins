@@ -1,6 +1,6 @@
 package com.ritense.valtimoplugins.rotterdam.oracleebs.plugin
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.ritense.valtimo.contract.json.MapperSingleton
 import com.ritense.valtimoplugins.mtlssslcontext.MTlsSslContext
 import com.ritense.valtimoplugins.rotterdam.oracleebs.domain.BoekingType
 import com.ritense.valtimoplugins.rotterdam.oracleebs.domain.FactuurKlasse
@@ -8,6 +8,7 @@ import com.ritense.valtimoplugins.rotterdam.oracleebs.domain.FactuurRegel
 import com.ritense.valtimoplugins.rotterdam.oracleebs.domain.JournaalpostRegel
 import com.ritense.valtimoplugins.rotterdam.oracleebs.domain.NatuurlijkPersoon
 import com.ritense.valtimoplugins.rotterdam.oracleebs.domain.NietNatuurlijkPersoon
+import com.ritense.valtimoplugins.rotterdam.oracleebs.domain.RelatieType
 import com.ritense.valtimoplugins.rotterdam.oracleebs.domain.SaldoSoort
 import com.ritense.valtimoplugins.rotterdam.oracleebs.service.EsbClient
 import com.ritense.valueresolver.ValueResolverService
@@ -29,7 +30,7 @@ import java.time.LocalDateTime
 
 class OracleEbsPluginTest {
 
-    private val objectMapper = jacksonObjectMapper()
+    private val objectMapper = MapperSingleton.get()
 
     private lateinit var mockWebServer: MockWebServer
 
@@ -126,24 +127,131 @@ class OracleEbsPluginTest {
                 sleutel= "784",
                 boekdatumTijd= "2025-03-28T13:34:26+02:00",
                 categorie= "Vergunningen",
-                saldoSoort = SaldoSoort.Werkelijk.name,
+                saldoSoort = SaldoSoort.WERKELIJK.title,
                 omschrijving= "Aanvraag Omgevingsvergunning",
                 boekjaar= "2025",
                 boekperiode= "2",
-                regels = listOf(
-                    JournaalpostRegel(
-                        grootboekSleutel = "600",
-                        boekingType = BoekingType.Credit.name,
-                        bedrag = "150,00",
-                        omschrijving = "Afboeken"
-                    ),
-                    JournaalpostRegel(
-                        grootboekSleutel = "400",
-                        boekingType = BoekingType.Debet.name,
-                        bedrag = "150",
-                        omschrijving = "Inboeken"
+                regels = journaalpostRegels()
+            )
+        }
+
+        mockWebServer.takeRequest().let { recordedRequest ->
+            assertThat(recordedRequest.method)
+                .isEqualTo(HttpMethod.POST.name())
+            assertThat(recordedRequest.path)
+                .isEqualTo("/journaalpost/opvoeren")
+        }
+    }
+
+    @Test
+    fun `should push journaalpost (regels via resolver as serialised JSON)`() {
+        // given
+        val execution = DelegateExecutionFake()
+            .withProcessInstanceId("92edbc6c-c736-470d-8deb-382a69f25f43")
+
+        mockOkResponse(verwerkingsstatusGeslaagdAsJson())
+
+        // when & then
+        assertDoesNotThrow {
+            plugin.journaalpostOpvoeren(
+                execution = execution,
+                pvResultVariable = "verwerkingsstatus",
+                procesCode = "98332",
+                referentieNummer= "2025-AGV-123456",
+                sleutel= "784",
+                boekdatumTijd= "2025-03-28T13:34:26+02:00",
+                categorie= "Vergunningen",
+                saldoSoort = SaldoSoort.WERKELIJK.title,
+                omschrijving= "Aanvraag Omgevingsvergunning",
+                boekjaar= "2025",
+                boekperiode= "2",
+                regelsViaResolver = objectMapper.writeValueAsString(journaalpostRegels())
+            )
+        }
+
+        mockWebServer.takeRequest().let { recordedRequest ->
+            assertThat(recordedRequest.method)
+                .isEqualTo(HttpMethod.POST.name())
+            assertThat(recordedRequest.path)
+                .isEqualTo("/journaalpost/opvoeren")
+        }
+    }
+
+    @Test
+    fun `should push journaalpost (regels via resolver as ArrayList (from doc or pv))`() {
+        // given
+        val execution = DelegateExecutionFake()
+            .withProcessInstanceId("92edbc6c-c736-470d-8deb-382a69f25f43")
+
+        mockOkResponse(verwerkingsstatusGeslaagdAsJson())
+
+        // when & then
+        assertDoesNotThrow {
+            plugin.journaalpostOpvoeren(
+                execution = execution,
+                pvResultVariable = "verwerkingsstatus",
+                procesCode = "98332",
+                referentieNummer= "2025-AGV-123456",
+                sleutel= "784",
+                boekdatumTijd= "2025-03-28T13:34:26+02:00",
+                categorie= "Vergunningen",
+                saldoSoort = SaldoSoort.WERKELIJK.title,
+                omschrijving= "Aanvraag Omgevingsvergunning",
+                boekjaar= "2025",
+                boekperiode= "2",
+                regelsViaResolver = journaalpostRegels().map { journaalpostRegel ->
+                    linkedMapOf(
+                        GROOTBOEK_SLEUTEL to journaalpostRegel.grootboekSleutel,
+                        BOEKING_TYPE to journaalpostRegel.boekingType,
+                        BEDRAG to journaalpostRegel.bedrag,
+                        OMSCHRIJVING to journaalpostRegel.omschrijving
                     )
-                )
+                }.let { ArrayList(it) }
+            )
+        }
+
+        mockWebServer.takeRequest().let { recordedRequest ->
+            assertThat(recordedRequest.method)
+                .isEqualTo(HttpMethod.POST.name())
+            assertThat(recordedRequest.path)
+                .isEqualTo("/journaalpost/opvoeren")
+        }
+    }
+
+    @Test
+    fun `should push journaalpost (regels via resolver as ArrayNode)`() {
+        // given
+        val execution = DelegateExecutionFake()
+            .withProcessInstanceId("92edbc6c-c736-470d-8deb-382a69f25f43")
+
+        mockOkResponse(verwerkingsstatusGeslaagdAsJson())
+
+        // when & then
+        assertDoesNotThrow {
+            plugin.journaalpostOpvoeren(
+                execution = execution,
+                pvResultVariable = "verwerkingsstatus",
+                procesCode = "98332",
+                referentieNummer= "2025-AGV-123456",
+                sleutel= "784",
+                boekdatumTijd= "2025-03-28T13:34:26+02:00",
+                categorie= "Vergunningen",
+                saldoSoort = SaldoSoort.WERKELIJK.title,
+                omschrijving= "Aanvraag Omgevingsvergunning",
+                boekjaar= "2025",
+                boekperiode= "2",
+                regelsViaResolver = journaalpostRegels().map { journaalpostRegel ->
+                    objectMapper.createObjectNode().apply {
+                        this.put(GROOTBOEK_SLEUTEL, journaalpostRegel.grootboekSleutel)
+                        this.put(BOEKING_TYPE, journaalpostRegel.boekingType)
+                        this.put(BEDRAG, journaalpostRegel.bedrag)
+                        this.put(OMSCHRIJVING, journaalpostRegel.omschrijving)
+                    }
+                }.let {
+                    objectMapper.createArrayNode().apply {
+                        this.addAll(it)
+                    }
+                }
             )
         }
 
@@ -170,24 +278,16 @@ class OracleEbsPluginTest {
                 pvResultVariable = "verwerkingsstatus",
                 procesCode = "98332",
                 referentieNummer= "2025-AGV-123456",
-                factuurKlasse = FactuurKlasse.Creditnota.name,
+                factuurKlasse = FactuurKlasse.CREDITNOTA.title,
+                factuurDatum = "2025-05-21",
                 inkoopOrderReferentie = "20250328-098",
+                relatieType = RelatieType.NATUURLIJK_PERSOON.title,
                 natuurlijkPersoon = NatuurlijkPersoon(
                     achternaam = "Janssen",
                     voornamen = "Jan"
                 ),
-                nietNatuurlijkPersoon = NietNatuurlijkPersoon(
-                    statutaireNaam = "J.Janssen - Groenten en Fruit"
-                ),
-                regels = listOf(
-                    FactuurRegel(
-                        hoeveelheid = "25",
-                        tarief = "3,58",
-                        btwPercentage = "21",
-                        grootboekSleutel = "700",
-                        omschrijving = "Kilo kruimige aardappelen"
-                    )
-                )
+                nietNatuurlijkPersoon = null,
+                regels = verkoopfactuurRegels()
             )
         }
 
@@ -200,17 +300,8 @@ class OracleEbsPluginTest {
     }
 
     @Test
-    fun `should push verkoopfactuur (regels via resolver)`() {
+    fun `should push verkoopfactuur (regels via resolver as serialised JSON)`() {
         // given
-        val regels = listOf(
-            FactuurRegel(
-                hoeveelheid = "25",
-                tarief = "3,58",
-                btwPercentage = "21",
-                grootboekSleutel = "700",
-                omschrijving = "Kilo kruimige aardappelen"
-            )
-        )
         val execution = DelegateExecutionFake()
             .withProcessInstanceId("92edbc6c-c736-470d-8deb-382a69f25f43")
 
@@ -223,16 +314,15 @@ class OracleEbsPluginTest {
                 pvResultVariable = "verwerkingsstatus",
                 procesCode = "98332",
                 referentieNummer= "2025-AGV-123456",
-                factuurKlasse = FactuurKlasse.Creditnota.name,
+                factuurKlasse = FactuurKlasse.CREDITNOTA.title,
+                factuurDatum = "2025-05-21",
                 inkoopOrderReferentie = "20250328-098",
-                natuurlijkPersoon = NatuurlijkPersoon(
-                    achternaam = "Janssen",
-                    voornamen = "Jan"
-                ),
+                relatieType = RelatieType.NIET_NATUURLIJK_PERSOON.title,
+                natuurlijkPersoon = null,
                 nietNatuurlijkPersoon = NietNatuurlijkPersoon(
                     statutaireNaam = "J.Janssen - Groenten en Fruit"
                 ),
-                regelsViaResolver = objectMapper.writeValueAsString(regels)
+                regelsViaResolver = objectMapper.writeValueAsString(verkoopfactuurRegels())
             )
         }
 
@@ -243,6 +333,121 @@ class OracleEbsPluginTest {
                 .isEqualTo("/verkoopfactuur/opvoeren")
         }
     }
+
+    @Test
+    fun `should push verkoopfactuur (regels via resolver as ArrayList (from doc or pv)`() {
+        // given
+        val execution = DelegateExecutionFake()
+            .withProcessInstanceId("92edbc6c-c736-470d-8deb-382a69f25f43")
+
+        mockOkResponse(verwerkingsstatusGeslaagdAsJson())
+
+        // when & then
+        assertDoesNotThrow {
+            plugin.verkoopfactuurOpvoeren(
+                execution = execution,
+                pvResultVariable = "verwerkingsstatus",
+                procesCode = "98332",
+                referentieNummer= "2025-AGV-123456",
+                factuurKlasse = FactuurKlasse.CREDITNOTA.title,
+                factuurDatum = "2025-05-21",
+                inkoopOrderReferentie = "20250328-098",
+                relatieType = RelatieType.NIET_NATUURLIJK_PERSOON.title,
+                natuurlijkPersoon = null,
+                nietNatuurlijkPersoon = NietNatuurlijkPersoon(
+                    statutaireNaam = "J.Janssen - Groenten en Fruit"
+                ),
+                regelsViaResolver = verkoopfactuurRegels().map { factuurRegel ->
+                    linkedMapOf(
+                        HOEVEELHEID to factuurRegel.hoeveelheid,
+                        TARIEF to factuurRegel.tarief,
+                        BTW_PERCENTAGE to factuurRegel.btwPercentage,
+                        GROOTBOEK_SLEUTEL to factuurRegel.grootboekSleutel,
+                        OMSCHRIJVING to factuurRegel.omschrijving
+                    )
+                }.let { ArrayList(it) }
+            )
+        }
+
+        mockWebServer.takeRequest().let { recordedRequest ->
+            assertThat(recordedRequest.method)
+                .isEqualTo(HttpMethod.POST.name())
+            assertThat(recordedRequest.path)
+                .isEqualTo("/verkoopfactuur/opvoeren")
+        }
+    }
+
+    @Test
+    fun `should push verkoopfactuur (regels via resolver as ArrayNode)`() {
+        // given
+        val execution = DelegateExecutionFake()
+            .withProcessInstanceId("92edbc6c-c736-470d-8deb-382a69f25f43")
+
+        mockOkResponse(verwerkingsstatusGeslaagdAsJson())
+
+        // when & then
+        assertDoesNotThrow {
+            plugin.verkoopfactuurOpvoeren(
+                execution = execution,
+                pvResultVariable = "verwerkingsstatus",
+                procesCode = "98332",
+                referentieNummer= "2025-AGV-123456",
+                factuurKlasse = FactuurKlasse.CREDITNOTA.title,
+                factuurDatum = "2025-05-21",
+                inkoopOrderReferentie = "20250328-098",
+                relatieType = RelatieType.NIET_NATUURLIJK_PERSOON.title,
+                natuurlijkPersoon = null,
+                nietNatuurlijkPersoon = NietNatuurlijkPersoon(
+                    statutaireNaam = "J.Janssen - Groenten en Fruit"
+                ),
+                regelsViaResolver = verkoopfactuurRegels().map { factuurRegel ->
+                    objectMapper.createObjectNode().apply {
+                        this.put(HOEVEELHEID, factuurRegel.hoeveelheid)
+                        this.put(TARIEF, factuurRegel.tarief)
+                        this.put(BTW_PERCENTAGE, factuurRegel.btwPercentage)
+                        this.put(GROOTBOEK_SLEUTEL, factuurRegel.grootboekSleutel)
+                        this.put(OMSCHRIJVING, factuurRegel.omschrijving)
+                    }
+                }.let {
+                    objectMapper.createArrayNode().apply {
+                        this.addAll(it)
+                    }
+                }
+            )
+        }
+
+        mockWebServer.takeRequest().let { recordedRequest ->
+            assertThat(recordedRequest.method)
+                .isEqualTo(HttpMethod.POST.name())
+            assertThat(recordedRequest.path)
+                .isEqualTo("/verkoopfactuur/opvoeren")
+        }
+    }
+
+    private fun journaalpostRegels() = listOf(
+        JournaalpostRegel(
+            grootboekSleutel = "600",
+            boekingType = BoekingType.CREDIT.title,
+            bedrag = "150,00",
+            omschrijving = "Afboeken"
+        ),
+        JournaalpostRegel(
+            grootboekSleutel = "400",
+            boekingType = BoekingType.DEBET.title,
+            bedrag = "150",
+            omschrijving = "Inboeken"
+        )
+    )
+
+    private fun verkoopfactuurRegels() = listOf(
+        FactuurRegel(
+            hoeveelheid = "25",
+            tarief = "3,58",
+            btwPercentage = "21",
+            grootboekSleutel = "700",
+            omschrijving = "Kilo kruimige aardappelen"
+        )
+    )
 
     private fun verwerkingsstatusGeslaagdAsJson(): String = objectMapper.writeValueAsString(mapOf(
         "isGeslaagd" to true,
@@ -258,5 +463,15 @@ class OracleEbsPluginTest {
             .setBody(body).let { response ->
                 mockWebServer.enqueue(response)
             }
+    }
+
+    companion object {
+        private const val BOEKING_TYPE = "boekingType"
+        private const val BEDRAG = "bedrag"
+        private const val HOEVEELHEID = "hoeveelheid"
+        private const val TARIEF = "tarief"
+        private const val BTW_PERCENTAGE = "btwPercentage"
+        private const val GROOTBOEK_SLEUTEL = "grootboekSleutel"
+        private const val OMSCHRIJVING = "omschrijving"
     }
 }

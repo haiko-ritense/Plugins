@@ -22,6 +22,7 @@ package com.ritense.valtimoplugins.documents.plugin
 
 import com.ritense.documentenapi.DocumentenApiAuthentication
 import com.ritense.documentenapi.DocumentenApiPlugin
+import com.ritense.documentenapi.client.BestandsdelenRequest
 import com.ritense.documentenapi.client.CreateDocumentRequest
 import com.ritense.documentenapi.client.DocumentInformatieObject
 import com.ritense.documentenapi.client.DocumentenApiClient
@@ -75,10 +76,22 @@ class DocumentsXtraPlugin(
             val objectUrl = URI.create(eioUrl);
             val dio = client.getInformatieObject(authenticationPluginConfiguration, objectUrl)
             val content = client.downloadInformatieObjectContent(authenticationPluginConfiguration, objectUrl)
-            val request = createDocRequest(dio, content)
+            val request = createDocRequest(dio)
 
-            DocumentenApiPlugin.logger.info { "Store document $request" }
+            logger.info { "Store document $request" }
             val documentCreateResult = client.storeDocument(authenticationPluginConfiguration, url, request)
+
+            logger.debug { "created document $documentCreateResult" }
+
+
+            logger.debug { "store in parts" }
+            val bestandsdelenRequest = BestandsdelenRequest(
+                inhoud = content,
+                lock = documentCreateResult.getLockOrEmpty()
+            )
+
+            client.storeDocumentInParts(authenticationPluginConfiguration, url, bestandsdelenRequest, documentCreateResult);
+            logger.debug { "stored ${dio.bestandsnaam} in parts" }
 
             val event = DocumentCreated(
                 documentCreateResult.url,
@@ -94,7 +107,7 @@ class DocumentsXtraPlugin(
         execution.setVariable(COPY_KEY, copyUrls)
     }
 
-    private fun createDocRequest(dio: DocumentInformatieObject, content: InputStream): CreateDocumentRequest {
+    private fun createDocRequest(dio: DocumentInformatieObject): CreateDocumentRequest {
         val request = CreateDocumentRequest(
             bronorganisatie = dio.bronorganisatie.toString(),
             creatiedatum = LocalDate.now(),
@@ -105,7 +118,7 @@ class DocumentsXtraPlugin(
             taal = dio.taal,
             bestandsnaam = dio.bestandsnaam,
             bestandsomvang = dio.bestandsomvang,
-            inhoud = content,
+            inhoud = InputStream.nullInputStream(),
             beschrijving = dio.beschrijving,
             ontvangstdatum = dio.ontvangstdatum,
             verzenddatum = dio.verzenddatum,

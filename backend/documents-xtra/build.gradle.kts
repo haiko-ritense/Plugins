@@ -23,14 +23,24 @@ dockerCompose {
     }
 }
 
+
+configurations {
+    all {
+        exclude(group = "com.ritense.valtimo", module = "documenten-api")
+    }
+}
+
 dependencies {
     implementation("com.ritense.valtimo:contract")
     implementation("com.ritense.valtimo:core")
     implementation("com.ritense.valtimo:plugin-valtimo")
     implementation("com.ritense.valtimo:zgw")
-    implementation("com.ritense.valtimo:documenten-api") {
-        exclude(group = "com.ritense.valtimo", module = "catalogi-api")
-    }
+    // When reverting this back to the dependency from Maven, make sure to
+    // also remove from the configurations.all above (around line 166 in this file).
+    implementation(files("libs/documenten-api-12.10.2.HOTFIX-1-plain.jar"))
+//    implementation("com.ritense.valtimo:documenten-api") {
+//        exclude(group = "com.ritense.valtimo", module = "catalogi-api")
+//    }
 
     implementation("io.github.microutils:kotlin-logging")
     implementation("com.fasterxml.jackson.core:jackson-databind")
@@ -38,6 +48,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core")
 
     implementation("com.auth0:java-jwt:4.4.0")
+
 
     // Testing
     testImplementation("com.fasterxml.jackson.core:jackson-databind")

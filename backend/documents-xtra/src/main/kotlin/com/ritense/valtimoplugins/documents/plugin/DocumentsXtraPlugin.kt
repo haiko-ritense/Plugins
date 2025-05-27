@@ -86,8 +86,7 @@ class DocumentsXtraPlugin(
 
             logger.debug { "store in parts" }
             val bestandsdelenRequest = BestandsdelenRequest(
-                inhoud = content,
-                lock = documentCreateResult.getLockOrEmpty()
+                inhoud = content
             )
 
             client.storeDocumentInParts(authenticationPluginConfiguration, url, bestandsdelenRequest, documentCreateResult);

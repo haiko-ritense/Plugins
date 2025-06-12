@@ -277,7 +277,7 @@ export class JournaalpostOpvoerenComponent implements FunctionConfigurationCompo
             if (genericFieldsValid) {
                 for (let i = 0; i < formValue.regels.length; i++) {
                     linesValid = !!(
-                        formValue.regels[i].grootboekSleutel &&
+                        (formValue.regels[i].grootboekSleutel || formValue.regels[i].bronSleutel) &&
                         formValue.regels[i].boekingType &&
                         formValue.regels[i].bedrag
                     )

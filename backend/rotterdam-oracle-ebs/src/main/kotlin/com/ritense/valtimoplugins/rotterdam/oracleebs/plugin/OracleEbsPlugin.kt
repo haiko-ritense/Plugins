@@ -1,8 +1,6 @@
 package com.ritense.valtimoplugins.rotterdam.oracleebs.plugin
 
-import camundajar.impl.scala.annotation.switch
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.module.kotlin.convertValue

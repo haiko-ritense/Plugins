@@ -128,6 +128,7 @@ class OracleEbsPlugin(
                 journaalpostregels = journaalpostRegels.map { regel ->
                     val resolvedLineValues = resolveValuesFor(execution, mapOf(
                         GROOTBOEK_SLEUTEL_KEY to regel.grootboekSleutel,
+                        BRON_SLEUTEL_KEY to regel.bronSleutel,
                         BOEKING_TYPE_KEY to regel.boekingType,
                         BEDRAG_KEY to regel.bedrag,
                         OMSCHRIJVING_KEY to regel.omschrijving
@@ -136,8 +137,8 @@ class OracleEbsPlugin(
                     }
                     Journaalpostregel(
                         grootboekrekening = Grootboekrekening(
-                            grootboeksleutel = stringFrom(resolvedLineValues[GROOTBOEK_SLEUTEL_KEY]!!),
-                            bronsleutel = null
+                            grootboeksleutel = stringFrom(resolvedLineValues[GROOTBOEK_SLEUTEL_KEY]!!).takeIf { it.isNotBlank() },
+                            bronsleutel = stringFrom(resolvedLineValues[BRON_SLEUTEL_KEY]!!).takeIf { it.isNotBlank() },
                         ),
                         journaalpostregelboekingtype = boekingTypeFrom(resolvedLineValues[BOEKING_TYPE_KEY]!!),
                         journaalpostregelbedrag = doubleFrom(resolvedLineValues[BEDRAG_KEY]!!),
@@ -301,6 +302,7 @@ class OracleEbsPlugin(
                         TARIEF_KEY to factuurRegel.tarief,
                         BTW_PERCENTAGE_KEY to factuurRegel.btwPercentage,
                         GROOTBOEK_SLEUTEL_KEY to factuurRegel.grootboekSleutel,
+                        BRON_SLEUTEL_KEY to factuurRegel.bronSleutel,
                         OMSCHRIJVING_KEY to factuurRegel.omschrijving
                     )).also {
                         logger.debug { "Resolved line values: $it" }
@@ -310,8 +312,8 @@ class OracleEbsPlugin(
                         factuurregelFacturatieTarief = valueAsBigDecimal(resolvedLineValues[TARIEF_KEY]!!),
                         btwPercentage = stringFrom(resolvedLineValues[BTW_PERCENTAGE_KEY]!!),
                         grootboekrekening = Grootboekrekening(
-                            grootboeksleutel = stringFrom(resolvedLineValues[GROOTBOEK_SLEUTEL_KEY]!!),
-                            bronsleutel = null,
+                            grootboeksleutel = stringFrom(resolvedLineValues[GROOTBOEK_SLEUTEL_KEY]!!).takeIf { it.isNotBlank() },
+                            bronsleutel = stringFrom(resolvedLineValues[BRON_SLEUTEL_KEY]!!).takeIf { it.isNotBlank() },
                         ),
                         factuurregelomschrijving = stringOrNullFrom(resolvedLineValues[OMSCHRIJVING_KEY]),
                         factuurregelFacturatieEenheid = null,
@@ -498,6 +500,7 @@ class OracleEbsPlugin(
 
         private const val OMSCHRIJVING_KEY = "omschrijving"
         private const val GROOTBOEK_SLEUTEL_KEY = "grootboeksleutel"
+        private const val BRON_SLEUTEL_KEY = "bronSleutel"
         private const val BOEKING_TYPE_KEY = "boekingType"
         private const val BEDRAG_KEY = "bedrag"
         private const val ACHTERNAAM_KEY = "achternaam"

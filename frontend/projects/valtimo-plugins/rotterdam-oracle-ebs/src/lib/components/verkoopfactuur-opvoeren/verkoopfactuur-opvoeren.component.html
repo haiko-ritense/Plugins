@@ -184,6 +184,15 @@
                         ></app-input-field>
 
                         <app-input-field
+                                [pluginId]="pluginId"
+                                [formGroup]="line"
+                                controlName="bronSleutel"
+                                wrapperClass="line-field-wrapper"
+                                title="verkoopfactuur.regel.bronSleutel"
+                                [required]="true"
+                        ></app-input-field>
+
+                        <app-input-field
                             [pluginId]="pluginId"
                             [formGroup]="line"
                             controlName="omschrijving"
@@ -233,6 +242,7 @@
         "tarief": "",
         "btwPercentage": "",
         "grootboekSleutel": "",
+        "bronSleutel": "",
         "omschrijving": "" // Optional
     &#125;,
     ...

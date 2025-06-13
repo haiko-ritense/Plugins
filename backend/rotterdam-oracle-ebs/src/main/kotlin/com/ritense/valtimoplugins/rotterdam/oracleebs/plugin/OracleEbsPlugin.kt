@@ -111,7 +111,7 @@ class OracleEbsPlugin(
                 else -> throw IllegalArgumentException("Unsupported type ${regelsViaResolver!!::class.simpleName}")
             }
         }.also {
-            logger.debug { "Regels: $it" }
+            logger.info { "Regels: $it" }
         }
 
         OpvoerenJournaalpostVraag(
@@ -150,8 +150,8 @@ class OracleEbsPlugin(
                 boekperiode = integerOrNullFrom(boekperiode)
             )
         ).let { request ->
-            logger.debug { "Trying to send OpvoerenJournaalpostVraag" }
-            logger.trace {
+            logger.info { "Trying to send OpvoerenJournaalpostVraag" }
+            logger.info {
                 "OpvoerenJournaalpostVraag: ${objectMapperWithNonAbsentInclusion(objectMapper).writeValueAsString(request)}"
             }
             try {
@@ -232,7 +232,7 @@ class OracleEbsPlugin(
                 else -> throw IllegalArgumentException("Unsupported type ${regelsViaResolver!!::class.simpleName}")
             }
         }.also {
-            logger.debug { "Regels: $it" }
+            logger.info { "Regels: $it" }
         }
 
         OpvoerenVerkoopfactuurVraag(
@@ -338,8 +338,8 @@ class OracleEbsPlugin(
             ),
             bijlage = null
         ).let { request ->
-            logger.debug { "Trying to send OpvoerenVerkoopfactuurVraag" }
-            logger.trace {
+            logger.info { "Trying to send OpvoerenVerkoopfactuurVraag" }
+            logger.info {
                 "OpvoerenVerkoopfactuurVraag: ${objectMapperWithNonAbsentInclusion(objectMapper).writeValueAsString(request)}"
             }
             try {

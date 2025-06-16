@@ -133,11 +133,9 @@ class OracleEbsPlugin(
                     )).also {
                         logger.debug { "Resolved line values: $it" }
                     }
+
                     Journaalpostregel(
-                        grootboekrekening = Grootboekrekening(
-                            grootboeksleutel = stringFrom(resolvedLineValues[GROOTBOEK_SLEUTEL_KEY]!!).takeIf { it.isNotBlank() },
-                            bronsleutel = stringFrom(resolvedLineValues[BRON_SLEUTEL_KEY]!!).takeIf { it.isNotBlank() },
-                        ),
+                        grootboekrekening = grootboekRekening(resolvedLineValues),
                         journaalpostregelboekingtype = boekingTypeFrom(resolvedLineValues[BOEKING_TYPE_KEY]!!),
                         journaalpostregelbedrag = doubleFrom(resolvedLineValues[BEDRAG_KEY]!!),
                         journaalpostregelomschrijving = stringOrNullFrom(resolvedLineValues[OMSCHRIJVING_KEY]!!),
@@ -309,10 +307,7 @@ class OracleEbsPlugin(
                         factuurregelFacturatieHoeveelheid = valueAsBigDecimal(resolvedLineValues[HOEVEELHEID_KEY]!!),
                         factuurregelFacturatieTarief = valueAsBigDecimal(resolvedLineValues[TARIEF_KEY]!!),
                         btwPercentage = stringFrom(resolvedLineValues[BTW_PERCENTAGE_KEY]!!),
-                        grootboekrekening = Grootboekrekening(
-                            grootboeksleutel = stringFrom(resolvedLineValues[GROOTBOEK_SLEUTEL_KEY]!!).takeIf { it.isNotBlank() },
-                            bronsleutel = stringFrom(resolvedLineValues[BRON_SLEUTEL_KEY]!!).takeIf { it.isNotBlank() },
-                        ),
+                        grootboekrekening = grootboekRekening(resolvedLineValues),
                         factuurregelomschrijving = stringOrNullFrom(resolvedLineValues[OMSCHRIJVING_KEY]),
                         factuurregelFacturatieEenheid = null,
                         boekingsregel = null,
@@ -360,6 +355,16 @@ class OracleEbsPlugin(
             }
         }
     }
+
+    private fun grootboekRekening( resolvedLineValues: Map<String, Any?>) =
+        Grootboekrekening(
+            grootboeksleutel = resolvedLineValues[GROOTBOEK_SLEUTEL_KEY]?.let{ grootboekSleutel ->
+                stringFrom(grootboekSleutel).takeIf { it.isNotBlank() }
+            },
+            bronsleutel = resolvedLineValues[BRON_SLEUTEL_KEY]?.let{ bronSleutel ->
+                stringFrom(bronSleutel).takeIf { it.isNotBlank() }
+            }
+        )
 
     fun resolveValuesFor(
         execution: DelegateExecution,

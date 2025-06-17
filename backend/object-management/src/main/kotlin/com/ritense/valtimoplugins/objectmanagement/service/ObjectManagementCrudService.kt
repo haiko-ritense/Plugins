@@ -20,17 +20,21 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.ritense.objectenapi.ObjectenApiPlugin
 import com.ritense.objectenapi.client.ObjectRecord
 import com.ritense.objectenapi.client.ObjectRequest
+import com.ritense.objectenapi.client.ObjectWrapper
+import com.ritense.objectenapi.client.ObjectsList
 import com.ritense.objectmanagement.domain.ObjectManagement
 import com.ritense.objectmanagement.repository.ObjectManagementRepository
+import com.ritense.objectmanagement.service.ObjectManagementFacade
 import com.ritense.objecttypenapi.ObjecttypenApiPlugin
 import com.ritense.plugin.service.PluginService
 import java.net.URI
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 
 class ObjectManagementCrudService(
-    val pluginService: PluginService,
-    val objectManagementRepository: ObjectManagementRepository
+    private val pluginService: PluginService,
+    private val objectManagementRepository: ObjectManagementRepository,
+    private val objectManagementFacade: ObjectManagementFacade
 ) {
     fun createObject(
         objectManagementId: UUID,
@@ -51,13 +55,14 @@ class ObjectManagementCrudService(
     }
 
     fun updateObject(
-        objectUrl: URI,
         objectManagementId: UUID,
-        objectData: JsonNode,
+        objectUrl: URI,
+        objectData: JsonNode
     ): URI {
         val objectManagement = getObjectManagement(objectManagementId)
         val objectenApiPlugin = getObjectenApiPlugin(objectManagement.objectenApiPluginConfigurationId)
         val objecttypenApiPlugin = getObjecttypenApiPlugin(objectManagement.objecttypenApiPluginConfigurationId)
+
         val objectRequest = ObjectRequest(
             objecttypenApiPlugin.getObjectTypeUrlById(objectManagement.objecttypeId),
             ObjectRecord(
@@ -66,21 +71,60 @@ class ObjectManagementCrudService(
                 startAt = LocalDate.now()
             )
         )
-        return objectenApiPlugin.createObject(objectRequest).url
+
+        return objectenApiPlugin.objectPatch(objectUrl, objectRequest).url
     }
 
-    fun deleteObject(objectUrl: URI) {
-        return
+    fun deleteObject(
+        objectUrl: String,
+        objectManagementConfigurationId: UUID
+    ) {
+        val objectManagement = getObjectManagement(objectManagementConfigurationId)
+        val objectenApiPlugin = getObjectenApiPlugin(objectManagement.objectenApiPluginConfigurationId)
+        val uri = URI.create(objectUrl)
+        objectenApiPlugin.deleteObject(uri)
+    }
+
+    fun getObjectsByObjectManagementTitle(
+        objectManagementTitle: String,
+        searchString: String? = null,
+        ordering: String? = null
+    ): ObjectsList {
+        return try {
+            objectManagementFacade.getObjectsUnpaged(
+                objectName = objectManagementTitle,
+                searchString = searchString,
+                ordering = ordering
+            )
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to fetch objects for objectManagement: $objectManagementTitle", e)
+        }
+    }
+
+    fun getObjectByObjectUrl(
+        objectManagementConfigurationId: UUID,
+        objectUrl: String,
+    ): ObjectWrapper {
+        return try {
+            objectManagementFacade.getObjectByUri(
+                objectName = getObjectManagementTitle(objectManagementConfigurationId),
+                objectUrl = URI(objectUrl)
+            )
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to fetch object with object url: $objectUrl", e)
+        }
+    }
+
+    private fun getObjectManagementTitle(objectManagementConfigurationId: UUID): String {
+        return getObjectManagement(objectManagementConfigurationId).title
     }
 
     private fun getObjectenApiPlugin(objectenApiPluginConfigurationId: UUID): ObjectenApiPlugin {
         return pluginService.createInstance<ObjectenApiPlugin>(objectenApiPluginConfigurationId)
-
     }
 
     private fun getObjecttypenApiPlugin(objecttypenApiPluginConfigurationId: UUID): ObjecttypenApiPlugin {
         return pluginService.createInstance<ObjecttypenApiPlugin>(objecttypenApiPluginConfigurationId)
-
     }
 
     private fun getObjectManagement(objectManagementId: UUID): ObjectManagement {

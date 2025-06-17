@@ -22,4 +22,8 @@ export * from './lib/models';
 export * from './lib/object-management-plugin-module';
 export * from './lib/object-management-plugin.specification';
 export * from './lib/components/create-object/create-object-configuration.component';
+export * from './lib/components/get-object-data/get-object-data-configuration.component';
+export * from './lib/components/get-objects/get-objects-configuration.component';
+export * from './lib/components/delete-object/delete-object-configuration.component';
+export * from './lib/components/update-object/update-object-configuration.component';
 export * from './lib/components/object-management-configuration/object-management-configuration.component';

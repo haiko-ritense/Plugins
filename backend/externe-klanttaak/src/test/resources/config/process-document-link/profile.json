@@ -1,0 +1,7 @@
+[
+    {
+        "processDefinitionKey": "create-externe-klanttaak",
+        "canInitializeDocument": true,
+        "startableByUser": true
+    }
+]

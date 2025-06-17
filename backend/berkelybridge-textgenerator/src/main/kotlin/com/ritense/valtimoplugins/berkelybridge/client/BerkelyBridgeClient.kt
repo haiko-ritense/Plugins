@@ -23,19 +23,15 @@ import com.ritense.valtimoplugins.berkelybridge.plugin.BerkelyBridgeClientEvent
 import com.ritense.valtimoplugins.berkelybridge.plugin.TemplateProperty
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.context.ApplicationEventPublisher
-import org.springframework.http.*
-import org.springframework.http.client.ClientHttpRequestExecution
-import org.springframework.http.client.ClientHttpRequestInterceptor
-import org.springframework.http.client.ClientHttpResponse
-import org.springframework.web.client.RestClient
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
-import java.net.URL
-import kotlin.io.path.fileVisitor
-
 
 private val logger = KotlinLogging.logger {}
 private const val headerKey = "X-BB-SUBSCRIPTIONKEY"
-
 
 class BerkelyBridgeClient(
     private val restTemplate: RestTemplate,
@@ -43,24 +39,13 @@ class BerkelyBridgeClient(
 ) {
     lateinit var subscriptionKey: String
 
-    fun addSubscriptionKey() {
-        logger.debug { "setting header subscription key: $headerKey" }
-        restTemplate.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
-            request.headers.set(headerKey, subscriptionKey)
-            execution.execute(request, body)
-        })
-    }
-
-
     fun generate(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): String {
-        this.addSubscriptionKey()
         val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
         val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid, format)
         return getFile(bbUrl, fileUrl)
     }
 
     fun generateFile(bbUrl: String, modelId: String, templateId: String, parameters: List<TemplateProperty>?, naam: String, format: String): String {
-        this.addSubscriptionKey()
         val openResponse = openFile(bbUrl, templateId, modelId, parameters, naam, format)
         val fileUrl = getDataLink(bbUrl, modelId, openResponse.sessionid, openResponse.uniqueid, format)
         return fileUrl
@@ -84,7 +69,7 @@ class BerkelyBridgeClient(
                 requestBody.parameters.put(prop.key, prop.value);
             }
 
-            val headers = HttpHeaders()
+            val headers = getAuthHeaders()
             headers.set("Content-Type", MediaType.APPLICATION_JSON.toString())
             val httpEntity: HttpEntity<OpenRequestBody> = HttpEntity(requestBody, headers)
 
@@ -112,9 +97,9 @@ class BerkelyBridgeClient(
 
             val getFilesUrl = "$bbUrl/getfiles?modelid=$modelId&sessionid=$sessionId&uniqueid=$uniqueId&fmt=json"
 
-
+            val requestEntity = HttpEntity<Nothing>(getAuthHeaders())
             var response: ResponseEntity<GetFilesResponse> =
-                restTemplate.getForEntity(getFilesUrl, GetFilesResponse::class.java)
+                restTemplate.exchange(getFilesUrl, HttpMethod.GET, requestEntity, GetFilesResponse::class.java)
 
             if (response.statusCode.is2xxSuccessful && response.body.filelist.size > 0) {
                 var event = BerkelyBridgeClientEvent("successfully retrieved filelist")
@@ -148,8 +133,9 @@ class BerkelyBridgeClient(
             val getFileUrl = "$bbUrl/$fileUrl"
 
 
+            val requestEntity = HttpEntity<Nothing>(getAuthHeaders())
             var response: ResponseEntity<String> =
-                restTemplate.getForEntity(getFileUrl, String::class.java)
+                restTemplate.exchange(getFileUrl, HttpMethod.GET, requestEntity, String::class.java)
 
             if (response.statusCode.is2xxSuccessful) {
                 var event = BerkelyBridgeClientEvent("successfully retrieved file")
@@ -165,5 +151,12 @@ class BerkelyBridgeClient(
             logger.error { "error berkely bridge retrieving file  \n" + e.message }
             throw e
         }
+    }
+
+    private fun getAuthHeaders(): HttpHeaders {
+        val headers = HttpHeaders()
+        headers.set(headerKey, subscriptionKey)
+
+        return headers
     }
 }

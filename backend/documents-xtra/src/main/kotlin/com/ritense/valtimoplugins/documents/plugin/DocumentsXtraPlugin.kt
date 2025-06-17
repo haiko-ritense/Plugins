@@ -22,10 +22,7 @@ package com.ritense.valtimoplugins.documents.plugin
 
 import com.ritense.documentenapi.DocumentenApiAuthentication
 import com.ritense.documentenapi.DocumentenApiPlugin
-import com.ritense.documentenapi.client.BestandsdelenRequest
-import com.ritense.documentenapi.client.CreateDocumentRequest
-import com.ritense.documentenapi.client.DocumentInformatieObject
-import com.ritense.documentenapi.client.DocumentenApiClient
+import com.ritense.documentenapi.client.*
 import com.ritense.documentenapi.event.DocumentCreated
 import com.ritense.plugin.annotation.*
 import com.ritense.processlink.domain.ActivityTypeWithEventName
@@ -91,6 +88,11 @@ class DocumentsXtraPlugin(
 
             client.storeDocumentInParts(authenticationPluginConfiguration, url, bestandsdelenRequest, documentCreateResult);
             logger.debug { "stored ${dio.bestandsnaam} in parts" }
+
+            client.unlockInformatieObject(authenticationPluginConfiguration,
+                URI.create(documentCreateResult.url),
+                DocumentLock(documentCreateResult.getLockOrEmpty())
+            )
 
             val event = DocumentCreated(
                 documentCreateResult.url,

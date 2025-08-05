@@ -47,9 +47,9 @@ class EmailApiPlugin(
     lateinit var authenticationPluginConfiguration: DocumentenApiAuthentication
 
     /**
-     * For backwards compatibility, this plugin action supports both a {@code to} and {@code toEmail}/{@code toName} action properties.
-     * The {@code to} action property should be preferred as it allows more than one recipient.
-     * When a {@code to} is provided (= not null), the {@code toEmail} and {@code toName} properties will be ignored.
+     * For backwards compatibility, this plugin action supports both the `to` and `toEmail`/`toName` action properties.
+     * The `to` action property should be preferred as it allows more than one recipient.
+     * When a `to` is provided (= not null), the `toEmail` and `toName` properties will be ignored.
      * The same applies for the `cc` and `bcc` fields.
      */
     @PluginAction(

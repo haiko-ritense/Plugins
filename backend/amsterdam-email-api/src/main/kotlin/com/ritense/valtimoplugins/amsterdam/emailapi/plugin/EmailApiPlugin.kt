@@ -8,15 +8,18 @@ import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.processlink.domain.ActivityTypeWithEventName
-import com.ritense.valtimoplugins.amsterdam.emailapi.client.*
-import mu.KotlinLogging
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.Attachment
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.BodyPart
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.EmailClient
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.EmailMessage
+import com.ritense.valtimoplugins.amsterdam.emailapi.client.Recipient
+import io.github.oshai.kotlinlogging.KotlinLogging
+import java.net.URI
+import java.util.Base64
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.springframework.util.MimeTypeUtils
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.body
-
-import java.net.URI
-import java.util.Base64
 
 private const val UTF8 = "utf-8"
 private val logger = KotlinLogging.logger {}
@@ -43,6 +46,12 @@ class EmailApiPlugin(
     @PluginProperty(key = "authenticationPluginConfiguration", secret = false)
     lateinit var authenticationPluginConfiguration: DocumentenApiAuthentication
 
+    /**
+     * For backwards compatibility, this plugin action supports both a {@code to} and {@code toEmail}/{@code toName} action properties.
+     * The {@code to} action property should be preferred as it allows more than one recipient.
+     * When a {@code to} is provided (= not null), the {@code toEmail} and {@code toName} properties will be ignored.
+     * The same applies for the `cc` and `bcc` fields.
+     */
     @PluginAction(
         key = "zend-email",
         title = "Zend email via API met optioneel zaak ID en relatiecode",
@@ -53,17 +62,29 @@ class EmailApiPlugin(
         execution: DelegateExecution,
         @PluginActionProperty zaakId: String,
         @PluginActionProperty relatieCodes: Any?,
-        @PluginActionProperty toEmail: String,
+        @PluginActionProperty to: List<EmailAddress>?,
+        @PluginActionProperty toEmail: String?,
         @PluginActionProperty toName: String?,
         @PluginActionProperty fromAddress: String,
         @PluginActionProperty emailSubject: String,
         @PluginActionProperty contentHtml: String,
         @PluginActionProperty attachments: List<String>?,
+        @PluginActionProperty cc: List<EmailAddress>?,
         @PluginActionProperty ccEmail: String?,
         @PluginActionProperty ccName: String?,
+        @PluginActionProperty bcc: List<EmailAddress>?,
         @PluginActionProperty bccEmail: String?,
         @PluginActionProperty bccName: String?,
     ) {
+        val toRecipients = convertToRecipients(to, toEmail, toName)
+
+        if (toRecipients.isEmpty()) {
+            throw IllegalStateException("No 'to' address has been specified.")
+        }
+
+        val ccRecipients = convertToRecipients(cc, ccEmail, ccName)
+        val bccRecipients = convertToRecipients(bcc, bccEmail, bccName)
+
         val relatieCodesDerived = mutableListOf<String>()
 
         if(relatieCodes is String) {
@@ -74,12 +95,9 @@ class EmailApiPlugin(
         }
 
         val message = EmailMessage(
-            to = setOf(
-                Recipient(
-                    address = toEmail,
-                    name = toName
-                )
-            ),
+            to = toRecipients,
+            cc = ccRecipients,
+            bcc = bccRecipients,
             from = Recipient(address = fromAddress),
             content = setOf(
                 BodyPart(
@@ -99,34 +117,39 @@ class EmailApiPlugin(
                 handleAttachments(message, attachments)
         }
 
-        if(ccEmail != null) {
-            message.cc = setOf(
-                Recipient(
-                    address = ccEmail,
-                    name = ccName
-                )
-            )
-
-        }
-
-        if(bccEmail != null) {
-            message.bcc = setOf(
-                Recipient(
-                    address = bccEmail,
-                    name = bccName
-                )
-            )
-        }
-
         // send
         emailClient.send(message, URI.create(emailApiBaseUrl), subscriptionKey)
     }
 
+    private fun convertToRecipients(
+        recipients: List<EmailAddress>?,
+        recipientEmail: String?,
+        recipientName: String?
+    ): Set<Recipient> {
+        return if (recipients != null) {
+            recipients.map { (address, name) ->
+                Recipient(
+                    address = address,
+                    name = name
+                )
+            }.toSet()
+        } else if (recipientEmail != null) {
+            setOf(
+                Recipient(
+                    address = recipientEmail,
+                    name = recipientName
+                )
+            )
+        } else {
+            emptySet()
+        }
+    }
+
     private fun handleAttachments(message: EmailMessage, documentUrls: List<String>) {
-        var restClient = authenticationPluginConfiguration.applyAuth(restClientBuilder).build()
+        val restClient = authenticationPluginConfiguration.applyAuth(restClientBuilder).build()
 
         documentUrls.forEach{
-            var informatieObject =  restClient
+            val informatieObject =  restClient
                 .get()
                 .uri(it)
                 .retrieve()
@@ -139,14 +162,14 @@ class EmailApiPlugin(
             else {
                 logger.debug { "adding attachment: " +  informatieObject.bestandsnaam}
 
-                var downloadURI = URI(informatieObject.url.toString().plus("/download"))
-                var content = restClient
+                val downloadURI = URI(informatieObject.url.toString().plus("/download"))
+                val content = restClient
                     .get()
                     .uri(downloadURI)
                     .retrieve()
                     .body<ByteArray>()!!
 
-                var attachment: Attachment = Attachment(
+                val attachment: Attachment = Attachment(
                     ATTACHMENT,
                     informatieObject.bestandsnaam,
                     Base64.getEncoder().encodeToString(content),

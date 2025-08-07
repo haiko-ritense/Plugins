@@ -28,11 +28,14 @@ interface AmsterdamEmailApiConfig extends PluginConfigurationData {
 interface SendEmailConfig {
   zaakId: string;
   relatieCodes: string;
+  to: string;
   toEmail: string;
   toName: string;
   fromAddress: string;
+  cc: string;
   ccEmail: string;
   ccName: string;
+  bcc: string;
   bccEmail: string;
   bccName: string;
   emailSubject: string;
